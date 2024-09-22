@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f96d6b2a8e1c1234eb614a3f70136156, type: 3}
+  m_Name: prepare attack
+  m_EditorClassIdentifier: 
+  AvailableStates:
+  - {fileID: 11400000, guid: 65435be009a5a6d4e917df3b368b4ffb, type: 2}
+  - {fileID: 11400000, guid: d322b094059afb24d97785e307d300cc, type: 2}
+  Animation: 2
+  _timeIdle: 0.4

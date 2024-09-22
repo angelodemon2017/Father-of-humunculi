@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccafec85796ed5b4db113250a511fbd4, type: 3}
+  m_Name: Spawn War Humucle
+  m_EditorClassIdentifier: 
+  AvailableStates:
+  - {fileID: 11400000, guid: 9ffbb2e56a00a87488e835db340aa671, type: 2}
+  - {fileID: 11400000, guid: 52c8a7319426ae44292a2f2a1c542117, type: 2}
+  Animation: 0
+  _humuncule: {fileID: 3641200050498529661, guid: 1c6a1a3a2c421c240b20d1db3f3ef92e,
+    type: 3}
+  _timeCD: 0.3
+  _keySpawn: 113
