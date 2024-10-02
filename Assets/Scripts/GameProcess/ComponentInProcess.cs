@@ -1,13 +1,14 @@
 ﻿public class ComponentInProcess<T>
+    where T : ComponentData
 {
     protected T _dataComponent;
 
-    public void Init(T dataComponent)
+    public ComponentInProcess(T dataComponent)
     {
         _dataComponent = dataComponent;
     }
 
-    public virtual void Second()
+    public virtual void DoSecond()
     {
 
     }

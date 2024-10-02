@@ -10,7 +10,6 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] private NavMeshSurface _navMeshSurface;
     [SerializeField] private BasePlaneWorld _basePlaneWorld;
 
-    [SerializeField] Texture2D _textureBlackMask;
     [SerializeField] int _widthMap;
     [SerializeField] int _lengthMap;
 
@@ -18,7 +17,7 @@ public class WorldGenerator : MonoBehaviour
 
     public Vector2 WorldSwift;
 
-    private World _world = new();
+    private WorldConstructor _world = new();
     public TextureEntity GetTE(int id) => _textureEntities.FirstOrDefault(x => x.Id == id);
 
 
@@ -43,7 +42,7 @@ public class WorldGenerator : MonoBehaviour
 
     private void GenerateWorldEntity()
     {
-        _world.Generate(_widthMap, _lengthMap, _textureEntities);
+        _world.Generate(_widthMap, _lengthMap, "", _textureEntities);
     }
 
     private void GenerateWorldCanvas()
@@ -56,9 +55,9 @@ public class WorldGenerator : MonoBehaviour
             }
     }
 
-    public List<WorldPart> GetNeigborsTiles(int X, int Z)
+    public List<WorldTile> GetNeigborsTiles(int X, int Z)
     {
-        List<WorldPart> wps = new();
+        List<WorldTile> wps = new();
         for (int x = -1; x < 2; x++)
             for (int z = -1; z < 2; z++)
             {

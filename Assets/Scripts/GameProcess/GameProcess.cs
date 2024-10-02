@@ -20,10 +20,14 @@ public class GameProcess
     public void GameTime(float deltaTime)
     {
         _seconder += deltaTime;
-        if (_seconder > 1f)
+        if (_seconder >= 1f)
         {
             _sessionTime.Add(_second);
-            _seconder = 0;
+            _seconder -= 1f;
+            foreach (var entIP in entities)
+            {
+                entIP.DoSecond();
+            }
         }
     }
 }

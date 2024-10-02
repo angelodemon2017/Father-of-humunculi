@@ -10,9 +10,15 @@ public class EntityInProcess
         _entityData = entityData;
         foreach (var cd in _entityData.Components)
         {
-            var cip = new ComponentInProcess<ComponentData>();
-            cip.Init(cd);
-            _components.Add(cip);
+            _components.Add(new ComponentInProcess<ComponentData>(cd));
+        }
+    }
+
+    public virtual void DoSecond()
+    {
+        foreach (var componentIP in _components)
+        {
+            componentIP.DoSecond();
         }
     }
 }

@@ -636,8 +636,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 506193009}
+  - component: {fileID: 506193010}
+  - component: {fileID: 506193011}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameplayAdapter
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -658,6 +660,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &506193010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506193008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48cab4eb243f4e94bb0891cf66fb0385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &506193011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506193008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5bfcf6553bd14d4392f53057c0239ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerName: 
 --- !u!1 &658400659
 GameObject:
   m_ObjectHideFlags: 0
@@ -1644,6 +1671,7 @@ GameObject:
   - component: {fileID: 2048953668}
   - component: {fileID: 2048953670}
   - component: {fileID: 2048953669}
+  - component: {fileID: 2048953671}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -1681,7 +1709,6 @@ MonoBehaviour:
   _navMeshSurface: {fileID: 2048953670}
   _basePlaneWorld: {fileID: 9153346946954840708, guid: b44572d1d788b5446adb97e92e2cc800,
     type: 3}
-  _textureBlackMask: {fileID: 0}
   _widthMap: 20
   _lengthMap: 20
   _textureEntities:
@@ -1722,6 +1749,26 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 1e397cc43eef2b84c80c7c933b7ee5fe, type: 2}
   m_BuildHeightMesh: 0
+--- !u!114 &2048953671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048953667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca788eb399842af4e8ac328c2009c04e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _navMeshSurface: {fileID: 2048953670}
+  _basePlaneWorld: {fileID: 9153346946954840708, guid: b44572d1d788b5446adb97e92e2cc800,
+    type: 3}
+  _textureEntities:
+  - {fileID: 11400000, guid: 6684a3edf2ef51841be6545a89d84ba0, type: 2}
+  - {fileID: 11400000, guid: 29d26e298dd81924d8c4d6d96e4ba1a2, type: 2}
+  - {fileID: 11400000, guid: 1eeb3f5ae519b5844b62d1746d27283a, type: 2}
+  - {fileID: 11400000, guid: c2fcd3f61dafe1f4d8a99d6124131659, type: 2}
 --- !u!1 &2052821898
 GameObject:
   m_ObjectHideFlags: 0

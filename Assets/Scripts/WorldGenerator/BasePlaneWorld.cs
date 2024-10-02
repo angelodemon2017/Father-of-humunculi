@@ -5,12 +5,12 @@ using UnityEngine;
 public class BasePlaneWorld : MonoBehaviour
 {
     [SerializeField] private Renderer _renderer;
-    private WorldPart _worldPart;
+    private WorldTile _worldPart;
 
-    private List<WorldPart> _neigbors = new();
+    private List<WorldTile> _neigbors = new();
     [SerializeField] private Texture2D _textureBlackMask;
 
-    public void Init(WorldPart worldPart, List<WorldPart> neigbors)
+    public void Init(WorldTile worldPart, List<WorldTile> neigbors)
     {
         _worldPart = worldPart;
         foreach (var wp in neigbors)
