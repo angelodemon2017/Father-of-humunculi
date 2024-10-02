@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 7273058988256876115}
   - component: {fileID: 4715982188596303600}
   - component: {fileID: 8281486767439683990}
-  - component: {fileID: 3185754009573354628}
+  - component: {fileID: 4343656770827599269}
   - component: {fileID: 1015247181802449451}
   - component: {fileID: 5959569269502829362}
   m_Layer: 0
@@ -262,10 +262,10 @@ MonoBehaviour:
   _navMeshAgent: {fileID: 1015247181802449451}
   _animationAdapter: {fileID: 4541006228222469640}
   _colliderController: {fileID: 8281486767439683990}
-  _statusController: {fileID: 3185754009573354628}
+  _interactableController: {fileID: 0}
   _attackPoint: {fileID: 3253402064642631952}
   _keepObjectPoint: {fileID: 3253402064642631952}
-  _startingState: {fileID: 11400000, guid: 9e2d5f09b38b2204c8c7910933a4b6a5, type: 2}
+  _startingState: {fileID: 11400000, guid: c79364559ed0c4c459448b3231bc6dd2, type: 2}
   _currentState: {fileID: 0}
   _debugField: 
 --- !u!114 &8281486767439683990
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60459f4543d33d4bb685a5ed9967233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3185754009573354628
+--- !u!114 &4343656770827599269
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -289,12 +289,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3192944241199249679}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1f07aaacee2325488f2d800b6b51804, type: 3}
+  m_Script: {fileID: 11500000, guid: fd08170188f0ef148a509cbf85bc83cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fraction: 4
+  _fraction: 0
   _inRange: []
-  _maxHP: 100
+  _maxHP: 0
   _HPregen: 0
 --- !u!195 &1015247181802449451
 NavMeshAgent:

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "States/MouseControlState", order = 1)]
 public class MouseControlState : State
 {
     [SerializeField] private float MoveSpeed;

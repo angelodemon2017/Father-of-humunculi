@@ -3,10 +3,10 @@ using UnityEngine;
 using System.Linq;
 using System;
 
-public class StatusController : MonoBehaviour
+public class InteractableController : MonoBehaviour
 {
     [SerializeField] private EnumFraction _fraction;
-    [SerializeField] private List<StatusController> _inRange = new();
+    [SerializeField] private List<InteractableController> _inRange = new();
 
     public EnumFraction Fraction => _fraction;
 
@@ -71,20 +71,20 @@ public class StatusController : MonoBehaviour
         _timerRegen = 1f;
     }
 
-    public StatusController GetAvailableForAttack()
+    public InteractableController GetAvailableForAttack()
     {
         return _inRange.Count == 0 ? null : 
             _inRange.FirstOrDefault(x => x.TargetOk(this));
     }
 
-    public bool TargetOk(StatusController sc)
+    public bool TargetOk(InteractableController sc)
     {
         return Dict.TargetAttack[sc.Fraction].HasFlag(_fraction) && !IsDeath;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        var sc = other.GetComponentInParent<StatusController>();
+        var sc = other.GetComponentInParent<InteractableController>();
         if (sc != null)
         {
             _inRange.Add(sc);
@@ -93,7 +93,7 @@ public class StatusController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        var sc = other.GetComponentInParent<StatusController>();
+        var sc = other.GetComponentInParent<InteractableController>();
         if (sc != null && _inRange.Contains(sc))
         {
             _inRange.Remove(sc);

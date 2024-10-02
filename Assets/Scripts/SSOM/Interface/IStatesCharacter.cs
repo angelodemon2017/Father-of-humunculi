@@ -6,7 +6,7 @@ public interface IStatesCharacter
 
     Transform GetTransform();
 
-    StatusController GetStatusController();
+    InteractableController GetStatusController();
 
     void PlayAnimation(EnumAnimations animation);
 

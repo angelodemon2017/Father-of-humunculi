@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "States/DeathState", order = 1)]
 public class DeathState : State
 {
     private UnityEngine.AI.NavMeshAgent _navMeshAgent;

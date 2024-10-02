@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "States/SpawnHumucleState", order = 1)]
 public class SpawnHumucleState : State
 {
     [SerializeField] private GameObject _humuncule;

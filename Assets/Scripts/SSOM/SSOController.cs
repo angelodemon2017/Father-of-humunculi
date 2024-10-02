@@ -10,7 +10,7 @@ public class SSOController : MonoBehaviour, IStatesCharacter, IMovableCharacter
     [SerializeField] private NavMeshAgent _navMeshAgent;
     [SerializeField] private AnimationAdapter _animationAdapter;
     [SerializeField] private ColliderController _colliderController;
-    [SerializeField] private StatusController _statusController;
+    [SerializeField] private InteractableController _interactableController;
 
     [SerializeField] private Transform _attackPoint;
     [SerializeField] private Transform _keepObjectPoint;
@@ -25,7 +25,7 @@ public class SSOController : MonoBehaviour, IStatesCharacter, IMovableCharacter
 
     public Transform GetTransform() => transform;
     public NavMeshAgent GetNavMeshAgent() => _navMeshAgent;
-    public StatusController GetStatusController() => _statusController;
+    public InteractableController GetStatusController() => _interactableController;
 
     private void Awake()
     {
@@ -38,7 +38,7 @@ public class SSOController : MonoBehaviour, IStatesCharacter, IMovableCharacter
             _animationAdapter.triggerPropAction += AddProp;
         }
         SetState(_startingState);
-        _statusController.OnUpdateHP += UpdateTextLabel;
+        _interactableController.OnUpdateHP += UpdateTextLabel;
     }
 
     private void Update()
@@ -77,9 +77,9 @@ public class SSOController : MonoBehaviour, IStatesCharacter, IMovableCharacter
         {
             var labelText = $"{_currentState.name}";
 
-            if (!_statusController.IsDeath)
+            if (!_interactableController.IsDeath)
             {
-                labelText += $" HP:{_statusController.CurrentHP}/{_statusController.MaxHP}";
+                labelText += $" HP:{_interactableController.CurrentHP}/{_interactableController.MaxHP}";
             }
 
             _testText.text = labelText;

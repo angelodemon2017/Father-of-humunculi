@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "States/WalkRandomState", order = 1)]
 public class WalkRandomState : State
 {
     [SerializeField] private float _distanceForDone;

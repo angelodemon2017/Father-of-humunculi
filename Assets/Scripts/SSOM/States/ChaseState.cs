@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "States/ChaseState", order = 1)]
 public class ChaseState : State
 {
     [SerializeField] private float DistanceForTrigger;
@@ -10,7 +10,7 @@ public class ChaseState : State
     [SerializeField] private State _prepareAttackState;
 
     private UnityEngine.AI.NavMeshAgent _navMeshAgent;
-    private StatusController _target;
+    private InteractableController _target;
 
     private float _currentDistance(IStatesCharacter chr) =>
         Vector3.Distance(chr.GetTransform().position, _target.transform.position);
@@ -52,7 +52,7 @@ public class ChaseState : State
         _navMeshAgent.SetDestination(Character.GetTransform().position);
     }
 
-    private StatusController GetAvailableTarget(IStatesCharacter character)
+    private InteractableController GetAvailableTarget(IStatesCharacter character)
     {
         var sc = character.GetStatusController();
         return sc.GetAvailableForAttack();

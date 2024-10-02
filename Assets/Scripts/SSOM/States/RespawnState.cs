@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "States/RespawnState", order = 1)]
 public class RespawnState : State
 {
     private UnityEngine.AI.NavMeshAgent _navMeshAgent;

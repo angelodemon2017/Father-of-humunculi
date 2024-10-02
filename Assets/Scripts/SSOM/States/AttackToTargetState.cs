@@ -1,13 +1,13 @@
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "States/AttackToTargetState", order = 1)]
 public class AttackToTargetState : State
 {
     [SerializeField] private float _timeAttack;
     [SerializeField] private int Power;
 
     private float _timerAttack;
-    private StatusController _target;
+    private InteractableController _target;
 
     protected override void Init()
     {
@@ -35,7 +35,7 @@ public class AttackToTargetState : State
         return character.IsFinishedCurrentState() && _target != null;
     }
 
-    private StatusController GetAvailableTarget(IStatesCharacter character)
+    private InteractableController GetAvailableTarget(IStatesCharacter character)
     {
         var sc = character.GetStatusController();
         return sc.GetAvailableForAttack();

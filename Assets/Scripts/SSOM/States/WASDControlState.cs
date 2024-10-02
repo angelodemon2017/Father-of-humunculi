@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "States/WASDControlState", order = 1)]
 public class WASDControlState : State
 {
 //    [SerializeField] private float _walkSpeed;
@@ -22,19 +22,19 @@ public class WASDControlState : State
 
         if (Input.GetKey(KeyCode.W))
         {
-            _target += Vector3.forward;
+            _target += Vector3.forward + Vector3.right;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            _target += Vector3.left;
+            _target += Vector3.left + Vector3.forward;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            _target += Vector3.back;
+            _target += Vector3.back + Vector3.left;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            _target += Vector3.right;
+            _target += Vector3.right + Vector3.back;
         }
 
         var tempPos = Character.GetTransform().position;
