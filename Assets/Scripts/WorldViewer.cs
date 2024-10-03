@@ -52,8 +52,8 @@ public class WorldChunkView
             for (int z = 0; z < ChunkSize; z++)
             {
                 var bpw = creating.Invoke();
-
-//                viewTiles[x, z] = worldParts[x + z * ChunkSize];
+//                bpw.Init(worldParts[x + z * ChunkSize], );
+                viewTiles[x, z] = bpw;
             }
     }
 }
