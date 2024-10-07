@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 5062008683450267308}
   - component: {fileID: 8548215211643390628}
   - component: {fileID: 7597530527605791189}
-  - component: {fileID: 1197837602628122409}
   - component: {fileID: 1474752176306525088}
   - component: {fileID: 5186384996438922734}
   - component: {fileID: 1313049383664373184}
+  - component: {fileID: 854974441361248649}
   m_Layer: 0
   m_Name: EnemyAnimal
   m_TagString: Untagged
@@ -55,7 +55,7 @@ MonoBehaviour:
   _navMeshAgent: {fileID: 1474752176306525088}
   _animationAdapter: {fileID: 8450458929442465096}
   _colliderController: {fileID: 7597530527605791189}
-  _statusController: {fileID: 1197837602628122409}
+  _interactableController: {fileID: 854974441361248649}
   _attackPoint: {fileID: 0}
   _keepObjectPoint: {fileID: 0}
   _startingState: {fileID: 11400000, guid: 9e2d5f09b38b2204c8c7910933a4b6a5, type: 2}
@@ -73,22 +73,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60459f4543d33d4bb685a5ed9967233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1197837602628122409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 27170501368393239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1f07aaacee2325488f2d800b6b51804, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fraction: 4
-  _inRange: []
-  _maxHP: 10
-  _HPregen: 0
 --- !u!195 &1474752176306525088
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -159,6 +143,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &854974441361248649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27170501368393239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd08170188f0ef148a509cbf85bc83cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fraction: 4
+  _inRange: []
+  _maxHP: 10
+  _HPregen: 0
 --- !u!1 &2060440163970626476
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 4653027323129527826}
   - component: {fileID: 8256328261116621425}
   - component: {fileID: 1650246655825581239}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}

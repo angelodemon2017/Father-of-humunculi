@@ -58,9 +58,10 @@ public class WorldChunk
     }
 }
 
+[System.Serializable]//TODO remove
 public class WorldTile
 {
-    private WorldTileData TileData = new();
+    public WorldTileData TileData = new();//TODO privet
 
     public int Id => TileData.Id;
     public int Xpos => TileData.Xpos;

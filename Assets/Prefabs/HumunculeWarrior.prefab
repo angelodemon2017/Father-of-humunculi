@@ -145,10 +145,10 @@ GameObject:
   - component: {fileID: 1684565630367533968}
   - component: {fileID: 988858390993105724}
   - component: {fileID: 4144267587445774018}
-  - component: {fileID: 1664203849508170936}
   - component: {fileID: 2281326475831419277}
   - component: {fileID: 1653000657096815807}
   - component: {fileID: 6382007498192053554}
+  - component: {fileID: 3158984624238305988}
   m_Layer: 0
   m_Name: HumunculeWarrior
   m_TagString: Untagged
@@ -189,7 +189,7 @@ MonoBehaviour:
   _navMeshAgent: {fileID: 2281326475831419277}
   _animationAdapter: {fileID: 7042422657963745117}
   _colliderController: {fileID: 4144267587445774018}
-  _statusController: {fileID: 1664203849508170936}
+  _interactableController: {fileID: 3158984624238305988}
   _attackPoint: {fileID: 0}
   _keepObjectPoint: {fileID: 0}
   _startingState: {fileID: 11400000, guid: 4230819c6dbed1e4a952de0ebf74034d, type: 2}
@@ -207,22 +207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60459f4543d33d4bb685a5ed9967233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1664203849508170936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3641200050498529661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1f07aaacee2325488f2d800b6b51804, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fraction: 2
-  _inRange: []
-  _maxHP: 20
-  _HPregen: 0
 --- !u!195 &2281326475831419277
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -293,6 +277,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3158984624238305988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3641200050498529661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd08170188f0ef148a509cbf85bc83cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fraction: 2
+  _inRange: []
+  _maxHP: 20
+  _HPregen: 0
 --- !u!1 &4929261294030931483
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 2670791765908736123}
   - component: {fileID: 1422812962410768753}
   - component: {fileID: 2567881162238370825}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}

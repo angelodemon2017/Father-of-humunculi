@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 635947310242672396}
   - component: {fileID: 7392755846492566550}
   - component: {fileID: 1086827599698065488}
-  - component: {fileID: 3488557965914934243}
   - component: {fileID: 465228255516589892}
   - component: {fileID: 6042401548277711546}
   - component: {fileID: 1377036821247171273}
+  - component: {fileID: 4706551217140290795}
   m_Layer: 0
   m_Name: EmptyEntity
   m_TagString: Untagged
@@ -55,7 +55,7 @@ MonoBehaviour:
   _navMeshAgent: {fileID: 465228255516589892}
   _animationAdapter: {fileID: 4197101969241415523}
   _colliderController: {fileID: 1086827599698065488}
-  _statusController: {fileID: 3488557965914934243}
+  _interactableController: {fileID: 4706551217140290795}
   _attackPoint: {fileID: 0}
   _keepObjectPoint: {fileID: 0}
   _startingState: {fileID: 11400000, guid: 9e2d5f09b38b2204c8c7910933a4b6a5, type: 2}
@@ -73,22 +73,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60459f4543d33d4bb685a5ed9967233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3488557965914934243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58151514028472945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1f07aaacee2325488f2d800b6b51804, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fraction: 4
-  _inRange: []
-  _maxHP: 100
-  _HPregen: 0
 --- !u!195 &465228255516589892
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -159,6 +143,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4706551217140290795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58151514028472945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd08170188f0ef148a509cbf85bc83cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fraction: 0
+  _inRange: []
+  _maxHP: 0
+  _HPregen: 0
 --- !u!1 &5848492897281267749
 GameObject:
   m_ObjectHideFlags: 0

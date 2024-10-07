@@ -4,6 +4,7 @@ public static class Dict
 {
     public static Dictionary<EnumFraction, EnumFraction> TargetAttack = new()
     {
+        { EnumFraction.none, EnumFraction.none },
         { EnumFraction.player, EnumFraction.enemy },
         { EnumFraction.friend, EnumFraction.enemy },
         { EnumFraction.enemy, EnumFraction.player | EnumFraction.friend },

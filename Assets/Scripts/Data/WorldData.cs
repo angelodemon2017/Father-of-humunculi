@@ -28,20 +28,46 @@ public class WorldData
     public List<WorldTileData> GetChunk(int x, int z)
     {
         List<WorldTileData> result = new();
-        for (var _x = 0; x < Config.ChunkTilesSize; x++)
+        for (var _x = 0; _x < Config.ChunkTilesSize; _x++)
             for (var _z = 0; _z < Config.ChunkTilesSize; _z++)
             {
                 var xpos = x * Config.ChunkTilesSize + _x;
                 var zpos = z * Config.ChunkTilesSize + _z;
-                var tile = worldTileDatas.FirstOrDefault(t => t.Xpos == xpos && t.Zpos == zpos);
-                if (tile == null)
-                {
-                    tile = WorldConstructor.GenerateTile(xpos, zpos);
-                    worldTileDatas.Add(tile);
-                }
+                var tile = GetWorldtileData(xpos, zpos);
+
+                result.Add(tile);
             }
 
         return result;
+    }
+
+    public List<WorldTileData> GetNeigborsTiles(int x, int z)
+    {
+        List<WorldTileData> result = new();
+
+        for (int _x = -1; _x < 2; _x++)
+            for (int _z = -1; _z < 2; _z++)
+            {
+                if (_x == 0 && _z == 0)
+                {
+                    continue;
+                }
+                result.Add(GetWorldtileData(x + _x, z + _z));
+            }
+
+        return result;
+    }
+
+    private WorldTileData GetWorldtileData(int x ,int z)
+    {
+        var tile = worldTileDatas.FirstOrDefault(t => t.Xpos == x && t.Zpos == z);
+        if (tile == null)
+        {
+            tile = WorldConstructor.GenerateTile(x, z);
+            worldTileDatas.Add(tile);
+        }
+
+        return tile;
     }
 }
 
@@ -64,6 +90,8 @@ public class WorldTileData
     public int Xpos;
     public int Zpos;
 
+    public List<TileMaskData> tileMaskDatas = new();
+
     public WorldTileData()
     {
 
@@ -75,4 +103,11 @@ public class WorldTileData
         Xpos = xpos;
         Zpos = zpos;
     }
+}
+
+public class TileMaskData
+{
+    public int IdTypeMask;
+    public int IndexTextureMask;
+    public EnumTileDirect Rotate;
 }

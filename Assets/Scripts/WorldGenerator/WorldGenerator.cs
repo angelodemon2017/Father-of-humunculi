@@ -23,7 +23,7 @@ public class WorldGenerator : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        GenerationMap();
+//        GenerationMap();
     }
 
     private void Update()

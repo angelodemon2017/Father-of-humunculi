@@ -262,7 +262,7 @@ MonoBehaviour:
   _navMeshAgent: {fileID: 1015247181802449451}
   _animationAdapter: {fileID: 4541006228222469640}
   _colliderController: {fileID: 8281486767439683990}
-  _interactableController: {fileID: 0}
+  _interactableController: {fileID: 4343656770827599269}
   _attackPoint: {fileID: 3253402064642631952}
   _keepObjectPoint: {fileID: 3253402064642631952}
   _startingState: {fileID: 11400000, guid: c79364559ed0c4c459448b3231bc6dd2, type: 2}
@@ -292,10 +292,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd08170188f0ef148a509cbf85bc83cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fraction: 0
+  _fraction: 4
   _inRange: []
-  _maxHP: 0
-  _HPregen: 0
+  _maxHP: 100
+  _HPregen: 1
 --- !u!195 &1015247181802449451
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ public class BasePlaneWorld : MonoBehaviour
             _neigbors.Add(wp);
             wp.ChangedId += UpdateNeigbor;
         }
-        transform.position = new Vector3(_worldPart.Xpos * Config.TileSize - WorldGenerator.Instance.WorldSwift.x, 0f, _worldPart.Zpos * Config.TileSize - WorldGenerator.Instance.WorldSwift.y);
+        transform.position = new Vector3(_worldPart.Xpos * Config.TileSize, 0f, _worldPart.Zpos * Config.TileSize);
         UpdatePart();
     }
 
@@ -36,7 +36,7 @@ public class BasePlaneWorld : MonoBehaviour
         _renderer.material.SetColor("_BaseColor", _textureEntity.BaseColor);
         _renderer.material.SetTexture("_BaseTexture", _textureEntity.BaseTexture);
 
-//        GenerateBorders();
+        GenerateBorders();
     }
 
     private void GenerateBorders()
