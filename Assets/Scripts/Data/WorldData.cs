@@ -11,18 +11,37 @@ public class WorldData
 
     public List<EntityData> entityDatas = new();
 
-    public WorldChunkData GetChunk(int x, int z)
+/*    public WorldChunkData GetChunk(int x, int z)
     {
         var chunkResult = worldChunkDatas.FirstOrDefault(c => c.Xpos == x && c.Zpos == z);
 
         if (chunkResult == null)
         {
-            chunkResult = WorldConstructor.GenerateChunk(x, z, Seed);
+            //            chunkResult = WorldConstructor.GenerateChunk(x, z, Seed);
 
-            worldChunkDatas.Add(chunkResult);
+            //            worldChunkDatas.Add(chunkResult);
         }
 
         return chunkResult;
+    }/**/
+
+    public List<WorldTileData> GetChunk(int x, int z)
+    {
+        List<WorldTileData> result = new();
+        for (var _x = 0; x < Config.ChunkTilesSize; x++)
+            for (var _z = 0; _z < Config.ChunkTilesSize; _z++)
+            {
+                var xpos = x * Config.ChunkTilesSize + _x;
+                var zpos = z * Config.ChunkTilesSize + _z;
+                var tile = worldTileDatas.FirstOrDefault(t => t.Xpos == xpos && t.Zpos == zpos);
+                if (tile == null)
+                {
+                    tile = WorldConstructor.GenerateTile(xpos, zpos);
+                    worldTileDatas.Add(tile);
+                }
+            }
+
+        return result;
     }
 }
 
@@ -44,4 +63,16 @@ public class WorldTileData
     public int Id;
     public int Xpos;
     public int Zpos;
+
+    public WorldTileData()
+    {
+
+    }
+
+    public WorldTileData(int id, int xpos, int zpos)
+    {
+        Id = id;
+        Xpos = xpos;
+        Zpos = zpos;
+    }
 }

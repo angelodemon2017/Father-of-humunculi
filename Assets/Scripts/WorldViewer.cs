@@ -6,24 +6,85 @@ using UnityEngine;
 
 public class WorldViewer : MonoBehaviour
 {
+    public static WorldViewer Instance;
+
     [SerializeField] private NavMeshSurface _navMeshSurface;
     [SerializeField] private BasePlaneWorld _basePlaneWorld;
 
     [SerializeField] private List<TextureEntity> _textureEntities = new();
 
     private WorldData _gameWorld;
-    private List<WorldChunkView> chunksView = new();
+    private List<WorldChunkView> _chunksView = new();
 
-    private Vector3 _centerUpdate;
-    private float _visibilityDistance;
-    private float _tileSize = 1f;
+    private Vector3 _focusChunkPosition;
+    private List<Vector3> _chunkPoints = new();
 
-    private float ChunkStep => _tileSize * WorldChunkView.ChunkSize;
+    public List<TextureEntity> Textures => _textureEntities;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    private void Update()
+    {
+        UpdateCenterUpdate(CameraController.Instance.FocusPosition);
+    }
 
     public void UpdateCenterUpdate(Vector3 newCenter)
     {
-        _centerUpdate = newCenter;
+        var newPos = (Vector3)Vector3Int.RoundToInt(newCenter / Config.ChunkSize) * Config.ChunkSize;
 
+        if (newPos != _focusChunkPosition)
+        {
+            _focusChunkPosition = newPos;
+            CheckAndUpdateChunks();
+        }
+    }
+
+    private void CheckAndUpdateChunks()
+    {
+        _chunkPoints.Clear();
+        for (int x = -Config.VisibilityChunkDistance; x < Config.VisibilityChunkDistance; x++)
+            for (int z = -Config.VisibilityChunkDistance; z < Config.VisibilityChunkDistance; z++)
+            {
+                _chunkPoints.Add(new Vector3(_focusChunkPosition.x + x * Config.ChunkSize, 0f,
+                    _focusChunkPosition.z + z * Config.ChunkSize));
+            }
+
+        List<WorldChunkView> chunkForDelete = new();
+        List<Vector3> exceptChunk = new();
+        var distanceVisible = Config.VisibilityChunkDistance * Config.ChunkSize;
+        foreach (var chunk in _chunksView)
+        {
+            if (chunk.ChunkPosition.x >= _focusChunkPosition.x + distanceVisible ||
+                chunk.ChunkPosition.x <= _focusChunkPosition.x - distanceVisible ||
+                chunk.ChunkPosition.z >= _focusChunkPosition.z + distanceVisible ||
+                chunk.ChunkPosition.z <= _focusChunkPosition.z - distanceVisible)
+            {
+                chunkForDelete.Add(chunk);
+            }
+            else
+            {
+                exceptChunk.Add(chunk.ChunkPosition);
+            }
+        }
+        foreach (var chunk in chunkForDelete)
+        {
+            chunk.CleanChunk();
+            _chunksView.Remove(chunk);
+        }
+
+        foreach (var point in exceptChunk)
+        {
+            _chunkPoints.Remove(point);
+        }
+
+        foreach (var point in _chunkPoints)
+        {
+//            _gameWorld.GetChunk(point.x / Config.ChunkSize, point.z);
+            _chunksView.Add(new WorldChunkView(point, null, Create));
+        }
     }
 
     public void LoadAndViewChunk()
@@ -39,7 +100,6 @@ public class WorldViewer : MonoBehaviour
 
 public class WorldChunkView
 {
-    public static int ChunkSize = 3;
     public Vector3 ChunkPosition;
 
     public BasePlaneWorld[,] viewTiles;
@@ -48,12 +108,17 @@ public class WorldChunkView
     {
         ChunkPosition = position;
         worldParts = worldParts.OrderBy(p => p.Zpos).OrderBy(p => p.Xpos).ToList();
-        for(int x=0; x< ChunkSize; x++)
-            for (int z = 0; z < ChunkSize; z++)
+        for(int x=0; x< Config.ChunkTilesSize; x++)
+            for (int z = 0; z < Config.ChunkTilesSize; z++)
             {
                 var bpw = creating.Invoke();
 //                bpw.Init(worldParts[x + z * ChunkSize], );
                 viewTiles[x, z] = bpw;
             }
+    }
+
+    public void CleanChunk()
+    {
+
     }
 }

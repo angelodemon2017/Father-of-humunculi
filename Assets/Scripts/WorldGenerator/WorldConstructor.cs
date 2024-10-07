@@ -22,24 +22,40 @@ public class WorldConstructor
 
     }
 
-    public static WorldChunkData GenerateChunk(int x, int y, string seed)
+    public static WorldChunk GenerateChunk(int x, int z, string seed, List<TextureEntity> textureEntities)
     {
-        var chunk = new WorldChunkData(x, y);
-        for (int xTile = 0; xTile < WorldChunkView.ChunkSize; xTile++)
-            for (int zTile = 0; zTile < WorldChunkView.ChunkSize; zTile++)
+        var chunk = new WorldChunk(x, z);
+        for (int xTile = 0; xTile < Config.ChunkTilesSize; xTile++)
+            for (int zTile = 0; zTile < Config.ChunkTilesSize; zTile++)
             {
-                
+                var ms = textureEntities.GetRandom();
+                chunk.Tiles[xTile,zTile] =
+                    new WorldTile(x * Config.ChunkTilesSize + xTile,
+                    z * Config.ChunkTilesSize + zTile, ms.Id);
             }
 
         return chunk;
+    }
+
+    public static WorldTileData GenerateTile(int x, int z)
+    {
+        var txt = WorldViewer.Instance.Textures.GetRandom();
+        return new WorldTileData(txt.Id, x, z);
     }
 }
 
 public class WorldChunk
 {
-    public WorldTile[,] Tiles = new WorldTile[WorldChunkView.ChunkSize, WorldChunkView.ChunkSize];
+    public int Xpos;
+    public int Zpos;
 
+    public WorldTile[,] Tiles = new WorldTile[Config.ChunkTilesSize, Config.ChunkTilesSize];
 
+    public WorldChunk(int x, int z)
+    {
+        Xpos = x;
+        Zpos = z;
+    }
 }
 
 public class WorldTile

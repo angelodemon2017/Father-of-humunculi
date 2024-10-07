@@ -8,6 +8,8 @@ public class CameraController : MonoBehaviour
     private Transform _currentTargetPoint;
     private Vector3 _diffVector;
 
+    public Vector3 FocusPosition => _targetPoint.position;
+
     private void Awake()
     {
         Instance = this;

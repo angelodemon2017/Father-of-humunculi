@@ -20,11 +20,20 @@ public class WorldGenerator : MonoBehaviour
     private WorldConstructor _world = new();
     public TextureEntity GetTE(int id) => _textureEntities.FirstOrDefault(x => x.Id == id);
 
-
     private void Awake()
     {
         Instance = this;
         GenerationMap();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            _navMeshSurface.RemoveData();
+
+            _navMeshSurface.BuildNavMesh();
+        }
     }
 
     public void GenerationMap()

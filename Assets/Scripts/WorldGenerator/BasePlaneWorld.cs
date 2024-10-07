@@ -9,6 +9,7 @@ public class BasePlaneWorld : MonoBehaviour
 
     private List<WorldTile> _neigbors = new();
     [SerializeField] private Texture2D _textureBlackMask;
+    [SerializeField] private GameObject _collider;
 
     public void Init(WorldTile worldPart, List<WorldTile> neigbors)
     {
@@ -18,7 +19,7 @@ public class BasePlaneWorld : MonoBehaviour
             _neigbors.Add(wp);
             wp.ChangedId += UpdateNeigbor;
         }
-        transform.position = new Vector3(_worldPart.Xpos * 5 - WorldGenerator.Instance.WorldSwift.x, 0f, _worldPart.Zpos * 5 - WorldGenerator.Instance.WorldSwift.y);
+        transform.position = new Vector3(_worldPart.Xpos * Config.TileSize - WorldGenerator.Instance.WorldSwift.x, 0f, _worldPart.Zpos * Config.TileSize - WorldGenerator.Instance.WorldSwift.y);
         UpdatePart();
     }
 
@@ -31,10 +32,11 @@ public class BasePlaneWorld : MonoBehaviour
     {
         var _textureEntity = WorldGenerator.Instance.GetTE(_worldPart.Id);
 
+        _collider.SetActive(_textureEntity.SpeedMove <= 0);
         _renderer.material.SetColor("_BaseColor", _textureEntity.BaseColor);
         _renderer.material.SetTexture("_BaseTexture", _textureEntity.BaseTexture);
 
-        GenerateBorders();
+//        GenerateBorders();
     }
 
     private void GenerateBorders()

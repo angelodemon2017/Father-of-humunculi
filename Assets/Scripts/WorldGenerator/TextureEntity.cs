@@ -10,10 +10,12 @@ public class TextureEntity : ScriptableObject
     [SerializeField] private Color _baseColor;
     [SerializeField] private Material _sgmaterial;
     [SerializeField] private List<TextureCombine> _maskCombine;
+    [SerializeField] private float _speedMove = 1f;
 
     public int Id => _id;
     public Texture2D BaseTexture => _baseTexture;
     public Color BaseColor => _baseColor;
+    public float SpeedMove => _speedMove;
 
     public List<SGEntity> GetMask(EnumTileDirect summaryDirect)
     {
