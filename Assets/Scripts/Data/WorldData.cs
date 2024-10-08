@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
+using UnityEngine;
 
 public class WorldData
 {
@@ -7,8 +10,22 @@ public class WorldData
     public string Seed;
 
     public List<WorldTileData> worldTileDatas = new();
+    public List<WorldChunkData> worldChunkDatas = new();//labels about loaded??
 
     public List<EntityData> entityDatas = new();
+
+    public long lastIds = 0;
+    public long GetNewId () 
+    {
+        lastIds++;
+        return lastIds; 
+    }
+    public List<long> needUpdates = new();
+
+    public WorldData()
+    {
+
+    }
 
     public List<WorldTileData> GetChunk(int x, int z)
     {
@@ -22,6 +39,11 @@ public class WorldData
 
                 result.Add(tile);
             }
+
+        if (worldChunkDatas.Any(c => c.Xpos == x && c.Zpos == z))
+        {
+            worldChunkDatas.Add(GenerateEntitiesChunk(x, z));
+        }
 
         return result;
     }
@@ -43,6 +65,62 @@ public class WorldData
         return result;
     }
 
+    const int minimumEntitiesByChunk = 3;
+    private WorldChunkData GenerateEntitiesChunk(int x, int z)
+    {
+        List<Vector3Int> tempPoint = new List<Vector3Int>();
+        for (int _x = 0; _x < Config.ChunkTilesSize; _x++)
+            for (int _z = 0; _z < Config.ChunkTilesSize; _z++)
+            {
+                tempPoint.Add(new Vector3Int(_x, 0, _z));
+            }
+        var pointForGen = new List<Vector3Int>();
+        for (int p = 0; p < minimumEntitiesByChunk; p++)
+        {
+            var tp = tempPoint.GetRandom();
+            pointForGen.Add(tp);
+            tempPoint.Remove(tp);
+        }
+        foreach (var tp in pointForGen)
+        {
+            var xpos = tp.x + x * Config.ChunkTilesSize;
+            var zpos = tp.z + z * Config.ChunkTilesSize;
+            var ed = GetWorldTileData(xpos, zpos);
+            if (ed.Id < 2)
+            {
+                AddEntity(new EntityResource(0, xpos, zpos));
+            }
+            else
+            {
+                AddEntity(new EntityResource(1, xpos, zpos));
+            }
+        }
+
+        return new WorldChunkData(x, z);
+    }
+
+    private void AddEntity(EntityData entityData)
+    {
+        entityData.Id = GetNewId();
+        entityData.SetUpdateAction(AddEntityForUpdate);
+        entityDatas.Add(entityData);
+        AddEntityForUpdate(entityData.Id);
+    }
+
+    public void AddEntityForUpdate(long id)
+    {
+        if (needUpdates.Contains(id)) return;
+        needUpdates.Add(id);
+    }
+
+    public void RemoveEntity(long id)
+    {
+        if (needUpdates.Contains(id))
+        {
+            needUpdates.Remove(id);
+        }
+    }
+
     private WorldTileData GetWorldTileData(int x ,int z)
     {
         var tile = worldTileDatas.FirstOrDefault(t => t.Xpos == x && t.Zpos == z);
@@ -60,7 +138,6 @@ public class WorldChunkData
 {//TODO есть ли смысл в существовании этого класса?
     public int Xpos;
     public int Zpos;
-    public List<WorldTileData> tiles = new();
 
     public WorldChunkData(int x, int z)
     {

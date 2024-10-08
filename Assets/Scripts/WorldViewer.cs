@@ -24,7 +24,7 @@ public class WorldViewer : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        InitWorld(new WorldData());
+        InitWorld();
     }
 
     private void OnDrawGizmos()
@@ -42,7 +42,8 @@ public class WorldViewer : MonoBehaviour
 
     public void RegenerateWorld()
     {
-        InitWorld(new WorldData());
+        GameProcess.Instance.NewGame(new WorldData());
+        InitWorld();
         foreach (var c in _chunksView)
         {
             c.CleanChunk();
@@ -51,9 +52,9 @@ public class WorldViewer : MonoBehaviour
         CheckAndUpdateChunks();
     }
 
-    public void InitWorld(WorldData data)
+    public void InitWorld()
     {
-        _gameWorld = data;
+        _gameWorld = GameProcess.Instance.GameWorld;
     }
 
     private void Update()
@@ -114,6 +115,7 @@ public class WorldViewer : MonoBehaviour
         foreach (var point in _chunkPoints)
         {
             _chunksView.Add(new WorldChunkView(point, _gameWorld, Create));
+
         }
 
         _navMeshSurface.RemoveData();

@@ -5,7 +5,7 @@ public class WorldConstructor
 {
     public WorldTile[,] partGrid = new WorldTile[1,1];
 
-    public void Generate(int width, int length, string seed, List<TextureEntity> textureEntities)
+/*    public void Generate(int width, int length, string seed, List<TextureEntity> textureEntities)
     {
         partGrid = new WorldTile[width, length];
 
@@ -30,7 +30,7 @@ public class WorldConstructor
             }
 
         return chunk;
-    }
+    }/**/
 
     public static WorldTileData GenerateTile(int x, int z)
     {
@@ -38,7 +38,7 @@ public class WorldConstructor
         return new WorldTileData(txt.Id, x, z);
     }
 }
-
+/*??
 public class WorldChunk
 {
     public int Xpos;
@@ -51,7 +51,7 @@ public class WorldChunk
         Xpos = x;
         Zpos = z;
     }
-}
+}/**/
 
 public class WorldTile
 {

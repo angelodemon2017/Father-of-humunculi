@@ -1,12 +1,22 @@
-﻿public abstract class ComponentData
-{
+﻿using System;
 
+public abstract class ComponentData
+{
+    public Action changed;
 }
 
 public class ComponentPosition : ComponentData
 {
     public float Xpos;
     public float Zpos;
+
+
+
+    public ComponentPosition(float xpos, float zpos)
+    {
+        Xpos = xpos;
+        Zpos = zpos;
+    }
 }
 
 public class ComponentPlayerId : ComponentData

@@ -6,6 +6,11 @@ public class GameplayAdapter : MonoBehaviour
 
     private float GameTime = 0f;
 
+    private void Awake()
+    {
+        gameProcess = GameProcess.Instance;
+    }
+
     private void Update()
     {
         if (gameProcess != null && GameTime != 0)
@@ -17,8 +22,15 @@ public class GameplayAdapter : MonoBehaviour
     public void Newgame()
     {
         WorldData world = new WorldData();//Load from file...
+        gameProcess.NewGame(world);
 
-        gameProcess = new GameProcess(world);
         GameTime = 1f;
+    }
+
+    public void ExitGame()
+    {
+//        gameProcess.GameWorld.Save();//save to file
+        GameTime = 0f;
+        gameProcess.StopGame();
     }
 }
