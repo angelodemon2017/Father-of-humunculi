@@ -17,11 +17,6 @@ public class WorldConstructor
             }
     }
 
-    private void GenerateStartLocation()
-    {
-
-    }
-
     public static WorldChunk GenerateChunk(int x, int z, string seed, List<TextureEntity> textureEntities)
     {
         var chunk = new WorldChunk(x, z);
@@ -58,14 +53,14 @@ public class WorldChunk
     }
 }
 
-[System.Serializable]//TODO remove
 public class WorldTile
 {
-    public WorldTileData TileData = new();//TODO privet
+    private WorldTileData TileData;
 
     public int Id => TileData.Id;
     public int Xpos => TileData.Xpos;
     public int Zpos => TileData.Zpos;
+    public int SwiftSeed => TileData.SeedMask;
 
     public Action<int> ChangedId;
 
@@ -82,8 +77,6 @@ public class WorldTile
 
     public WorldTile(int x, int z, int id)
     {
-        TileData.Id = id;
-        TileData.Xpos = x;
-        TileData.Zpos = z;
+        TileData = new WorldTileData(id, x, z);
     }
 }

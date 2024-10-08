@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using Unity.AI.Navigation;
 using UnityEngine;
@@ -15,10 +14,10 @@ public class WorldViewer : MonoBehaviour
     [SerializeField] private List<TextureEntity> _textureEntities = new();
 
     private WorldData _gameWorld;
-    [SerializeField] private List<WorldChunkView> _chunksView = new();//TODO remove SerializeField
+    private List<WorldChunkView> _chunksView = new();
 
     private Vector3 _focusChunkPosition = Vector3.back;
-    [SerializeField] private List<Vector3> _chunkPoints = new();//TODO remove SerializeField
+    private List<Vector3> _chunkPoints = new();
 
     public List<TextureEntity> Textures => _textureEntities;
 
@@ -34,6 +33,11 @@ public class WorldViewer : MonoBehaviour
         {
             Gizmos.DrawSphere(p.ChunkPosition, 1);
         }
+    }
+
+    public TextureEntity GetTE(int id)
+    {
+        return _textureEntities.FirstOrDefault(x => x.Id == id);
     }
 
     public void RegenerateWorld()
@@ -115,11 +119,6 @@ public class WorldViewer : MonoBehaviour
         _navMeshSurface.RemoveData();
 
         _navMeshSurface.BuildNavMesh();
-    }
-
-    public void LoadAndViewChunk()
-    {
-//        var qwe = new WorldChunkView(Vector3.zero, _gameWorld.worldTileDatas, Create);
     }
 
     private BasePlaneWorld Create()

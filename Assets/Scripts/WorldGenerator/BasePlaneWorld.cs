@@ -30,7 +30,7 @@ public class BasePlaneWorld : MonoBehaviour
 
     public void UpdatePart()
     {
-        var _textureEntity = WorldGenerator.Instance.GetTE(_worldPart.Id);
+        var _textureEntity = WorldViewer.Instance.GetTE(_worldPart.Id);
 
         _collider.SetActive(_textureEntity.SpeedMove <= 0);
         _renderer.material.SetColor("_BaseColor", _textureEntity.BaseColor);
@@ -47,7 +47,7 @@ public class BasePlaneWorld : MonoBehaviour
             if (wp.Id <= _worldPart.Id)
                 continue;
 
-            var te = WorldGenerator.Instance.GetTE(wp.Id);
+            var te = WorldViewer.Instance.GetTE(wp.Id);
             var x = _worldPart.Xpos - wp.Xpos;
             var z = _worldPart.Zpos - wp.Zpos;
 
@@ -62,8 +62,8 @@ public class BasePlaneWorld : MonoBehaviour
         }
         sgs = sgs.GroupBy(s => s.Id)
             .SelectMany(x =>
-                WorldGenerator.Instance.GetTE(x.Key).GetMask(x.Select(y => 
-                    y.DirectionTexture).ToList().GetSummaryMask()))
+                WorldViewer.Instance.GetTE(x.Key).GetMask(x.Select(y => 
+                    y.DirectionTexture).ToList().GetSummaryMask(), _worldPart.SwiftSeed))
             .OrderBy(x => x.Id).ToList();
 
         for (int layer = 1; layer < 9; layer++)
@@ -99,15 +99,4 @@ public class SGEntity
     public Texture2D Mask;
     public Color Color;
     public float Rotate;
-
-    public SGEntity()
-    { }
-
-    public SGEntity(int id, Texture2D mask, EnumTileDirect directionTexture, int rot)
-    {
-        Id = id;
-        Mask = mask;
-        DirectionTexture = directionTexture;
-        Rotate = rot;
-    }
 }

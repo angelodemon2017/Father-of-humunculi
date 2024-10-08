@@ -17,7 +17,7 @@ public class TextureEntity : ScriptableObject
     public Color BaseColor => _baseColor;
     public float SpeedMove => _speedMove;
 
-    public List<SGEntity> GetMask(EnumTileDirect summaryDirect)
+    public List<SGEntity> GetMask(EnumTileDirect summaryDirect, int swiftSeed)
     {
         if (summaryDirect == EnumTileDirect.none)
         {
@@ -28,7 +28,7 @@ public class TextureEntity : ScriptableObject
 
         while (summaryDirect != EnumTileDirect.none)
         {
-            var sgeTemp = _maskCombine.FirstOrDefault(x => x.Contain(summaryDirect)).GetEntity(summaryDirect);
+            var sgeTemp = _maskCombine.FirstOrDefault(x => x.Contain(summaryDirect)).GetEntity(summaryDirect, swiftSeed);
 
             sgeTemp.Item1.Id = _id;
             sgeTemp.Item1.Color = _baseColor;
@@ -48,13 +48,13 @@ public class TextureCombine
     public List<Texture2D> Masks;
     public List<CombineEnumRotate> enumDirects;
 
-    public (SGEntity, EnumTileDirect) GetEntity(EnumTileDirect summaryDirect)
+    public (SGEntity, EnumTileDirect) GetEntity(EnumTileDirect summaryDirect, int swiftSeed = 0)
     {
         var cer = GetCombineRotate(summaryDirect);
 
         return (new SGEntity()
         {
-            Mask = Masks.GetRandom(),
+            Mask = Masks.GetRandom(swiftSeed + (int)cer.TileDirect),
             DirectionTexture = cer.EnumDirect,
             Rotate = (int)cer.TileDirect,
         },
@@ -70,12 +70,12 @@ public class TextureCombine
     {
         return enumDirects.Any(x => (x.EnumDirect & summaryDirect) == x.EnumDirect);
     }
-}
 
-[System.Serializable]
-public class CombineEnumRotate
-{
-    public EnumTileDirect EnumDirect;
-    public EnumShaderMaskDirect TileDirect;
-    public EnumTileDirect ExceptDirects;
+    [System.Serializable]
+    public class CombineEnumRotate
+    {
+        public EnumTileDirect EnumDirect;
+        public EnumShaderMaskDirect TileDirect;
+        public EnumTileDirect ExceptDirects;
+    }
 }

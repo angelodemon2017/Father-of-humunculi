@@ -6,24 +6,9 @@ public class WorldData
     public string Name;
     public string Seed;
 
-    public List<WorldChunkData> worldChunkDatas = new();
     public List<WorldTileData> worldTileDatas = new();
 
     public List<EntityData> entityDatas = new();
-
-/*    public WorldChunkData GetChunk(int x, int z)
-    {
-        var chunkResult = worldChunkDatas.FirstOrDefault(c => c.Xpos == x && c.Zpos == z);
-
-        if (chunkResult == null)
-        {
-            //            chunkResult = WorldConstructor.GenerateChunk(x, z, Seed);
-
-            //            worldChunkDatas.Add(chunkResult);
-        }
-
-        return chunkResult;
-    }/**/
 
     public List<WorldTileData> GetChunk(int x, int z)
     {
@@ -33,7 +18,7 @@ public class WorldData
             {
                 var xpos = x * Config.ChunkTilesSize + _x;
                 var zpos = z * Config.ChunkTilesSize + _z;
-                var tile = GetWorldtileData(xpos, zpos);
+                var tile = GetWorldTileData(xpos, zpos);
 
                 result.Add(tile);
             }
@@ -52,13 +37,13 @@ public class WorldData
                 {
                     continue;
                 }
-                result.Add(GetWorldtileData(x + _x, z + _z));
+                result.Add(GetWorldTileData(x + _x, z + _z));
             }
 
         return result;
     }
 
-    private WorldTileData GetWorldtileData(int x ,int z)
+    private WorldTileData GetWorldTileData(int x ,int z)
     {
         var tile = worldTileDatas.FirstOrDefault(t => t.Xpos == x && t.Zpos == z);
         if (tile == null)
@@ -72,7 +57,7 @@ public class WorldData
 }
 
 public class WorldChunkData
-{
+{//TODO есть ли смысл в существовании этого класса?
     public int Xpos;
     public int Zpos;
     public List<WorldTileData> tiles = new();
@@ -89,25 +74,13 @@ public class WorldTileData
     public int Id;
     public int Xpos;
     public int Zpos;
-
-    public List<TileMaskData> tileMaskDatas = new();
-
-    public WorldTileData()
-    {
-
-    }
+    public int SeedMask;
 
     public WorldTileData(int id, int xpos, int zpos)
     {
         Id = id;
         Xpos = xpos;
         Zpos = zpos;
+        SeedMask = UnityEngine.Random.Range(0, int.MaxValue);
     }
-}
-
-public class TileMaskData
-{
-    public int IdTypeMask;
-    public int IndexTextureMask;
-    public EnumTileDirect Rotate;
 }
