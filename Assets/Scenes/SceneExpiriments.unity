@@ -1852,6 +1852,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 29d26e298dd81924d8c4d6d96e4ba1a2, type: 2}
   - {fileID: 11400000, guid: 1eeb3f5ae519b5844b62d1746d27283a, type: 2}
   - {fileID: 11400000, guid: c2fcd3f61dafe1f4d8a99d6124131659, type: 2}
+  _mask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &2052821898
 GameObject:
   m_ObjectHideFlags: 0

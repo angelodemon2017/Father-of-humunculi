@@ -64,15 +64,20 @@ public class WorldTile
 
     public Action<int> ChangedId;
 
-    public void ChangePart(int id)
+    public void SetNewId(int id)
     {
-        TileData.Id = id;
+        TileData.ChangePart(id);
+    }
+
+    public void ChangedPart(int id)
+    {
         ChangedId?.Invoke(TileData.Id);
     }
 
     public WorldTile(WorldTileData tileData)
     {
         TileData = tileData;
+        TileData.ChangedId += ChangedPart;
     }
 
     public WorldTile(int x, int z, int id)

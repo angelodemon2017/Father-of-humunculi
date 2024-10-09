@@ -153,11 +153,19 @@ public class WorldTileData
     public int Zpos;
     public int SeedMask;
 
+    public Action<int> ChangedId;
+
     public WorldTileData(int id, int xpos, int zpos)
     {
         Id = id;
         Xpos = xpos;
         Zpos = zpos;
         SeedMask = UnityEngine.Random.Range(0, int.MaxValue);
+    }
+
+    public void ChangePart(int id)
+    {
+        Id = id;
+        ChangedId?.Invoke(Id);
     }
 }

@@ -14,6 +14,7 @@ public class BasePlaneWorld : MonoBehaviour
     public void Init(WorldTile worldPart, List<WorldTile> neigbors)
     {
         _worldPart = worldPart;
+        _worldPart.ChangedId += UpdateNeigbor;
         foreach (var wp in neigbors)
         {
             _neigbors.Add(wp);
@@ -87,8 +88,14 @@ public class BasePlaneWorld : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            GenerateBorders();
+//            GenerateBorders();
         }
+    }
+
+    public void ChangeTextureRandom()
+    {
+        var rndTxr = WorldViewer.Instance.Textures.GetRandom();
+        _worldPart.SetNewId(rndTxr.Id);
     }
 }
 

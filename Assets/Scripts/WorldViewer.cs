@@ -57,9 +57,23 @@ public class WorldViewer : MonoBehaviour
         _gameWorld = GameProcess.Instance.GameWorld;
     }
 
+    [SerializeField] private LayerMask _mask;
+    private RaycastHit hit;
+
     private void Update()
     {
         UpdateCenterUpdate(CameraController.Instance.FocusPosition);
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); 
+            if (Physics.Raycast(ray, out hit, 100, _mask))
+            {
+                if (hit.transform.TryGetComponent(out BasePlaneWorld comp))
+                {
+                    comp.ChangeTextureRandom();
+                }
+            }
+        }
     }
 
     public void UpdateCenterUpdate(Vector3 newCenter)

@@ -16,7 +16,7 @@ public class MouseControlState : State
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 100, _mask))
         {
-            Debug.Log($"coord mouse:{hit.point}");
+//            Debug.Log($"coord mouse:{hit.point}");
             _target = hit.point;
         }
 
