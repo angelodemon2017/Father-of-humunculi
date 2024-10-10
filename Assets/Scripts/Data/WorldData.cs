@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class WorldData
 {
     public string Name;
-    public string Seed;
+    public SeedData Seed = new();
 
     public List<WorldTileData> worldTileDatas = new();
     public List<WorldChunkData> worldChunkDatas = new();//labels about loaded??
@@ -121,7 +120,7 @@ public class WorldData
         }
     }
 
-    private WorldTileData GetWorldTileData(int x ,int z)
+    public WorldTileData GetWorldTileData(int x ,int z)
     {
         var tile = worldTileDatas.FirstOrDefault(t => t.Xpos == x && t.Zpos == z);
         if (tile == null)
@@ -151,7 +150,7 @@ public class WorldTileData
     public int Id;
     public int Xpos;
     public int Zpos;
-    public int SeedMask;
+    public int SeedMask => GameProcess.Instance.GameWorld.Seed.GetShaderMask() + Xpos + Zpos;
 
     public Action<int> ChangedId;
 
@@ -160,7 +159,6 @@ public class WorldTileData
         Id = id;
         Xpos = xpos;
         Zpos = zpos;
-        SeedMask = UnityEngine.Random.Range(0, int.MaxValue);
     }
 
     public void ChangePart(int id)

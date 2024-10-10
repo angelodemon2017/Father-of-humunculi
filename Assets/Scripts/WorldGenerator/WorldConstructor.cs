@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 public class WorldConstructor
 {
@@ -78,10 +77,5 @@ public class WorldTile
     {
         TileData = tileData;
         TileData.ChangedId += ChangedPart;
-    }
-
-    public WorldTile(int x, int z, int id)
-    {
-        TileData = new WorldTileData(id, x, z);
     }
 }

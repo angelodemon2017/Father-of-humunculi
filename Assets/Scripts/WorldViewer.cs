@@ -13,18 +13,18 @@ public class WorldViewer : MonoBehaviour
 
     [SerializeField] private List<TextureEntity> _textureEntities = new();
 
-    private WorldData _gameWorld;
     private List<WorldChunkView> _chunksView = new();
+    private Dictionary<(int, int), WorldTile> cashTiles = new();
 
     private Vector3 _focusChunkPosition = Vector3.back;
     private List<Vector3> _chunkPoints = new();
 
     public List<TextureEntity> Textures => _textureEntities;
+    private WorldData _gameWorld => GameProcess.Instance.GameWorld;
 
     private void Awake()
     {
         Instance = this;
-        InitWorld();
     }
 
     private void OnDrawGizmos()
@@ -35,6 +35,20 @@ public class WorldViewer : MonoBehaviour
         }
     }
 
+    public WorldTile GetWorldTile(int x, int z)
+    {
+        if (cashTiles.TryGetValue((x, z), out WorldTile tile))
+        {
+            return tile;
+        }
+
+        var wtd = new WorldTile(_gameWorld.GetWorldTileData(x,z));
+
+        cashTiles.Add((x, z), wtd);
+
+        return wtd;
+    }
+
     public TextureEntity GetTE(int id)
     {
         return _textureEntities.FirstOrDefault(x => x.Id == id);
@@ -43,18 +57,12 @@ public class WorldViewer : MonoBehaviour
     public void RegenerateWorld()
     {
         GameProcess.Instance.NewGame(new WorldData());
-        InitWorld();
         foreach (var c in _chunksView)
         {
             c.CleanChunk();
         }
         _chunksView.Clear();
         CheckAndUpdateChunks();
-    }
-
-    public void InitWorld()
-    {
-        _gameWorld = GameProcess.Instance.GameWorld;
     }
 
     [SerializeField] private LayerMask _mask;
@@ -159,8 +167,9 @@ public class WorldChunkView
             for (int z = 0; z < Config.ChunkTilesSize; z++)
             {
                 var bpw = creating.Invoke();
-                var wt = new WorldTile(worldParts[x * Config.ChunkTilesSize + z]);
-                var neigbors = worldData.GetNeigborsTiles(wt.Xpos, wt.Zpos).Select(t => new WorldTile(t)).ToList();
+                var wt = WorldViewer.Instance.GetWorldTile(worldParts[x * Config.ChunkTilesSize + z].Xpos,
+                    worldParts[x * Config.ChunkTilesSize + z].Zpos);
+                var neigbors = worldData.GetNeigborsTiles(wt.Xpos, wt.Zpos).Select(t => WorldViewer.Instance.GetWorldTile(t.Xpos, t.Zpos)).ToList();
                 bpw.Init(wt, neigbors);
                 viewTiles[x, z] = bpw;
             }

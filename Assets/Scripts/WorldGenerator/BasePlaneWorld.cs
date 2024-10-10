@@ -97,6 +97,15 @@ public class BasePlaneWorld : MonoBehaviour
         var rndTxr = WorldViewer.Instance.Textures.GetRandom();
         _worldPart.SetNewId(rndTxr.Id);
     }
+
+    private void OnDestroy()
+    {
+        _worldPart.ChangedId -= UpdateNeigbor;
+        foreach (var tile in _neigbors)
+        {
+            tile.ChangedId -= UpdateNeigbor;
+        }
+    }
 }
 
 public class SGEntity
