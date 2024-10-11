@@ -15,9 +15,11 @@ public class WorldViewer : MonoBehaviour
 
     [SerializeField] private List<TextureEntity> _textureEntities = new();
 
-    [SerializeField] private List<WorldChunkView> _chunksView = new();
+//    [SerializeField] 
+    private List<WorldChunkView> _chunksView = new();
     private Dictionary<(int, int), WorldTile> _cashTiles = new();
-    [SerializeField] private List<EntityMonobeh> _cashEntities = new();
+//    [SerializeField] 
+    private List<EntityMonobeh> _cashEntities = new();
 
     private Vector3 _focusChunkPosition;
     private List<Vector3> _chunkPoints = new();
@@ -119,12 +121,22 @@ public class WorldViewer : MonoBehaviour
 
     private void CheckAndUpdateChunks()
     {
+        List<Vector3> chunkPreGenerate = new();
+        for (int x = -Config.VisibilityChunkDistance - 1; x < Config.VisibilityChunkDistance + 1; x++)
+            for (int z = -Config.VisibilityChunkDistance - 1; z < Config.VisibilityChunkDistance + 1; z++)
+            {
+                chunkPreGenerate.Add(new Vector3(_focusChunkPosition.x + x * Config.ChunkSize, 0f,
+                    _focusChunkPosition.z + z * Config.ChunkSize));
+            }
         _chunkPoints.Clear();
         for (int x = -Config.VisibilityChunkDistance; x < Config.VisibilityChunkDistance; x++)
             for (int z = -Config.VisibilityChunkDistance; z < Config.VisibilityChunkDistance; z++)
             {
-                _chunkPoints.Add(new Vector3(_focusChunkPosition.x + x * Config.ChunkSize, 0f,
-                    _focusChunkPosition.z + z * Config.ChunkSize));
+                var newP = new Vector3(_focusChunkPosition.x + x * Config.ChunkSize, 0f,
+                    _focusChunkPosition.z + z * Config.ChunkSize);
+
+                _chunkPoints.Add(newP);
+                chunkPreGenerate.Remove(newP);
             }
 
         List<WorldChunkView> chunkForDelete = new();
@@ -169,12 +181,6 @@ public class WorldViewer : MonoBehaviour
             _chunksView.Add(new WorldChunkView(point, _gameWorld, Create));
             var eips = GameProcess.Instance.GetEntitiesByChunk((int)point.x, (int)point.z);
 
-            if (eips.Count != Config.EntitiesInChunk)
-            {
-                Debug.Log($"ViewChunk(). Entities:{eips.Count()}");
-
-                GameProcess.Instance.GetEntitiesByChunk((int)point.x, (int)point.z);
-            }
             foreach (var eip in eips)
             {
                 var newEM = Instantiate(_entityMonobehPrefab);
@@ -183,9 +189,14 @@ public class WorldViewer : MonoBehaviour
             }
         }
 
-        _navMeshSurface.RemoveData();
+//        _navMeshSurface.RemoveData();
 
         _navMeshSurface.BuildNavMesh();
+
+        foreach (var c in chunkPreGenerate)
+        {
+            StartCoroutine(GameProcess.Instance.GameWorld.CheckAndGenChunk((int)(c.x / Config.ChunkSize), (int)(c.z / Config.ChunkSize)));
+        }
     }
 
     private BasePlaneWorld Create()
@@ -206,7 +217,7 @@ public class WorldChunkView
         ChunkPosition = position;
         viewTiles = new BasePlaneWorld[Config.ChunkTilesSize, Config.ChunkTilesSize];
         var worldParts = worldData.GetChunk((int)(position.x / Config.ChunkSize), (int)(position.z / Config.ChunkSize));
-        for (int x=0; x< Config.ChunkTilesSize; x++)
+        for (int x = 0; x < Config.ChunkTilesSize; x++)
             for (int z = 0; z < Config.ChunkTilesSize; z++)
             {
                 var bpw = creating.Invoke();

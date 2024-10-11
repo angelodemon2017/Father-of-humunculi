@@ -36,13 +36,6 @@ public class WorldConstructor
 
             var newEnt = new EntityResource(ed.Id < 3 ? 0 : 1, xEntPos, zEntPos);
 
-            if (chunkPos != newEnt.Position.GetChunkPos())
-            {
-                var posits = chunk.Select(c => new UnityEngine.Vector3Int(c.Xpos, 0, c.Zpos)).ToList();
-
-//                UnityEngine.Debug.Log($"chunk({x},{z}), chunkPos of newEnt ={newEnt.Position.GetChunkPos()}");
-            }
-
             result.Add(newEnt);
         }
 

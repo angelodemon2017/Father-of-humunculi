@@ -47,9 +47,7 @@ public class SSOController : MonoBehaviour, IStatesCharacter, IMovableCharacter
         _debugField = _currentState.DebugField;
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            var res = Vector3Int.RoundToInt(transform.position);
-            Debug.Log($"{transform.position}=(int){res}");
-            Debug.Log($"normal of zero vector:{transform.position.normalized}");
+
         }
     }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class GameProcess
 {
@@ -42,16 +41,11 @@ public class GameProcess
     public List<EntityInProcess> GetEntitiesByChunk(int x, int z)
     {
         var centerChunk = Config.ChunkSize / 2;
-        var swiftChunk = Config.ChunkTilesSize - Config.TileSize / 2;
-        //        Debug.Log($"AllEntities:{_entities.Count()}");
-        var xmin = x - centerChunk + swiftChunk;
-        var xmax = x + centerChunk + swiftChunk;
-        var zmin = z - centerChunk + swiftChunk;
-        var zmax = z + centerChunk + swiftChunk;
 
-        //        Vector3 chunkPos = new Vector3(x, 0f, z);
-        //        var testVectors = _entities.Select(e => e.Position.GetChunkPos()).ToList();
-        //        var result = _entities.Where(x => x.Position.GetChunkPos() == chunkPos).ToList();
+        var xmin = x - centerChunk;
+        var xmax = x + centerChunk;
+        var zmin = z - centerChunk;
+        var zmax = z + centerChunk;
 
         var result = _entities.Where(e => 
             e.Position.x >= xmin &&

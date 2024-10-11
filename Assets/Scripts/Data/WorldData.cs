@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 public class WorldData
@@ -33,14 +34,23 @@ public class WorldData
             }
     }
 
+    public IEnumerator CheckAndGenChunk(int x, int z)
+    {
+        if (!worldChunkDatas.Any(c => c.Xpos == x && c.Zpos == z))
+        {
+            GetChunk(x, z);
+        }
+        yield return null;
+    }
+
     public List<WorldTileData> GetChunk(int x, int z)
     {
         List<WorldTileData> result = new();
         for (var _x = 0; _x < Config.ChunkTilesSize; _x++)
             for (var _z = 0; _z < Config.ChunkTilesSize; _z++)
             {
-                var xpos = x * Config.ChunkTilesSize + _x;
-                var zpos = z * Config.ChunkTilesSize + _z;
+                var xpos = x * Config.ChunkTilesSize + _x - 1;//TODO 1 replace to function
+                var zpos = z * Config.ChunkTilesSize + _z - 1;
                 var tile = GetWorldTileData(xpos, zpos);
 
                 result.Add(tile);
