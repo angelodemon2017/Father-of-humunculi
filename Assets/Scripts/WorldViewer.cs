@@ -8,15 +8,18 @@ public class WorldViewer : MonoBehaviour
 {
     public static WorldViewer Instance;
 
+    public bool DebugMode;
     [SerializeField] private NavMeshSurface _navMeshSurface;
     [SerializeField] private BasePlaneWorld _basePlaneWorld;
+    [SerializeField] private EntityMonobeh _entityMonobehPrefab;
 
     [SerializeField] private List<TextureEntity> _textureEntities = new();
 
-    private List<WorldChunkView> _chunksView = new();
-    private Dictionary<(int, int), WorldTile> cashTiles = new();
+    [SerializeField] private List<WorldChunkView> _chunksView = new();
+    private Dictionary<(int, int), WorldTile> _cashTiles = new();
+    [SerializeField] private List<EntityMonobeh> _cashEntities = new();
 
-    private Vector3 _focusChunkPosition = Vector3.back;
+    private Vector3 _focusChunkPosition;
     private List<Vector3> _chunkPoints = new();
 
     public List<TextureEntity> Textures => _textureEntities;
@@ -25,6 +28,12 @@ public class WorldViewer : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        GameplayAdapter.Instance.Newgame();
+        CheckAndUpdateChunks();
     }
 
     private void OnDrawGizmos()
@@ -37,14 +46,14 @@ public class WorldViewer : MonoBehaviour
 
     public WorldTile GetWorldTile(int x, int z)
     {
-        if (cashTiles.TryGetValue((x, z), out WorldTile tile))
+        if (_cashTiles.TryGetValue((x, z), out WorldTile tile))
         {
             return tile;
         }
 
         var wtd = new WorldTile(_gameWorld.GetWorldTileData(x,z));
 
-        cashTiles.Add((x, z), wtd);
+        _cashTiles.Add((x, z), wtd);
 
         return wtd;
     }
@@ -56,12 +65,20 @@ public class WorldViewer : MonoBehaviour
 
     public void RegenerateWorld()
     {
-        GameProcess.Instance.NewGame(new WorldData());
+        _cashTiles.Clear();
         foreach (var c in _chunksView)
         {
             c.CleanChunk();
         }
         _chunksView.Clear();
+
+        foreach (var e in _cashEntities)
+        {
+            Destroy(e.gameObject);
+        }
+        _cashEntities.Clear();
+
+        GameProcess.Instance.NewGame(new WorldData());
         CheckAndUpdateChunks();
     }
 
@@ -86,7 +103,7 @@ public class WorldViewer : MonoBehaviour
 
     public void UpdateCenterUpdate(Vector3 newCenter)
     {
-        var newPos = (Vector3)Vector3Int.RoundToInt(newCenter / Config.ChunkSize) * Config.ChunkSize;
+        var newPos = newCenter.GetChunkPos();
 
         if (newPos != _focusChunkPosition)
         {
@@ -123,8 +140,16 @@ public class WorldViewer : MonoBehaviour
             }
         }
 
+        var cashOfCash = new List<EntityMonobeh>();
+        _cashEntities.ForEach(e => cashOfCash.Add(e));
         foreach (var chunk in chunkForDelete)
         {
+            var entsForDel = cashOfCash.Where(e => e.transform.position.GetChunkPos() == chunk.ChunkPosition).ToList();
+            foreach (var ent in entsForDel)
+            {
+                Destroy(ent.gameObject);
+                _cashEntities.Remove(ent);
+            }
             chunk.CleanChunk();
             _chunksView.Remove(chunk);
         }
@@ -137,7 +162,13 @@ public class WorldViewer : MonoBehaviour
         foreach (var point in _chunkPoints)
         {
             _chunksView.Add(new WorldChunkView(point, _gameWorld, Create));
-
+            var eips = GameProcess.Instance.GetEntitiesByChunk((int)point.x, (int)point.z);
+            foreach (var eip in eips)
+            {
+                var newEM = Instantiate(_entityMonobehPrefab);
+                newEM.Init(eip);
+                _cashEntities.Add(newEM);
+            }
         }
 
         _navMeshSurface.RemoveData();

@@ -13,6 +13,11 @@ public static class ListExtensions
     {
         var needIndex = swift % list.Count();
 
+        if (needIndex < 0 || needIndex > list.Count())
+        {
+            return list.GetRandom();
+        }
+
         return list.ElementAt(needIndex);
     }
 
@@ -23,5 +28,10 @@ public static class ListExtensions
         directs.ForEach(d => result |= d);
 
         return result;
+    }
+
+    public static T GetComponent<T>(this List<ComponentData> components) where T : class
+    {
+        return components.FirstOrDefault(x => x.KeyName == typeof(T).Name) as T;
     }
 }

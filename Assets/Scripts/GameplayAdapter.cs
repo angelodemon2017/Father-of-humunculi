@@ -1,14 +1,20 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameplayAdapter : MonoBehaviour
 {
+    public static GameplayAdapter Instance;
     private GameProcess gameProcess;
 
     private float GameTime = 0f;
 
+    public List<Vector3> ents = new();
+
     private void Awake()
     {
+        Instance = this;
         gameProcess = GameProcess.Instance;
+//        Newgame();
     }
 
     private void Update()
@@ -16,6 +22,12 @@ public class GameplayAdapter : MonoBehaviour
         if (gameProcess != null && GameTime != 0)
         {
             gameProcess.GameTime(Time.deltaTime * GameTime);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            ents.Clear();
+            gameProcess.Entities.ForEach(e => ents.Add(e.Position));
         }
     }
 

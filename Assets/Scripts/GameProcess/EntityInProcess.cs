@@ -5,6 +5,10 @@ public class EntityInProcess
     private EntityData _entityData;
     private List<ComponentInProcess<ComponentData>> _components = new();
 
+    public UnityEngine.Vector3 Position => _entityData.Position;
+    public long Id => _entityData.Id;
+    public string TestDebugProp => _entityData.DebugField;
+
     public EntityInProcess(EntityData entityData)
     {
         _entityData = entityData;

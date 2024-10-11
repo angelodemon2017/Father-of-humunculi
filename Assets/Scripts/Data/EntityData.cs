@@ -4,9 +4,27 @@ using System.Collections.Generic;
 public class EntityData
 {
     public long Id;
-    public List<ComponentData> Components;
+    public List<ComponentData> Components = new();
 
     private Action<long> _updater;
+
+    public string DebugField
+    {
+        get
+        {
+            var ent = this as EntityResource;
+            return $"{(ent.IdResource == 0 ? "камень" : "дерево")}";
+        }
+    }
+
+    public UnityEngine.Vector3 Position 
+    {
+        get
+        {
+            var comp = Components.GetComponent<ComponentPosition>();
+            return comp == null ? UnityEngine.Vector3.zero : comp.Position;
+        }
+    }
 
     public EntityData()
     {

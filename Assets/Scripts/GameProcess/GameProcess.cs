@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class GameProcess
 {
@@ -19,24 +21,40 @@ public class GameProcess
 
     private bool _gameLaunched = false;
     private WorldData _gameWorld;
-    private List<EntityInProcess> entities = new();
+    private List<EntityInProcess> _entities = new();
+    /// <summary>
+    /// key - by chunk
+    /// </summary>
+//    private Dictionary<(int,int),List<EntityInProcess>> _cashEntities = new();
 
     private TimeSpan _sessionTime = new();
     private TimeSpan _second = TimeSpan.FromSeconds(1);
     private float _seconder;
 
     public WorldData GameWorld => _gameWorld;
+    public List<EntityInProcess> Entities => _entities;
 
     public GameProcess()
     {
-        NewGame(new WorldData());
+//        NewGame(new WorldData());
+    }
+
+    public List<EntityInProcess> GetEntitiesByChunk(int x, int z)
+    {
+        //        var xmin = x - Config.ChunkSize / 2;
+        //        var xmax = x + Config.ChunkSize / 2;
+        Vector3 chunkPos = new Vector3(x, 0f, z);
+        return _entities.Where(x => x.Position.GetChunkPos() == chunkPos).ToList();
     }
 
     public void NewGame(WorldData worldData)
     {
         _gameLaunched = false;
-        entities.Clear();
-        _gameWorld = worldData;
+//        _cashEntities.Clear();
+        _entities.Clear();
+        _gameWorld = worldData; 
+        CheckEntities();
+
         StartGame();
     }
 
@@ -44,7 +62,7 @@ public class GameProcess
     public GameProcess(WorldData newWorld)
     {
         _gameWorld = newWorld;
-        _gameWorld.entityDatas.ForEach(e => entities.Add(new(e)));
+        _gameWorld.entityDatas.ForEach(e => _entities.Add(new(e)));
     }
 
     public void ConnectToHost()
@@ -69,15 +87,40 @@ public class GameProcess
 
     public void GameTime(float deltaTime)
     {
+        CheckEntities();
         _seconder += deltaTime;
         if (_seconder >= 1f)
         {
             _sessionTime.Add(_second);
             _seconder -= 1f;
-            foreach (var entIP in entities)
+            
+/*            foreach (var _cashEnt in _cashEntities) 
+            {
+                _cashEnt.Value.ForEach(e => e.DoSecond());
+            }/**/
+            foreach (var entIP in _entities)
             {
                 entIP.DoSecond();
+            }/**/
+        }
+    }
+
+    public void CheckEntities()
+    {
+        HashSet<long> idsForDel = new();
+        foreach (var newEnt in _gameWorld.needUpdates)
+        {
+            if (!_entities.Any(x => x.Id == newEnt))
+            {
+                var ed = _gameWorld.entityDatas.FirstOrDefault(x => x.Id == newEnt);
+                _entities.Add(new EntityInProcess(ed));
             }
+            idsForDel.Add(newEnt);
+        }
+
+        foreach (var id in idsForDel)
+        {
+            _gameWorld.RemoveUpdateId(id);
         }
     }
 }
