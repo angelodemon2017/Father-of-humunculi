@@ -42,6 +42,11 @@ public class WorldViewer : MonoBehaviour
         {
             Gizmos.DrawSphere(p.ChunkPosition, 1);
         }
+
+        var sizeGizmo = Vector3.one * Config.ChunkSize;
+        sizeGizmo.y = 1;
+
+        Gizmos.DrawCube(_focusChunkPosition, sizeGizmo);
     }
 
     public WorldTile GetWorldTile(int x, int z)
@@ -163,6 +168,13 @@ public class WorldViewer : MonoBehaviour
         {
             _chunksView.Add(new WorldChunkView(point, _gameWorld, Create));
             var eips = GameProcess.Instance.GetEntitiesByChunk((int)point.x, (int)point.z);
+
+            if (eips.Count != Config.EntitiesInChunk)
+            {
+                Debug.Log($"ViewChunk(). Entities:{eips.Count()}");
+
+                GameProcess.Instance.GetEntitiesByChunk((int)point.x, (int)point.z);
+            }
             foreach (var eip in eips)
             {
                 var newEM = Instantiate(_entityMonobehPrefab);

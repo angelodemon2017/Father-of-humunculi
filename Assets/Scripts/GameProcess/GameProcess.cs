@@ -41,10 +41,25 @@ public class GameProcess
 
     public List<EntityInProcess> GetEntitiesByChunk(int x, int z)
     {
-        //        var xmin = x - Config.ChunkSize / 2;
-        //        var xmax = x + Config.ChunkSize / 2;
-        Vector3 chunkPos = new Vector3(x, 0f, z);
-        return _entities.Where(x => x.Position.GetChunkPos() == chunkPos).ToList();
+        var centerChunk = Config.ChunkSize / 2;
+        var swiftChunk = Config.ChunkTilesSize - Config.TileSize / 2;
+        //        Debug.Log($"AllEntities:{_entities.Count()}");
+        var xmin = x - centerChunk + swiftChunk;
+        var xmax = x + centerChunk + swiftChunk;
+        var zmin = z - centerChunk + swiftChunk;
+        var zmax = z + centerChunk + swiftChunk;
+
+        //        Vector3 chunkPos = new Vector3(x, 0f, z);
+        //        var testVectors = _entities.Select(e => e.Position.GetChunkPos()).ToList();
+        //        var result = _entities.Where(x => x.Position.GetChunkPos() == chunkPos).ToList();
+
+        var result = _entities.Where(e => 
+            e.Position.x >= xmin &&
+            e.Position.x < xmax &&
+            e.Position.z >= zmin &&
+            e.Position.z < zmax).ToList();
+
+        return result;
     }
 
     public void NewGame(WorldData worldData)

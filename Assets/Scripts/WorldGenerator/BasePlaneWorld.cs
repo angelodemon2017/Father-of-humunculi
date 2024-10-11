@@ -31,7 +31,7 @@ public class BasePlaneWorld : MonoBehaviour
 
     private void DebugInfo()
     {
-        _testText.enabled = WorldViewer.Instance.DebugMode;
+        _testText.transform.parent.gameObject.SetActive(WorldViewer.Instance.DebugMode);
         _testText.text = WorldViewer.Instance.DebugMode ? $"{_worldPart.Xpos},{_worldPart.Zpos}" : string.Empty;
         DebugText = $"gripPos:{_worldPart.Xpos},{_worldPart.Zpos}";
     }

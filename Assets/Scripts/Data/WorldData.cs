@@ -50,6 +50,7 @@ public class WorldData
         {
             var newChunk = new WorldChunkData(x, z);
             var ents = WorldConstructor.GenerateEntitiesByChunk(x, z, result);
+
             foreach (var ent in ents)
             {
                 AddEntity(ent);
