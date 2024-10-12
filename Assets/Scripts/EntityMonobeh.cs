@@ -16,6 +16,9 @@ public class EntityMonobeh : MonoBehaviour
         _entityInProcess = entityInProcess;
         transform.position = _entityInProcess.Position;
         testPosition = _entityInProcess.Position;
+
+        entityInProcess.UpdateEIP += UpdateUI;
+
         UpdateUI();
 
         //this calc components...
@@ -35,6 +38,6 @@ public class EntityMonobeh : MonoBehaviour
 
     private void OnDestroy()
     {
-        
+        _entityInProcess.UpdateEIP -= UpdateUI;
     }
 }

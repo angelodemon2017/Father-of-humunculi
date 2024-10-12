@@ -10,6 +10,6 @@
 
     public virtual void DoSecond()
     {
-
+        _dataComponent.DoSecond();
     }
 }

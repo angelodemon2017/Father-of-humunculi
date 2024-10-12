@@ -8,12 +8,12 @@ public class EntityData
 
     private Action<long> _updater;
 
-    public string DebugField
+    public virtual string DebugField
     {
         get
         {
-            var ent = this as EntityResource;
-            return $"{(ent.IdResource == 0 ? "камень" : "дерево")}";
+            //            var ent = this as EntityResource;
+            return string.Empty;//$"{(ent.IdResource == 0 ? "камень" : "дерево")}";
         }
     }
 
@@ -36,7 +36,7 @@ public class EntityData
         _updater = updater;
     }
 
-    public void UpdateEntity()
+    internal void UpdateEntity()
     {
         _updater?.Invoke(Id);
     }
@@ -50,11 +50,20 @@ public class EntityStartSpawnPoint : EntityData
 public class EntityResource : EntityData
 {
     public int IdResource;
+    public int TestValue = 0;
+
+    public override string DebugField => $"{(IdResource == 0 ? "камень" : "дерево")}({TestValue})";
 
     public EntityResource(int idResource, float xpos, float zpos) : base()
     {
         IdResource = idResource;
         Components.Add(new ComponentPosition(xpos, zpos));
+        Components.Add(new ComponentCounter(50, UpperTestValue));
+    }
 
+    private void UpperTestValue()
+    {
+        TestValue++;
+        UpdateEntity();
     }
 }

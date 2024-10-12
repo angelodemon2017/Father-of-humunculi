@@ -119,11 +119,17 @@ public class GameProcess
         HashSet<long> idsForDel = new();
         foreach (var newEnt in _gameWorld.needUpdates)
         {
-            if (!_entities.Any(x => x.Id == newEnt))
+            var eip = _entities.FirstOrDefault(e => e.Id == newEnt);
+            if (eip == null)
             {
                 var ed = _gameWorld.entityDatas.FirstOrDefault(x => x.Id == newEnt);
                 _entities.Add(new EntityInProcess(ed));
             }
+            else
+            {
+                eip.UpdateEntity();
+            }
+            //TODO this send to network for clients
             idsForDel.Add(newEnt);
         }
 

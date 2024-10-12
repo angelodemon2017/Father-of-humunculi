@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 public class EntityInProcess
 {
@@ -8,6 +9,8 @@ public class EntityInProcess
     public UnityEngine.Vector3 Position => _entityData.Position;
     public long Id => _entityData.Id;
     public string TestDebugProp => _entityData.DebugField;
+
+    public Action UpdateEIP;
 
     public EntityInProcess(EntityData entityData)
     {
@@ -24,5 +27,10 @@ public class EntityInProcess
         {
             componentIP.DoSecond();
         }
+    }
+
+    public void UpdateEntity()
+    {
+        UpdateEIP?.Invoke();
     }
 }

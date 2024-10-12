@@ -4,6 +4,11 @@ public abstract class ComponentData
 {
     public string KeyName => GetType().Name;
     public Action changed;
+
+    public virtual void DoSecond()
+    {
+
+    }
 }
 
 public class ComponentPosition : ComponentData
@@ -39,4 +44,25 @@ public class ComponentContainerData
 {
     public string ComponentKey;
     public string ContainerContent;
+}
+
+public class ComponentCounter : ComponentData
+{
+    private int _chanceUpper = 50;
+    public bool ChanceUpper => UnityEngine.Random.Range(0, 100) < _chanceUpper;
+    private Action _callBack;
+
+    public ComponentCounter(int chanceCall, Action callBack)
+    {
+        _chanceUpper = chanceCall;
+        _callBack = callBack;
+    }
+
+    public override void DoSecond()
+    {
+        if (ChanceUpper)
+        {
+            _callBack?.Invoke();
+        }
+    }
 }
