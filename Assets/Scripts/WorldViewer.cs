@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Unity.AI.Navigation;
 using UnityEngine;
@@ -51,18 +52,15 @@ public class WorldViewer : MonoBehaviour
         Gizmos.DrawCube(_focusChunkPosition, sizeGizmo);
     }
 
-    public WorldTile GetWorldTile(int x, int z)
+    public WorldTile GetWorldTile(WorldTileData tileData)
     {
-        if (_cashTiles.TryGetValue((x, z), out WorldTile tile))
+        if (!_cashTiles.TryGetValue((tileData.Xpos, tileData.Zpos), out WorldTile tile))
         {
-            return tile;
+            tile = new WorldTile(tileData);
+            _cashTiles.Add((tileData.Xpos, tileData.Zpos), tile);
         }
 
-        var wtd = new WorldTile(_gameWorld.GetWorldTileData(x,z));
-
-        _cashTiles.Add((x, z), wtd);
-
-        return wtd;
+        return tile;
     }
 
     public TextureEntity GetTE(int id)
@@ -115,22 +113,25 @@ public class WorldViewer : MonoBehaviour
         if (newPos != _focusChunkPosition)
         {
             _focusChunkPosition = newPos;
+
             CheckAndUpdateChunks();
+
         }
     }
 
     private void CheckAndUpdateChunks()
     {
         List<Vector3> chunkPreGenerate = new();
-        for (int x = -Config.VisibilityChunkDistance - 1; x < Config.VisibilityChunkDistance + 1; x++)
-            for (int z = -Config.VisibilityChunkDistance - 1; z < Config.VisibilityChunkDistance + 1; z++)
+        int q = 5;
+        for (int x = -Config.VisibilityChunkDistance - q; x < Config.VisibilityChunkDistance + 1 + q; x++)
+            for (int z = -Config.VisibilityChunkDistance - q; z < Config.VisibilityChunkDistance + 1 + q; z++)
             {
                 chunkPreGenerate.Add(new Vector3(_focusChunkPosition.x + x * Config.ChunkSize, 0f,
                     _focusChunkPosition.z + z * Config.ChunkSize));
             }
         _chunkPoints.Clear();
-        for (int x = -Config.VisibilityChunkDistance; x < Config.VisibilityChunkDistance; x++)
-            for (int z = -Config.VisibilityChunkDistance; z < Config.VisibilityChunkDistance; z++)
+        for (int x = -Config.VisibilityChunkDistance + 1; x < Config.VisibilityChunkDistance; x++)
+            for (int z = -Config.VisibilityChunkDistance + 1; z < Config.VisibilityChunkDistance; z++)
             {
                 var newP = new Vector3(_focusChunkPosition.x + x * Config.ChunkSize, 0f,
                     _focusChunkPosition.z + z * Config.ChunkSize);
@@ -176,6 +177,10 @@ public class WorldViewer : MonoBehaviour
             _chunkPoints.Remove(point);
         }
 
+        Stopwatch stopwatch = new Stopwatch();
+        //        Stopwatch stopwatch2 = new Stopwatch();
+        //        stopwatch2.Start();
+        stopwatch.Start();
         foreach (var point in _chunkPoints)
         {
             _chunksView.Add(new WorldChunkView(point, _gameWorld, Create));
@@ -188,8 +193,12 @@ public class WorldViewer : MonoBehaviour
                 _cashEntities.Add(newEM);
             }
         }
+//        stopwatch2.Stop();
+        stopwatch.Stop();
+//        UnityEngine.Debug.Log("checkpoint2: " + stopwatch2.ElapsedMilliseconds + " ms");
+        UnityEngine.Debug.Log("MethodToMeasure took: " + stopwatch.ElapsedMilliseconds + " ms");
 
-//        _navMeshSurface.RemoveData();
+        //        _navMeshSurface.RemoveData();
 
         _navMeshSurface.BuildNavMesh();
 
@@ -210,31 +219,27 @@ public class WorldChunkView
 {
     public Vector3 ChunkPosition;
 
-    public BasePlaneWorld[,] viewTiles;
+    private List<BasePlaneWorld> _cashTiles = new();
 
     public WorldChunkView(Vector3 position, WorldData worldData, Func<BasePlaneWorld> creating)
     {
         ChunkPosition = position;
-        viewTiles = new BasePlaneWorld[Config.ChunkTilesSize, Config.ChunkTilesSize];
         var worldParts = worldData.GetChunk((int)(position.x / Config.ChunkSize), (int)(position.z / Config.ChunkSize));
-        for (int x = 0; x < Config.ChunkTilesSize; x++)
-            for (int z = 0; z < Config.ChunkTilesSize; z++)
-            {
-                var bpw = creating.Invoke();
-                var wt = WorldViewer.Instance.GetWorldTile(worldParts[x * Config.ChunkTilesSize + z].Xpos,
-                    worldParts[x * Config.ChunkTilesSize + z].Zpos);
-                var neigbors = worldData.GetNeigborsTiles(wt.Xpos, wt.Zpos).Select(t => WorldViewer.Instance.GetWorldTile(t.Xpos, t.Zpos)).ToList();
-                bpw.Init(wt, neigbors);
-                viewTiles[x, z] = bpw;
-            }
+
+        foreach (var wp in worldParts)
+        {
+            var bpw = creating.Invoke();
+            var wt = WorldViewer.Instance.GetWorldTile(wp);
+
+            var neigbors = worldData.GetNeigborsTiles(wt.Xpos, wt.Zpos).Select(t => WorldViewer.Instance.GetWorldTile(t)).ToList();
+            bpw.Init(wt, neigbors);
+            _cashTiles.Add(bpw);
+        }
     }
 
     public void CleanChunk()
     {
-        for (int x = 0; x < Config.ChunkTilesSize; x++)
-            for (int z = 0; z < Config.ChunkTilesSize; z++)
-            {
-                GameObject.Destroy(viewTiles[x, z].gameObject);
-            }
+        _cashTiles.ForEach(t => GameObject.Destroy(t.gameObject));
+        _cashTiles.Clear();
     }
 }

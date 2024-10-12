@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class WorldData
 {
@@ -11,6 +12,8 @@ public class WorldData
     public List<WorldChunkData> worldChunkDatas = new();//labels about loaded??
 
     public List<EntityData> entityDatas = new();
+
+    private Dictionary<(int, int), WorldTileData> _cashTiles = new();
 
     public long lastIds = 0;
     public long GetNewId () 
@@ -36,11 +39,11 @@ public class WorldData
 
     public IEnumerator CheckAndGenChunk(int x, int z)
     {
+        yield return new WaitForSeconds(0.1f);
         if (!worldChunkDatas.Any(c => c.Xpos == x && c.Zpos == z))
         {
             GetChunk(x, z);
         }
-        yield return null;
     }
 
     public List<WorldTileData> GetChunk(int x, int z)
@@ -51,6 +54,7 @@ public class WorldData
             {
                 var xpos = x * Config.ChunkTilesSize + _x - 1;//TODO 1 replace to function
                 var zpos = z * Config.ChunkTilesSize + _z - 1;
+
                 var tile = GetWorldTileData(xpos, zpos);
 
                 result.Add(tile);
@@ -112,11 +116,11 @@ public class WorldData
 
     public WorldTileData GetWorldTileData(int x ,int z)
     {
-        var tile = worldTileDatas.FirstOrDefault(t => t.Xpos == x && t.Zpos == z);
-        if (tile == null)
+        if (!_cashTiles.TryGetValue((x, z), out WorldTileData tile))
         {
             tile = WorldConstructor.GenerateTile(x, z);
             worldTileDatas.Add(tile);
+            _cashTiles.Add((x, z), tile);
         }
 
         return tile;
