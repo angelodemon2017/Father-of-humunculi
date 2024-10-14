@@ -92,7 +92,7 @@ public class WorldData
         return result;
     }
 
-    private void AddEntity(EntityData entityData)
+    public void AddEntity(EntityData entityData)
     {
         entityData.Id = GetNewId();
         entityData.SetUpdateAction(AddEntityForUpdate);

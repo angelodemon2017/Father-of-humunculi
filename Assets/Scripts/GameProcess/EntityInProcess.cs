@@ -29,6 +29,12 @@ public class EntityInProcess
         }
     }
 
+    public void Touch(int paramTouch = 0)
+    {
+        //some action with all entities
+        _entityData.Touch(paramTouch);
+    }
+
     public void UpdateEntity()
     {
         UpdateEIP?.Invoke();

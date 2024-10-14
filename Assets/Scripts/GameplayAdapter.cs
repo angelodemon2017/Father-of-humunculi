@@ -4,11 +4,13 @@ using UnityEngine;
 public class GameplayAdapter : MonoBehaviour
 {
     public static GameplayAdapter Instance;
-    private GameProcess gameProcess;
 
+    [SerializeField] private LayerMask _mask;
+    private RaycastHit hit;
+    private GameProcess gameProcess;
     private float GameTime = 0f;
 
-    public List<Vector3> ents = new();
+    private List<Vector3> ents = new();
 
     private void Awake()
     {
@@ -28,6 +30,28 @@ public class GameplayAdapter : MonoBehaviour
         {
             ents.Clear();
             gameProcess.Entities.ForEach(e => ents.Add(e.Position));
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, 100, _mask))
+            {
+                Debug.Log($"Click by{hit.transform.name}");
+                if (hit.transform.TryGetComponent(out BasePlaneWorld comp))
+                {
+                    comp.ChangeTextureRandom();
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                Debug.Log($"Check click by {hit.transform.name}");
+            }
         }
     }
 

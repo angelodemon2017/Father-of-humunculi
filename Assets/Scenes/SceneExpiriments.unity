@@ -672,7 +672,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48cab4eb243f4e94bb0891cf66fb0385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ents: []
+  _mask:
+    serializedVersion: 2
+    m_Bits: 136
 --- !u!114 &506193011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1749,11 +1751,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 29d26e298dd81924d8c4d6d96e4ba1a2, type: 2}
   - {fileID: 11400000, guid: 1eeb3f5ae519b5844b62d1746d27283a, type: 2}
   - {fileID: 11400000, guid: c2fcd3f61dafe1f4d8a99d6124131659, type: 2}
-  _chunksView: []
-  _cashEntities: []
-  _mask:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!1 &2052821898
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,7 +1860,7 @@ SphereCollider:
     m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 63
+    m_Bits: 55
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0

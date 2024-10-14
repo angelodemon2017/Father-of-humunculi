@@ -123,7 +123,9 @@ public class GameProcess
             if (eip == null)
             {
                 var ed = _gameWorld.entityDatas.FirstOrDefault(x => x.Id == newEnt);
-                _entities.Add(new EntityInProcess(ed));
+                var neweip = new EntityInProcess(ed);
+                _entities.Add(neweip);
+                WorldViewer.Instance.TryAddEntity(neweip);
             }
             else
             {

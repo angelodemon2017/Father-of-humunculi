@@ -6,16 +6,16 @@ public class EntityMonobeh : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _testText;
     [SerializeField] private Transform _model;
 
-    public Vector3 testPosition;
     private EntityInProcess _entityInProcess;
     private Transform _uicanvas;
+
+    public long Id => _entityInProcess.Id;
 
     public void Init(EntityInProcess entityInProcess)
     {
         _uicanvas = _testText.transform.parent;
         _entityInProcess = entityInProcess;
         transform.position = _entityInProcess.Position;
-        testPosition = _entityInProcess.Position;
 
         entityInProcess.UpdateEIP += UpdateUI;
 
@@ -24,9 +24,9 @@ public class EntityMonobeh : MonoBehaviour
         //this calc components...
     }
 
-    void Update()
+    public void Touching(int paramTouch = 0)
     {
-        
+        _entityInProcess.Touch(paramTouch);
     }
 
     private void UpdateUI()

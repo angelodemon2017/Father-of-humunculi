@@ -87,23 +87,9 @@ public class WorldViewer : MonoBehaviour
         CheckAndUpdateChunks();
     }
 
-    [SerializeField] private LayerMask _mask;
-    private RaycastHit hit;
-
     private void Update()
     {
         UpdateCenterUpdate(CameraController.Instance.FocusPosition);
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); 
-            if (Physics.Raycast(ray, out hit, 100, _mask))
-            {
-                if (hit.transform.TryGetComponent(out BasePlaneWorld comp))
-                {
-                    comp.ChangeTextureRandom();
-                }
-            }
-        }
     }
 
     public void UpdateCenterUpdate(Vector3 newCenter)
@@ -115,7 +101,6 @@ public class WorldViewer : MonoBehaviour
             _focusChunkPosition = newPos;
 
             CheckAndUpdateChunks();
-
         }
     }
 
@@ -177,10 +162,6 @@ public class WorldViewer : MonoBehaviour
             _chunkPoints.Remove(point);
         }
 
-        Stopwatch stopwatch = new Stopwatch();
-        //        Stopwatch stopwatch2 = new Stopwatch();
-        //        stopwatch2.Start();
-        stopwatch.Start();
         foreach (var point in _chunkPoints)
         {
             _chunksView.Add(new WorldChunkView(point, _gameWorld, Create));
@@ -188,17 +169,9 @@ public class WorldViewer : MonoBehaviour
 
             foreach (var eip in eips)
             {
-                var newEM = Instantiate(_entityMonobehPrefab);
-                newEM.Init(eip);
-                _cashEntities.Add(newEM);
+                TryAddEntity(eip);
             }
         }
-//        stopwatch2.Stop();
-        stopwatch.Stop();
-//        UnityEngine.Debug.Log("checkpoint2: " + stopwatch2.ElapsedMilliseconds + " ms");
-        UnityEngine.Debug.Log("MethodToMeasure took: " + stopwatch.ElapsedMilliseconds + " ms");
-
-        //        _navMeshSurface.RemoveData();
 
         _navMeshSurface.BuildNavMesh();
 
@@ -206,6 +179,23 @@ public class WorldViewer : MonoBehaviour
         {
             StartCoroutine(GameProcess.Instance.GameWorld.CheckAndGenChunk((int)(c.x / Config.ChunkSize), (int)(c.z / Config.ChunkSize)));
         }
+    }
+
+    public void TryAddEntity(EntityInProcess entityInProcess)
+    {
+        var viewDistance = Config.VisibilityChunkDistance * Config.ChunkSize - Config.ChunkSize / 2;
+        if (entityInProcess.Position.x < _focusChunkPosition.x - viewDistance ||
+            entityInProcess.Position.x > _focusChunkPosition.x + viewDistance ||
+            entityInProcess.Position.z < _focusChunkPosition.z - viewDistance ||
+            entityInProcess.Position.z > _focusChunkPosition.z + viewDistance ||
+            _cashEntities.Any(x => x.Id == entityInProcess.Id))
+        {
+            return;
+        }
+
+        var newEM = Instantiate(_entityMonobehPrefab);
+        newEM.Init(entityInProcess);
+        _cashEntities.Add(newEM);
     }
 
     private BasePlaneWorld Create()
