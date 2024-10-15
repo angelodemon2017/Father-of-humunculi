@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32accfa46258bf84d8e3b986016e5072, type: 3}
   m_Name: Prefabs By Component
   m_EditorClassIdentifier: 
-  _prefabs:
-  - {fileID: 2909178946457789409, guid: 90d514a4763afbb4fa1c758ff577703a, type: 3}
+  _prefabs: []

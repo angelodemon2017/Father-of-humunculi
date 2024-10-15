@@ -12,11 +12,24 @@ public class GameplayAdapter : MonoBehaviour
 
     private List<Vector3> ents = new();
 
+    public int TESTENTITYCOUNT;
+    public int TESTCOMPONENTS;
+
     private void Awake()
     {
+        PrefabsByComponent.isInit = false;
         Instance = this;
         gameProcess = GameProcess.Instance;
-//        Newgame();
+        //        Newgame();
+    }
+
+    public void TestCapacityENTS()
+    {
+        for (int a = 0; a < TESTENTITYCOUNT; a++)
+        {
+            EntityData ed = new EntityCapacity(TESTCOMPONENTS);
+            gameProcess.Entities.Add(new EntityInProcess(ed));
+        }
     }
 
     private void Update()
@@ -61,6 +74,7 @@ public class GameplayAdapter : MonoBehaviour
         gameProcess.NewGame(world);
 
         GameTime = 1f;
+        TestCapacityENTS();
     }
 
     public void ExitGame()

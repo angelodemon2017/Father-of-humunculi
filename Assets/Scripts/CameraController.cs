@@ -7,8 +7,10 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float _intensive;
     private Transform _currentTargetPoint;
     private Vector3 _diffVector;
+    private Quaternion _directParalCamera;
 
     public Vector3 FocusPosition => _targetPoint.position;
+    public Quaternion DirectParalCamera => _directParalCamera;
 
     private void Awake()
     {
@@ -16,6 +18,9 @@ public class CameraController : MonoBehaviour
 
         _diffVector = transform.position - _targetPoint.position;
         _currentTargetPoint = _targetPoint;
+
+        Vector3 direction = _currentTargetPoint.position - transform.position;
+        _directParalCamera = Quaternion.LookRotation(direction);
     }
 
     private void Update()

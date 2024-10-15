@@ -48,10 +48,13 @@ public class EntityStartSpawnPoint : EntityData
     }
 }
 
-public class EntityMiniMob : EntityData
+public class EntityCapacity : EntityData
 {
-    public EntityMiniMob(float xpos, float zpos) : base(xpos, zpos)
+    public EntityCapacity(int countComponents) : base()
     {
-
+        for (int b = 0; b < countComponents; b++)
+        {
+            Components.Add(new ComponentPlayerId());
+        }
     }
 }

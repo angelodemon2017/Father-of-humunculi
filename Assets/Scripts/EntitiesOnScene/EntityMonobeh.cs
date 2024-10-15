@@ -1,27 +1,20 @@
 using TMPro;
 using UnityEngine;
-using System.Linq;
 
 public class EntityMonobeh : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _testText;
-    [SerializeField] private Transform _model;
     [SerializeField] private PrefabsByComponent _prefabsByComponent;
 
     private EntityInProcess _entityInProcess;
-    private Transform _uicanvas;
 
     public long Id => _entityInProcess.Id;
 
     public void Init(EntityInProcess entityInProcess)
     {
-        _uicanvas = _testText.transform.parent;
         _entityInProcess = entityInProcess;
         transform.position = _entityInProcess.Position;
 
         entityInProcess.UpdateEIP += UpdateUI;
-
-        UpdateUI();
 
         InitComponents();
     }
@@ -34,9 +27,10 @@ public class EntityMonobeh : MonoBehaviour
             if (pbc != null)
             {
                 var newpbc = Instantiate(pbc, transform);
-                newpbc.Init(cd);
+                newpbc.Init(cd, _entityInProcess);
             }
         }
+        _entityInProcess.UpdateEntity();
     }
 
     public void Touching(int paramTouch = 0)
@@ -46,9 +40,7 @@ public class EntityMonobeh : MonoBehaviour
 
     private void UpdateUI()
     {
-        _testText.text = _entityInProcess.TestDebugProp;
-        _uicanvas.rotation = Camera.main.transform.rotation;
-        _model.rotation = Camera.main.transform.rotation;
+
     }
 
     private void OnDestroy()

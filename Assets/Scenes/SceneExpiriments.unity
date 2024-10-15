@@ -675,6 +675,8 @@ MonoBehaviour:
   _mask:
     serializedVersion: 2
     m_Bits: 136
+  TESTENTITYCOUNT: 100
+  TESTCOMPONENTS: 100
 --- !u!114 &506193011
 MonoBehaviour:
   m_ObjectHideFlags: 0

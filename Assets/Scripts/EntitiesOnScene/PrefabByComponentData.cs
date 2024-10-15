@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class PrefabByComponentData<T> : MonoBehaviour where T : ComponentData
+public class PrefabByComponentData : MonoBehaviour
 {
-    public virtual string KeyComponent => default(T).KeyName;
+    public virtual string KeyComponent => string.Empty;
 
-    public virtual void Init(T componentData)
+    public virtual void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {
 
     }

@@ -6,11 +6,27 @@ using System.Linq;
 [CreateAssetMenu(menuName = "PrefabsByComponent", order = 1)]
 public class PrefabsByComponent : ScriptableObject
 {
-    [SerializeField] private List<PrefabByComponentData<ComponentData>> _prefabs = new();
+    public static bool isInit = false;
+    private const string _pathPrefabs = "PrefabsByComponentsData";
+    [SerializeField] private List<PrefabByComponentData> _prefabs = new();
 
-    public PrefabByComponentData<ComponentData> GetPrefab(string keyCoponent)
+    public PrefabByComponentData GetPrefab(string keyComponent)
     {
-        PrefabByComponentData<ComponentData> result = _prefabs.FirstOrDefault(p => p.KeyComponent == keyCoponent);
+        var result = _prefabs.FirstOrDefault(p => p.KeyComponent == keyComponent);
+
+        if (!isInit)
+        {
+            _prefabs.Clear();
+            var allgos = Resources.LoadAll<PrefabByComponentData>(_pathPrefabs).ToList();
+            foreach (var ass in allgos)
+            {
+                _prefabs.Add(ass);
+            }
+
+            result = _prefabs.FirstOrDefault(p => p.KeyComponent == keyComponent);
+            Debug.Log($"Loaded {_prefabs.Count} PrefabByComponentData");
+            isInit = true;
+        }
 
         return result;
     }

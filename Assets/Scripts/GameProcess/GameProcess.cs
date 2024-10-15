@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 public class GameProcess
@@ -96,26 +97,36 @@ public class GameProcess
 
     public void GameTime(float deltaTime)
     {
+        //is host
         CheckEntities();
         _seconder += deltaTime;
         if (_seconder >= 1f)
         {
             _sessionTime.Add(_second);
             _seconder -= 1f;
-            
-/*            foreach (var _cashEnt in _cashEntities) 
-            {
-                _cashEnt.Value.ForEach(e => e.DoSecond());
-            }/**/
+
+            /*            foreach (var _cashEnt in _cashEntities) 
+                        {
+                            _cashEnt.Value.ForEach(e => e.DoSecond());
+                        }/**/
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             foreach (var entIP in _entities)
             {
                 entIP.DoSecond();
             }/**/
+            stopwatch.Stop();
+            if (WorldViewer.Instance.DebugMode)
+            {
+                UnityEngine.Debug.Log($"Entities: {_entities.Count()}, components: {GameplayAdapter.Instance.TESTCOMPONENTS}, total calls:{_entities.Count() * GameplayAdapter.Instance.TESTCOMPONENTS}");
+                UnityEngine.Debug.Log("Second update: " + stopwatch.ElapsedMilliseconds + " ms");
+            }
         }
     }
 
     public void CheckEntities()
     {
+        //is host
         HashSet<long> idsForDel = new();
         foreach (var newEnt in _gameWorld.needUpdates)
         {
@@ -125,7 +136,8 @@ public class GameProcess
                 var ed = _gameWorld.entityDatas.FirstOrDefault(x => x.Id == newEnt);
                 var neweip = new EntityInProcess(ed);
                 _entities.Add(neweip);
-                WorldViewer.Instance.TryAddEntity(neweip);
+                //is client
+                MessageAboutSpawnEntity(neweip);
             }
             else
             {
@@ -139,5 +151,10 @@ public class GameProcess
         {
             _gameWorld.RemoveUpdateId(id);
         }
+    }
+
+    private void MessageAboutSpawnEntity(EntityInProcess eip)
+    {//is host to client
+        WorldViewer.Instance.TryAddEntity(eip);
     }
 }

@@ -22,5 +22,5 @@ MonoBehaviour:
   MoveSpeed: 3.5
   _mask:
     serializedVersion: 2
-    m_Bits: 200
+    m_Bits: 136
   DistanceToTouch: 1

@@ -9,6 +9,9 @@
     {
         IdResource = idResource;
         Components.Add(new ComponentCounter(50, UpperTestValue));
+        Components.Add(new ComponentModelPrefab("PlaneBush"));
+        Components.Add(new ComponentInterractable());
+        Components.Add(new ComponentUIlabels());
     }
 
     private void UpperTestValue()

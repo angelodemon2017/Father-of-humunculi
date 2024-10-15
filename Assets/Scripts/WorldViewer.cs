@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Unity.AI.Navigation;
 using UnityEngine;
@@ -41,6 +40,11 @@ public class WorldViewer : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (!DebugMode)
+        {
+            return;
+        }
+
         foreach (var p in _chunksView)
         {
             Gizmos.DrawSphere(p.ChunkPosition, 1);

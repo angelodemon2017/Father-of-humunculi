@@ -4,7 +4,9 @@ using System.Collections.Generic;
 public class EntityInProcess
 {
     private EntityData _entityData;
-    private List<ComponentInProcess<ComponentData>> _components = new();
+//    private List<ComponentInProcess<ComponentData>> _components = new();
+//    private List<ComponentInProcess<ComponentData>> _updaterComponents = new();
+    private List<ISeconder> _updaterComponents = new();
 
     public UnityEngine.Vector3 Position => _entityData.Position;
     public long Id => _entityData.Id;
@@ -18,13 +20,14 @@ public class EntityInProcess
         _entityData = entityData;
         foreach (var cd in _entityData.Components)
         {
-            _components.Add(new ComponentInProcess<ComponentData>(cd));
+            if (cd is ISeconder cs)
+                _updaterComponents.Add(cs);
         }
     }
 
     public virtual void DoSecond()
     {
-        foreach (var componentIP in _components)
+        foreach (var componentIP in _updaterComponents)
         {
             componentIP.DoSecond();
         }

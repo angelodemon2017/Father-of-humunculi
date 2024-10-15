@@ -46,13 +46,13 @@ public class ComponentContainerData
     public string ContainerContent;
 }
 
-public class ComponentCounter : ComponentData
+public class ComponentCounter : ComponentData, ISeconder
 {
     private int _chanceUpper = 50;
     public bool ChanceUpper => UnityEngine.Random.Range(0, 100) < _chanceUpper;
     private Action _callBack;
 
-    public ComponentCounter(int chanceCall, Action callBack)
+    public ComponentCounter(int chanceCall = 50, Action callBack = null)
     {
         _chanceUpper = chanceCall;
         _callBack = callBack;
@@ -73,6 +73,16 @@ public class ComponentUIlabels : ComponentData
 }
 
 public class ComponentModelPrefab : ComponentData
+{
+    public string KeyModel;
+
+    public ComponentModelPrefab(string keyModel) : base()
+    {
+        KeyModel = keyModel;
+    }
+}
+
+public class ComponentInterractable : ComponentData
 {
 
 }
