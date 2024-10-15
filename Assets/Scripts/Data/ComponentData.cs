@@ -66,3 +66,13 @@ public class ComponentCounter : ComponentData
         }
     }
 }
+
+public class ComponentUIlabels : ComponentData
+{
+
+}
+
+public class ComponentModelPrefab : ComponentData
+{
+
+}

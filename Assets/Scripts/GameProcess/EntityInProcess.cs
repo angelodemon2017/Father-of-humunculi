@@ -9,6 +9,7 @@ public class EntityInProcess
     public UnityEngine.Vector3 Position => _entityData.Position;
     public long Id => _entityData.Id;
     public string TestDebugProp => _entityData.DebugField;
+    public EntityData EntityData => _entityData;
 
     public Action UpdateEIP;
 

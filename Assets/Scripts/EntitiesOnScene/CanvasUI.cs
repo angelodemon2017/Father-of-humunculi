@@ -1,4 +1,4 @@
-public class ModelOfEntity : PrefabByComponentData<ComponentModelPrefab>
+public class CanvasUI : PrefabByComponentData<ComponentUIlabels>
 {
     void Start()
     {

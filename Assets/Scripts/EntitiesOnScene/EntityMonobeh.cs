@@ -1,10 +1,12 @@
 using TMPro;
 using UnityEngine;
+using System.Linq;
 
 public class EntityMonobeh : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _testText;
     [SerializeField] private Transform _model;
+    [SerializeField] private PrefabsByComponent _prefabsByComponent;
 
     private EntityInProcess _entityInProcess;
     private Transform _uicanvas;
@@ -21,7 +23,20 @@ public class EntityMonobeh : MonoBehaviour
 
         UpdateUI();
 
-        //this calc components...
+        InitComponents();
+    }
+
+    private void InitComponents()
+    {
+        foreach (var cd in _entityInProcess.EntityData.Components)
+        {
+            var pbc = _prefabsByComponent.GetPrefab(cd.KeyName);
+            if (pbc != null)
+            {
+                var newpbc = Instantiate(pbc, transform);
+                newpbc.Init(cd);
+            }
+        }
     }
 
     public void Touching(int paramTouch = 0)
