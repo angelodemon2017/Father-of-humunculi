@@ -14,7 +14,7 @@ public class SpawnHumucleState : State
     {
         _timerCD = _timeCD;
         var hum = Instantiate(_humuncule);
-        Character.CreateObj(hum);
+        hum.transform.position = Character.GetTransform().position;
     }
 
     protected override void Run()

@@ -33,10 +33,14 @@ public class EntityInProcess
         }
     }
 
-    public void Touch(int paramTouch = 0)
+    public CommandData GetCommand(string parametr)
     {
-        //some action with all entities
-        _entityData.Touch(paramTouch);
+        return _entityData.GetCommand(parametr);
+    }
+
+    public void SendCommand(CommandData command)
+    {
+        _entityData.ApplyCommand(command);
     }
 
     public void UpdateEntity()

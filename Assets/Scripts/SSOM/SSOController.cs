@@ -90,11 +90,6 @@ public class SSOController : MonoBehaviour, IStatesCharacter, IMovableCharacter
         }
     }
 
-    public void GoToPoint(Vector3 target)
-    {
-        _navMeshAgent.SetDestination(target);
-    }
-
     private void AddProp(EnumProps prop)
     {
         if (_props.Any(x => x.Prop == prop))

@@ -8,12 +8,12 @@ public interface IStatesCharacter
 
     InteractableController GetStatusController();
 
-    void PlayAnimation(EnumAnimations animation);
+//    void PlayAnimation(EnumAnimations animation);
 
     void SetState(State state);
 
-    bool CheckProp(EnumProps prop);
+//    bool CheckProp(EnumProps prop);
 
-    void CreateObj(GameObject keepObj);
-    void InitAttackZone(GameObject attackZone);
+//    void CreateObj(GameObject keepObj);
+//    void InitAttackZone(GameObject attackZone);
 }

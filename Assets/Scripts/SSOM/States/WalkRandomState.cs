@@ -21,7 +21,7 @@ public class WalkRandomState : State
         _navMeshAgent = ((IMovableCharacter)Character).GetNavMeshAgent();
         _navMeshAgent.speed = _speed;
         _target = SearchNewRandomTarget(Character.GetTransform().position, _distanceRandomPoint);
-        ((IMovableCharacter)Character).GoToPoint(_target);
+        _navMeshAgent.SetDestination(_target);
     }
 
     private Vector3 SearchNewRandomTarget(Vector3 centerPoint, float radius)

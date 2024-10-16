@@ -12,6 +12,7 @@
         Components.Add(new ComponentModelPrefab("PlaneBush"));
         Components.Add(new ComponentInterractable());
         Components.Add(new ComponentUIlabels());
+        Components.Add(new ComponentCounter(10, SpawnMob));
     }
 
     private void UpperTestValue()
@@ -20,10 +21,25 @@
         UpdateEntity();
     }
 
-    public override void Touch(int paramTouch = 0)
+    public override void ApplyCommand(CommandData command)
     {
         TestValue = 0;
         UpdateEntity();
+        SpawnMob();
+    }
+
+    private void SpawnMob()
+    {
         GameProcess.Instance.GameWorld.AddEntity(new EntityMiniMob(Position.x, Position.z));
+    }
+
+    public override CommandData GetCommand(string parametr)
+    {
+        return TouchCommand();
+    }
+
+    public CommandData TouchCommand()
+    {
+        return new CommandData(Id);
     }
 }

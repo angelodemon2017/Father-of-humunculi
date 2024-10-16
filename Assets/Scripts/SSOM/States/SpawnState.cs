@@ -8,7 +8,7 @@ public class SpawnState : State
     protected override void Init()
     {
         var az = Instantiate(spawnObject);
-        Character.CreateObj(az);
+        az.transform.position = Character.GetTransform().position;
         IsFinished = true;
     }
 

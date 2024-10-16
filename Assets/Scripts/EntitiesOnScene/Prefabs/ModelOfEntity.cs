@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class ModelOfEntity : PrefabByComponentData
 {
-    private const string pathModels = "EntityModels";
-
-    public Transform _model;
+    private Transform _model;
     private ComponentModelPrefab _componentUIlabels;
     private EntityInProcess _entityInProcess;
 
@@ -20,16 +18,11 @@ public class ModelOfEntity : PrefabByComponentData
         InitModel();
     }
 
-    private void UpdateModel()
-    {
-        _model.localRotation = CameraController.Instance.DirectParalCamera;
-    }
-
     private void InitModel()
     {
         transform.DestroyChildrens();
 
-        var go = Resources.Load<GameObject>($"{pathModels}/{_componentUIlabels.KeyModel}");
+        var go = Resources.Load<GameObject>($"{Config.PathEntityModels}/{_componentUIlabels.KeyModel}");
 
         if (go == null)
         {
@@ -37,6 +30,13 @@ public class ModelOfEntity : PrefabByComponentData
         }
 
         _model = Instantiate(go, transform.position + go.transform.position, CameraController.Instance.DirectParalCamera, transform).transform;
+
+        UpdateModel();
+    }
+
+    private void UpdateModel()
+    {
+        _model.localRotation = CameraController.Instance.DirectParalCamera;
     }
 
     private void OnDestroy()

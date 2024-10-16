@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 public class EntityMonobeh : MonoBehaviour
@@ -15,7 +14,6 @@ public class EntityMonobeh : MonoBehaviour
         transform.position = _entityInProcess.Position;
 
         entityInProcess.UpdateEIP += UpdateUI;
-
         InitComponents();
     }
 
@@ -29,13 +27,14 @@ public class EntityMonobeh : MonoBehaviour
                 var newpbc = Instantiate(pbc, transform);
                 newpbc.Init(cd, _entityInProcess);
             }
+            cd.Init(transform);
         }
         _entityInProcess.UpdateEntity();
     }
 
-    public void Touching(int paramTouch = 0)
+    public void Touching(string paramTouch = "")
     {
-        _entityInProcess.Touch(paramTouch);
+        _entityInProcess.SendCommand(_entityInProcess.GetCommand(paramTouch));
     }
 
     private void UpdateUI()

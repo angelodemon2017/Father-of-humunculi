@@ -7,7 +7,6 @@ using System.Linq;
 public class PrefabsByComponent : ScriptableObject
 {
     public static bool isInit = false;
-    private const string _pathPrefabs = "PrefabsByComponentsData";
     [SerializeField] private List<PrefabByComponentData> _prefabs = new();
 
     public PrefabByComponentData GetPrefab(string keyComponent)
@@ -17,7 +16,7 @@ public class PrefabsByComponent : ScriptableObject
         if (!isInit)
         {
             _prefabs.Clear();
-            var allgos = Resources.LoadAll<PrefabByComponentData>(_pathPrefabs).ToList();
+            var allgos = Resources.LoadAll<PrefabByComponentData>(Config.PathPrefabsByComponents).ToList();
             foreach (var ass in allgos)
             {
                 _prefabs.Add(ass);

@@ -14,7 +14,7 @@ public abstract class State : ScriptableObject
     {
         IsFinished = false;
         Character = character;
-        Character.PlayAnimation(Animation);
+//        Character.PlayAnimation(Animation);
         Init();
     }
 

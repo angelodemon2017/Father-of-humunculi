@@ -34,9 +34,14 @@ public class EntityData
         _updater?.Invoke(Id);
     }
 
-    public virtual void Touch(int paramTouch = 0)
+    public virtual CommandData GetCommand(string parametr)
     {
-        
+        return new CommandData(Id);
+    }
+
+    public virtual void ApplyCommand(CommandData command)
+    {
+
     }
 }
 
