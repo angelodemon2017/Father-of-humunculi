@@ -1,4 +1,6 @@
-﻿public class ComponentPosition : ComponentData
+﻿using UnityEngine;
+
+public class ComponentPosition : ComponentData
 {
     public float Xpos;
     public float Zpos;
@@ -9,5 +11,22 @@
     {
         Xpos = xpos;
         Zpos = zpos;
+    }
+
+    public void UpdateByCommand(string argument)
+    {
+        var coords = argument.Split(',');
+        Xpos = float.Parse(coords[0]);
+        Zpos = float.Parse(coords[1]);
+    }
+
+    public static CommandData CommandUpdate(Vector3 position)
+    {
+        return new CommandData(-1, typeof(ComponentPosition).Name, $"{position.x},{position.z}");
+    }
+
+    public static string CommandArgumentUpdate(Vector3 position)
+    {
+        return $"{position.x},{position.z}";
     }
 }

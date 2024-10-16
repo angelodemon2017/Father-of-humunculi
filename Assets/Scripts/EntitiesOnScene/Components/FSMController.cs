@@ -3,10 +3,13 @@ using UnityEngine.AI;
 
 public class FSMController : MonoBehaviour, IStatesCharacter, IMovableCharacter
 {
+    public EntityMonobeh _entityMonobeh;
+
     private State _currentState;
 
     private NavMeshAgent _navMeshAgent;
     private Transform _transform;
+    private Vector3 _lastPosition;
 
     public bool IsFinishedCurrentState() => _currentState.IsFinished;
     public Transform GetTransform() => _transform;
@@ -18,11 +21,18 @@ public class FSMController : MonoBehaviour, IStatesCharacter, IMovableCharacter
         _navMeshAgent = (NavMeshAgent)_transform.gameObject.AddComponent(typeof(NavMeshAgent));
         _navMeshAgent.angularSpeed = 0f;
         SetState(initState);
+        _entityMonobeh = transform.GetComponent<EntityMonobeh>();
     }
 
     private void Update()
     {
         _currentState?.RunState();
+
+        if (_lastPosition != _transform.position)
+        {
+            _lastPosition = _transform.position;
+            _entityMonobeh.UpdatePosition(ComponentPosition.CommandUpdate(_lastPosition));
+        }
     }
 
     public void SetState(State state)

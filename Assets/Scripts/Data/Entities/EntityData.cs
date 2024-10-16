@@ -36,12 +36,16 @@ public class EntityData
 
     public virtual CommandData GetCommand(string parametr)
     {
-        return new CommandData(Id);
+        return new CommandData(Id, "");
     }
 
     public virtual void ApplyCommand(CommandData command)
     {
-
+        if (command.Component == typeof(ComponentPosition).Name)
+        {
+            var comp = Components.GetComponent<ComponentPosition>();
+            comp.UpdateByCommand(command.Message);
+        }
     }
 }
 

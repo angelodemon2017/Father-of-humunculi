@@ -32,11 +32,6 @@ public class EntityMonobeh : MonoBehaviour
         _entityInProcess.UpdateEntity();
     }
 
-    public void Touching(string paramTouch = "")
-    {
-        _entityInProcess.SendCommand(_entityInProcess.GetCommand(paramTouch));
-    }
-
     private void UpdateUI()
     {
 
@@ -45,5 +40,17 @@ public class EntityMonobeh : MonoBehaviour
     private void OnDestroy()
     {
         _entityInProcess.UpdateEIP -= UpdateUI;
+    }
+
+//TODO NEED THINKING
+    public void UpdatePosition(CommandData comand)
+    {
+        comand.IdEntity = Id;
+        _entityInProcess.SendCommand(comand);
+    }
+
+    public void Touching(string paramTouch = "")
+    {
+        _entityInProcess.SendCommand(_entityInProcess.GetCommand(paramTouch));
     }
 }

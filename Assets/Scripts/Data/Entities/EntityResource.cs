@@ -12,7 +12,7 @@
         Components.Add(new ComponentModelPrefab("PlaneBush"));
         Components.Add(new ComponentInterractable());
         Components.Add(new ComponentUIlabels());
-        Components.Add(new ComponentCounter(10, SpawnMob));
+//        Components.Add(new ComponentCounter(10, SpawnMob));
     }
 
     private void UpperTestValue()
@@ -23,9 +23,16 @@
 
     public override void ApplyCommand(CommandData command)
     {
-        TestValue = 0;
-        UpdateEntity();
-        SpawnMob();
+        if (command.Component == "")
+        {
+            TestValue = 0;
+            UpdateEntity();
+            SpawnMob();
+        }
+        else
+        {
+            base.ApplyCommand(command);
+        }
     }
 
     private void SpawnMob()
@@ -40,6 +47,6 @@
 
     public CommandData TouchCommand()
     {
-        return new CommandData(Id);
+        return new CommandData(Id, "");
     }
 }
