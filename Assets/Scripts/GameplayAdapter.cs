@@ -39,6 +39,8 @@ public class GameplayAdapter : MonoBehaviour
             gameProcess.GameTime(Time.deltaTime * GameTime);
         }
 
+        MouseWatcher();
+
         if (Input.GetKeyDown(KeyCode.Z))
         {
             ents.Clear();
@@ -64,6 +66,18 @@ public class GameplayAdapter : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100))
             {
                 Debug.Log($"Check click by {hit.transform.name}");
+            }
+        }
+    }
+
+    private void MouseWatcher()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, 100, _mask))
+        {//TODO maybe create component for only typs...
+            if (hit.transform.TryGetComponent(out MouseInterfaceInteraction mii))
+            {
+                mii.ShowTip();
             }
         }
     }

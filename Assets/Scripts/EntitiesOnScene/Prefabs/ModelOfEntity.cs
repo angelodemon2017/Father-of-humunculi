@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class ModelOfEntity : PrefabByComponentData
 {
+    private ModelController _modelController;
     private Transform _model;
-    private ComponentModelPrefab _componentUIlabels;
+    private ComponentModelPrefab _componentModelPrefab;
     private EntityInProcess _entityInProcess;
 
     public override string KeyComponent => typeof(ComponentModelPrefab).Name;
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {
-        _componentUIlabels = (ComponentModelPrefab)componentData;
+        _componentModelPrefab = (ComponentModelPrefab)componentData;
 
         _entityInProcess = entityInProcess;
         _entityInProcess.UpdateEIP += UpdateModel;
@@ -22,7 +23,7 @@ public class ModelOfEntity : PrefabByComponentData
     {
         transform.DestroyChildrens();
 
-        var go = Resources.Load<GameObject>($"{Config.PathEntityModels}/{_componentUIlabels.KeyModel}");
+        var go = Resources.Load<GameObject>($"{Config.PathEntityModels}/{_componentModelPrefab.KeyModel}");
 
         if (go == null)
         {
@@ -30,6 +31,7 @@ public class ModelOfEntity : PrefabByComponentData
         }
 
         _model = Instantiate(go, transform.position + go.transform.position, CameraController.Instance.DirectParalCamera, transform).transform;
+        _modelController = _model.GetComponent<ModelController>();
 
         UpdateModel();
     }
@@ -37,6 +39,8 @@ public class ModelOfEntity : PrefabByComponentData
     private void UpdateModel()
     {
         _model.localRotation = CameraController.Instance.DirectParalCamera;
+
+        _modelController?.SomeCheck(_componentModelPrefab.CurrentParamOfModel);
     }
 
     private void OnDestroy()

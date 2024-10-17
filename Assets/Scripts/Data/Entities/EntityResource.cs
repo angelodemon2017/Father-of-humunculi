@@ -10,7 +10,7 @@
         IdResource = idResource;
         Components.Add(new ComponentCounter(50, UpperTestValue));
         Components.Add(new ComponentModelPrefab("PlaneBush"));
-        Components.Add(new ComponentInterractable());
+        Components.Add(new ComponentInterractable("*click*"));
         Components.Add(new ComponentUIlabels());
 //        Components.Add(new ComponentCounter(10, SpawnMob));
     }
@@ -18,6 +18,8 @@
     private void UpperTestValue()
     {
         TestValue++;
+        var com = Components.GetComponent<ComponentModelPrefab>();
+        com.CurrentParamOfModel = TestValue;
         UpdateEntity();
     }
 
@@ -26,13 +28,13 @@
         if (command.Component == "")
         {
             TestValue = 0;
+            var com = Components.GetComponent<ComponentModelPrefab>();
+            com.CurrentParamOfModel = TestValue;
             UpdateEntity();
             SpawnMob();
         }
-        else
-        {
-            base.ApplyCommand(command);
-        }
+
+        base.ApplyCommand(command);
     }
 
     private void SpawnMob()
