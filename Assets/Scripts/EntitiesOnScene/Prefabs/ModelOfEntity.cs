@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ModelOfEntity : PrefabByComponentData
 {
+    [SerializeField] private GameObject _shadow;
+
     private ModelController _modelController;
     private Transform _model;
     private ComponentModelPrefab _componentModelPrefab;
@@ -32,6 +34,8 @@ public class ModelOfEntity : PrefabByComponentData
 
         _model = Instantiate(go, transform.position + go.transform.position, CameraController.Instance.DirectParalCamera, transform).transform;
         _modelController = _model.GetComponent<ModelController>();
+
+        Instantiate(_shadow, transform.position + Vector3.up * 0.01f, Quaternion.identity, transform);
 
         UpdateModel();
     }
