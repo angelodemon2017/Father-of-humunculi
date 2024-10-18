@@ -35,6 +35,7 @@ public class WorldData
             {
                 GetChunk(x, z);
             }
+        AddEntity(new EntityPlayer(0f, 0f));
     }
 
     public IEnumerator CheckAndGenChunk(int x, int z)

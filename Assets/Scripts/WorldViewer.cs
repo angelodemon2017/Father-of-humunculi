@@ -12,6 +12,7 @@ public class WorldViewer : MonoBehaviour
     [SerializeField] private NavMeshSurface _navMeshSurface;
     [SerializeField] private BasePlaneWorld _basePlaneWorld;
     [SerializeField] private EntityMonobeh _entityMonobehPrefab;
+    [SerializeField] private Transform _entityParent;
 
     [SerializeField] private List<TextureEntity> _textureEntities = new();
 
@@ -197,7 +198,7 @@ public class WorldViewer : MonoBehaviour
             return;
         }
 
-        var newEM = Instantiate(_entityMonobehPrefab);
+        var newEM = Instantiate(_entityMonobehPrefab, _entityParent);
         newEM.Init(entityInProcess);
         _cashEntities.Add(newEM);
     }

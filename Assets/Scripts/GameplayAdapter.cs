@@ -12,6 +12,7 @@ public class GameplayAdapter : MonoBehaviour
 
     private List<Vector3> ents = new();
 
+    public bool ENABLECAPACITYTEST;
     public int TESTENTITYCOUNT;
     public int TESTCOMPONENTS;
 
@@ -20,11 +21,12 @@ public class GameplayAdapter : MonoBehaviour
         PrefabsByComponent.isInit = false;
         Instance = this;
         gameProcess = GameProcess.Instance;
-        //        Newgame();
     }
 
     public void TestCapacityENTS()
     {
+        if (!ENABLECAPACITYTEST)
+            return;
         for (int a = 0; a < TESTENTITYCOUNT; a++)
         {
             EntityData ed = new EntityCapacity(TESTCOMPONENTS);

@@ -21,6 +21,7 @@ public class MouseControlState : State
 
         _navMeshAgent = ((IMovableCharacter)Character).GetNavMeshAgent();
         _navMeshAgent.SetDestination(_target);
+        _navMeshAgent.speed = MoveSpeed;
     }
 
     protected override void Run()

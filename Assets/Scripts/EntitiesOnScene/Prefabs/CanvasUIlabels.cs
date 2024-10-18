@@ -16,6 +16,9 @@ public class CanvasUIlabels : PrefabByComponentData
         _uicanvas = _testText.transform.parent;
         _componentUIlabels = (ComponentUIlabels)componentData;
         _entityInProcess = entityInProcess;
+        _testText.color = _componentUIlabels.TextColor;
+        _testText.transform.parent.position += Vector3.up * _componentUIlabels.High - Vector3.up;
+            ;
 
         _entityInProcess.UpdateEIP += UpdateEntity;
         _uicanvas.rotation = Camera.main.transform.rotation;

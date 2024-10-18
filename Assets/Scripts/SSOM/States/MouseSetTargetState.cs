@@ -36,7 +36,8 @@ public class MouseSetTargetState : State
         {
             if (_targetEM != null)
             {
-                _targetEM.Touching();
+                var myEM = Character.GetTransform().GetComponent<EntityMonobeh>();
+                _targetEM.SendCommand(ComponentInterractable.GetTouch($"{myEM.Id}"));
 //                Character.SetState(_touchTargetState);
             }
             IsFinished = true;

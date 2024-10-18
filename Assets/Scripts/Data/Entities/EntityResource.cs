@@ -1,4 +1,8 @@
-﻿public class EntityResource : EntityData
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+public class EntityResource : EntityData
 {
     public int IdResource;
     public int TestValue = 0;
@@ -8,11 +12,14 @@
     public EntityResource(int idResource, float xpos, float zpos) : base(xpos, zpos)
     {
         IdResource = idResource;
-        Components.Add(new ComponentCounter(50, UpperTestValue));
-        Components.Add(new ComponentModelPrefab("PlaneBush"));
-        Components.Add(new ComponentInterractable("*click*"));
-        Components.Add(new ComponentUIlabels());
-//        Components.Add(new ComponentCounter(10, SpawnMob));
+
+        Components.AddRange(new List<ComponentData>()
+        {
+            new ComponentCounter(50, UpperTestValue),
+            new ComponentModelPrefab("PlaneBush"),
+            new ComponentInterractable("*click*"),
+            new ComponentUIlabels(Color.white)
+        });
     }
 
     private void UpperTestValue()
@@ -25,8 +32,12 @@
 
     public override void ApplyCommand(CommandData command)
     {
-        if (command.Component == "")
+        if (command.Component == typeof(ComponentInterractable).Name)
         {
+            var ent = worldData.entityDatas.FirstOrDefault(e => $"{e.Id}" == command.Message);
+            var inv = ent.Components.GetComponent<ComponentInventory>();
+            inv.AddSource(TestValue);
+            ent.UpdateEntity();
             TestValue = 0;
             var com = Components.GetComponent<ComponentModelPrefab>();
             com.CurrentParamOfModel = TestValue;
@@ -42,13 +53,13 @@
         GameProcess.Instance.GameWorld.AddEntity(new EntityMiniMob(Position.x, Position.z));
     }
 
-    public override CommandData GetCommand(string parametr)
+/*    public override CommandData GetCommand(string parametr)
     {
-        return TouchCommand();
-    }
+        return TouchCommand(parametr);
+    }/**/
 
-    public CommandData TouchCommand()
+    public CommandData TouchCommand(string parametr)
     {
-        return new CommandData(Id, "");
+        return new CommandData(Id, "", parametr);
     }
 }

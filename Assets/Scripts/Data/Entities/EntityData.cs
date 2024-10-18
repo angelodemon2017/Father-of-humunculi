@@ -8,6 +8,7 @@ public class EntityData
 
     private Action<long> _updater;
 
+    internal WorldData worldData => GameProcess.Instance.GameWorld;
     public virtual string DebugField => string.Empty;
 
     public UnityEngine.Vector3 Position 
@@ -34,10 +35,10 @@ public class EntityData
         _updater?.Invoke(Id);
     }
 
-    public virtual CommandData GetCommand(string parametr)
+/*    public virtual CommandData GetCommand(string parametr)
     {
         return new CommandData(Id, "");
-    }
+    }/**/
 
     public virtual void ApplyCommand(CommandData command)
     {
@@ -63,7 +64,7 @@ public class EntityCapacity : EntityData
     {
         for (int b = 0; b < countComponents; b++)
         {
-            Components.Add(new ComponentPlayerId());
+            Components.Add(new ComponentCounter(100));
         }
     }
 }

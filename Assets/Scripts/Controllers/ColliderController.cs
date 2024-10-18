@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// TODO REMOVE WAS TEST CLASS
+/// </summary>
 public class ColliderController : MonoBehaviour
 {
     public Action<EnumProps> ColliderAction;

@@ -42,15 +42,9 @@ public class EntityMonobeh : MonoBehaviour
         _entityInProcess.UpdateEIP -= UpdateUI;
     }
 
-//TODO NEED THINKING
-    public void UpdatePosition(CommandData comand)
+    public void SendCommand(CommandData comand)
     {
         comand.IdEntity = Id;
         _entityInProcess.SendCommand(comand);
-    }
-
-    public void Touching(string paramTouch = "")
-    {
-        _entityInProcess.SendCommand(_entityInProcess.GetCommand(paramTouch));
     }
 }

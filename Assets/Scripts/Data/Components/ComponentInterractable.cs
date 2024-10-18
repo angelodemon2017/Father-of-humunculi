@@ -6,4 +6,9 @@
     {
         TipKey = tip;
     }
+
+    public static CommandData GetTouch(string idWhoTouched)
+    {
+        return new CommandData(-1, typeof(ComponentInterractable).Name, idWhoTouched);
+    }
 }

@@ -4,6 +4,9 @@ using UnityEngine.AI;
 using System.Linq;
 using TMPro;
 
+/// <summary>
+/// TODO REMOVE WAS TEST CLASS
+/// </summary>
 public class SSOController : MonoBehaviour, IStatesCharacter, IMovableCharacter
 {
     [SerializeField] private TextMeshProUGUI _testText;

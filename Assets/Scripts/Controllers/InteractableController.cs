@@ -3,6 +3,9 @@ using UnityEngine;
 using System.Linq;
 using System;
 
+/// <summary>
+/// TODO REMOVE WAS TEST CLASS
+/// </summary>
 public class InteractableController : MonoBehaviour
 {
     [SerializeField] private EnumFraction _fraction;

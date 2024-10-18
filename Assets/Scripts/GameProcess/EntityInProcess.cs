@@ -33,10 +33,10 @@ public class EntityInProcess
         }
     }
 
-    public CommandData GetCommand(string parametr)
+/*    public CommandData GetCommand(string parametr)
     {
         return _entityData.GetCommand(parametr);
-    }
+    }/**/
 
     public void SendCommand(CommandData command)
     {

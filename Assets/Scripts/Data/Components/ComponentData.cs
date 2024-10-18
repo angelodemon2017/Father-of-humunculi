@@ -13,8 +13,3 @@ public abstract class ComponentData
 
     }
 }
-
-public class ComponentPlayerId : ComponentData
-{
-    public string PlayerName;
-}
