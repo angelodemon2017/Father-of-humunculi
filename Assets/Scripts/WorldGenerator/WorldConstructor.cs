@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public class WorldConstructor
@@ -13,21 +14,9 @@ public class WorldConstructor
     {
         List<EntityData> result = new();
         List<WorldTileData> tempPoint = chunk.Where(t => t.Id > 0).ToList();
-        var pointForGen = new List<WorldTileData>();
+        var pointForGen = GetRandomTiles(tempPoint, tempPoint.Count > Config.EntitiesInChunk ? Config.EntitiesInChunk : tempPoint.Count);
 
-        int countGens = tempPoint.Count > Config.EntitiesInChunk ? Config.EntitiesInChunk : tempPoint.Count;
-        for (int p = 0; p < countGens; p++)
-        {
-            if (tempPoint.Count == 0)
-            {
-                break;
-            }
-            var tp = tempPoint.GetRandom();
-            pointForGen.Add(tp);
-            tempPoint.Remove(tp);
-        }
-
-        var chunkPos = new UnityEngine.Vector3(x * Config.ChunkSize, 0, z * Config.ChunkSize);
+        //        var chunkPos = new UnityEngine.Vector3(x * Config.ChunkSize, 0, z * Config.ChunkSize);
 
         foreach (var ed in pointForGen)
         {
@@ -39,6 +28,36 @@ public class WorldConstructor
             result.Add(newEnt);
         }
 
+        pointForGen = GetRandomTiles(tempPoint, 1);
+
+        foreach (var ed in pointForGen)
+        {
+            var xEntPos = ed.Xpos * Config.TileSize;
+            var zEntPos = ed.Zpos * Config.TileSize;
+
+            var newEnt = new EntityItem((EnumItem)UnityEngine.Random.Range(1,3), xEntPos, zEntPos);
+
+            result.Add(newEnt);
+        }
+
         return result;
+    }
+
+    private static List<WorldTileData> GetRandomTiles(List<WorldTileData> tempPoint, int count)
+    {
+        var pointForGen = new List<WorldTileData>();
+
+        for (int p = 0; p < count; p++)
+        {
+            if (tempPoint.Count == 0)
+            {
+                break;
+            }
+            var tp = tempPoint.GetRandom();
+            pointForGen.Add(tp);
+            tempPoint.Remove(tp);
+        }
+
+        return pointForGen;
     }
 }

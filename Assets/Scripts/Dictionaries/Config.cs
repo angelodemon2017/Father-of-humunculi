@@ -8,6 +8,7 @@
     public static string PathEntityModels = "EntityModels";
     public static string PathPrefabsByComponents = "PrefabsByComponentsData";
     public static string PathInitStates = "InitStates";
+    public static string PathItems = "Items";
 
     public static float ChunkSize => TileSize * ChunkTilesSize;
 }

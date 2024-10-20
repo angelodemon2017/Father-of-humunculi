@@ -7,6 +7,7 @@ public class GameplayAdapter : MonoBehaviour
 
     [SerializeField] private LayerMask _mask;
     private RaycastHit hit;
+    //[SerializeField] 
     private GameProcess gameProcess;
     private float GameTime = 0f;
 

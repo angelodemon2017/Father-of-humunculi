@@ -155,8 +155,7 @@ public class WorldViewer : MonoBehaviour
             var entsForDel = cashOfCash.Where(e => e.transform.position.GetChunkPos() == chunk.ChunkPosition).ToList();
             foreach (var ent in entsForDel)
             {
-                Destroy(ent.gameObject);
-                _cashEntities.Remove(ent);
+                RemoveEntity(ent);
             }
             chunk.CleanChunk();
             _chunksView.Remove(chunk);
@@ -184,6 +183,12 @@ public class WorldViewer : MonoBehaviour
         {
             StartCoroutine(GameProcess.Instance.GameWorld.CheckAndGenChunk((int)(c.x / Config.ChunkSize), (int)(c.z / Config.ChunkSize)));
         }
+    }
+
+    public void RemoveEntity(EntityMonobeh entityMonobeh)
+    {
+        Destroy(entityMonobeh.gameObject);
+        _cashEntities.Remove(entityMonobeh);
     }
 
     public void TryAddEntity(EntityInProcess entityInProcess)

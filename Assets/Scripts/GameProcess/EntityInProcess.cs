@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+[Serializable]
 public class EntityInProcess
 {
     private EntityData _entityData;
@@ -14,6 +15,7 @@ public class EntityInProcess
     public EntityData EntityData => _entityData;
 
     public Action UpdateEIP;
+    public bool EntityIsDeleted => GameProcess.Instance.GameWorld.IsDeleted(Id);
 
     public EntityInProcess(EntityData entityData)
     {

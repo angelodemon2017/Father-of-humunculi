@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[System.Serializable]
 public class WorldData
 {
     public string Name;
@@ -14,6 +15,7 @@ public class WorldData
     public List<EntityData> entityDatas = new();
 
     private Dictionary<(int, int), WorldTileData> _cashTiles = new();
+    private List<long> _deletedIds = new();
 
     public long lastIds = 0;
     public long GetNewId () 
@@ -22,6 +24,10 @@ public class WorldData
         return lastIds; 
     }
     public List<long> needUpdates = new();
+    public bool IsDeleted(long idCheck)
+    {
+        return _deletedIds.Any(x => x == idCheck);
+    }
 
     public WorldData()
     {
@@ -99,6 +105,17 @@ public class WorldData
         entityData.SetUpdateAction(AddEntityForUpdate);
         entityDatas.Add(entityData);
         AddEntityForUpdate(entityData.Id);
+    }
+
+    public void RemoveEntity(long id)
+    {
+        var ed = entityDatas.FirstOrDefault(e => e.Id == id);
+        if (ed != null)
+        {
+            entityDatas.Remove(ed);
+            needUpdates.Add(id);
+            _deletedIds.Add(id);
+        }
     }
 
     public void AddEntityForUpdate(long id)

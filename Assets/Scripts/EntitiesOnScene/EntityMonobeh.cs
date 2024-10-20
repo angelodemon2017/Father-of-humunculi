@@ -13,7 +13,7 @@ public class EntityMonobeh : MonoBehaviour
         _entityInProcess = entityInProcess;
         transform.position = _entityInProcess.Position;
 
-        entityInProcess.UpdateEIP += UpdateUI;
+        entityInProcess.UpdateEIP += UpdateEntity;
         InitComponents();
     }
 
@@ -32,14 +32,18 @@ public class EntityMonobeh : MonoBehaviour
         _entityInProcess.UpdateEntity();
     }
 
-    private void UpdateUI()
+    private void UpdateEntity()
     {
-
+        if (_entityInProcess.EntityIsDeleted)
+        {
+            GameProcess.Instance.RemoveEIP(_entityInProcess);
+            WorldViewer.Instance.RemoveEntity(this);
+        }
     }
 
     private void OnDestroy()
     {
-        _entityInProcess.UpdateEIP -= UpdateUI;
+        _entityInProcess.UpdateEIP -= UpdateEntity;
     }
 
     public void SendCommand(CommandData comand)

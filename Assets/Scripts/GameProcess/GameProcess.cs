@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
+//[System.Serializable]
 public class GameProcess
 {
     private static GameProcess _instance;
@@ -20,8 +21,8 @@ public class GameProcess
     }
 
     private bool _gameLaunched = false;
-    private WorldData _gameWorld;
-    private List<EntityInProcess> _entities = new();
+    [UnityEngine.SerializeField] private WorldData _gameWorld;
+    [UnityEngine.SerializeField] private List<EntityInProcess> _entities = new();
     /// <summary>
     /// key - by chunk
     /// </summary>
@@ -151,6 +152,11 @@ public class GameProcess
         {
             _gameWorld.RemoveUpdateId(id);
         }
+    }
+
+    public void RemoveEIP(EntityInProcess eip)
+    {
+        _entities.Remove(eip);
     }
 
     private void MessageAboutSpawnEntity(EntityInProcess eip)

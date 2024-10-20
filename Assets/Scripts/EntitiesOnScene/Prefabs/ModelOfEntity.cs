@@ -49,6 +49,9 @@ public class ModelOfEntity : PrefabByComponentData
 
     private void OnDestroy()
     {
-        _entityInProcess.UpdateEIP -= UpdateModel;
+        if (_entityInProcess != null)
+        {
+            _entityInProcess.UpdateEIP -= UpdateModel;
+        }
     }
 }

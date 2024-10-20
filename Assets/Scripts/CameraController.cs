@@ -30,6 +30,6 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, _currentTargetPoint.position + _diffVector, _intensive);
+        transform.position = Vector3.Lerp(transform.position, FocusPosition + _diffVector, _intensive);
     }
 }

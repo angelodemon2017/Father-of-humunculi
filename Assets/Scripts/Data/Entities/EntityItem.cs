@@ -1,0 +1,33 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+
+public class EntityItem : EntityData
+{
+    public EntityItem(EnumItem idRes, float xpos, float zpos) : base(xpos, zpos)
+    {
+        Components.AddRange(new List<ComponentData>()
+        {
+            new ComponentItemPresent(idRes),
+            new ComponentInterractable("*pick up*"),
+        });
+    }
+
+    public override void ApplyCommand(CommandData command)
+    {
+        if (command.Component == typeof(ComponentInterractable).Name)
+        {
+            var component = Components.GetComponent<ComponentItemPresent>();            ;
+
+            var ent = worldData.entityDatas.FirstOrDefault(e => $"{e.Id}" == command.Message);
+            var inv = ent.Components.GetComponent<ComponentInventory>();
+            inv.AddItem(component.ItemData);
+            inv.TestLog();
+            ent.UpdateEntity();
+
+            //PICK UP
+            worldData.RemoveEntity(Id);
+        }
+
+        base.ApplyCommand(command);
+    }
+}
