@@ -8,6 +8,8 @@ public class ComponentInventory : ComponentData
     public List<ItemData> Items = new();
     public int MaxItems;
 
+    private Transform _entityME;
+
     public ComponentInventory(int maxItems = 5)
     {
         MaxItems = maxItems;
@@ -15,14 +17,14 @@ public class ComponentInventory : ComponentData
 
     public override void Init(Transform entityME)
     {
-
+        _entityME = entityME;
     }
 
     public void AddItem(ItemData item)
     {
         if (Items.Count >= MaxItems)
         {
-            //respawn item
+            GameProcess.Instance.GameWorld.AddEntity(new EntityItem(item, _entityME.position.x, _entityME.position.z));
             return;
         }
 

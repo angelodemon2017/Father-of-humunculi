@@ -17,10 +17,12 @@ public class EntityResource : EntityData
         {
             new ComponentCounter(50, UpperTestValue),
             new ComponentModelPrefab("PlaneBush"),
-            new ComponentInterractable("*click*"),
+            new ComponentInterractable(GetTip),
             new ComponentUIlabels(Color.white)
         });
     }
+
+    private string GetTip() => "*click*";
 
     private void UpperTestValue()
     {
@@ -51,15 +53,5 @@ public class EntityResource : EntityData
     private void SpawnMob()
     {
         GameProcess.Instance.GameWorld.AddEntity(new EntityMiniMob(Position.x, Position.z));
-    }
-
-/*    public override CommandData GetCommand(string parametr)
-    {
-        return TouchCommand(parametr);
-    }/**/
-
-    public CommandData TouchCommand(string parametr)
-    {
-        return new CommandData(Id, "", parametr);
     }
 }

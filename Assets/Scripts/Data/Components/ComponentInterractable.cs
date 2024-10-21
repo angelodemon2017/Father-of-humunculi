@@ -1,10 +1,14 @@
-﻿public class ComponentInterractable : ComponentData
-{
-    public string TipKey;
+﻿using System;
 
-    public ComponentInterractable(string tip)
+public class ComponentInterractable : ComponentData
+{
+    public string TipKey => _gettingTip?.Invoke();
+
+    private Func<string> _gettingTip;
+
+    public ComponentInterractable(Func<string> gettingTip)
     {
-        TipKey = tip;
+        _gettingTip = gettingTip;
     }
 
     public static CommandData GetTouch(string idWhoTouched)
