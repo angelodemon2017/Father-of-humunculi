@@ -7,6 +7,7 @@ public class EntityMonobeh : MonoBehaviour
     private EntityInProcess _entityInProcess;
 
     public long Id => _entityInProcess.Id;
+    public EntityInProcess EntityInProcess => _entityInProcess;
 
     public void Init(EntityInProcess entityInProcess)
     {

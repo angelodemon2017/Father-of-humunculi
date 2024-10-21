@@ -12,4 +12,6 @@ public class ItemConfig : ScriptableObject
     public string BaseMeta;
     public int MinSpawnItem;
     public int MaxSpawnItem;
+
+    public Color ColorBackGround => Color.white;//todo get color from quality
 }

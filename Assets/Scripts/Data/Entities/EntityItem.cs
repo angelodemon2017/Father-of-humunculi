@@ -36,7 +36,6 @@ public class EntityItem : EntityData
             var ent = worldData.entityDatas.FirstOrDefault(e => $"{e.Id}" == command.Message);
             var inv = ent.Components.GetComponent<ComponentInventory>();
             inv.AddItem(component.ItemData);
-            inv.TestLog();//TODO DELETE!!!
             ent.UpdateEntity();
 
             //PICK UP

@@ -30,7 +30,7 @@ public class PrefabsByComponent : ScriptableObject
         return result;
     }
 
-    [MenuItem("Tools/MyTool/Do It in C#")]
+//    [MenuItem("Tools/MyTool/Do It in C#")]
     static void DoIt()
     {//better after 100 days
         double result = 0;

@@ -30,4 +30,10 @@ public class ItemData
         Quality = itemData.Quality;
         Meta = itemData.Meta;
     }
+
+    public void SetEmpty()
+    {
+        EnumId = EnumItem.None;
+        Count = 0;
+    }
 }

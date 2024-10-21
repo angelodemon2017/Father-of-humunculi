@@ -52,7 +52,7 @@ public class GameplayAdapter : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+/*            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, 100, _mask))
             {
                 Debug.Log($"Click by{hit.transform.name}");
@@ -60,7 +60,7 @@ public class GameplayAdapter : MonoBehaviour
                 {
                     comp.ChangeTextureRandom();
                 }
-            }
+            }/**/
         }
 
         if (Input.GetKeyDown(KeyCode.C))

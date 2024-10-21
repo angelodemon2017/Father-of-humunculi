@@ -13,6 +13,11 @@ public class ComponentInventory : ComponentData
     public ComponentInventory(int maxItems = 5)
     {
         MaxItems = maxItems;
+        var emptyConf = ItemsController.GetItem(EnumItem.None);
+        for (var i = 0; i < maxItems; i++)
+        {
+            Items.Add(new ItemData(emptyConf));
+        }
     }
 
     public override void Init(Transform entityME)
@@ -22,19 +27,24 @@ public class ComponentInventory : ComponentData
 
     public void AddItem(ItemData item)
     {
-        if (Items.Count >= MaxItems)
-        {
-            GameProcess.Instance.GameWorld.AddEntity(new EntityItem(item, _entityME.position.x, _entityME.position.z));
-            return;
-        }
-
-        var slot = Items.FirstOrDefault(i => i.EnumId == item.EnumId && !i.IsFullSlot);
+        var slot = Items.FirstOrDefault(i => i.EnumId == item.EnumId && !i.IsFullSlot || i.EnumId == EnumItem.None);
         if (slot == null)
         {
+            if (Items.Count >= MaxItems)
+            {
+                DropItem(item);
+                return;
+            }
+
             Items.Add(item);
         }
         else
         {
+            if (slot.EnumId == EnumItem.None)
+            {
+                slot.EnumId = item.EnumId;
+            }
+
             var iConf = ItemsController.GetItem(item.EnumId);
 
             int freeCountInSlot = iConf.AmountStack - slot.Count;
@@ -52,6 +62,13 @@ public class ComponentInventory : ComponentData
                 slot.Count += item.Count;
             }
         }
+    }
+
+    public void DropItem(ItemData item)
+    {
+        GameProcess.Instance.GameWorld.AddEntity(new EntityItem(item, _entityME.position.x, _entityME.position.z));
+
+        item.SetEmpty();
     }
 
     public void TestLog()

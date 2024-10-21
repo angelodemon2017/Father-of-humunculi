@@ -38,7 +38,12 @@ public class EntityResource : EntityData
         {
             var ent = worldData.entityDatas.FirstOrDefault(e => $"{e.Id}" == command.Message);
             var inv = ent.Components.GetComponent<ComponentInventory>();
-            inv.AddSource(TestValue);
+
+            var iconf = ItemsController.GetItem(EnumItem.Star);
+            var newid = new ItemData(iconf);
+            newid.Count = TestValue;
+
+            inv.AddItem(newid);
             ent.UpdateEntity();
             TestValue = 0;
             var com = Components.GetComponent<ComponentModelPrefab>();

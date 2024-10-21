@@ -3,4 +3,5 @@
     None,
     Gold,
     Diamond,
+    Star,
 }
