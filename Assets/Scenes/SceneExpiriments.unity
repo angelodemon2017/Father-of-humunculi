@@ -1597,6 +1597,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 29d26e298dd81924d8c4d6d96e4ba1a2, type: 2}
   - {fileID: 11400000, guid: 1eeb3f5ae519b5844b62d1746d27283a, type: 2}
   - {fileID: 11400000, guid: c2fcd3f61dafe1f4d8a99d6124131659, type: 2}
+  PERLINSCALE: 0.1
+  HolesMap: 0
 --- !u!1001 &1857651471584625416
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1643,7 +1645,7 @@ PrefabInstance:
     - target: {fileID: 606379720454363618, guid: 9e80b7173d6fb1549bac224874221577,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 48.052002
       objectReference: {fileID: 0}
     - target: {fileID: 606379720454363618, guid: 9e80b7173d6fb1549bac224874221577,
         type: 3}

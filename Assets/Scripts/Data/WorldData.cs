@@ -136,7 +136,7 @@ public class WorldData
     {
         if (!_cashTiles.TryGetValue((x, z), out WorldTileData tile))
         {
-            tile = WorldConstructor.GenerateTile(x, z);
+            tile = WorldConstructor.GenerateTile(x, z, Seed);
             worldTileDatas.Add(tile);
             _cashTiles.Add((x, z), tile);
         }

@@ -25,6 +25,11 @@ public class WorldViewer : MonoBehaviour
     private Vector3 _focusChunkPosition;
     private List<Vector3> _chunkPoints = new();
 
+    [Range(0, 1)]
+    public float PERLINSCALE;
+    [Range(-1, 1)]
+    public float HolesMap;
+
     public List<TextureEntity> Textures => _textureEntities;
     private WorldData _gameWorld => GameProcess.Instance.GameWorld;
 

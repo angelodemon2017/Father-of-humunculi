@@ -1,12 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class WorldConstructor
 {
-    public static WorldTileData GenerateTile(int x, int z)
+    public static WorldTileData GenerateTile(int x, int z, SeedData seed)
     {
-        var txt = WorldViewer.Instance.Textures.GetRandom();
+        var pr = Mathf.PerlinNoise((x - seed.PerlinNoiseSwift) * Config.PerlinScale, (z + seed.PerlinNoiseSwift) * Config.PerlinScale);
+        var index = pr * WorldViewer.Instance.Textures.Count + Config.HolesMap;
+        if (index >= WorldViewer.Instance.Textures.Count)
+        {
+            index = WorldViewer.Instance.Textures.Count - 1;
+        }
+        if (index < 0)
+        {
+            index = 0;
+        }
+        var txt = WorldViewer.Instance.Textures[(int)index];
         return new WorldTileData(txt.Id, x, z);
     }
 
