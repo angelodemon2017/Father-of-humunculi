@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 146297699787962116}
   - component: {fileID: 6029858183206055675}
   m_Layer: 5
-  m_Name: PanelItem
+  m_Name: PanelIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
   _button: {fileID: 6029858183206055675}
   _colorBackground: {fileID: 1123051677466419469}
   _iconItem: {fileID: 5395954193751672264}
-  _textCount: {fileID: 7350767994642926568}
+  _textBottom: {fileID: 7350767994642926568}
 --- !u!114 &146297699787962116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 2510209448695086359}
   - component: {fileID: 1123051677466419469}
   m_Layer: 5
-  m_Name: ImageItemIconBackground
+  m_Name: ImageIconBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -338,7 +338,7 @@ GameObject:
   - component: {fileID: 1945536384914559004}
   - component: {fileID: 7350767994642926568}
   m_Layer: 5
-  m_Name: TextCounter
+  m_Name: TextBottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -418,7 +418,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10.1
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

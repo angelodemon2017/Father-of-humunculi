@@ -4,4 +4,5 @@
     Gold,
     Diamond,
     Star,
+    Crown,
 }

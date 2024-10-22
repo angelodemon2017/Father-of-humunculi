@@ -9,6 +9,8 @@
     public static string PathPrefabsByComponents = "PrefabsByComponentsData";
     public static string PathInitStates = "InitStates";
     public static string PathItems = "Items";
+    public static string PathRecipes = "Recipes";
+    public static string PathRecipeGroups = "Groups";
 
     public static float PerlinScale => WorldViewer.Instance.PERLINSCALE;
     public static float HolesMap => WorldViewer.Instance.HolesMap;

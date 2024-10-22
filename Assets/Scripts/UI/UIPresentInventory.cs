@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class UIPresentInventory : MonoBehaviour
 {
-    [SerializeField] private UIIconInventory _iconPrefab;
+    [SerializeField] private UIIconPresent _iconPrefab;
     [SerializeField] private Transform _parentIcons;
 
     private ComponentInventory _componentInventory;
-    private List<UIIconInventory> _inventorySlots = new();
+    private List<UIIconPresent> _inventorySlots = new();
 
     public Action ComponentUpdated;
 
@@ -20,8 +20,7 @@ public class UIPresentInventory : MonoBehaviour
         for (int i = 0; i < _componentInventory.MaxItems; i++)
         {
             var newSlot = Instantiate(_iconPrefab, _parentIcons);
-            newSlot.OnClickItem += ClickItem;
-            //may be subscribe on item
+            newSlot.OnClickIcon += ClickSlot;
             _inventorySlots.Add(newSlot);
         }
 
@@ -29,9 +28,9 @@ public class UIPresentInventory : MonoBehaviour
         UpdateSlots();
     }
 
-    private void ClickItem(ItemData item)//TODO needCommand
+    private void ClickSlot(int idButton)
     {
-        _componentInventory.DropItem(item);
+        _componentInventory.DropSlot(idButton);
         ComponentUpdated?.Invoke();
     }
 
@@ -46,14 +45,9 @@ public class UIPresentInventory : MonoBehaviour
     {
         for (int i = 0; i < _inventorySlots.Count; i++)
         {
-            if (_componentInventory.Items.Count > i)
-            {
-                _inventorySlots[i].Init(_componentInventory.Items[i]);
-            }
-            else
-            {
-                _inventorySlots[i].InitEmpty();
-            }
+            var iconModel = new UIIconModel(i, _componentInventory.Items[i]);
+
+            _inventorySlots[i].InitIcon(iconModel);
         }
     }
 
@@ -61,7 +55,7 @@ public class UIPresentInventory : MonoBehaviour
     {
         foreach (var ci in _inventorySlots)
         {
-            ci.OnClickItem -= ClickItem;
+            ci.OnClickIcon -= ClickSlot;
         }
     }
 }

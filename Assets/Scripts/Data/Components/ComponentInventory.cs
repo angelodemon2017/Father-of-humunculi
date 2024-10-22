@@ -64,8 +64,19 @@ public class ComponentInventory : ComponentData
         }
     }
 
+    public void DropSlot(int index)
+    {
+        var item = Items[index];
+        DropItem(item);
+    }
+
     public void DropItem(ItemData item)
     {
+        if (item.EnumId == EnumItem.None)
+        {
+            return;
+        }
+
         GameProcess.Instance.GameWorld.AddEntity(new EntityItem(item, _entityME.position.x, _entityME.position.z));
 
         item.SetEmpty();
