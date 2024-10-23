@@ -7,6 +7,10 @@ public class UIPlayerManager : MonoBehaviour
     [SerializeField] private UIPresentInventory uIPresentInventory;
 
     private EntityInProcess _entityInProcess;
+    private ItemData _handlerTempData;
+    private ItemData _tempFromSlot;
+
+    public UIPresentInventory UIPresentInventory => uIPresentInventory;
 
     private void Awake()
     {
@@ -30,6 +34,36 @@ public class UIPlayerManager : MonoBehaviour
     private void UpdateModules()
     {
         uIPresentInventory.UpdateSlots();
+    }
+
+    private void DragItem(ItemData dragItem)
+    {
+        _tempFromSlot = dragItem;
+        _handlerTempData = new ItemData(dragItem);
+        _tempFromSlot.SetEmpty();
+
+        UpdateModules();
+    }
+
+    private void DropItem(ItemData dropItem)
+    {
+        if (_tempFromSlot.EnumId == EnumItem.None)
+        {
+            return;
+        }
+
+        if (_tempFromSlot.EnumId == dropItem.EnumId)
+        {//connect
+
+        }
+        else
+        {//replace
+
+        }
+
+        _handlerTempData.SetEmpty();
+
+        UpdateModules();
     }
 
     private void OnDestroy()

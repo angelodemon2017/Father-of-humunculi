@@ -1,13 +1,15 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIPanelCraftItems : MonoBehaviour
 {
+    [SerializeField] private UIPanelCraft _uIPanelCraftPrefab;
     [SerializeField] private PanelHider _panelHider;
     [SerializeField] private UIIconPresent _prefabRecipeIcon;
     [SerializeField] private Transform _parentIconRecipes;
-    [SerializeField] private UIPanelCraft _uIPanelCraft;
+    [SerializeField] private Transform _parentCraftPanel;
     [SerializeField] private VerticalLayoutGroup _verticalLayoutGroup;
 
     private List<RecipeSO> recipes = new();
@@ -19,30 +21,41 @@ public class UIPanelCraftItems : MonoBehaviour
 
     public void Init(string groupName)
     {
+        _parentCraftPanel.DestroyChildrens();
         _parentIconRecipes.DestroyChildrens();
+        recipes.Clear();
+
         var tempRecipes = RecipesController.GetRecipes(groupName);
-        foreach (var r in tempRecipes)
+        for (int r = 0; r < tempRecipes.Count; r++)
         {
             var uicp = Instantiate(_prefabRecipeIcon, _parentIconRecipes);
 
-            uicp.InitIcon(new UIIconModel(r.Result));
-//            uicp.OnClickIcon += ClickRecipe;
-//            uicp.OnPointerEnter += ClickRecipe;
-            uicp.SetPointerAction(SelectRecipe);
+            uicp.InitIcon(new UIIconModel(tempRecipes[r].Result, r));
+            uicp.OnPointerEnter += SelectRecipe;
 
-            recipes.Add(r);
+            recipes.Add(tempRecipes[r]);
         }
 
-        _verticalLayoutGroup.enabled = false;
-        _verticalLayoutGroup.enabled = true;
+        StartCoroutine(Crunch());
+    }
+
+    private IEnumerator Crunch()
+    {
+        yield return new WaitForSeconds(0.1f);
+        _parentIconRecipes.gameObject.SetActive(false);
+        _parentIconRecipes.gameObject.SetActive(true);
     }
 
     private void SelectRecipe(int index)
     {
-        Debug.Log($"ClickRecipe {index}");
+        _parentCraftPanel.DestroyChildrens();
+        var uipc = Instantiate(_uIPanelCraftPrefab, _parentCraftPanel);
 
-        _uIPanelCraft.gameObject.SetActive(true);
-        _uIPanelCraft.Init(recipes[index]);
-        _panelHider.AddGO(_uIPanelCraft.gameObject);
+        uipc.Init(recipes[index]);
+    }
+
+    private void OnDisable()
+    {
+        _parentCraftPanel.DestroyChildrens();
     }
 }

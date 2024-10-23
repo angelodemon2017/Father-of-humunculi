@@ -23,7 +23,7 @@ public class PrefabsByComponent : ScriptableObject
             }
 
             result = _prefabs.FirstOrDefault(p => p.KeyComponent == keyComponent);
-            Debug.Log($"Loaded {_prefabs.Count} PrefabByComponentData");
+//            Debug.Log($"Loaded {_prefabs.Count} PrefabByComponentData");
             isInit = true;
         }
 

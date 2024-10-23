@@ -4,7 +4,7 @@ using TMPro;
 using System;
 using UnityEngine.EventSystems;
 
-public class UIIconPresent : MonoBehaviour, IPointerEnterHandler
+public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IDragHandler, IDropHandler
 {
     [SerializeField] private AspectRatioFitter _aspectRatioFitter;
     [SerializeField] private Button _button;
@@ -16,6 +16,8 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler
     private int _indexIcon;
     public Action<int> OnClickIcon;
     public Action<int> OnPointerEnter;
+    public Action<int> OnDragHandler;
+    public Action<int> OnDropHandler;
 
     public void SetPointerAction(Action<int> action)
     {
@@ -47,6 +49,16 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler
         OnPointerEnter?.Invoke(_indexIcon);
     }
 
+    public void OnDrag(PointerEventData eventData)
+    {
+        OnDragHandler?.Invoke(_indexIcon);
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        OnDropHandler?.Invoke(_indexIcon);
+    }
+
     private void OnDestroy()
     {
         _button.onClick.RemoveAllListeners();
@@ -72,8 +84,9 @@ public class UIIconModel
         AspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
     }
 
-    public UIIconModel(ElementRecipe recipe, AspectRatioFitter.AspectMode aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight)
+    public UIIconModel(ElementRecipe recipe, int index = 0, AspectRatioFitter.AspectMode aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight)
     {
+        Index = index;
         Icon = recipe.ItemConfig.IconItem;
         ColorBackGround = Color.grey;//TODO change color if had resources
         BottomText = recipe.Count > 1 ? $"{recipe.Count}" : string.Empty;

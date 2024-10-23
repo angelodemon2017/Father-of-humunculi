@@ -13,6 +13,17 @@ public class UIPresentInventory : MonoBehaviour
 
     public Action ComponentUpdated;
 
+
+
+    /// <summary>
+    /// TEST!!!
+    /// </summary>
+    public void ApplyRecipe(RecipeSO recipe)
+    {
+        _componentInventory.TryApplyRecipe(recipe);
+        ComponentUpdated?.Invoke();
+    }
+
     public void Init(ComponentInventory componentInventory)
     {
         _componentInventory = componentInventory;

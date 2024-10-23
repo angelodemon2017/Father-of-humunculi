@@ -16,13 +16,10 @@ public class UIPanelCraft : MonoBehaviour
     private void Awake()
     {
         _buttonCraft.onClick.AddListener(OnClick);
-        gameObject.SetActive(false);
     }
 
     public void Init(RecipeSO recipe)
     {
-        Debug.Log($"Init panel craft{recipe.Result.ItemConfig.Key}");
-
         _recipe = recipe;
         _parentResources.DestroyChildrens();
 
@@ -33,17 +30,24 @@ public class UIPanelCraft : MonoBehaviour
         foreach (var r in recipe.Resources)
         {
             var uicp = Instantiate(_prefabResources, _parentResources);
-            uicp.InitIcon(new UIIconModel(r, AspectRatioFitter.AspectMode.HeightControlsWidth));
+            uicp.InitIcon(new UIIconModel(r, aspectMode: AspectRatioFitter.AspectMode.HeightControlsWidth));
         }
     }
 
     private void OnClick()
     {
-        EntityPlayer ep = GameProcess.Instance.GameWorld.entityDatas[0] as EntityPlayer;
-        var ci = ep.Components.GetComponent<ComponentInventory>();
-        ci.TryApplyRecipe(_recipe);
-        ep.UpdateEntity();
+        UIPlayerManager.Instance.UIPresentInventory.ApplyRecipe(_recipe);
+
+        /*        EntityPlayer ep = GameProcess.Instance.GameWorld.entityDatas.LastOrDefault() as EntityPlayer;
+                var ci = ep.Components.GetComponent<ComponentInventory>();
+                ci.TryApplyRecipe(_recipe);
+                ep.UpdateEntity();/**/
         //TODO do recipe
+    }
+
+    private void OnDisable()
+    {
+        Destroy(gameObject);
     }
 
     private void OnDestroy()

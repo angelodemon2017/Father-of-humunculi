@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UIPanelCraftGroups : MonoBehaviour
 {
@@ -9,7 +8,6 @@ public class UIPanelCraftGroups : MonoBehaviour
     [SerializeField] private UIIconPresent _prefabRecipeIcon;
     [SerializeField] private Transform _parentButtons;
     [SerializeField] private UIPanelCraftItems _panelCraftItems;
-    [SerializeField] private VerticalLayoutGroup _verticalLayoutGroup;
 
     private List<GroupSO> _groups = new();
 
@@ -22,14 +20,13 @@ public class UIPanelCraftGroups : MonoBehaviour
             var uicp = Instantiate(_prefabRecipeIcon, _parentButtons);
 
             uicp.InitIcon(new UIIconModel(groups[g], g));
-//            uicp.OnClickIcon += Click;
-            uicp.OnPointerEnter += Click;
+            uicp.OnPointerEnter += SelectGroup;
 
             _groups.Add(groups[g]);
         }
     }
 
-    private void Click(int i)
+    private void SelectGroup(int i)
     {
         _panelCraftItems.gameObject.SetActive(true);
         _panelCraftItems.Init(_groups[i].GroupName);
