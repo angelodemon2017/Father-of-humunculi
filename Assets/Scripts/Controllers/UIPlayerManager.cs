@@ -5,6 +5,7 @@ public class UIPlayerManager : MonoBehaviour
     public static UIPlayerManager Instance;
 
     [SerializeField] private UIPresentInventory uIPresentInventory;
+    [SerializeField] private UIPanelCraftGroups _uIPanelCraftGroups;
 
     private EntityInProcess _entityInProcess;
     private ItemData _handlerTempData;
@@ -27,6 +28,8 @@ public class UIPlayerManager : MonoBehaviour
         //TODO cycle init all components
         var ci = entity.EntityData.Components.GetComponent<ComponentInventory>();
         uIPresentInventory.Init(ci);
+        _uIPanelCraftGroups.Init(ci);
+        _uIPanelCraftGroups.OnApplyCraft += UpdateModules;
 
         UpdateModules();
     }
@@ -69,5 +72,7 @@ public class UIPlayerManager : MonoBehaviour
     private void OnDestroy()
     {
         _entityInProcess.UpdateEIP -= UpdateModules;
+        _uIPanelCraftGroups.OnApplyCraft -= UpdateModules;
+        uIPresentInventory.ComponentUpdated -= UpdateModules;
     }
 }

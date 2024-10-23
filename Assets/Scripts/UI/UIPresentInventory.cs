@@ -12,9 +12,7 @@ public class UIPresentInventory : MonoBehaviour
     private List<UIIconPresent> _inventorySlots = new();
 
     public Action ComponentUpdated;
-
-
-
+    
     /// <summary>
     /// TEST!!!
     /// </summary>
@@ -35,7 +33,7 @@ public class UIPresentInventory : MonoBehaviour
             _inventorySlots.Add(newSlot);
         }
 
-        StartCoroutine(Crunch());
+//        StartCoroutine(Crunch());
         UpdateSlots();
     }
 

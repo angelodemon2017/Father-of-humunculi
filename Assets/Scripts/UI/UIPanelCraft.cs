@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class UIPanelCraft : MonoBehaviour
 {
@@ -12,37 +13,46 @@ public class UIPanelCraft : MonoBehaviour
     [SerializeField] private Button _buttonCraft;
 
     private RecipeSO _recipe;
+    private ComponentInventory _componentInventory;
+
+    public Action OnApplyRecipe;
 
     private void Awake()
     {
         _buttonCraft.onClick.AddListener(OnClick);
     }
 
-    public void Init(RecipeSO recipe)
+    public void Init(RecipeSO recipe, ComponentInventory componentInventory)
     {
+        _componentInventory = componentInventory;
+
         _recipe = recipe;
-        _parentResources.DestroyChildrens();
 
         _titleRecipe.text = recipe.Result.ItemConfig.Key;
 
         _iconResult.InitIcon(new UIIconModel(recipe.Result));
 
-        foreach (var r in recipe.Resources)
+
+        UpdatePanel();
+    }
+
+    private void UpdatePanel()
+    {
+        _buttonCraft.interactable = _componentInventory.AvailableRecipe(_recipe);
+
+        _parentResources.DestroyChildrens();
+        foreach (var r in _recipe.Resources)
         {
             var uicp = Instantiate(_prefabResources, _parentResources);
-            uicp.InitIcon(new UIIconModel(r, aspectMode: AspectRatioFitter.AspectMode.HeightControlsWidth));
+            uicp.InitIcon(new UIIconModel(r, _componentInventory.GetCountOfItem(r.ItemConfig.EnumKey), aspectMode: AspectRatioFitter.AspectMode.HeightControlsWidth));
         }
     }
 
     private void OnClick()
     {
-        UIPlayerManager.Instance.UIPresentInventory.ApplyRecipe(_recipe);
-
-        /*        EntityPlayer ep = GameProcess.Instance.GameWorld.entityDatas.LastOrDefault() as EntityPlayer;
-                var ci = ep.Components.GetComponent<ComponentInventory>();
-                ci.TryApplyRecipe(_recipe);
-                ep.UpdateEntity();/**/
-        //TODO do recipe
+        _componentInventory.TryApplyRecipe(_recipe);
+        UpdatePanel();
+        OnApplyRecipe?.Invoke();
     }
 
     private void OnDisable()

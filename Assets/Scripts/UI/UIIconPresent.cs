@@ -36,7 +36,7 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IDragHandler, 
         _iconItem.sprite = iconModel.Icon;
         _textBottom.text = iconModel.BottomText;
         _aspectRatioFitter.aspectMode = iconModel.AspectMode;
-        rectTransform.sizeDelta = new Vector2(50f, 50f);
+//        rectTransform.sizeDelta = new Vector2(50f, 50f);
     }
 
     private void OnClick()
@@ -84,12 +84,29 @@ public class UIIconModel
         AspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
     }
 
-    public UIIconModel(ElementRecipe recipe, int index = 0, AspectRatioFitter.AspectMode aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight)
+    public UIIconModel(ElementRecipe recipe)
+    {
+        Icon = recipe.ItemConfig.IconItem;
+        ColorBackGround = Color.white;
+        BottomText = recipe.Count > 1 ? $"{recipe.Count}" : string.Empty;
+        AspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
+    }
+
+    public UIIconModel(ElementRecipe recipe, bool isHaveResource, int index)
     {
         Index = index;
         Icon = recipe.ItemConfig.IconItem;
-        ColorBackGround = Color.grey;//TODO change color if had resources
-        BottomText = recipe.Count > 1 ? $"{recipe.Count}" : string.Empty;
+        ColorBackGround = isHaveResource ? Color.white : Color.gray;
+        BottomText = string.Empty;
+        AspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
+    }
+
+    public UIIconModel(ElementRecipe recipe, int currentCount, AspectRatioFitter.AspectMode aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight)
+    {
+        Index = 0;
+        Icon = recipe.ItemConfig.IconItem;
+        ColorBackGround = currentCount >= recipe.Count ? Color.white : Color.gray;
+        BottomText = $"{currentCount}/{recipe.Count}";
         AspectMode = aspectMode;
     }
 
@@ -97,7 +114,7 @@ public class UIIconModel
     {
         Index = index;
         Icon = group.IconGroup;
-        ColorBackGround = Color.gray;
+        ColorBackGround = Color.white;
         BottomText = string.Empty;
         AspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
     }

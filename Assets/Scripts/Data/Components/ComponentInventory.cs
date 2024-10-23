@@ -27,7 +27,12 @@ public class ComponentInventory : ComponentData
 
     public void AddItem(ItemData item)
     {
-        var slot = Items.FirstOrDefault(i => i.EnumId == item.EnumId && !i.IsFullSlot || i.EnumId == EnumItem.None);
+        var slot = Items.FirstOrDefault(i => i.EnumId == item.EnumId && !i.IsFullSlot);
+        if (slot == null)
+        {
+            slot = Items.FirstOrDefault(i => i.EnumId == EnumItem.None);
+        }
+
         if (slot == null)
         {
             if (Items.Count >= MaxItems)
@@ -72,27 +77,63 @@ public class ComponentInventory : ComponentData
 
     public void TryApplyRecipe(RecipeSO recipe)
     {
-        foreach (var r in recipe.Resources)
+        if (!AvailableRecipe(recipe))
         {
-            if (!Items.Any(i => i.EnumId == r.ItemConfig.EnumKey && i.Count >= r.Count))
-            {
-                return;
-            }
+            return;
         }
 
         foreach (var r in recipe.Resources)
         {
-            var i = Items.FirstOrDefault(i => i.EnumId == r.ItemConfig.EnumKey && i.Count >= r.Count);
-            i.Count -= r.Count;//TODO вычитание через функцию сделать
-            if (i.Count == 0)
-            {
-                i.SetEmpty();
-            }
+            SubtrackItems(r.ItemConfig.EnumKey, r.Count);
         }
 
         var resultItem = new ItemData(recipe.Result.ItemConfig);
         resultItem.Count = recipe.Result.Count;
         AddItem(resultItem);
+    }
+
+    public bool AvailableRecipe(RecipeSO recipe)
+    {
+        foreach (var r in recipe.Resources)
+        {
+            if (GetCountOfItem(r.ItemConfig.EnumKey) < r.Count)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public int GetCountOfItem(EnumItem enumItem)
+    {
+        return Items.Where(i => i.EnumId == enumItem).Sum(i => i.Count);
+    }
+
+    private bool SubtrackItems(EnumItem enumItem, int count)
+    {
+        var slot = Items.FirstOrDefault(i => i.EnumId == enumItem);
+        if (slot == null || count == 0 || enumItem == EnumItem.None)
+        {
+            return false;
+        }
+
+        if (slot.Count >= count)
+        {
+            slot.Count -= count;
+            if (slot.Count == 0)
+            {
+                slot.SetEmpty();
+            }
+        }
+        else
+        {
+            var dif = count - slot.Count;
+            slot.SetEmpty();
+            SubtrackItems(enumItem, dif);
+        }
+
+        return true;
     }
 
     public void DropItem(ItemData item)
