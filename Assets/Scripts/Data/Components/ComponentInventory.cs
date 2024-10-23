@@ -70,6 +70,31 @@ public class ComponentInventory : ComponentData
         DropItem(item);
     }
 
+    public void TryApplyRecipe(RecipeSO recipe)
+    {
+        foreach (var r in recipe.Resources)
+        {
+            if (!Items.Any(i => i.EnumId == r.ItemConfig.EnumKey && i.Count >= r.Count))
+            {
+                return;
+            }
+        }
+
+        foreach (var r in recipe.Resources)
+        {
+            var i = Items.FirstOrDefault(i => i.EnumId == r.ItemConfig.EnumKey && i.Count >= r.Count);
+            i.Count -= r.Count;//TODO вычитание через функцию сделать
+            if (i.Count == 0)
+            {
+                i.SetEmpty();
+            }
+        }
+
+        var resultItem = new ItemData(recipe.Result.ItemConfig);
+        resultItem.Count = recipe.Result.Count;
+        AddItem(resultItem);
+    }
+
     public void DropItem(ItemData item)
     {
         if (item.EnumId == EnumItem.None)

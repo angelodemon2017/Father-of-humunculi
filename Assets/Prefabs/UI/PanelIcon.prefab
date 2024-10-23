@@ -107,10 +107,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c1967bd7d574e429f57b2d2d2f71b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _aspectRatioFitter: {fileID: 8888214576899767688}
   _button: {fileID: 6029858183206055675}
   _colorBackground: {fileID: 1123051677466419469}
   _iconItem: {fileID: 5395954193751672264}
   _textBottom: {fileID: 7350767994642926568}
+  rectTransform: {fileID: 606379720454363618}
 --- !u!114 &146297699787962116
 MonoBehaviour:
   m_ObjectHideFlags: 0
