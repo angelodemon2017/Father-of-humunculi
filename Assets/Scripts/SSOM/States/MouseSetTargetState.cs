@@ -7,7 +7,6 @@ public class MouseSetTargetState : State
     [SerializeField] private float MoveSpeed;
     [SerializeField] private LayerMask _mask;
     [SerializeField] private float DistanceToTouch;
-//    [SerializeField] private TouchTargetState _touchTargetState;
     private Vector3 _target;
     private NavMeshAgent _navMeshAgent;
 
@@ -32,13 +31,20 @@ public class MouseSetTargetState : State
             IsFinished = true;
         }
 
+        var mii = TryGetMII();
+        if (mii != null)
+        {
+            _targetEM = mii.EM;
+            _target = mii.transform.position;
+            _navMeshAgent.SetDestination(_target);
+        }
+
         if (Vector3.Distance(Character.GetTransform().position, _target) < DistanceToTouch)
         {
             if (_targetEM != null)
             {
                 var myEM = Character.GetTransform().GetComponent<EntityMonobeh>();
                 _targetEM.SendCommand(ComponentInterractable.GetTouch($"{myEM.Id}"));
-//                Character.SetState(_touchTargetState);
             }
             IsFinished = true;
         }

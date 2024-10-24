@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ComponentInventory : ComponentData
 {
-    public int SomeResource;
     public List<ItemData> Items = new();
     public int MaxItems;
 
@@ -47,7 +46,8 @@ public class ComponentInventory : ComponentData
         {
             if (slot.EnumId == EnumItem.None)
             {
-                slot.EnumId = item.EnumId;
+                slot.Replace(item);
+                slot.Count = 0;
             }
 
             var iConf = ItemsController.GetItem(item.EnumId);
@@ -157,10 +157,5 @@ public class ComponentInventory : ComponentData
 
             Debug.Log($"{i.EnumId}, count:{i.Count}/{iConf.AmountStack}");
         }
-    }
-
-    public void AddSource(int newSource)
-    {
-        SomeResource += newSource;
     }
 }

@@ -30,6 +30,7 @@ public class UIPresentInventory : MonoBehaviour
         {
             var newSlot = Instantiate(_iconPrefab, _parentIcons);
             newSlot.OnClickIcon += ClickSlot;
+            newSlot.OnDragHandler += DragSlot;
             _inventorySlots.Add(newSlot);
         }
 
@@ -37,10 +38,15 @@ public class UIPresentInventory : MonoBehaviour
         UpdateSlots();
     }
 
+    private void DragSlot(int idSlot)
+    {
+
+    }
+
     private void ClickSlot(int idButton)
     {
-        _componentInventory.DropSlot(idButton);
-        ComponentUpdated?.Invoke();
+//        _componentInventory.DropSlot(idButton);
+//        ComponentUpdated?.Invoke();
     }
 
     private IEnumerator Crunch()

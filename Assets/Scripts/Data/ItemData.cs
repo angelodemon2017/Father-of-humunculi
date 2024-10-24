@@ -31,6 +31,16 @@ public class ItemData
         Meta = itemData.Meta;
     }
 
+    public void Replace(ItemData item)
+    {
+        EnumId = item.EnumId;
+        Id = item.Id;
+        Count = item.Count;
+        Durability = item.Durability;
+        Quality = item.Quality;
+        Meta = item.Meta;
+    }
+
     public void SetEmpty()
     {
         EnumId = EnumItem.None;

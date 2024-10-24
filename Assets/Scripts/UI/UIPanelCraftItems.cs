@@ -73,7 +73,6 @@ public class UIPanelCraftItems : MonoBehaviour
 
             _recipes.Add(tempRecipes[r]);
         }
-
     }
 
     private void WasClickCraft()

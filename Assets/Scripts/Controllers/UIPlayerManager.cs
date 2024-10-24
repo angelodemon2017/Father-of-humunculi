@@ -8,7 +8,7 @@ public class UIPlayerManager : MonoBehaviour
     [SerializeField] private UIPanelCraftGroups _uIPanelCraftGroups;
 
     private EntityInProcess _entityInProcess;
-    private ItemData _handlerTempData;
+//    private ItemData _handlerTempData;
     private ItemData _tempFromSlot;
 
     public UIPresentInventory UIPresentInventory => uIPresentInventory;
@@ -42,7 +42,10 @@ public class UIPlayerManager : MonoBehaviour
     private void DragItem(ItemData dragItem)
     {
         _tempFromSlot = dragItem;
-        _handlerTempData = new ItemData(dragItem);
+        var ent = _entityInProcess.EntityData as EntityPlayer;
+        ent.PickItemByHand(dragItem);
+
+//        _handlerTempData = new ItemData(dragItem);
         _tempFromSlot.SetEmpty();
 
         UpdateModules();
@@ -64,7 +67,8 @@ public class UIPlayerManager : MonoBehaviour
 
         }
 
-        _handlerTempData.SetEmpty();
+        dropItem.SetEmpty();
+//        _handlerTempData.SetEmpty();
 
         UpdateModules();
     }
