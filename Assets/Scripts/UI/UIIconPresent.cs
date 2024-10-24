@@ -4,7 +4,7 @@ using TMPro;
 using System;
 using UnityEngine.EventSystems;
 
-public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IDragHandler, IDropHandler
+public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IDragHandler, IDropHandler, IPointerClickHandler
 {
     [SerializeField] private AspectRatioFitter _aspectRatioFitter;
     [SerializeField] private Button _button;
@@ -15,14 +15,10 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IDragHandler, 
 
     private int _indexIcon;
     public Action<int> OnClickIcon;
+    public Action<int> OnClickRBM;
     public Action<int> OnPointerEnter;
     public Action<int> OnDragHandler;
     public Action<int> OnDropHandler;
-
-    public void SetPointerAction(Action<int> action)
-    {
-        OnPointerEnter = action;
-    }
 
     private void Awake()
     {
@@ -63,6 +59,15 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IDragHandler, 
     {
         _button.onClick.RemoveAllListeners();
     }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            Debug.Log("Правый клик по UI элементу: " + gameObject.name);
+            OnClickRBM?.Invoke(_indexIcon);
+        }
+    }
 }
 
 public class UIIconModel
@@ -72,6 +77,16 @@ public class UIIconModel
     public Color ColorBackGround;
     public string BottomText;
     public AspectRatioFitter.AspectMode AspectMode;
+
+    public UIIconModel(ItemData item)
+    {
+        var conf = ItemsController.GetItem(item.EnumId);
+
+        Icon = conf.IconItem;
+        ColorBackGround = conf.ColorBackGround;
+        BottomText = item.Count > 0 ? $"{item.Count}" : string.Empty;
+        AspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
+    }
 
     public UIIconModel(int index, ItemData item)
     {

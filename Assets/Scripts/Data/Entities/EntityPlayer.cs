@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EntityPlayer : EntityData
 {
-    public override string DebugField => _itemInHand.EnumId == EnumItem.None ? "" : $"In hand {_itemInHand.EnumId}({_itemInHand.Count})";
+    public override string DebugField => _itemInHand.IsEmpty ? "" : $"In hand {_itemInHand.EnumId}({_itemInHand.Count})";
 
     private ItemData _itemInHand;
 
@@ -11,6 +11,8 @@ public class EntityPlayer : EntityData
 
     public EntityPlayer(float xpos, float zpos) : base(xpos, zpos)
     {
+        _itemInHand = new ItemData(ItemsController.GetItem(EnumItem.None));
+
         Components.AddRange(new List<ComponentData>()
         {
             new ComponentModelPrefab("Player"),
@@ -24,13 +26,12 @@ public class EntityPlayer : EntityData
     public void PickItemByHand(ItemData item)
     {
         DropItem(_itemInHand);
-
         _itemInHand.Replace(item);
     }
 
     private void DropItem(ItemData item)
     {
-        if (item.EnumId == EnumItem.None)
+        if (item.IsEmpty)
         {
             return;
         }

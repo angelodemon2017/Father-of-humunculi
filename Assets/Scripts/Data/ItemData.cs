@@ -10,6 +10,7 @@ public class ItemData
     public string Meta;
 
     public bool IsFullSlot => Count == ItemsController.GetItem(EnumId).AmountStack;
+    public bool IsEmpty => EnumId == EnumItem.None;
 
     public ItemData(ItemConfig config)
     {
@@ -29,6 +30,24 @@ public class ItemData
         Durability = itemData.Durability;
         Quality = itemData.Quality;
         Meta = itemData.Meta;
+    }
+
+    public int TryAdd(ItemData item)
+    {
+        var iConf = ItemsController.GetItem(item.EnumId);
+        int freeCountInSlot = iConf.AmountStack - Count;
+
+        if (item.Count > freeCountInSlot)
+        {
+            int dif = item.Count - freeCountInSlot;
+            Count += freeCountInSlot;
+            return dif;
+        }
+        else
+        {
+            Count += item.Count;
+            return 0;
+        }
     }
 
     public void Replace(ItemData item)

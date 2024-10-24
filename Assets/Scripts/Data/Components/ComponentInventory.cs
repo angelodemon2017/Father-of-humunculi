@@ -26,6 +26,11 @@ public class ComponentInventory : ComponentData
 
     public void AddItem(ItemData item)
     {
+        if (item == null || item.Count == 0 || item.IsEmpty)
+        {
+            return;
+        }
+
         var slot = Items.FirstOrDefault(i => i.EnumId == item.EnumId && !i.IsFullSlot);
         if (slot == null)
         {
@@ -44,35 +49,15 @@ public class ComponentInventory : ComponentData
         }
         else
         {
-            if (slot.EnumId == EnumItem.None)
+            if (slot.IsEmpty)
             {
                 slot.Replace(item);
                 slot.Count = 0;
             }
 
-            var iConf = ItemsController.GetItem(item.EnumId);
-
-            int freeCountInSlot = iConf.AmountStack - slot.Count;
-
-            if (item.Count > freeCountInSlot)
-            {
-                int dif = item.Count - freeCountInSlot;
-                slot.Count += freeCountInSlot;
-
-                item.Count = dif;
-                AddItem(item);
-            }
-            else
-            {
-                slot.Count += item.Count;
-            }
+            item.Count = slot.TryAdd(item);
+            AddItem(item);
         }
-    }
-
-    public void DropSlot(int index)
-    {
-        var item = Items[index];
-        DropItem(item);
     }
 
     public void TryApplyRecipe(RecipeSO recipe)
@@ -136,9 +121,35 @@ public class ComponentInventory : ComponentData
         return true;
     }
 
+    public void SplitSlot(int index)
+    {
+        var item = Items[index];
+        if (item.IsEmpty || item.Count < 2)
+        {
+            return;
+        }
+        var emptySlot = Items.FirstOrDefault(i => i.IsEmpty);
+        if (emptySlot == null)
+        {
+            return;
+        }
+
+        var splitCount = item.Count / 2;
+        item.Count -= splitCount;
+
+        emptySlot.Replace(item);
+        emptySlot.Count = splitCount;
+    }
+
+    public void DropSlot(int index)
+    {
+        var item = Items[index];
+        DropItem(item);
+    }
+
     public void DropItem(ItemData item)
     {
-        if (item.EnumId == EnumItem.None)
+        if (item.IsEmpty)
         {
             return;
         }

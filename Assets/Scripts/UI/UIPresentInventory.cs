@@ -11,16 +11,9 @@ public class UIPresentInventory : MonoBehaviour
     private ComponentInventory _componentInventory;
     private List<UIIconPresent> _inventorySlots = new();
 
-    public Action ComponentUpdated;
-    
-    /// <summary>
-    /// TEST!!!
-    /// </summary>
-    public void ApplyRecipe(RecipeSO recipe)
-    {
-        _componentInventory.TryApplyRecipe(recipe);
-        ComponentUpdated?.Invoke();
-    }
+    public Action OnComponentUpdated;
+    public Action<ItemData> OnDragItem;
+    public Action<ItemData> OnDropItem;
 
     public void Init(ComponentInventory componentInventory)
     {
@@ -29,8 +22,10 @@ public class UIPresentInventory : MonoBehaviour
         for (int i = 0; i < _componentInventory.MaxItems; i++)
         {
             var newSlot = Instantiate(_iconPrefab, _parentIcons);
-            newSlot.OnClickIcon += ClickSlot;
+            newSlot.OnClickIcon += UseSlot;
+            newSlot.OnClickRBM += ClickSlotRBM;
             newSlot.OnDragHandler += DragSlot;
+            newSlot.OnDropHandler += DropSlot;
             _inventorySlots.Add(newSlot);
         }
 
@@ -40,13 +35,32 @@ public class UIPresentInventory : MonoBehaviour
 
     private void DragSlot(int idSlot)
     {
+        var item = _componentInventory.Items[idSlot];
+        if (item.EnumId == EnumItem.None)
+        {
+            return;
+        }
 
+        OnDragItem?.Invoke(item);
     }
 
-    private void ClickSlot(int idButton)
+    private void DropSlot(int idSlot)
+    {
+        var item = _componentInventory.Items[idSlot];
+
+        OnDropItem?.Invoke(item);
+    }
+
+    private void UseSlot(int idButton)
     {
 //        _componentInventory.DropSlot(idButton);
 //        ComponentUpdated?.Invoke();
+    }
+
+    private void ClickSlotRBM(int idSlot)
+    {
+        _componentInventory.SplitSlot(idSlot);
+        UpdateSlots();
     }
 
     private IEnumerator Crunch()
@@ -70,7 +84,10 @@ public class UIPresentInventory : MonoBehaviour
     {
         foreach (var ci in _inventorySlots)
         {
-            ci.OnClickIcon -= ClickSlot;
+            ci.OnClickIcon -= UseSlot;
+            ci.OnDragHandler -= DragSlot;
+            ci.OnDropHandler -= DropSlot;
+            ci.OnClickRBM -= ClickSlotRBM;
         }
     }
 }

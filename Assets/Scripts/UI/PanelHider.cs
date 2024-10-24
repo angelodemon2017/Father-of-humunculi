@@ -32,7 +32,6 @@ public class PanelHider : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log($"OnPointerEnter");
         OnClick();
     }
 }

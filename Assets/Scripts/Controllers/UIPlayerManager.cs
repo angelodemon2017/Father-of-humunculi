@@ -6,9 +6,9 @@ public class UIPlayerManager : MonoBehaviour
 
     [SerializeField] private UIPresentInventory uIPresentInventory;
     [SerializeField] private UIPanelCraftGroups _uIPanelCraftGroups;
+    [SerializeField] private UIIconPresent _uIIconPresent;
 
     private EntityInProcess _entityInProcess;
-//    private ItemData _handlerTempData;
     private ItemData _tempFromSlot;
 
     public UIPresentInventory UIPresentInventory => uIPresentInventory;
@@ -16,7 +16,7 @@ public class UIPlayerManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        uIPresentInventory.ComponentUpdated += UpdateModules;
+        uIPresentInventory.OnComponentUpdated += UpdateModules;
     }
 
     public void InitEntity(EntityInProcess entity)
@@ -27,7 +27,11 @@ public class UIPlayerManager : MonoBehaviour
 
         //TODO cycle init all components
         var ci = entity.EntityData.Components.GetComponent<ComponentInventory>();
+
         uIPresentInventory.Init(ci);
+        uIPresentInventory.OnDragItem += DragItem;
+        uIPresentInventory.OnDropItem += DropItem;
+
         _uIPanelCraftGroups.Init(ci);
         _uIPanelCraftGroups.OnApplyCraft += UpdateModules;
 
@@ -36,7 +40,15 @@ public class UIPlayerManager : MonoBehaviour
 
     private void UpdateModules()
     {
+        var ent = _entityInProcess.EntityData as EntityPlayer;
+
         uIPresentInventory.UpdateSlots();
+
+        _uIIconPresent.gameObject.SetActive(!ent.ItemHand.IsEmpty);
+        if (!ent.ItemHand.IsEmpty)
+        {
+            _uIIconPresent.InitIcon(new UIIconModel(ent.ItemHand));
+        }
     }
 
     private void DragItem(ItemData dragItem)
@@ -45,38 +57,70 @@ public class UIPlayerManager : MonoBehaviour
         var ent = _entityInProcess.EntityData as EntityPlayer;
         ent.PickItemByHand(dragItem);
 
-//        _handlerTempData = new ItemData(dragItem);
         _tempFromSlot.SetEmpty();
 
         UpdateModules();
     }
 
     private void DropItem(ItemData dropItem)
-    {
-        if (_tempFromSlot.EnumId == EnumItem.None)
+    {//logic move to entity
+
+        Debug.Log($"click DropSlot");
+        var ent = _entityInProcess.EntityData as EntityPlayer;
+        var itemHand = ent.ItemHand;
+
+        if (itemHand.IsEmpty)
         {
             return;
         }
 
-        if (_tempFromSlot.EnumId == dropItem.EnumId)
-        {//connect
-
+        if (dropItem.IsEmpty)
+        {
+            dropItem.Replace(itemHand);
+        }
+        else if (itemHand.EnumId == dropItem.EnumId)
+        {
+            itemHand.Count = dropItem.TryAdd(itemHand);
+            var ci = ent.Components.GetComponent<ComponentInventory>();
+            ci.AddItem(itemHand);
         }
         else
-        {//replace
-
+        {
+            _tempFromSlot.Replace(dropItem);
+            dropItem.Replace(itemHand);
         }
 
-        dropItem.SetEmpty();
-//        _handlerTempData.SetEmpty();
+        _tempFromSlot = null;
+        itemHand.SetEmpty();
 
         UpdateModules();
+    }
+
+    private void LateUpdate()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            var ent = _entityInProcess.EntityData as EntityPlayer;
+            var itemHand = ent.ItemHand;
+            if (!itemHand.IsEmpty)
+            {                
+                GameProcess.Instance.GameWorld.AddEntity(new EntityItem(itemHand, ent.Position.x, ent.Position.z));
+                itemHand.SetEmpty();
+                _tempFromSlot = null;
+
+                UpdateModules();
+            }
+        }
     }
 
     private void OnDestroy()
     {
         _entityInProcess.UpdateEIP -= UpdateModules;
+
+        uIPresentInventory.OnComponentUpdated -= UpdateModules;
+        uIPresentInventory.OnDragItem -= DragItem;
+        uIPresentInventory.OnDropItem -= DropItem;
+
         _uIPanelCraftGroups.OnApplyCraft -= UpdateModules;
-        uIPresentInventory.ComponentUpdated -= UpdateModules;
     }
 }

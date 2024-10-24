@@ -15,14 +15,14 @@ public class ComponentPosition : ComponentData
 
     public void UpdateByCommand(string argument)
     {
-        var coords = argument.Split(',');
+        var coords = argument.Split('|');
         Xpos = float.Parse(coords[0]);
         Zpos = float.Parse(coords[1]);
     }
 
     public static CommandData CommandUpdate(Vector3 position)
     {
-        return new CommandData(-1, typeof(ComponentPosition).Name, $"{position.x},{position.z}");
+        return new CommandData(-1, typeof(ComponentPosition).Name, $"{position.x}|{position.z}");
     }
 
     public static string CommandArgumentUpdate(Vector3 position)
