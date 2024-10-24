@@ -169,4 +169,13 @@ public class ComponentInventory : ComponentData
             Debug.Log($"{i.EnumId}, count:{i.Count}/{iConf.AmountStack}");
         }
     }
+
+    public static CommandData GetCommandUseItem(int idSlot)
+    {
+        return new CommandData()
+        {
+            Component = Dict.Commands.UseItem,
+            Message = $"{idSlot}",
+        };
+    }
 }

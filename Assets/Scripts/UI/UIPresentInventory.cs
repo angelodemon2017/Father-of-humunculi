@@ -14,6 +14,7 @@ public class UIPresentInventory : MonoBehaviour
     public Action OnComponentUpdated;
     public Action<ItemData> OnDragItem;
     public Action<ItemData> OnDropItem;
+    public Action<int> OnUseItem;
 
     public void Init(ComponentInventory componentInventory)
     {
@@ -53,6 +54,7 @@ public class UIPresentInventory : MonoBehaviour
 
     private void UseSlot(int idButton)
     {
+
 //        _componentInventory.DropSlot(idButton);
 //        ComponentUpdated?.Invoke();
     }

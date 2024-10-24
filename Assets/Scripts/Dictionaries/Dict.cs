@@ -26,4 +26,9 @@ public static class Dict
     {
         return directs[(X, Z)];
     }
+
+    public static class Commands
+    {
+        public static string UseItem = "UseItem";
+    }
 }

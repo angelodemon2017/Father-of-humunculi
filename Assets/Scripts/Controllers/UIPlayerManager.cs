@@ -31,6 +31,7 @@ public class UIPlayerManager : MonoBehaviour
         uIPresentInventory.Init(ci);
         uIPresentInventory.OnDragItem += DragItem;
         uIPresentInventory.OnDropItem += DropItem;
+        uIPresentInventory.OnUseItem += UseItemByInventory;
 
         _uIPanelCraftGroups.Init(ci);
         _uIPanelCraftGroups.OnApplyCraft += UpdateModules;
@@ -96,6 +97,13 @@ public class UIPlayerManager : MonoBehaviour
         UpdateModules();
     }
 
+    private void UseItemByInventory(int index)
+    {
+        var com = ComponentInventory.GetCommandUseItem(index);
+        com.IdEntity = _entityInProcess.Id;
+        _entityInProcess.SendCommand(com);
+    }
+
     private void LateUpdate()
     {
         if (Input.GetMouseButtonUp(0))
@@ -120,6 +128,7 @@ public class UIPlayerManager : MonoBehaviour
         uIPresentInventory.OnComponentUpdated -= UpdateModules;
         uIPresentInventory.OnDragItem -= DragItem;
         uIPresentInventory.OnDropItem -= DropItem;
+        uIPresentInventory.OnUseItem -= UseItemByInventory;
 
         _uIPanelCraftGroups.OnApplyCraft -= UpdateModules;
     }
