@@ -5,7 +5,7 @@ public class ModelOfEntity : PrefabByComponentData
     [SerializeField] private GameObject _shadow;
 
     private ModelController _modelController;
-    private Transform _model;
+//    private Transform _model;
     private ComponentModelPrefab _componentModelPrefab;
     private EntityInProcess _entityInProcess;
 
@@ -32,8 +32,8 @@ public class ModelOfEntity : PrefabByComponentData
             return;
         }
 
-        _model = Instantiate(go, transform.position + go.transform.position, CameraController.Instance.DirectParalCamera, transform).transform;
-        _modelController = _model.GetComponent<ModelController>();
+        var model = Instantiate(go, transform.position + go.transform.position, CameraController.Instance.DirectParalCamera, transform).transform;
+        _modelController = model.GetComponent<ModelController>();
 
         Instantiate(_shadow, transform.position + Vector3.up * 0.01f, Quaternion.identity, transform);
 
@@ -42,8 +42,6 @@ public class ModelOfEntity : PrefabByComponentData
 
     private void UpdateModel()
     {
-        _model.localRotation = CameraController.Instance.DirectParalCamera;
-
         _modelController?.SomeCheck(_componentModelPrefab.CurrentParamOfModel);
     }
 

@@ -72,6 +72,15 @@ public class ItemData
         Meta = emptyItem.BaseMeta;
     }
 
+    public void SubtractCount(int count = 1)
+    {
+        Count -= count;
+        if (Count <= 0)
+        {
+            SetEmpty();
+        }
+    }
+
     public void UseItem(EntityData entityData)
     {
         var iConf = ItemsController.GetItem(EnumId);

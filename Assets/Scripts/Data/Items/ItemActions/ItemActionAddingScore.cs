@@ -7,14 +7,15 @@ public class ItemActionAddingScore : ItemActionConfig
 
     public override bool AvailableUseItem(ItemData itemData, EntityData entityData)
     {
-        return true;
+        return entityData is EntityPlayer && itemData.Count > 0;
     }
 
     public override void ApplyItem(ItemData itemData, EntityData entityData)
     {
         if (entityData is EntityPlayer entityPlayer)
         {
-
+            entityPlayer.ScoreDebug += Score;
+            itemData.SubtractCount();
         }
     }
 }

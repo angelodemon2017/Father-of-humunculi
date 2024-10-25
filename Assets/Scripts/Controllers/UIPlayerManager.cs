@@ -65,8 +65,6 @@ public class UIPlayerManager : MonoBehaviour
 
     private void DropItem(ItemData dropItem)
     {//logic move to entity
-
-        Debug.Log($"click DropSlot");
         var ent = _entityInProcess.EntityData as EntityPlayer;
         var itemHand = ent.ItemHand;
 
@@ -102,6 +100,30 @@ public class UIPlayerManager : MonoBehaviour
         var com = ComponentInventory.GetCommandUseItem(index);
         com.IdEntity = _entityInProcess.Id;
         _entityInProcess.SendCommand(com);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            UseItemByInventory(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            UseItemByInventory(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            UseItemByInventory(2);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            UseItemByInventory(3);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            UseItemByInventory(4);
+        }
     }
 
     private void LateUpdate()

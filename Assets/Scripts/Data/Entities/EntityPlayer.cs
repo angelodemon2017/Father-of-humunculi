@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class EntityPlayer : EntityData
 {
-    public override string DebugField => $"asdqwe";
+    public override string DebugField => $"score:{ScoreDebug}";
+
+    public int ScoreDebug;
 
     private ItemData _itemInHand;
 

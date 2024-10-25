@@ -4,7 +4,6 @@ public class ItemRoot : PrefabByComponentData
 {
     [SerializeField] private SpriteRenderer _spriteRenderer;
 
-    private Transform _model;
     private ComponentItemPresent _componentItemPresent;
     private EntityInProcess _entityInProcess;
 
@@ -12,7 +11,6 @@ public class ItemRoot : PrefabByComponentData
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {
-        _model = _spriteRenderer.transform;
         _componentItemPresent = (ComponentItemPresent)componentData;
 
         _entityInProcess = entityInProcess;
@@ -25,7 +23,7 @@ public class ItemRoot : PrefabByComponentData
 
     private void UpdateModel()
     {
-        _model.rotation = CameraController.Instance.DirectParalCamera;
+
     }
 
     private void OnDestroy()

@@ -98,7 +98,7 @@ public class ComponentInventory : ComponentData
     private bool SubtrackItems(EnumItem enumItem, int count)
     {
         var slot = Items.FirstOrDefault(i => i.EnumId == enumItem);
-        if (slot == null || count == 0 || enumItem == EnumItem.None)
+        if (slot == null || count <= 0 || enumItem == EnumItem.None)
         {
             return false;
         }
@@ -181,6 +181,11 @@ public class ComponentInventory : ComponentData
 
     public void UseItem(int slot, EntityData entityData)
     {
+        if (slot >= Items.Count)
+        {
+            return;
+        }
+
         Items[slot].UseItem(entityData);
     }
 }

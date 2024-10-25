@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2956829690121693428}
   - component: {fileID: 7630243788038607130}
   - component: {fileID: 3307404946441532395}
+  - component: {fileID: 3116305114439942434}
   m_Layer: 6
   m_Name: MiniMob
   m_TagString: Untagged
@@ -128,3 +129,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3116305114439942434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6524338689833715890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 326f24b9b71ed2e4199ff7a63b6c3dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

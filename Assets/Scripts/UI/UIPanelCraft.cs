@@ -50,6 +50,8 @@ public class UIPanelCraft : MonoBehaviour
 
     private void OnClick()
     {
+
+
         _componentInventory.TryApplyRecipe(_recipe);
         UpdatePanel();
         OnApplyRecipe?.Invoke();
