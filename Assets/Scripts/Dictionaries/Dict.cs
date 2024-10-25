@@ -31,4 +31,9 @@ public static class Dict
     {
         public static string UseItem = "UseItem";
     }
+
+    public static class RectKeys
+    {
+        public static string Shop = "Shop";
+    }
 }
