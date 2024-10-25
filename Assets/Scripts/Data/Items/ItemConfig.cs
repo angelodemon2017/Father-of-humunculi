@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [CreateAssetMenu(menuName = "ItemConfig", order = 1)]
 public class ItemConfig : ScriptableObject
@@ -13,6 +14,25 @@ public class ItemConfig : ScriptableObject
     public string BaseMeta;
     public int MinSpawnItem;
     public int MaxSpawnItem;
+    public List<ItemActionConfig> ItemActions = new();
 
     public Color ColorBackGround => Color.white;//todo get color from quality
+
+    public bool UseItem(ItemData itemData, EntityData entityData)
+    {
+        foreach (var ia in ItemActions)
+        {
+            if (!ia.AvailableUseItem(itemData, entityData))
+            {
+                return false;
+            }
+        }
+
+        foreach (var ia in ItemActions)
+        {
+            ia.ApplyItem(itemData, entityData);
+        }
+
+        return true;
+    }
 }

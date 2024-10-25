@@ -35,11 +35,6 @@ public class EntityData
         _updater?.Invoke(Id);
     }
 
-/*    public virtual CommandData GetCommand(string parametr)
-    {
-        return new CommandData(Id, "");
-    }/**/
-
     public virtual void ApplyCommand(CommandData command)
     {
         if (command.Component == typeof(ComponentPosition).Name)
@@ -47,6 +42,16 @@ public class EntityData
             var comp = Components.GetComponent<ComponentPosition>();
             comp.UpdateByCommand(command.Message);
         }
+        if (command.Component == Dict.Commands.UseItem)
+        {
+            var compInv = Components.GetComponent<ComponentInventory>();
+            if (compInv != null)
+            {
+                compInv.UseItem(int.Parse(command.Message), this);
+            }
+        }
+
+        UpdateEntity();
     }
 }
 

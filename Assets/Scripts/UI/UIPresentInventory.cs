@@ -37,7 +37,7 @@ public class UIPresentInventory : MonoBehaviour
     private void DragSlot(int idSlot)
     {
         var item = _componentInventory.Items[idSlot];
-        if (item.EnumId == EnumItem.None)
+        if (item.IsEmpty)
         {
             return;
         }
@@ -54,7 +54,8 @@ public class UIPresentInventory : MonoBehaviour
 
     private void UseSlot(int idButton)
     {
-
+//        var useCommand = ComponentInventory.GetCommandUseItem(idButton);
+        OnUseItem?.Invoke(idButton);
 //        _componentInventory.DropSlot(idButton);
 //        ComponentUpdated?.Invoke();
     }

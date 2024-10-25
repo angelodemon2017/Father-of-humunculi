@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EntityPlayer : EntityData
 {
-    public override string DebugField => _itemInHand.IsEmpty ? "" : $"In hand {_itemInHand.EnumId}({_itemInHand.Count})";
+    public override string DebugField => $"asdqwe";
 
     private ItemData _itemInHand;
 
@@ -11,7 +11,7 @@ public class EntityPlayer : EntityData
 
     public EntityPlayer(float xpos, float zpos) : base(xpos, zpos)
     {
-        _itemInHand = new ItemData(ItemsController.GetItem(EnumItem.None));
+        _itemInHand = new ItemData(ItemsController.GetEmpty());
 
         Components.AddRange(new List<ComponentData>()
         {
@@ -39,5 +39,10 @@ public class EntityPlayer : EntityData
         GameProcess.Instance.GameWorld.AddEntity(new EntityItem(item, Position.x, Position.z));
 
         item.SetEmpty();
+    }
+
+    public override void ApplyCommand(CommandData command)
+    {
+        base.ApplyCommand(command);
     }
 }

@@ -12,7 +12,7 @@ public class ComponentInventory : ComponentData
     public ComponentInventory(int maxItems = 5)
     {
         MaxItems = maxItems;
-        var emptyConf = ItemsController.GetItem(EnumItem.None);
+        var emptyConf = ItemsController.GetEmpty();
         for (var i = 0; i < maxItems; i++)
         {
             Items.Add(new ItemData(emptyConf));
@@ -34,7 +34,7 @@ public class ComponentInventory : ComponentData
         var slot = Items.FirstOrDefault(i => i.EnumId == item.EnumId && !i.IsFullSlot);
         if (slot == null)
         {
-            slot = Items.FirstOrDefault(i => i.EnumId == EnumItem.None);
+            slot = Items.FirstOrDefault(i => i.IsEmpty);
         }
 
         if (slot == null)
@@ -171,11 +171,16 @@ public class ComponentInventory : ComponentData
     }
 
     public static CommandData GetCommandUseItem(int idSlot)
-    {
+    {//TODO command for split, drop
         return new CommandData()
         {
             Component = Dict.Commands.UseItem,
             Message = $"{idSlot}",
         };
+    }
+
+    public void UseItem(int slot, EntityData entityData)
+    {
+        Items[slot].UseItem(entityData);
     }
 }

@@ -62,7 +62,20 @@ public class ItemData
 
     public void SetEmpty()
     {
-        EnumId = EnumItem.None;
+        var emptyItem = ItemsController.GetEmpty();
+
+        EnumId = emptyItem.EnumKey;
         Count = 0;
+        Id = emptyItem.Key;
+        Durability = emptyItem.BaseDurability;
+        Quality = emptyItem.BaseQuality;
+        Meta = emptyItem.BaseMeta;
+    }
+
+    public void UseItem(EntityData entityData)
+    {
+        var iConf = ItemsController.GetItem(EnumId);
+
+        iConf.UseItem(this, entityData);
     }
 }

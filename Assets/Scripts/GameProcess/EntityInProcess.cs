@@ -35,13 +35,8 @@ public class EntityInProcess
         }
     }
 
-/*    public CommandData GetCommand(string parametr)
-    {
-        return _entityData.GetCommand(parametr);
-    }/**/
-
     public void SendCommand(CommandData command)
-    {
+    {//TODO place for network sending
         _entityData.ApplyCommand(command);
     }
 
