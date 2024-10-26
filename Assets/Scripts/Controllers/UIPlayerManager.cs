@@ -7,7 +7,9 @@ public class UIPlayerManager : MonoBehaviour
     [SerializeField] private UIPresentInventory uIPresentInventory;
     [SerializeField] private UIPanelCraftGroups _uIPanelCraftGroups;
     [SerializeField] private UIIconPresent _uIIconPresent;
+    [SerializeField] private SetterBuild _setterBuild;
 
+    private RecipeSO _tempRecipe;
     private EntityInProcess _entityInProcess;
     private ItemData _tempFromSlot;
 
@@ -100,6 +102,19 @@ public class UIPlayerManager : MonoBehaviour
         var com = ComponentInventory.GetCommandUseItem(index);
         com.IdEntity = _entityInProcess.Id;
         _entityInProcess.SendCommand(com);
+    }
+
+    public void RunPlanBuild(RecipeSO recipe)
+    {
+        _tempRecipe = recipe;
+        _setterBuild.gameObject.SetActive(true);
+        _setterBuild.Init(recipe.IconBuild);
+    }
+
+    private void CancelPlanBuild()
+    {
+        _tempRecipe = null;
+        _setterBuild.gameObject.SetActive(false);
     }
 
     private void Update()

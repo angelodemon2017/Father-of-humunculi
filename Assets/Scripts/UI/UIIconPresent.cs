@@ -78,6 +78,17 @@ public class UIIconModel
     public string BottomText;
     public AspectRatioFitter.AspectMode AspectMode;
 
+    /// <summary>
+    /// for build
+    /// </summary>
+    /// <param name="icon"></param>
+    public UIIconModel(Sprite icon)
+    {
+        Icon = icon;
+        ColorBackGround = Color.white;
+        BottomText = string.Empty;
+    }
+
     public UIIconModel(ItemData item)
     {
         var conf = ItemsController.GetItem(item.EnumId);

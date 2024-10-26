@@ -30,8 +30,8 @@ public class UIPanelCraft : MonoBehaviour
 
         _titleRecipe.text = recipe.Result.ItemConfig.Key;
 
-        _iconResult.InitIcon(new UIIconModel(recipe.Result));
-
+        UIIconModel iconModel = recipe.IsBuild ? new UIIconModel(recipe.IconBuild) : new UIIconModel(recipe.Result);
+        _iconResult.InitIcon(iconModel);
 
         UpdatePanel();
     }
@@ -50,9 +50,15 @@ public class UIPanelCraft : MonoBehaviour
 
     private void OnClick()
     {
+        if (_recipe.IsBuild)
+        {
+            UIPlayerManager.Instance.RunPlanBuild(_recipe);
+        }
+        else
+        {
+            _componentInventory.TryApplyRecipe(_recipe);
+        }
 
-
-        _componentInventory.TryApplyRecipe(_recipe);
         UpdatePanel();
         OnApplyRecipe?.Invoke();
     }
