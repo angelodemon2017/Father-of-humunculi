@@ -30,6 +30,7 @@ public static class Dict
     public static class Commands
     {
         public static string UseItem = "UseItem";
+        public static string SetBuild = "SetBuild";
     }
 
     public static class RectKeys

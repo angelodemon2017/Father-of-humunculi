@@ -235,7 +235,7 @@ MeshCollider:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: -1
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -259,6 +259,7 @@ MonoBehaviour:
   _textureBlackMask: {fileID: 2800000, guid: c3bba392e3b6c574b953e5afe04821a9, type: 3}
   _collider: {fileID: 772781500059541494}
   _testText: {fileID: 3701922924501165013}
+  DebugText: 
 --- !u!1 &740302962960466706
 GameObject:
   m_ObjectHideFlags: 0

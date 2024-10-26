@@ -50,6 +50,24 @@ public class EntityData
                 compInv.UseItem(int.Parse(command.Message), this);
             }
         }
+        if (command.Component == Dict.Commands.SetBuild)
+        {
+            var compInv = Components.GetComponent<ComponentInventory>();
+            if (compInv != null)
+            {
+                var mess = command.Message.Split('^');
+                var recipe = RecipesController.GetRecipe(int.Parse(mess[0]));
+                if (compInv.AvailableRecipe(recipe))
+                {
+                    compInv.SubtrackItemsByRecipe(recipe);
+
+                    var newEntity = recipe.Build.GetEntityByRecipe(
+                        float.Parse(mess[1]),
+                        float.Parse(mess[2]));
+                    GameProcess.Instance.GameWorld.AddEntity(newEntity);
+                }
+            }
+        }
 
         UpdateEntity();
     }

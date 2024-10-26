@@ -67,14 +67,19 @@ public class ComponentInventory : ComponentData
             return;
         }
 
-        foreach (var r in recipe.Resources)
-        {
-            SubtrackItems(r.ItemConfig.EnumKey, r.Count);
-        }
+        SubtrackItemsByRecipe(recipe);
 
         var resultItem = new ItemData(recipe.Result.ItemConfig);
         resultItem.Count = recipe.Result.Count;
         AddItem(resultItem);
+    }
+
+    public void SubtrackItemsByRecipe(RecipeSO recipe)
+    {
+        foreach (var r in recipe.Resources)
+        {
+            SubtrackItems(r.ItemConfig.EnumKey, r.Count);
+        }
     }
 
     public bool AvailableRecipe(RecipeSO recipe)

@@ -9,6 +9,8 @@ public class EntityResource : EntityData
 
     public override string DebugField => $"{(IdResource == 0 ? "камень" : "дерево")}({TestValue})";
 
+    private string GetTip() => "*click*";
+
     public EntityResource(int idResource, float xpos, float zpos) : base(xpos, zpos)
     {
         IdResource = idResource;
@@ -21,8 +23,6 @@ public class EntityResource : EntityData
             new ComponentUIlabels(Color.white)
         });
     }
-
-    private string GetTip() => "*click*";
 
     private void UpperTestValue()
     {

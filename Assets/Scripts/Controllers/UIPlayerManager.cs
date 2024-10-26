@@ -8,27 +8,30 @@ public class UIPlayerManager : MonoBehaviour
     [SerializeField] private UIPanelCraftGroups _uIPanelCraftGroups;
     [SerializeField] private UIIconPresent _uIIconPresent;
     [SerializeField] private SetterBuild _setterBuild;
+//    [SerializeField] private State _setPlanBuildState;
 
     private RecipeSO _tempRecipe;
-    private EntityInProcess _entityInProcess;
+    private EntityMonobeh _entityMonobeh;
     private ItemData _tempFromSlot;
 
+    public bool IsReadySetBuild => _tempRecipe != null;
     public UIPresentInventory UIPresentInventory => uIPresentInventory;
 
     private void Awake()
     {
         Instance = this;
         uIPresentInventory.OnComponentUpdated += UpdateModules;
+        CancelPlanBuild();
     }
 
-    public void InitEntity(EntityInProcess entity)
+    public void InitEntity(EntityMonobeh entity)
     {
-        _entityInProcess = entity;
+        _entityMonobeh = entity;
 
-        _entityInProcess.UpdateEIP += UpdateModules;
+        _entityMonobeh.EntityInProcess.UpdateEIP += UpdateModules;
 
         //TODO cycle init all components
-        var ci = entity.EntityData.Components.GetComponent<ComponentInventory>();
+        var ci = entity.EntityInProcess.EntityData.Components.GetComponent<ComponentInventory>();
 
         uIPresentInventory.Init(ci);
         uIPresentInventory.OnDragItem += DragItem;
@@ -43,7 +46,7 @@ public class UIPlayerManager : MonoBehaviour
 
     private void UpdateModules()
     {
-        var ent = _entityInProcess.EntityData as EntityPlayer;
+        var ent = _entityMonobeh.EntityInProcess.EntityData as EntityPlayer;
 
         uIPresentInventory.UpdateSlots();
 
@@ -57,7 +60,7 @@ public class UIPlayerManager : MonoBehaviour
     private void DragItem(ItemData dragItem)
     {
         _tempFromSlot = dragItem;
-        var ent = _entityInProcess.EntityData as EntityPlayer;
+        var ent = _entityMonobeh.EntityInProcess.EntityData as EntityPlayer;
         ent.PickItemByHand(dragItem);
 
         _tempFromSlot.SetEmpty();
@@ -67,7 +70,7 @@ public class UIPlayerManager : MonoBehaviour
 
     private void DropItem(ItemData dropItem)
     {//logic move to entity
-        var ent = _entityInProcess.EntityData as EntityPlayer;
+        var ent = _entityMonobeh.EntityInProcess.EntityData as EntityPlayer;
         var itemHand = ent.ItemHand;
 
         if (itemHand.IsEmpty)
@@ -100,8 +103,8 @@ public class UIPlayerManager : MonoBehaviour
     private void UseItemByInventory(int index)
     {
         var com = ComponentInventory.GetCommandUseItem(index);
-        com.IdEntity = _entityInProcess.Id;
-        _entityInProcess.SendCommand(com);
+        com.IdEntity = _entityMonobeh.EntityInProcess.Id;
+        _entityMonobeh.EntityInProcess.SendCommand(com);
     }
 
     public void RunPlanBuild(RecipeSO recipe)
@@ -111,10 +114,23 @@ public class UIPlayerManager : MonoBehaviour
         _setterBuild.Init(recipe.IconBuild);
     }
 
+    public void TrySetBuild(Vector3 target)
+    {
+        _entityMonobeh.EntityInProcess.SendCommand(
+            new CommandData(_entityMonobeh.EntityInProcess.EntityData,
+            _tempRecipe, target));
+        CancelPlanBuild();
+    }
+
+    public void HideCursorBuild()
+    {
+        _setterBuild.gameObject.SetActive(false);
+    }
+
     private void CancelPlanBuild()
     {
         _tempRecipe = null;
-        _setterBuild.gameObject.SetActive(false);
+        HideCursorBuild();
     }
 
     private void Update()
@@ -139,13 +155,17 @@ public class UIPlayerManager : MonoBehaviour
         {
             UseItemByInventory(4);
         }
+        if (IsReadySetBuild && Input.GetMouseButtonDown(1))
+        {
+            CancelPlanBuild();
+        }
     }
 
     private void LateUpdate()
     {
         if (Input.GetMouseButtonUp(0))
         {
-            var ent = _entityInProcess.EntityData as EntityPlayer;
+            var ent = _entityMonobeh.EntityInProcess.EntityData as EntityPlayer;
             var itemHand = ent.ItemHand;
             if (!itemHand.IsEmpty)
             {                
@@ -160,7 +180,7 @@ public class UIPlayerManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        _entityInProcess.UpdateEIP -= UpdateModules;
+        _entityMonobeh.EntityInProcess.UpdateEIP -= UpdateModules;
 
         uIPresentInventory.OnComponentUpdated -= UpdateModules;
         uIPresentInventory.OnDragItem -= DragItem;

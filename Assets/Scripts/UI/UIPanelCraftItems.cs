@@ -68,7 +68,9 @@ public class UIPanelCraftItems : MonoBehaviour
         {
             var uicp = Instantiate(_prefabRecipeIcon, _parentIconRecipes);
 
-            uicp.InitIcon(new UIIconModel(tempRecipes[r].Result, _componentInventory.AvailableRecipe(tempRecipes[r]), r));
+            UIIconModel iconModel = tempRecipes[r].IconModelResult;
+            iconModel.Index = r;
+            uicp.InitIcon(iconModel);
             uicp.OnPointerEnter += SelectRecipe;
 
             _recipes.Add(tempRecipes[r]);

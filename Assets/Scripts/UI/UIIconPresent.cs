@@ -87,6 +87,7 @@ public class UIIconModel
         Icon = icon;
         ColorBackGround = Color.white;
         BottomText = string.Empty;
+        AspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
     }
 
     public UIIconModel(ItemData item)

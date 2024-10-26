@@ -28,9 +28,9 @@ public class UIPanelCraft : MonoBehaviour
 
         _recipe = recipe;
 
-        _titleRecipe.text = recipe.Result.ItemConfig.Key;
+        _titleRecipe.text = recipe.TitleRecipe;
 
-        UIIconModel iconModel = recipe.IsBuild ? new UIIconModel(recipe.IconBuild) : new UIIconModel(recipe.Result);
+        UIIconModel iconModel = recipe.IconModelResult;
         _iconResult.InitIcon(iconModel);
 
         UpdatePanel();

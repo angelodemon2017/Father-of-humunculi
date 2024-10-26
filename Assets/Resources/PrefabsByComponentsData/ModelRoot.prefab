@@ -72,7 +72,7 @@ BoxCollider:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 5
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -250,6 +250,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912669672961300148, guid: 54a05179bbea86d439407fa4302fee13,
+        type: 3}
+      propertyPath: m_LayerOverridePriority
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8966468722845202861, guid: 54a05179bbea86d439407fa4302fee13,
         type: 3}

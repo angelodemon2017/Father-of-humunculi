@@ -31,6 +31,9 @@ public class CanvasUIlabels : PrefabByComponentData
 
     private void OnDestroy()
     {
-        _entityInProcess.UpdateEIP -= UpdateEntity;
+        if (_entityInProcess != null)
+        {
+            _entityInProcess.UpdateEIP -= UpdateEntity;
+        }
     }
 }

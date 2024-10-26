@@ -102,7 +102,7 @@ MeshCollider:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 5
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326f24b9b71ed2e4199ff7a63b6c3dfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isRect: 0
 --- !u!1 &7891591065556142946
 GameObject:
   m_ObjectHideFlags: 0

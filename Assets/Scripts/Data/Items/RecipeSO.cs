@@ -4,6 +4,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Recipe", order = 1)]
 public class RecipeSO : ScriptableObject
 {
+    [HideInInspector]
+    public int Index;
+
     public EnumBuilds Build = EnumBuilds.None;
     public Sprite IconBuild;
 
@@ -13,6 +16,8 @@ public class RecipeSO : ScriptableObject
 
     public GroupSO GroupRecipeTag;
 
+    public UIIconModel IconModelResult => IsBuild ? new UIIconModel(IconBuild) : new UIIconModel(Result);
+    public string TitleRecipe => IsBuild ? $"{Build}" : Result.ItemConfig.Key;
     public bool IsBuild => Build != EnumBuilds.None;
 }
 

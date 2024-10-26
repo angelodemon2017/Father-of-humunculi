@@ -9,18 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ea45600beecc084f8b0c0a7d8c1bbeb, type: 3}
-  m_Name: Mouse Set Target State
+  m_Script: {fileID: 11500000, guid: be2b926e1faf3c945a12c6c4c2bc3536, type: 3}
+  m_Name: Set Build Plan State
   m_EditorClassIdentifier: 
   AvailableStates:
-  - {fileID: 11400000, guid: e6e94f1fa8292874f8c2c0782c2d22ef, type: 2}
-  - {fileID: 11400000, guid: 59f31ce13c2b1bc4b9d065253fa63dcd, type: 2}
-  - {fileID: 11400000, guid: f65bac2e619f6054896494ff493fe54f, type: 2}
-  - {fileID: 11400000, guid: 8231d7ae5f5f5664ca1f41c7062e5b4d, type: 2}
   - {fileID: 11400000, guid: 6901d32c371f480468150c0a8d96c77b, type: 2}
+  - {fileID: 11400000, guid: 8231d7ae5f5f5664ca1f41c7062e5b4d, type: 2}
+  - {fileID: 11400000, guid: f65bac2e619f6054896494ff493fe54f, type: 2}
+  - {fileID: 11400000, guid: 2cf43fd94f7aa9f439cb0a2c978e1794, type: 2}
+  - {fileID: 11400000, guid: 59f31ce13c2b1bc4b9d065253fa63dcd, type: 2}
   Animation: 1
   MoveSpeed: 3.5
   _mask:
     serializedVersion: 2
-    m_Bits: 136
-  DistanceToTouch: 1
+    m_Bits: 8
