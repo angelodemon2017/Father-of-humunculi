@@ -10,6 +10,20 @@ public class EntityShop : EntityData
         {
             new ComponentModelPrefab(Dict.RectKeys.Shop),
             new ComponentInterractable(GetTip),
+            new ComponentUICraftGroup(Dict.RecipeGroups.ShopDebug),
         });
     }
+
+    public override void ApplyCommand(CommandData command)
+    {
+        if (command.Component == typeof(ComponentInterractable).Name)
+        {
+            var com = Components.GetComponent<ComponentUICraftGroup>();
+            com.SetEntityOpener(long.Parse(command.Message));
+        }
+
+        base.ApplyCommand(command);
+    }
+
+    
 }

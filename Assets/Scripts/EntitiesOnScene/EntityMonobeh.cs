@@ -49,7 +49,6 @@ public class EntityMonobeh : MonoBehaviour
 
     public void SendCommand(CommandData comand)
     {
-        comand.IdEntity = Id;
         _entityInProcess.SendCommand(comand);
     }
 }

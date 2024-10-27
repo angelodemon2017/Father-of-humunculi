@@ -14,6 +14,7 @@ public class UIPlayerManager : MonoBehaviour
     private EntityMonobeh _entityMonobeh;
     private ItemData _tempFromSlot;
 
+    public EntityMonobeh EntityMonobeh => _entityMonobeh;
     public bool IsReadySetBuild => _tempRecipe != null;
     public UIPresentInventory UIPresentInventory => uIPresentInventory;
 

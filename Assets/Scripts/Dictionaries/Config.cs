@@ -5,6 +5,8 @@
     public static int VisibilityChunkDistance = 4;
     public static int EntitiesInChunk = 1;
 
+    public static float CloseUIDistance = 2f;
+
     public static string PathEntityModels = "EntityModels";
     public static string PathPrefabsByComponents = "PrefabsByComponentsData";
     public static string PathInitStates = "InitStates";

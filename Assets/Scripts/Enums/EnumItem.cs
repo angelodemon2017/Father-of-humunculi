@@ -5,4 +5,6 @@
     Diamond,
     Star,
     Crown,
+    Money,
+    SurpriseItem,
 }

@@ -37,4 +37,9 @@ public static class Dict
     {
         public static string Shop = "Shop";
     }
+
+    public static class RecipeGroups
+    {
+        public static string ShopDebug = "ShopDebug";
+    }
 }

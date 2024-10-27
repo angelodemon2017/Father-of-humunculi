@@ -57,6 +57,8 @@ public class UIPanelCraft : MonoBehaviour
         else
         {
             _componentInventory.TryApplyRecipe(_recipe);
+            //TODO MEGA CRUNCH, need use send command to entity
+            UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData.UpdateEntity();
         }
 
         UpdatePanel();

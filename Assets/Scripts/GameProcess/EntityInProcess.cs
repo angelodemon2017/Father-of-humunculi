@@ -37,6 +37,7 @@ public class EntityInProcess
 
     public void SendCommand(CommandData command)
     {//TODO place for network sending
+        command.IdEntity = Id;
         _entityData.ApplyCommand(command);
     }
 
