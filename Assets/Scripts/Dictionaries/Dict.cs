@@ -36,6 +36,7 @@ public static class Dict
     public static class RectKeys
     {
         public static string Shop = "Shop";
+        public static string GoldBush = "GoldBush";
     }
 
     public static class RecipeGroups

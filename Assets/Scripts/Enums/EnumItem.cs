@@ -7,4 +7,5 @@
     Crown,
     Money,
     SurpriseItem,
+    Tablet,
 }

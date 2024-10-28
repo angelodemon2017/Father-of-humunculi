@@ -51,6 +51,8 @@ public class UIPanelHint : MonoBehaviour
         Crunch();
         yield return new WaitForSeconds(0.05f);
         Crunch();
+        yield return new WaitForSeconds(0.05f);
+        Crunch();
     }
 
     public void Hide()

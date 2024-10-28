@@ -20,7 +20,7 @@ public class EntityResource : EntityData
             new ComponentCounter(50, UpperTestValue),
             new ComponentModelPrefab("PlaneBush"),
             new ComponentInterractable(GetTip),
-            new ComponentUIlabels(Color.white)
+//            new ComponentUIlabels(Color.white)
         });
     }
 

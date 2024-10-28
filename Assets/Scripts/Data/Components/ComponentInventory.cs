@@ -100,7 +100,7 @@ public class ComponentInventory : ComponentData
         return Items.Where(i => i.EnumId == enumItem).Sum(i => i.Count);
     }
 
-    private bool SubtrackItems(EnumItem enumItem, int count)
+    public bool SubtrackItems(EnumItem enumItem, int count)
     {
         var slot = Items.FirstOrDefault(i => i.EnumId == enumItem);
         if (slot == null || count <= 0 || enumItem == EnumItem.None)
