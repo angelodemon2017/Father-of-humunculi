@@ -16,7 +16,19 @@ public class ItemConfig : ScriptableObject
     public int MaxSpawnItem;
     public List<ItemActionConfig> ItemActions = new();
 
-    public Color ColorBackGround => Color.white;//todo get color from quality
+    private Dictionary<int, Color> _qualityColors = new()
+    {
+        { 0, Color.gray },
+        { 1, Color.white },
+        { 2, Color.green },
+        { 3, Color.cyan },
+        { 4, Color.magenta },
+        { 5, Color.yellow },
+        { 6, Color.red },
+    };
+
+    public Color ColorBackGround => _qualityColors[BaseQuality];
+    public bool IsUseLess => ItemActions.Count > 0;
 
     public bool UseItem(ItemData itemData, EntityData entityData)
     {

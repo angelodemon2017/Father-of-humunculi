@@ -8,6 +8,7 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IDragHandler, 
 {
     [SerializeField] private AspectRatioFitter _aspectRatioFitter;
     [SerializeField] private Button _button;
+    [SerializeField] private Image _colorBorder;
     [SerializeField] private Image _colorBackground;
     [SerializeField] private Image _iconItem;
     [SerializeField] private TextMeshProUGUI _textBottom;
@@ -32,6 +33,7 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IDragHandler, 
         _iconItem.sprite = iconModel.Icon;
         _textBottom.text = iconModel.BottomText;
         _aspectRatioFitter.aspectMode = iconModel.AspectMode;
+        _colorBorder.color = iconModel.ClickableIcon ? Color.white : Color.gray;
 //        rectTransform.sizeDelta = new Vector2(50f, 50f);
     }
 
@@ -77,6 +79,7 @@ public class UIIconModel
     public Color ColorBackGround;
     public string BottomText;
     public AspectRatioFitter.AspectMode AspectMode;
+    public bool ClickableIcon = false;
 
     /// <summary>
     /// for build
@@ -109,6 +112,7 @@ public class UIIconModel
         ColorBackGround = conf.ColorBackGround;
         BottomText = item.Count > 0 ? $"{item.Count}" : string.Empty;
         AspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
+        ClickableIcon = conf.IsUseLess;
     }
 
     public UIIconModel(ElementRecipe recipe)
