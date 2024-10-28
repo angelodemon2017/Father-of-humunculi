@@ -4,7 +4,7 @@ using TMPro;
 using System;
 using UnityEngine.EventSystems;
 
-public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IDragHandler, IDropHandler, IPointerClickHandler
+public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IDropHandler, IPointerClickHandler
 {
     [SerializeField] private AspectRatioFitter _aspectRatioFitter;
     [SerializeField] private Button _button;
@@ -18,6 +18,7 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IDragHandler, 
     public Action<int> OnClickIcon;
     public Action<int> OnClickRBM;
     public Action<int> OnPointerEnter;
+    public Action<int> OnPointerExit;
     public Action<int> OnDragHandler;
     public Action<int> OnDropHandler;
 
@@ -45,6 +46,11 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IDragHandler, 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
         OnPointerEnter?.Invoke(_indexIcon);
+    }
+
+    void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+    {
+        OnPointerExit?.Invoke(_indexIcon);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -95,7 +101,7 @@ public class UIIconModel
 
     public UIIconModel(ItemData item)
     {
-        var conf = ItemsController.GetItem(item.EnumId);
+        var conf = item.ItemConfig;
 
         Icon = conf.IconItem;
         ColorBackGround = conf.ColorBackGround;
@@ -105,7 +111,7 @@ public class UIIconModel
 
     public UIIconModel(int index, ItemData item)
     {
-        var conf = ItemsController.GetItem(item.EnumId);
+        var conf = item.ItemConfig;
 
         Index = index;
         Icon = conf.IconItem;

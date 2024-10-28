@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnumKey: 2
   Key: Diamond
-  Description: 
+  Description: "\u0411\u043B\u044D\u0441\u0442\u044F\u0448\u043A\u0430"
   AmountStack: 10
   BaseDurability: 1
   IconItem: {fileID: 1391132574, guid: 183f3ba47d746ea4190c5bb109108e88, type: 3}

@@ -169,7 +169,7 @@ public class ComponentInventory : ComponentData
         Debug.Log($"Count slots with items ={Items.Count}");
         foreach (var i in Items)
         {
-            var iConf = ItemsController.GetItem(i.EnumId);
+            var iConf = i.ItemConfig;
 
             Debug.Log($"{i.EnumId}, count:{i.Count}/{iConf.AmountStack}");
         }

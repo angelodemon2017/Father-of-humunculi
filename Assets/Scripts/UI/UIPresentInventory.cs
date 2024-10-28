@@ -7,6 +7,7 @@ public class UIPresentInventory : MonoBehaviour
 {
     [SerializeField] private UIIconPresent _iconPrefab;
     [SerializeField] private Transform _parentIcons;
+    [SerializeField] private UIPanelHint _uiPanelHint;
 
     private ComponentInventory _componentInventory;
     private List<UIIconPresent> _inventorySlots = new();
@@ -18,19 +19,24 @@ public class UIPresentInventory : MonoBehaviour
 
     public void Init(ComponentInventory componentInventory)
     {
+        _uiPanelHint.Hide();
+
         _componentInventory = componentInventory;
         _parentIcons.DestroyChildrens();
         for (int i = 0; i < _componentInventory.MaxItems; i++)
         {
             var newSlot = Instantiate(_iconPrefab, _parentIcons);
+
             newSlot.OnClickIcon += UseSlot;
             newSlot.OnClickRBM += ClickSlotRBM;
             newSlot.OnDragHandler += DragSlot;
             newSlot.OnDropHandler += DropSlot;
+            newSlot.OnPointerEnter += PointerEnter;
+            newSlot.OnPointerExit += PointerExit;
+
             _inventorySlots.Add(newSlot);
         }
 
-//        StartCoroutine(Crunch());
         UpdateSlots();
     }
 
@@ -52,12 +58,38 @@ public class UIPresentInventory : MonoBehaviour
         OnDropItem?.Invoke(item);
     }
 
+    private void PointerEnter(int index)
+    {
+        var item = _componentInventory.Items[index];
+        if (item.IsEmpty)
+        {
+            return;
+        }
+
+        var hintModel = new HintModel()
+        {
+            Icon = item.ItemConfig.IconItem,
+            Title = item.ItemConfig.Key,
+            Description = item.ItemConfig.Description,
+        };
+        hintModel.UseHints.Add("* ПКМ - разделение предмета на 2 слота");
+        if (item.ItemConfig.ItemActions.Count > 0)
+        {
+            hintModel.UseHints.Add("* ЛКМ - использование предмета");
+        }
+
+        _uiPanelHint.Init(hintModel);
+        _uiPanelHint.transform.position = _inventorySlots[index].transform.position;
+    }
+
+    private void PointerExit(int index)
+    {
+        _uiPanelHint.Hide();
+    }
+
     private void UseSlot(int idButton)
     {
-//        var useCommand = ComponentInventory.GetCommandUseItem(idButton);
         OnUseItem?.Invoke(idButton);
-//        _componentInventory.DropSlot(idButton);
-//        ComponentUpdated?.Invoke();
     }
 
     private void ClickSlotRBM(int idSlot)

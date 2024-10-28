@@ -2,7 +2,7 @@
 {
     private ItemData _itemData;
 
-    public ItemConfig ItemConfig => ItemsController.GetItem(_itemData.EnumId);
+    public ItemConfig ItemConfig => _itemData.ItemConfig;
     public ItemData ItemData => _itemData;
 
     public string Tip => $"{_itemData.EnumId}({_itemData.Count})";

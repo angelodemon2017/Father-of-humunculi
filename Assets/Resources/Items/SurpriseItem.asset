@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnumKey: 6
   Key: Surprise
-  Description: 
+  Description: "\u0427\u0442\u043E \u0436\u0435 \u0442\u0430\u043C \u0432\u043D\u0443\u0442\u0440\u0438?"
   AmountStack: 9
   BaseDurability: 1
   IconItem: {fileID: -224713120, guid: 183f3ba47d746ea4190c5bb109108e88, type: 3}
@@ -23,4 +23,4 @@ MonoBehaviour:
   MinSpawnItem: 1
   MaxSpawnItem: 1
   ItemActions:
-  - {fileID: 11400000, guid: a603a35020c9a5446951e32540e5c0e6, type: 2}
+  - {fileID: 11400000, guid: d7a2626d35a97a642b175eab7decaaae, type: 2}

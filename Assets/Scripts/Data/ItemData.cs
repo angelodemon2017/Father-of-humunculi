@@ -9,8 +9,9 @@ public class ItemData
     public int Quality;
     public string Meta;
 
-    public bool IsFullSlot => Count == ItemsController.GetItem(EnumId).AmountStack;
+    public bool IsFullSlot => Count == ItemConfig.AmountStack;
     public bool IsEmpty => EnumId == EnumItem.None;
+    public ItemConfig ItemConfig => ItemsController.GetItem(EnumId);
 
     public ItemData(ItemConfig config)
     {
@@ -34,7 +35,7 @@ public class ItemData
 
     public int TryAdd(ItemData item)
     {
-        var iConf = ItemsController.GetItem(item.EnumId);
+        var iConf = item.ItemConfig;
         int freeCountInSlot = iConf.AmountStack - Count;
 
         if (item.Count > freeCountInSlot)
@@ -83,8 +84,6 @@ public class ItemData
 
     public void UseItem(EntityData entityData)
     {
-        var iConf = ItemsController.GetItem(EnumId);
-
-        iConf.UseItem(this, entityData);
+        ItemConfig.UseItem(this, entityData);
     }
 }
