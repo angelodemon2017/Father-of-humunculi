@@ -72,7 +72,10 @@ public class UIPresentInventory : MonoBehaviour
             Title = item.ItemConfig.Key,
             Description = item.ItemConfig.Description,
         };
-        hintModel.UseHints.Add("* ПКМ - разделение предмета на 2 слота");
+        if (item.Count > 1)
+        {
+            hintModel.UseHints.Add("* ПКМ - разделение предмета на 2 слота");
+        }
         if (item.ItemConfig.ItemActions.Count > 0)
         {
             hintModel.UseHints.Add("* ЛКМ - использование предмета");

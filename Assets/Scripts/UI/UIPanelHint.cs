@@ -12,18 +12,21 @@ public class UIPanelHint : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _textMainDiscription;
     [SerializeField] private TextMeshProUGUI _textUseHints;
     [SerializeField] private VerticalLayoutGroup _verticalLayoutGroup;
+    [SerializeField] private List<ContentSizeFitter> _contentSizeFitters;
+    [SerializeField] private List<LayoutGroup> _layoutGroups;
 
     private HintModel _hintModel;
 
     public void Init(HintModel hintModel)
     {
         _hintModel = hintModel;
-        gameObject.SetActive(true);
         UpdateUI();
+        StartCoroutine(Crunch2());
     }
 
     private void UpdateUI()
     {
+        gameObject.SetActive(true);
         _iconHint.sprite = _hintModel.Icon;
         _iconRoot.SetActive(_hintModel.Icon != null);
         _textTitle.text = _hintModel.Title;
@@ -33,12 +36,21 @@ public class UIPanelHint : MonoBehaviour
 
         _textUseHints.text = _hintModel.UseHints.Count > 0 ? string.Join("\r\n", _hintModel.UseHints) : string.Empty;
         _textUseHints.transform.parent.gameObject.SetActive(_hintModel.UseHints.Count > 0);
+    }
 
-/*        _verticalLayoutGroup.enabled = false;
-        _verticalLayoutGroup.enabled = true;
+    private void Crunch()
+    {
+        _contentSizeFitters.ForEach(l => l.SetLayoutVertical());
+        _contentSizeFitters.ForEach(l => l.SetLayoutHorizontal());
+        _layoutGroups.ForEach(l => l.SetLayoutVertical());
+        _layoutGroups.ForEach(l => l.SetLayoutHorizontal());
+    }
 
-        gameObject.SetActive(false);
-        gameObject.SetActive(true);/**/
+    private IEnumerator Crunch2()
+    {
+        Crunch();
+        yield return new WaitForSeconds(0.05f);
+        Crunch();
     }
 
     public void Hide()
