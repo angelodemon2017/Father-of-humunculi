@@ -37,6 +37,7 @@ public static class Dict
     {
         public static string Shop = "Shop";
         public static string GoldBush = "GoldBush";
+        public static string DemoFabric = "DemoFabric";
     }
 
     public static class RecipeGroups

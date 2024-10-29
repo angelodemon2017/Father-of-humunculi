@@ -6,6 +6,8 @@
         {
             case EnumBuilds.DebugShop:
                 return new EntityShop(x, z);
+            case EnumBuilds.DemoFabric:
+                return new EntityDemoFabric(x, z);
             default:
                 return new EntityData();
         }
