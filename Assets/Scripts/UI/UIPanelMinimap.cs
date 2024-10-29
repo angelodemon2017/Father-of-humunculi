@@ -28,7 +28,8 @@ public class UIPanelMinimap : MonoBehaviour
 
         texture = new Texture2D(textureWidth, textureHeight);
 
-        PaintTexture();
+//        PaintTexture();
+        PaintOnlyGenerate();
 
         targetImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
@@ -46,6 +47,35 @@ public class UIPanelMinimap : MonoBehaviour
                 var txt = WorldViewer.Instance.Textures[(int)id];
                 texture.SetPixel(x, z, txt.BaseColor);
             }
+        }
+
+        texture.Apply();
+    }
+
+    private void PaintOnlyGenerate()
+    {
+        for (int x = 0; x < texture.width; x++)
+        {
+            for (int z = 0; z < texture.height; z++)
+            {
+                texture.SetPixel(x, z, Color.black);
+            }
+        }
+
+        foreach (var t in GameProcess.Instance.GameWorld.worldTileDatas)
+        {
+            var x = t.Xpos + textureWidth / 2 - (int)(CameraController.Instance.FocusPosition.x / Config.TileSize);
+            var z = t.Zpos + textureHeight / 2 - (int)(CameraController.Instance.FocusPosition.z / Config.TileSize);
+
+            if (x < 0 || z < 0 || x >= texture.width || z >= texture.height)
+            {
+                continue;
+            }
+
+            var txt = WorldViewer.Instance.Textures[t.Id];
+            texture.SetPixel(x,
+                z,
+                txt.BaseColor);
         }
 
         texture.Apply();
