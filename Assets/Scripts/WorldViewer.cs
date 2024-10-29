@@ -111,6 +111,8 @@ public class WorldViewer : MonoBehaviour
             _focusChunkPosition = newPos;
 
             CheckAndUpdateChunks();
+
+            StartCoroutine(UIPanelMinimap.Instance.Init());
         }
     }
 

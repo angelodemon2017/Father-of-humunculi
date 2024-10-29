@@ -6,6 +6,13 @@ public class WorldConstructor
 {
     public static WorldTileData GenerateTile(int x, int z, SeedData seed)
     {
+        var index = GetIdtextureByPerlin(x, z, seed);
+        var txt = WorldViewer.Instance.Textures[(int)index];
+        return new WorldTileData(txt.Id, x, z);
+    }
+
+    public static float GetIdtextureByPerlin(int x, int z, SeedData seed)
+    {
         var pr = Mathf.PerlinNoise((x - seed.PerlinNoiseSwift) * Config.PerlinScale, (z + seed.PerlinNoiseSwift) * Config.PerlinScale);
         var index = pr * WorldViewer.Instance.Textures.Count + Config.HolesMap;
         if (index >= WorldViewer.Instance.Textures.Count)
@@ -16,8 +23,7 @@ public class WorldConstructor
         {
             index = 0;
         }
-        var txt = WorldViewer.Instance.Textures[(int)index];
-        return new WorldTileData(txt.Id, x, z);
+        return index;
     }
 
     public static List<EntityData> GenerateEntitiesByChunk(int x, int z, List<WorldTileData> chunk)
