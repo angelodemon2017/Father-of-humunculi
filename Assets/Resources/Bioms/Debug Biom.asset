@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 113f7c6c59965e7498da9452c16b06e0, type: 3}
+  m_Name: Debug Biom
+  m_EditorClassIdentifier: 
+  Key: DebugBiom
+  _textures:
+  - {fileID: 11400000, guid: 526eb555473d0e94fbd960c601fe4834, type: 2}
+  - {fileID: 11400000, guid: 6684a3edf2ef51841be6545a89d84ba0, type: 2}
+  - {fileID: 11400000, guid: 29d26e298dd81924d8c4d6d96e4ba1a2, type: 2}
+  - {fileID: 11400000, guid: 1eeb3f5ae519b5844b62d1746d27283a, type: 2}
+  - {fileID: 11400000, guid: c2fcd3f61dafe1f4d8a99d6124131659, type: 2}

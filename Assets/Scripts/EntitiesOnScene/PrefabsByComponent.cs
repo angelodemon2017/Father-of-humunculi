@@ -23,29 +23,10 @@ public class PrefabsByComponent : ScriptableObject
             }
 
             result = _prefabs.FirstOrDefault(p => p.KeyComponent == keyComponent);
-//            Debug.Log($"Loaded {_prefabs.Count} PrefabByComponentData");
+            //            Debug.Log($"Loaded {_prefabs.Count} PrefabByComponentData");
             isInit = true;
         }
 
         return result;
-    }
-
-//    [MenuItem("Tools/MyTool/Do It in C#")]
-    static void DoIt()
-    {//better after 100 days
-        double result = 0;
-        for (int i = 0; i < 300; i++)
-        {
-            if (result > 100)
-            {
-                Debug.Log($"result :{result}, day{i}");
-
-                break;
-            }
-            result += result / 100 + 1;
-        }
-
-        Debug.Log($"result :{result}");
-//        EditorUtility.DisplayDialog("MyTool", "Do It in C# !", "OK", "");
     }
 }

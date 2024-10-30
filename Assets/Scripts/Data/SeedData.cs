@@ -1,9 +1,8 @@
-﻿
-public class SeedData
+﻿public class SeedData
 {
     public string Seed;
 
-    public int PerlinNoiseSwift => int.Parse(Seed.Substring(2, 2)) * 100;
+    public string MapNoiseFrom10To99 => Seed.Substring(2, 2);
 
     public SeedData()
     {

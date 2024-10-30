@@ -4,26 +4,10 @@ using UnityEngine;
 
 public class WorldConstructor
 {
-    public static WorldTileData GenerateTile(int x, int z, SeedData seed)
+    public static WorldTileData GenerateTile(int x, int z, SeedData seed, int typeGeneration = 0)
     {
-        var index = GetIdtextureByPerlin(x, z, seed);
-        var txt = WorldViewer.Instance.Textures[(int)index];
-        return new WorldTileData(txt.Id, x, z);
-    }
-
-    public static float GetIdtextureByPerlin(int x, int z, SeedData seed)
-    {
-        var pr = Mathf.PerlinNoise((x - seed.PerlinNoiseSwift) * Config.PerlinScale, (z + seed.PerlinNoiseSwift) * Config.PerlinScale);
-        var index = pr * WorldViewer.Instance.Textures.Count + Config.HolesMap;
-        if (index >= WorldViewer.Instance.Textures.Count)
-        {
-            index = WorldViewer.Instance.Textures.Count - 1;
-        }
-        if (index < 0)
-        {
-            index = 0;
-        }
-        return index;
+        var typeGenerationSO = GenerationController.GetGeneration(typeGeneration);
+        return typeGenerationSO.GenerateTile(x, z, seed);
     }
 
     public static List<EntityData> GenerateEntitiesByChunk(int x, int z, List<WorldTileData> chunk)
@@ -31,8 +15,6 @@ public class WorldConstructor
         List<EntityData> result = new();
         List<WorldTileData> tempPoint = chunk.Where(t => t.Id > 0).ToList();
         var pointForGen = GetRandomTiles(tempPoint, tempPoint.Count > Config.EntitiesInChunk ? Config.EntitiesInChunk : tempPoint.Count);
-
-        //        var chunkPos = new UnityEngine.Vector3(x * Config.ChunkSize, 0, z * Config.ChunkSize);
 
         foreach (var ed in pointForGen)
         {

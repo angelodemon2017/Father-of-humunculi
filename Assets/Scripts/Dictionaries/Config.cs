@@ -11,10 +11,10 @@
     public static string PathPrefabsByComponents = "PrefabsByComponentsData";
     public static string PathInitStates = "InitStates";
     public static string PathItems = "Items";
+    public static string PathBioms = "Bioms";
+    public static string PathBCFGs = "BCFGs";
+    public static string PathTypeGenerations = "TypeGenerations";
     public static string PathRecipes = "Recipes";
     public static string PathRecipeGroups = "Groups";
-
-    public static float PerlinScale => WorldViewer.Instance.PERLINSCALE;
-    public static float HolesMap => WorldViewer.Instance.HolesMap;
     public static float ChunkSize => TileSize * ChunkTilesSize;
 }

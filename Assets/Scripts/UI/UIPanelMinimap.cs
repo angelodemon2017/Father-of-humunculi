@@ -28,28 +28,9 @@ public class UIPanelMinimap : MonoBehaviour
 
         texture = new Texture2D(textureWidth, textureHeight);
 
-//        PaintTexture();
         PaintOnlyGenerate();
 
         targetImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-    }
-
-    private void PaintTexture()
-    {
-        for (int x = 0; x < texture.width; x++)
-        {
-            for (int z = 0; z < texture.height; z++)
-            {
-                var id = WorldConstructor.GetIdtextureByPerlin(
-                    x - textureWidth / 2 + (int)(CameraController.Instance.FocusPosition.x / Config.TileSize),
-                    z - textureHeight / 2 + (int)(CameraController.Instance.FocusPosition.z / Config.TileSize),
-                    GameProcess.Instance.GameWorld.Seed);
-                var txt = WorldViewer.Instance.Textures[(int)id];
-                texture.SetPixel(x, z, txt.BaseColor);
-            }
-        }
-
-        texture.Apply();
     }
 
     private void PaintOnlyGenerate()
