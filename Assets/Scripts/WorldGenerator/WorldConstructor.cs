@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class WorldConstructor
 {
@@ -21,23 +20,13 @@ public class WorldConstructor
             var xEntPos = ed.Xpos * Config.TileSize;
             var zEntPos = ed.Zpos * Config.TileSize;
 
-            var random = Random.Range(0, 10);
-
-            if (random > 5)
-            {
-                var newEnt = new EntityGoldBush(xEntPos, zEntPos);
-                result.Add(newEnt);
-            }
-            else
-            {
-                var newEnt = new EntityResource(ed.Id < 3 ? 0 : 1, xEntPos, zEntPos);
-                result.Add(newEnt);
-            }
+            var newEnt = new EntityResource(ed.Id < 3 ? 0 : 1, xEntPos, zEntPos);
+            result.Add(newEnt);
         }
 
         pointForGen = GetRandomTiles(tempPoint, 1);
 
-        foreach (var ed in pointForGen)
+/*        foreach (var ed in pointForGen)
         {
             var xEntPos = ed.Xpos * Config.TileSize;
             var zEntPos = ed.Zpos * Config.TileSize;
@@ -45,7 +34,7 @@ public class WorldConstructor
             var newEnt = new EntityItem((EnumItem)Random.Range(1,3), xEntPos, zEntPos);
 
             result.Add(newEnt);
-        }
+        }/**/
 
         return result;
     }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Linq;
+using System.Collections.Generic;
 
 [CreateAssetMenu(menuName = "Type Generation/Perlin Generation", order = 1)]
 public class PerlinGeneration : TypeGeneration
@@ -23,6 +24,15 @@ public class PerlinGeneration : TypeGeneration
         index = index.FixIndex(biom._textures.Count);
         var textur = biom._textures[(int)index];
 
-        return new WorldTileData(textur.Id, x, z);
+        return new WorldTileData(textur.Id, x, z, biom.Key);
+    }
+
+    public override List<EntityData> GenerateEntitiesByChunk(List<WorldTileData> chunk, SeedData seed)
+    {
+        List<EntityData> result = new();
+
+
+
+        return result;
     }
 }

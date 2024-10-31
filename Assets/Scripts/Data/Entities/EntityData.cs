@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class EntityData
 {
     public long Id;
+    public string TypeKey;
     public List<ComponentData> Components = new();
 
     private Action<long> _updater;
