@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class BiomsController : ScriptableObject
+public class BiomsController
 {
     private static List<BiomSO> _bioms = new();
 

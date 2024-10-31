@@ -8,6 +8,9 @@
     public static float CloseUIDistance = 2f;
 
     public static string PathEntityModels = "EntityModels";
+    public static string PathEntityConfigs = "Entities/EntityConfigs";
+    public static string PathComponents = "Entities/Components";
+    public static string PathECFBs = "Entities/ECFBs";
     public static string PathPrefabsByComponents = "PrefabsByComponentsData";
     public static string PathInitStates = "InitStates";
     public static string PathItems = "Items";

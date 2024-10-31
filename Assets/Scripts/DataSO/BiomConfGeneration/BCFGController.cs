@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class BCFGController : ScriptableObject
+public class BCFGController
 {
     private static List<BiomConfigForGeneration> _bcfgs = new();
 

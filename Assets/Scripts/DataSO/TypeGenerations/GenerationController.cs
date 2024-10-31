@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class GenerationController : ScriptableObject
+public class GenerationController
 {
     private static List<TypeGeneration> _generations = new();
 
