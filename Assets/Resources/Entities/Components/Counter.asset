@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: Counter
   m_EditorClassIdentifier: 
   _chanceToAction: 50
+  paramsConfig:
+  - Key: Chance
+    typeParam: 1
+    Value: 

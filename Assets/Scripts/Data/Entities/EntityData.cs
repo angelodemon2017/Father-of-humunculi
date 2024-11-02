@@ -6,6 +6,7 @@ public class EntityData
     public long Id;
     public string TypeKey;
     public List<ComponentData> Components = new();
+    public PropsData Props = new();
 
     private Action<long> _updater;
 
