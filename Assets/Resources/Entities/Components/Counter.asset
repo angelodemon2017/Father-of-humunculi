@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e1c2c8a226b0e46bec43d28eaef7eb, type: 3}
   m_Name: Counter
   m_EditorClassIdentifier: 
-  _chanceToAction: 50
+  checkChance:
+    Key: Chance
+    typeParam: 1
+    Value: 50
   paramsConfig:
   - Key: Chance
     typeParam: 1
-    Value: 
+    Value: 50
