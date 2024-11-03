@@ -3,27 +3,37 @@ using System.Collections.Generic;
 
 public class PropsData
 {
-    public Dictionary<string, int> Ints = new();
+    public float xpos;
+    public float zpos;
 
-    public int GetInt(string key)
+    /*    public DictProp<int> Ints = new();
+        public DictProp<float> Floats = new();
+        public DictProp<string> Texts = new();
+        public DictProp<ItemData> Items = new();/**/
+}
+
+public class DictProp<T>//?? : Dictionary<string, T>
+{
+    public Dictionary<string, T> Props = new();
+
+    public void AddProp(string key)
     {
-        if (Ints.TryGetValue(key, out int value))
+        Props.Add(key, default(T));
+    }
+
+    public T GetProp(string key)
+    {
+        return Props[key];
+/*        if (Props.TryGetValue(key, out T value))
         {
             return value;
         }
 
-        return 0;
+        return default(T);/**/
     }
 
-    public void SetInt(string key, int value)
+    public void SetProp(string key, T value)
     {
-        if (Ints.ContainsKey(key))
-        {
-            Ints[key] = value;
-        }
-        else
-        {
-            Ints.Add(key, value);
-        }
+        Props[key] = value;
     }
 }

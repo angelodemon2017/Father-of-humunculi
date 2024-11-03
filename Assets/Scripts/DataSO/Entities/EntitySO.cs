@@ -7,21 +7,12 @@ public class EntitySO : ScriptableObject
 {
     public string Key;//??
 
-    public List<ComponentSO> Components;
+    public List<ComponentSO> Components = new();
+
+    internal virtual PropsData defaultData => new PropsData();
 
     public EntityData InitEntity()
     {
-        var fields = new List<ParamConfig>();
-
-        foreach (var c in Components)
-        {
-            //get some data template
-            //            fields.Add(c);
-        }
-
-        return new EntityData()
-        {
-            //TODO fulling data fields
-        };
+        return new EntityData(Key, defaultData);
     }
 }

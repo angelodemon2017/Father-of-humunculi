@@ -4,26 +4,36 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Components/Counter Component", order = 1)]
 public class ComponentSOCounter : ComponentSO, ISeconder
 {
-    [SerializeField] private ParamConfig checkChance;
-//    [SerializeField] int _chanceToAction;
-    [SerializeField] private List<ParamConfig> paramsConfig = new();
+    public ItemActionConfig WhenActionChance;
 
     public void DoSecond(EntityData entity)
     {
-        entity.Props.GetInt("");
-        if (checkChance.GetI.GetChance())
+        if (entity.Props is ICounterData data)
         {
-            //...
+            if (data.Chance.GetChance())
+            {
+                WhenActionChance.ApplyItem(null, entity);
+            }
         }
     }
 
     public void DoSecond()
     {
-/*        if (_chanceToAction.GetChance())
-        {
-            //??
-        }/**/
+
     }
+}
+
+[System.Serializable]
+public class PropsDataCounter : PropsData, ICounterData
+{
+    public int Chance => 0;
+    public int Count => 0;
+}
+
+interface ICounterData
+{
+    int Chance { get; }
+    int Count { get; }
 }
 
 [System.Serializable]

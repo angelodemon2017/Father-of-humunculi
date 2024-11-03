@@ -8,77 +8,93 @@ using System.Linq;
 public class Expiriments : ScriptableObject
 {
     static Dictionary<int, object> _objects = new();
-    static List<int> _listInts = new();
-    static Dictionary<int, int> _ints = new();
-    static Dictionary<int, testEnum> _enums = new();
+    static Dictionary<int, object> _ints = new();
+    static Dictionary<int, SimpleClass> simpls = new();
+    static Dictionary<string, SimpleClass> simpls2 = new();
     static int count = 10000000;
+    static int justInt = 0;
 
     [MenuItem("Tools/MyTool/Do It in C#")]
     static void DoIt()
     {
+        _ints.Clear();
+        _objects.Clear();
+        simpls.Clear();
+        simpls2.Clear();
+        justInt = 0;
+
         for (int i = 0; i < count; i++)
         {
-            //            _objects.Add(i, i);
-            _listInts.Add(i);
-            _ints.Add(i, i);
-//            _enums.Add(i, (testEnum)(i % 10));
+            _ints.Add(i, new SimpleClass());
+            _objects.Add(i, new HeavyClass());
+            simpls.Add(i, new SimpleClass());
         }
+        simpls2.Add("key", new SimpleClass());
 
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.Start();
         for (int i = 0; i < count; i++)
         {
-            if (_ints.ContainsKey(i))
-            {
-                _ints[i] = _ints[i] + 1;
-            }
-//            _objects[i] = (int)_objects[i] + 1;
+            SimpleClass val = (SimpleClass)_ints[i];
+            val.TARGETFIELD += 1;
+            _ints[i] = val;
         }
         stopwatch.Stop();
-        UnityEngine.Debug.Log($"ints with check({count}): {stopwatch.ElapsedMilliseconds} ms");
+        UnityEngine.Debug.Log($"object(int)({count}): {stopwatch.ElapsedMilliseconds} ms");
 
         Stopwatch stopwatch2 = new Stopwatch();
         stopwatch2.Start();
         for (int i = 0; i < count; i++)
         {
-            _ints[i] = _ints[i] + 1;
+            justInt++;
         }
         stopwatch2.Stop();
-        UnityEngine.Debug.Log($"ints({count}): {stopwatch2.ElapsedMilliseconds} ms");
+        UnityEngine.Debug.Log($"justInt({count}): {stopwatch2.ElapsedMilliseconds} ms");
 
         Stopwatch stopwatch3 = new Stopwatch();
         stopwatch3.Start();
         for (int i = 0; i < count; i++)
         {
-            _listInts[i]--;
+            simpls[1].TARGETFIELD += 1;
         }
         stopwatch3.Stop();
-        UnityEngine.Debug.Log($"_listInts({count}): {stopwatch3.ElapsedMilliseconds} ms");/**/
+        UnityEngine.Debug.Log($"object(simples[int])({count}): {stopwatch3.ElapsedMilliseconds} ms");
 
         Stopwatch stopwatch4 = new Stopwatch();
         stopwatch4.Start();
         for (int i = 0; i < count; i++)
         {
-            var asd = _listInts.FirstOrDefault(x => x < i + 1);
-            asd++;
+            simpls2["key"].TARGETFIELD += 1;
         }
         stopwatch4.Stop();
-        UnityEngine.Debug.Log($"_listInts with linq({count}): {stopwatch4.ElapsedMilliseconds} ms");
+        UnityEngine.Debug.Log($"object(simples[string])({count}): {stopwatch4.ElapsedMilliseconds} ms");
     }
 }
 
-public enum testEnum
+public class HeavyClass
 {
-    none,
-    enum0,
-    enum1,
-    enum2,
-    enum3,
-    enum4,
-    enum5,
-    enum6,
-    enum7,
-    enum8,
-    enum9,
-    enum10,
+    public HeavyClass2 heavyClass2 = new();
+    public float someField;
+    private string someText;
+    public List<ItemData> items = new();
+
+    public class HeavyClass2
+    {
+        public HeavyClass3 heavyClass3 = new();
+        public float someField;
+        private string someText;
+        public List<ItemData> items = new();
+    }
+}
+
+public class HeavyClass3
+{
+    public int TARGETFIELD;
+    public float someField;
+    private string someText;
+}
+
+public class SimpleClass
+{
+    public int TARGETFIELD;
 }
