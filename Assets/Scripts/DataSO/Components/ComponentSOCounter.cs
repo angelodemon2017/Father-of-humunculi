@@ -1,56 +1,22 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Components/Counter Component", order = 1)]
-public class ComponentSOCounter : ComponentSO, ISeconder
+public class ComponentSOCounter : ComponentSO, ISeconderEntity
 {
-    public ItemActionConfig WhenActionChance;
+    [SerializeField] private ComponentCounter _componentData;
+
+    internal override ComponentData GetComponentData => new ComponentCounter(_componentData);
 
     public void DoSecond(EntityData entity)
     {
-        if (entity.Props is ICounterData data)
+        var comp = entity.Components.GetComponent<ComponentCounter>();
+
+        if (comp._chanceUpper.GetChance())
         {
-            if (data.Chance.GetChance())
-            {
-                WhenActionChance.ApplyItem(null, entity);
-            }
+            comp._debugCounter++;
+            var cmp = entity.Components.GetComponent<ComponentModelPrefab>();
+            cmp.CurrentParamOfModel = comp._debugCounter;
+            entity.UpdateEntity();
         }
     }
-
-    public void DoSecond()
-    {
-
-    }
-}
-
-[System.Serializable]
-public class PropsDataCounter : PropsData, ICounterData
-{
-    public int Chance => 0;
-    public int Count => 0;
-}
-
-interface ICounterData
-{
-    int Chance { get; }
-    int Count { get; }
-}
-
-[System.Serializable]
-public class ParamConfig
-{
-    public string Key;
-    public TypeParam typeParam;
-    public string Value;
-
-    public int GetI => int.Parse(Value);
-
-    public float GetF => float.Parse(Value);
-}
-
-public enum TypeParam
-{
-    _str,
-    _int,
-    _float,
 }

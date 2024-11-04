@@ -33,6 +33,7 @@ public class EntityInProcess
         {
             componentIP.DoSecond();
         }
+        _entityData.Config.DoSecond(_entityData);
     }
 
     public void SendCommand(CommandData command)

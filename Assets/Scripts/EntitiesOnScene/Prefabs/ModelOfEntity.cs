@@ -21,6 +21,11 @@ public class ModelOfEntity : PrefabByComponentData
         InitModel();
     }
 
+    public void InitModel(ModelController modelController)
+    {
+
+    }
+
     private void InitModel()
     {
         transform.DestroyChildrens();

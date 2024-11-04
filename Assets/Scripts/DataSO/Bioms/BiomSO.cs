@@ -9,6 +9,15 @@ public class BiomSO : ScriptableObject
     public List<TextureEntity> _textures;
 
     public List<EntityInBiom> Entities = new();
+
+    public List<EntityData> GenerateEntitiesByChunk(List<WorldTileData> chunk)
+    {
+        List<EntityData> result = new();
+
+
+
+        return result;
+    }
 }
 
 [Serializable]

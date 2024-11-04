@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77620a3ac2d501c43a380b2e590c19f5, type: 3}
   m_Name: Base Entity
   m_EditorClassIdentifier: 
+  Key: Bush
   Components:
-  - {fileID: 11400000, guid: fc6c843ac378ec145a6fc4fe55143902, type: 2}
+  - {fileID: 11400000, guid: 941826894cb7bd64db2c926c8ceaaa8d, type: 2}

@@ -10,13 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69e1c2c8a226b0e46bec43d28eaef7eb, type: 3}
-  m_Name: Counter
+  m_Name: Counter Bush
   m_EditorClassIdentifier: 
-  checkChance:
-    Key: Chance
-    typeParam: 1
-    Value: 50
-  paramsConfig:
-  - Key: Chance
-    typeParam: 1
-    Value: 50
+  _componentData:
+    _chanceUpper: 50
+    _debugCounter: 0
+  WhenActionChance: {fileID: 0}

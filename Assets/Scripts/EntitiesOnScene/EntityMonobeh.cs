@@ -29,7 +29,10 @@ public class EntityMonobeh : MonoBehaviour
                 newpbc.Init(cd, _entityInProcess);
             }
             cd.Init(transform);
-        }
+        }/**/
+
+        _entityInProcess.EntityData.Config.InitOnScene(this);
+
         _entityInProcess.UpdateEntity();
     }
 

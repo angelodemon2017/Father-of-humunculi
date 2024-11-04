@@ -7,12 +7,12 @@ public class EntityData
     public string TypeKey;
     
     public List<ComponentData> Components = new();
-    public PropsData Props = new();
+//    public PropsData Props = new();
 
     private Action<long> _updater;
 
     private EntitySO _cashConfig;
-    private EntitySO Config
+    public EntitySO Config
     {
         get 
         {
@@ -38,7 +38,7 @@ public class EntityData
     public EntityData(string key, PropsData props)
     {
         TypeKey = key;
-        Props = props;
+//        Props = props;
     }
 
     public EntityData(float xpos = 0, float zpos = 0)
