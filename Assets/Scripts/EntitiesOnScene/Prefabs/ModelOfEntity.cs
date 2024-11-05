@@ -23,7 +23,13 @@ public class ModelOfEntity : PrefabByComponentData
 
     public void InitModel(ModelController modelController)
     {
+        transform.DestroyChildrens();
 
+        _modelController = Instantiate(modelController, transform.position + modelController.transform.position, CameraController.Instance.DirectParalCamera, transform);
+
+        Instantiate(_shadow, transform.position + Vector3.up * 0.01f, Quaternion.identity, transform);
+
+        UpdateModel();
     }
 
     private void InitModel()

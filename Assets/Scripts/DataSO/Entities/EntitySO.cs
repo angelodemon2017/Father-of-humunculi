@@ -8,8 +8,6 @@ public class EntitySO : ScriptableObject
 
     public List<ComponentSO> Components = new();
 
-    internal virtual PropsData defaultData => new PropsData();
-
     public void InitOnScene(EntityMonobeh entityMonobeh)
     {
         Components.ForEach(c => c.InitOnScene(entityMonobeh));

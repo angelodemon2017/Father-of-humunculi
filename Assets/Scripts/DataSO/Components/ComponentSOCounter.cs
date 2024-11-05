@@ -3,9 +3,9 @@
 [CreateAssetMenu(menuName = "Components/Counter Component", order = 1)]
 public class ComponentSOCounter : ComponentSO, ISeconderEntity
 {
-    [SerializeField] private ComponentCounter _componentData;
+    [SerializeField] private ComponentCounter _defaultComponentData;
 
-    internal override ComponentData GetComponentData => new ComponentCounter(_componentData);
+    internal override ComponentData GetComponentData => new ComponentCounter(_defaultComponentData);
 
     public void DoSecond(EntityData entity)
     {
