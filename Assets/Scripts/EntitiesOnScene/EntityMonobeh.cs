@@ -20,7 +20,7 @@ public class EntityMonobeh : MonoBehaviour
 
     private void InitComponents()
     {
-        foreach (var cd in _entityInProcess.EntityData.Components)
+/*        foreach (var cd in _entityInProcess.EntityData.Components)
         {
             var pbc = _prefabsByComponent.GetPrefab(cd.KeyName);
             if (pbc != null)

@@ -14,8 +14,13 @@ public class ComponentSOCounter : ComponentSO, ISeconderEntity
         if (comp._chanceUpper.GetChance())
         {
             comp._debugCounter++;
+            //?? сомнительное решение
             var cmp = entity.Components.GetComponent<ComponentModelPrefab>();
-            cmp.CurrentParamOfModel = comp._debugCounter;
+            if (cmp != null)
+            {
+                cmp.CurrentParamOfModel = comp._debugCounter;
+            }
+
             entity.UpdateEntity();
         }
     }

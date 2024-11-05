@@ -24,7 +24,8 @@ public class EntityData
         }   
     }
     internal WorldData worldData => GameProcess.Instance.GameWorld;
-    public virtual string DebugField => string.Empty;
+    internal string _DebugField = string.Empty;
+    public virtual string DebugField => _DebugField;
 
     public UnityEngine.Vector3 Position 
     {
@@ -53,6 +54,7 @@ public class EntityData
 
     internal void UpdateEntity()
     {
+        Components.ForEach(c => c.UpdateAfterEntityUpdate(this));
         _updater?.Invoke(Id);
     }
 

@@ -15,3 +15,5 @@ MonoBehaviour:
   Key: Bush
   Components:
   - {fileID: 11400000, guid: 941826894cb7bd64db2c926c8ceaaa8d, type: 2}
+  - {fileID: 11400000, guid: 138ab8087c7cb984abf4973c82e9848b, type: 2}
+  - {fileID: 11400000, guid: 42b88982236c3cf48bbdcdf13818f7d2, type: 2}

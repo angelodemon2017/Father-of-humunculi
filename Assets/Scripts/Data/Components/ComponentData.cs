@@ -12,4 +12,9 @@ public abstract class ComponentData
     {
 
     }
+
+    internal virtual void UpdateAfterEntityUpdate(EntityData entity)
+    {
+
+    }
 }

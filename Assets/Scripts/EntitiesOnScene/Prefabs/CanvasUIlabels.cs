@@ -26,7 +26,8 @@ public class CanvasUIlabels : PrefabByComponentData
 
     private void UpdateEntity()
     {
-        _testText.text = _entityInProcess.TestDebugProp;
+        _testText.text = _componentUIlabels.TextView;
+//            _entityInProcess.TestDebugProp;
     }
 
     private void OnDestroy()

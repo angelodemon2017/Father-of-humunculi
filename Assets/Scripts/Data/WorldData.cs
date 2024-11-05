@@ -41,7 +41,11 @@ public class WorldData
             {
                 GetChunk(x, z);
             }
-        AddEntity(new EntityPlayer(0f, 0f));
+
+        if (false)
+        {//TODO replace to player from SO
+            AddEntity(new EntityPlayer(0f, 0f));
+        }
     }
 
     public IEnumerator CheckAndGenChunk(int x, int z)
@@ -70,7 +74,8 @@ public class WorldData
         if (!worldChunkDatas.Any(c => c.Xpos == x && c.Zpos == z))
         {
             var newChunk = new WorldChunkData(x, z);
-            var ents = WorldConstructor.GenerateEntitiesByChunk(x, z, result);
+            var ents = BiomsController.GetBiom().GenerateEntitiesByChunk(result);
+//                WorldConstructor.GenerateEntitiesByChunk(x, z, result);
 
             foreach (var ent in ents)
             {
