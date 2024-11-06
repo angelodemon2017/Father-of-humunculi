@@ -9,7 +9,7 @@ public class ComponentInventory : ComponentData
     public List<ItemData> Items = new();
     public int MaxItems;
 
-    private Transform _entityME;
+//    private Transform _entityME;
 
     public ComponentInventory(ComponentInventory component) : this (component.MaxItems) { }
 
@@ -23,10 +23,10 @@ public class ComponentInventory : ComponentData
         }
     }
 
-    public override void Init(Transform entityME)
+/*    public override void Init(Transform entityME)
     {
         _entityME = entityME;
-    }
+    }/**/
 
     public void AddItem(ItemData item)
     {
@@ -163,7 +163,9 @@ public class ComponentInventory : ComponentData
             return;
         }
 
-        GameProcess.Instance.GameWorld.AddEntity(new EntityItem(item, _entityME.position.x, _entityME.position.z));
+        var ent = GameProcess.Instance.GameWorld.entityDatas.FirstOrDefault(e => e.Id == _idEntity);
+
+        GameProcess.Instance.GameWorld.AddEntity(new EntityItem(item, ent.Position.x, ent.Position.z));
 
         item.SetEmpty();
     }

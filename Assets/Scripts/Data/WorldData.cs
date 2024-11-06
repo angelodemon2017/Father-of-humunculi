@@ -75,7 +75,7 @@ public class WorldData
         if (!worldChunkDatas.Any(c => c.Xpos == x && c.Zpos == z))
         {
             var newChunk = new WorldChunkData(x, z);
-            var ents = BiomsController.GetBiom().GenerateEntitiesByChunk(result);
+            var ents = BiomsController.GetBiom().GenerateEntitiesByChunk(result, Seed);
 //                WorldConstructor.GenerateEntitiesByChunk(x, z, result);
 
             foreach (var ent in ents)

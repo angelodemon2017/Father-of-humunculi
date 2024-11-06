@@ -1,11 +1,18 @@
 ﻿using System;
+using UnityEngine;
 
 public class ComponentModelByRectPrefab : ComponentData
 {//TODO BIG QUEST IS NEED COMPONENT
-    public string KeyModel;
+ //    public string KeyModel;
+/*    public Sprite _spriteRenderer;
 
-    public ComponentModelByRectPrefab(string keyModel) : base()
+    public ComponentModelByRectPrefab(Sprite sprite)
     {
-        KeyModel = keyModel;
-    }
+        _spriteRenderer = sprite;
+    }/**/
+
+/*    public ComponentModelByRectPrefab(string keyModel) : base()
+    {
+//        KeyModel = keyModel;
+    }/**/
 }

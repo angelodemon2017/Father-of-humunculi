@@ -11,15 +11,17 @@ public class BiomSO : ScriptableObject
 
     public List<EntityInBiom> Entities = new();
 
-    public List<EntityData> GenerateEntitiesByChunk(List<WorldTileData> chunk)
+    public List<EntityData> GenerateEntitiesByChunk(List<WorldTileData> chunk, SeedData seed)
     {
         List<EntityData> result = new();
 
         List<WorldTileData> tempPoint = chunk.Where(t => t.Id > 0).ToList();
         if (tempPoint.Count > 0)
         {
-            var xEntPos = tempPoint[0].Xpos * Config.TileSize;
-            var zEntPos = tempPoint[0].Zpos * Config.TileSize;
+            var randPoint = tempPoint.GetRandom();
+
+            var xEntPos = randPoint.Xpos * Config.TileSize;
+            var zEntPos = randPoint.Zpos * Config.TileSize;
 
             var newEnt = Entities.FirstOrDefault().Entity.InitEntity(xEntPos, zEntPos);
             result.Add(newEnt);

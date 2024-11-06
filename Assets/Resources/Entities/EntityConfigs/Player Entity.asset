@@ -15,7 +15,7 @@ MonoBehaviour:
   Key: Player
   Components:
   - {fileID: 11400000, guid: dbdead27da8eff94d93616b437d6d6ac, type: 2}
-  - {fileID: 11400000, guid: 437121e64c3a70446923eda2bcc26dfd, type: 2}
   - {fileID: 11400000, guid: 6267c3389b0e4154f86e7e286a67584c, type: 2}
   - {fileID: 11400000, guid: 83f4ad0e4f0488e48a669cc1b924ba13, type: 2}
   - {fileID: 11400000, guid: fabe1ab0ea8880447b1ec7b3ef85c0ac, type: 2}
+  - {fileID: 11400000, guid: 76bd0988b4c388d419d6f2af52d08879, type: 2}
