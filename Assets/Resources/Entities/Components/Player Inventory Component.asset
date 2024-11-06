@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5efe820361c38445abbf314e48df1ef, type: 3}
-  m_Name: UI Label Component
+  m_Script: {fileID: 11500000, guid: 35eaf969aacaa4d4aa5b8c25bb28005c, type: 3}
+  m_Name: Player Inventory Component
   m_EditorClassIdentifier: 
-  _labelPrefab: {fileID: 7203183109865287021, guid: 9d006e5f67306e44f860705a39d88df4,
-    type: 3}
-  _textColor: {r: 1, g: 1, b: 1, a: 1}
-  _hightText: 1
-  _defaultText: 
+  _componentData:
+    MaxItems: 5

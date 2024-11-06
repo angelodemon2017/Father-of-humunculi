@@ -11,6 +11,9 @@ public class ModelController : MonoBehaviour
 
     public void SomeCheck(int currentValue)
     {
-        _option.SetActive(currentValue > _condition);
+        if (_option != null)
+        {
+            _option.SetActive(currentValue > _condition);
+        }
     }
 }

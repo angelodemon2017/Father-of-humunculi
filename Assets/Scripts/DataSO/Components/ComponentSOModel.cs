@@ -15,6 +15,9 @@ public class ComponentSOModel : ComponentSO
         rootOfModel.Init(entityMonobeh.EntityInProcess.EntityData.Components.GetComponent<ComponentModelPrefab>(),
             entityMonobeh.EntityInProcess);
 
-        rootOfModel.InitModel(_modelPrefab);
+        if (_modelPrefab != null)
+        {
+            rootOfModel.InitModel(_modelPrefab);
+        }
     }
 }

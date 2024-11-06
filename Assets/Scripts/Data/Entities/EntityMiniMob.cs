@@ -7,7 +7,7 @@ public class EntityMiniMob : EntityData
         Components.AddRange(new List<ComponentData>()
         {
             new ComponentModelPrefab("MiniMob"),
-            new ComponentFSM("RandomWalking"),
+//            new ComponentFSM("RandomWalking"),
     });
     }
 }

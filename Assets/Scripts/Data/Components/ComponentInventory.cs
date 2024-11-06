@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System;
 
+[Serializable]
 public class ComponentInventory : ComponentData
 {
     public List<ItemData> Items = new();
     public int MaxItems;
 
     private Transform _entityME;
+
+    public ComponentInventory(ComponentInventory component) : this (component.MaxItems) { }
 
     public ComponentInventory(int maxItems = 5)
     {
@@ -153,7 +157,7 @@ public class ComponentInventory : ComponentData
     }
 
     public void DropItem(ItemData item)
-    {
+    {//TODO need command 
         if (item.IsEmpty)
         {
             return;

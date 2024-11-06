@@ -73,7 +73,7 @@ public class GameProcess
     public GameProcess(WorldData newWorld)
     {
         _gameWorld = newWorld;
-        _gameWorld.entityDatas.ForEach(e => _entities.Add(new(e)));
+        _gameWorld.entityDatas.ForEach(e => AddEIP(new(e)));
     }
 
     public void ConnectToHost()
@@ -136,7 +136,7 @@ public class GameProcess
             {
                 var ed = _gameWorld.entityDatas.FirstOrDefault(x => x.Id == newEnt);
                 var neweip = new EntityInProcess(ed);
-                _entities.Add(neweip);
+                AddEIP(neweip);
                 //is client
                 MessageAboutSpawnEntity(neweip);
             }
@@ -152,6 +152,12 @@ public class GameProcess
         {
             _gameWorld.RemoveUpdateId(id);
         }
+    }
+
+    public void AddEIP(EntityInProcess eip)
+    {
+        eip.EntityData.Components.ForEach(c => c.SetIdEntity(eip.EntityData.Id));
+        _entities.Add(eip);
     }
 
     public void RemoveEIP(EntityInProcess eip)

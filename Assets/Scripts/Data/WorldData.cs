@@ -42,10 +42,11 @@ public class WorldData
                 GetChunk(x, z);
             }
 
-        if (false)
+        AddEntity(EntityController.GetEntity("Player").InitEntity(0f, 0f));
+/*        if (false)
         {//TODO replace to player from SO
             AddEntity(new EntityPlayer(0f, 0f));
-        }
+        }/**/
     }
 
     public IEnumerator CheckAndGenChunk(int x, int z)

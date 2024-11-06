@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5efe820361c38445abbf314e48df1ef, type: 3}
-  m_Name: UI Label Component
+  m_Script: {fileID: 11500000, guid: 26c00c550260dd34fb0884c891202e82, type: 3}
+  m_Name: Model Player Component
   m_EditorClassIdentifier: 
-  _labelPrefab: {fileID: 7203183109865287021, guid: 9d006e5f67306e44f860705a39d88df4,
+  _rootOfModel: {fileID: 2909178946457789409, guid: 90d514a4763afbb4fa1c758ff577703a,
     type: 3}
-  _textColor: {r: 1, g: 1, b: 1, a: 1}
-  _hightText: 1
-  _defaultText: 
+  _modelPrefab: {fileID: 2378845476698883101, guid: 617e5ab8a86bc934aaf2a204a71b8956,
+    type: 3}

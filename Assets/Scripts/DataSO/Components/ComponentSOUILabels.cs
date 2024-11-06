@@ -5,9 +5,11 @@ public class ComponentSOUILabels : ComponentSO
 {
     [SerializeField] private CanvasUIlabels _labelPrefab;
     [SerializeField] private Color _textColor;
+    [SerializeField] private float _hightText;
+    [SerializeField] private string _defaultText;
     [SerializeField] private ComponentUIlabels _componentData;
 
-    internal override ComponentData GetComponentData => new ComponentUIlabels(_textColor);
+    internal override ComponentData GetComponentData => new ComponentUIlabels(_textColor, _hightText, _defaultText);
 
     public override void InitOnScene(EntityMonobeh entityMonobeh)
     {

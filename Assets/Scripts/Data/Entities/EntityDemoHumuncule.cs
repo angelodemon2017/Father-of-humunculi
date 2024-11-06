@@ -10,7 +10,7 @@ public class EntityDemoHumuncule : EntityData
         Components.AddRange(new List<ComponentData>()
         {
             new ComponentModelPrefab("DemoHumuncule"),
-            new ComponentFSM("RandomWalking"),
+//            new ComponentFSM("RandomWalking"),
             new ComponentUIlabels(Color.blue),
     });
     }

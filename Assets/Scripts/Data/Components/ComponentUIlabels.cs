@@ -6,10 +6,11 @@ public class ComponentUIlabels : ComponentData
     public float High;
     public string TextView = string.Empty;
 
-    public ComponentUIlabels(Color setColor, float high = 1f)
+    public ComponentUIlabels(Color setColor, float high = 1f, string defaulthText = "")
     {
         TextColor = setColor;
         High = high;
+        TextView = defaulthText;
     }
 
     internal override void UpdateAfterEntityUpdate(EntityData entity)

@@ -47,22 +47,23 @@ public class UIPlayerManager : MonoBehaviour
 
     private void UpdateModules()
     {
-        var ent = _entityMonobeh.EntityInProcess.EntityData as EntityPlayer;
+        var itemHand = _entityMonobeh.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
 
         uIPresentInventory.UpdateSlots();
 
-        _uIIconPresent.gameObject.SetActive(!ent.ItemHand.IsEmpty);
-        if (!ent.ItemHand.IsEmpty)
+        _uIIconPresent.gameObject.SetActive(!itemHand.IsEmpty);
+        if (!itemHand.IsEmpty)
         {
-            _uIIconPresent.InitIcon(new UIIconModel(ent.ItemHand));
+            _uIIconPresent.InitIcon(new UIIconModel(itemHand));
         }
     }
 
     private void DragItem(ItemData dragItem)
     {
         _tempFromSlot = dragItem;
-        var ent = _entityMonobeh.EntityInProcess.EntityData as EntityPlayer;
-        ent.PickItemByHand(dragItem);
+
+        var playerComp = _entityMonobeh.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>();
+        playerComp.PickItemByHand(dragItem);
 
         _tempFromSlot.SetEmpty();
 
@@ -71,8 +72,8 @@ public class UIPlayerManager : MonoBehaviour
 
     private void DropItem(ItemData dropItem)
     {//logic move to entity
-        var ent = _entityMonobeh.EntityInProcess.EntityData as EntityPlayer;
-        var itemHand = ent.ItemHand;
+        var playerComp = _entityMonobeh.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>();
+        var itemHand = playerComp.ItemHand;
 
         if (itemHand.IsEmpty)
         {
@@ -86,7 +87,7 @@ public class UIPlayerManager : MonoBehaviour
         else if (itemHand.EnumId == dropItem.EnumId)
         {
             itemHand.Count = dropItem.TryAdd(itemHand);
-            var ci = ent.Components.GetComponent<ComponentInventory>();
+            var ci = _entityMonobeh.EntityInProcess.EntityData.Components.GetComponent<ComponentInventory>();
             ci.AddItem(itemHand);
         }
         else
@@ -166,11 +167,10 @@ public class UIPlayerManager : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            var ent = _entityMonobeh.EntityInProcess.EntityData as EntityPlayer;
-            var itemHand = ent.ItemHand;
+            var itemHand = _entityMonobeh.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
             if (!itemHand.IsEmpty)
             {                
-                GameProcess.Instance.GameWorld.AddEntity(new EntityItem(itemHand, ent.Position.x, ent.Position.z));
+                GameProcess.Instance.GameWorld.AddEntity(new EntityItem(itemHand, _entityMonobeh.EntityInProcess.EntityData.Position.x, _entityMonobeh.EntityInProcess.EntityData.Position.z));
                 itemHand.SetEmpty();
                 _tempFromSlot = null;
 
