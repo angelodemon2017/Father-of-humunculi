@@ -15,7 +15,7 @@ public class EntitySO : ScriptableObject
         Components.ForEach(c => c.InitOnScene(entityMonobeh));
     }
 
-    public EntityData InitEntity(float xpos = 0, float zpos = 0)
+    public EntityData CreateEntity(float xpos = 0, float zpos = 0)
     {
         var newEntity = new EntityData(xpos, zpos);
 

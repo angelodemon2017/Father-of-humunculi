@@ -42,7 +42,7 @@ public class WorldData
                 GetChunk(x, z);
             }
 
-        AddEntity(EntityController.GetEntity("Player").InitEntity(0f, 0f));
+        AddEntity(EntityController.GetEntity("Player").CreateEntity(0f, 0f));
 /*        if (false)
         {//TODO replace to player from SO
             AddEntity(new EntityPlayer(0f, 0f));

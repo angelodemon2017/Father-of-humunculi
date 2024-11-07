@@ -23,7 +23,7 @@ public class BiomSO : ScriptableObject
             var xEntPos = randPoint.Xpos * Config.TileSize;
             var zEntPos = randPoint.Zpos * Config.TileSize;
 
-            var newEnt = Entities.FirstOrDefault().Entity.InitEntity(xEntPos, zEntPos);
+            var newEnt = Entities.FirstOrDefault().Entity.CreateEntity(xEntPos, zEntPos);
             result.Add(newEnt);
         }
 
