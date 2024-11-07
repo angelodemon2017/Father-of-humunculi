@@ -13,6 +13,15 @@ public class MouseInterfaceInteraction : PrefabByComponentData
     public override string KeyComponent => typeof(ComponentInterractable).Name;
     public EntityMonobeh EM => _linkParent;
 
+    public void Init(EntityMonobeh entityMonobeh, ComponentInterractable componentInterractable)
+    {
+        _linkParent = entityMonobeh;
+        _tipText.text = componentInterractable.TipKey;
+
+        _tip.transform.rotation = Camera.main.transform.rotation;
+        _tip.SetActive(false);
+    }
+
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {
         var componentInterractable = (ComponentInterractable)componentData;

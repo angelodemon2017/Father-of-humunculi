@@ -17,7 +17,7 @@ public class EntityDemoFabric : EntityData
 
     public override void ApplyCommand(CommandData command)
     {
-        if (command.Component == typeof(ComponentInterractable).Name)
+        if (command.KeyCommand == typeof(ComponentInterractable).Name)
         {
 //            var com = Components.GetComponent<ComponentUICraftGroup>();
 //            com.SetEntityOpener(long.Parse(command.Message));

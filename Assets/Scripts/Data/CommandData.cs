@@ -3,7 +3,7 @@
 public struct CommandData
 {
     public long IdEntity;
-    public string Component;
+    public string KeyCommand;
     /// <summary>
     /// Arguments
     /// </summary>
@@ -12,7 +12,7 @@ public struct CommandData
     public CommandData(long id, string component, string message = "")
     {
         IdEntity = id;
-        Component = component;
+        KeyCommand = component;
         Message = message;
     }
 
@@ -22,7 +22,7 @@ public struct CommandData
     public CommandData(EntityData entityData, RecipeSO recipe, Vector3 position)
     {
         IdEntity = entityData.Id;
-        Component = Dict.Commands.SetBuild;
+        KeyCommand = Dict.Commands.SetBuild;
         Message = $"{recipe.Index}^{position.x}^{position.z}";
     }
 }

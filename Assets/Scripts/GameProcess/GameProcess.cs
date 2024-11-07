@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-//[System.Serializable]
 public class GameProcess
 {
     private static GameProcess _instance;
@@ -20,6 +19,7 @@ public class GameProcess
         }
     }
 
+    private CommandHandler _commandHandler = new();
     private bool _gameLaunched = false;
     [UnityEngine.SerializeField] private WorldData _gameWorld;
     [UnityEngine.SerializeField] private List<EntityInProcess> _entities = new();
@@ -81,9 +81,14 @@ public class GameProcess
         //request WorldData by host data
     }
 
-    public void GetRequest()
+    public void SendCommand(CommandData commandData)
     {
-        //send response
+        GetRequest(commandData);//web request in future =>
+    }
+
+    public void GetRequest(CommandData commandData)//web request in future <=
+    {
+        _commandHandler.ExecuteCommand(commandData, _gameWorld);
     }
 
     public void StartGame()

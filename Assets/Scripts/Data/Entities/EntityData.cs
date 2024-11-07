@@ -60,12 +60,12 @@ public class EntityData
 
     public virtual void ApplyCommand(CommandData command)
     {
-        if (command.Component == typeof(ComponentPosition).Name)
+        if (command.KeyCommand == typeof(ComponentPosition).Name)
         {
             var comp = Components.GetComponent<ComponentPosition>();
             comp.UpdateByCommand(command.Message);
         }
-        if (command.Component == Dict.Commands.UseItem)
+        if (command.KeyCommand == Dict.Commands.UseItem)
         {
             var compInv = Components.GetComponent<ComponentInventory>();
             if (compInv != null)
@@ -73,7 +73,7 @@ public class EntityData
                 compInv.UseItem(int.Parse(command.Message), this);
             }
         }
-        if (command.Component == Dict.Commands.SetBuild)
+        if (command.KeyCommand == Dict.Commands.SetBuild)
         {
             var compInv = Components.GetComponent<ComponentInventory>();
             if (compInv != null)

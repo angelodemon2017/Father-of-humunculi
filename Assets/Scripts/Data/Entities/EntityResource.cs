@@ -34,7 +34,7 @@ public class EntityResource : EntityData
 
     public override void ApplyCommand(CommandData command)
     {
-        if (command.Component == typeof(ComponentInterractable).Name)
+        if (command.KeyCommand == typeof(ComponentInterractable).Name)
         {
             var ent = worldData.entityDatas.FirstOrDefault(e => $"{e.Id}" == command.Message);
             var inv = ent.Components.GetComponent<ComponentInventory>();

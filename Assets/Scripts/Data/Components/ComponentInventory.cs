@@ -185,7 +185,7 @@ public class ComponentInventory : ComponentData
     {//TODO command for split, drop
         return new CommandData()
         {
-            Component = Dict.Commands.UseItem,
+            KeyCommand = Dict.Commands.UseItem,
             Message = $"{idSlot}",
         };
     }

@@ -29,7 +29,7 @@ public class EntityItem : EntityData
 
     public override void ApplyCommand(CommandData command)
     {
-        if (command.Component == typeof(ComponentInterractable).Name)
+        if (command.KeyCommand == typeof(ComponentInterractable).Name)
         {
             var component = Components.GetComponent<ComponentItemPresent>();            ;
 
