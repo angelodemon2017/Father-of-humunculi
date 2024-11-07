@@ -105,6 +105,11 @@ public class WorldData
         return result;
     }
 
+    public EntityData GetEntityById(long id)
+    {
+        return entityDatas.FirstOrDefault(e => e.Id == id);
+    }
+
     public void AddEntity(EntityData entityData)
     {
         entityData.Id = GetNewId();

@@ -8,6 +8,8 @@ public class EntitySO : ScriptableObject
 
     public List<ComponentSO> Components = new();
 
+    public List<CommandExecuterSO> Commands = new();
+
     public void InitOnScene(EntityMonobeh entityMonobeh)
     {
         Components.ForEach(c => c.InitOnScene(entityMonobeh));
@@ -33,6 +35,17 @@ public class EntitySO : ScriptableObject
             if (c is ISeconderEntity cs)
             {
                 cs.DoSecond(entityData);
+            }
+        }
+    }
+
+    public void UseCommand(EntityData entity, string keyCommand, string message, WorldData worldData)
+    {
+        foreach (var c in Commands)
+        {
+            if (c.Key == keyCommand)
+            {
+                c.Execute(entity, message, worldData);
             }
         }
     }

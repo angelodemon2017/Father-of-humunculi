@@ -18,7 +18,7 @@ public class BiomSO : ScriptableObject
         List<WorldTileData> tempPoint = chunk.Where(t => t.Id > 0).ToList();
         if (tempPoint.Count > 0)
         {
-            var randPoint = tempPoint.GetRandom();
+            var randPoint = tempPoint.GetRandom(tempPoint[0].Xpos * tempPoint[0].Zpos + tempPoint.Count);
 
             var xEntPos = randPoint.Xpos * Config.TileSize;
             var zEntPos = randPoint.Zpos * Config.TileSize;

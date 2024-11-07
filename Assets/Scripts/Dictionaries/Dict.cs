@@ -29,8 +29,9 @@ public static class Dict
 
     public static class Commands
     {
-        public static string UseItem = "UseItem";
-        public static string SetBuild = "SetBuild";
+        public const string UseItem = "UseItem";
+        public const string SetBuild = "SetBuild";
+        public const string Interact = "ComponentInterractable";// typeof(ComponentInterractable).Name;
     }
 
     public static class RectKeys

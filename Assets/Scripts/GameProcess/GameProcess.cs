@@ -19,7 +19,7 @@ public class GameProcess
         }
     }
 
-    private CommandHandler _commandHandler = new();
+//    private CommandHandler _commandHandler = new();
     private bool _gameLaunched = false;
     [UnityEngine.SerializeField] private WorldData _gameWorld;
     [UnityEngine.SerializeField] private List<EntityInProcess> _entities = new();
@@ -88,7 +88,8 @@ public class GameProcess
 
     public void GetRequest(CommandData commandData)//web request in future <=
     {
-        _commandHandler.ExecuteCommand(commandData, _gameWorld);
+        var ent = _gameWorld.GetEntityById(commandData.IdEntity);
+        ent.Config.UseCommand(ent, commandData.KeyCommand, commandData.Message, _gameWorld);
     }
 
     public void StartGame()
