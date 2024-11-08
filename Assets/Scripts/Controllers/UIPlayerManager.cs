@@ -11,10 +11,10 @@ public class UIPlayerManager : MonoBehaviour
 //    [SerializeField] private State _setPlanBuildState;
 
     private RecipeSO _tempRecipe;
-    private EntityMonobeh _entityMonobeh;
-    private ItemData _tempFromSlot;
+    private EntityMonobeh _entityMonobehPlayer;
+    private ItemData _tempFromSlot;//need some remove to data layer
 
-    public EntityMonobeh EntityMonobeh => _entityMonobeh;
+    public EntityMonobeh EntityMonobeh => _entityMonobehPlayer;
     public bool IsReadySetBuild => _tempRecipe != null;
     public UIPresentInventory UIPresentInventory => uIPresentInventory;
 
@@ -27,9 +27,9 @@ public class UIPlayerManager : MonoBehaviour
 
     public void InitEntity(EntityMonobeh entity)
     {
-        _entityMonobeh = entity;
+        _entityMonobehPlayer = entity;
 
-        _entityMonobeh.EntityInProcess.UpdateEIP += UpdateModules;
+        _entityMonobehPlayer.EntityInProcess.UpdateEIP += UpdateModules;
 
         //TODO cycle init all components
         var ci = entity.EntityInProcess.EntityData.Components.GetComponent<ComponentInventory>();
@@ -47,7 +47,7 @@ public class UIPlayerManager : MonoBehaviour
 
     private void UpdateModules()
     {
-        var itemHand = _entityMonobeh.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
+        var itemHand = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
 
         uIPresentInventory.UpdateSlots();
 
@@ -62,9 +62,10 @@ public class UIPlayerManager : MonoBehaviour
     {
         _tempFromSlot = dragItem;
 
-        var playerComp = _entityMonobeh.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>();
+        var playerComp = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>();
         playerComp.PickItemByHand(dragItem);
 
+        dragItem.SetEmpty();
         _tempFromSlot.SetEmpty();
 
         UpdateModules();
@@ -72,7 +73,7 @@ public class UIPlayerManager : MonoBehaviour
 
     private void DropItem(ItemData dropItem)
     {//logic move to entity
-        var playerComp = _entityMonobeh.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>();
+        var playerComp = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>();
         var itemHand = playerComp.ItemHand;
 
         if (itemHand.IsEmpty)
@@ -87,7 +88,7 @@ public class UIPlayerManager : MonoBehaviour
         else if (itemHand.EnumId == dropItem.EnumId)
         {
             itemHand.Count = dropItem.TryAdd(itemHand);
-            var ci = _entityMonobeh.EntityInProcess.EntityData.Components.GetComponent<ComponentInventory>();
+            var ci = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentInventory>();
             ci.AddItem(itemHand);
         }
         else
@@ -105,8 +106,8 @@ public class UIPlayerManager : MonoBehaviour
     private void UseItemByInventory(int index)
     {
         var com = ComponentInventory.GetCommandUseItem(index);
-        com.IdEntity = _entityMonobeh.EntityInProcess.Id;
-        _entityMonobeh.EntityInProcess.SendCommand(com);
+        com.IdEntity = _entityMonobehPlayer.EntityInProcess.Id;
+        _entityMonobehPlayer.EntityInProcess.SendCommand(com);
     }
 
     public void RunPlanBuild(RecipeSO recipe)
@@ -118,9 +119,11 @@ public class UIPlayerManager : MonoBehaviour
 
     public void TrySetBuild(Vector3 target)
     {
-        _entityMonobeh.EntityInProcess.SendCommand(
-            new CommandData(_entityMonobeh.EntityInProcess.EntityData,
-            _tempRecipe, target));
+        _entityMonobehPlayer.EntityInProcess.SendCommand(
+            CommandExecuteRecipe.GetCommand(
+                _entityMonobehPlayer.EntityInProcess.EntityData,
+                _tempRecipe, target));
+
         CancelPlanBuild();
     }
 
@@ -167,13 +170,12 @@ public class UIPlayerManager : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            var itemHand = _entityMonobeh.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
+            var itemHand = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
             if (!itemHand.IsEmpty)
-            {                
-                GameProcess.Instance.GameWorld.AddEntity(new EntityItem(itemHand, _entityMonobeh.EntityInProcess.EntityData.Position.x, _entityMonobeh.EntityInProcess.EntityData.Position.z));
-                itemHand.SetEmpty();
-                _tempFromSlot = null;
+            {
+                _entityMonobehPlayer.SendCommand(CommandDropItemByPlayer.GetCommand(_entityMonobehPlayer.EntityInProcess.EntityData));
 
+                _tempFromSlot = null;
                 UpdateModules();
             }
         }
@@ -181,7 +183,7 @@ public class UIPlayerManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        _entityMonobeh.EntityInProcess.UpdateEIP -= UpdateModules;
+        _entityMonobehPlayer.EntityInProcess.UpdateEIP -= UpdateModules;
 
         uIPresentInventory.OnComponentUpdated -= UpdateModules;
         uIPresentInventory.OnDragItem -= DragItem;

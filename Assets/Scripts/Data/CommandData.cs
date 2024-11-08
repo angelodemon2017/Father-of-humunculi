@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public struct CommandData
+﻿public struct CommandData
 {
     public long IdEntity;
     public string KeyCommand;
@@ -14,15 +12,5 @@ public struct CommandData
         IdEntity = id;
         KeyCommand = component;
         Message = message;
-    }
-
-    /// <summary>
-    /// SET BUILD
-    /// </summary>
-    public CommandData(EntityData entityData, RecipeSO recipe, Vector3 position)
-    {
-        IdEntity = entityData.Id;
-        KeyCommand = Dict.Commands.SetBuild;
-        Message = $"{recipe.Index}^{position.x}^{position.z}";
     }
 }

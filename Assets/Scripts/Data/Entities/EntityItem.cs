@@ -3,14 +3,14 @@ using System.Linq;
 
 public class EntityItem : EntityData
 {
-    public EntityItem(EnumItem idRes, float xpos, float zpos) : base(xpos, zpos)
+/*    public EntityItem(EnumItem idRes, float xpos, float zpos) : base(xpos, zpos)
     {
         Components.AddRange(new List<ComponentData>()
         {
             new ComponentItemPresent(idRes),
             new ComponentInterractable(GetTip),
         });
-    }
+    }/**/
 
     public EntityItem(ItemData item, float xpos, float zpos) : base(xpos, zpos)
     {
@@ -31,7 +31,7 @@ public class EntityItem : EntityData
     {
         if (command.KeyCommand == typeof(ComponentInterractable).Name)
         {
-            var component = Components.GetComponent<ComponentItemPresent>();            ;
+            var component = Components.GetComponent<ComponentItemPresent>();
 
             var ent = worldData.entityDatas.FirstOrDefault(e => $"{e.Id}" == command.Message);
             var inv = ent.Components.GetComponent<ComponentInventory>();

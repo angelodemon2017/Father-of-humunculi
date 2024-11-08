@@ -15,7 +15,7 @@ public class ComponentPlayerId : ComponentData
 
     public void PickItemByHand(ItemData item)
     {
-        DropItem(_itemInHand);
+        DropItem(_itemInHand);//А точно ли нужно такое делать?
         _itemInHand.Replace(item);
     }
 
@@ -26,9 +26,9 @@ public class ComponentPlayerId : ComponentData
             return;
         }
 
-        var posit = CameraController.Instance.FocusPosition;
+//        var posit = CameraController.Instance.FocusPosition;
 
-        GameProcess.Instance.GameWorld.AddEntity(new EntityItem(item, posit.x, posit.z));
+//        GameProcess.Instance.GameWorld.AddEntity(new EntityItem(item, posit.x, posit.z));
 
         item.SetEmpty();
     }

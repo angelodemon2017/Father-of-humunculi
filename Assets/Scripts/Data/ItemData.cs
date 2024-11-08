@@ -10,8 +10,8 @@ public class ItemData
     public string Meta;
 
     public bool IsFullSlot => Count == ItemConfig.AmountStack;
-    public bool IsEmpty => EnumId == EnumItem.None;
-    public ItemConfig ItemConfig => ItemsController.GetItem(EnumId);
+    public bool IsEmpty => Id == "none";
+    public ItemConfig ItemConfig => ItemsController.GetItem(Id);
 
     public ItemData(ItemConfig config)
     {

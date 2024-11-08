@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ede26c1e1b2b76c4dbeb96c23899dfd2, type: 3}
-  m_Name: Bush Interactable
+  m_Script: {fileID: 11500000, guid: d4fd625076d7d8d429a4fa61f670a246, type: 3}
+  m_Name: Drop Item By Player
   m_EditorClassIdentifier: 
-  _textPick: "*\u043A\u043B\u0438\u043A*"
-  _interactablePrefab: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
-    type: 3}
+  _entityDroppedItem: {fileID: 11400000, guid: 47163bea61a7731498b18be8a5c0f029, type: 2}

@@ -21,7 +21,7 @@ public class ComponentPosition : ComponentData
     }
 
     public static CommandData CommandUpdate(Vector3 position)
-    {
+    {//TODO Need think about this solution
         return new CommandData(-1, typeof(ComponentPosition).Name, $"{position.x}|{position.z}");
     }
 

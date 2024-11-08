@@ -89,6 +89,7 @@ public class GameProcess
     public void GetRequest(CommandData commandData)//web request in future <=
     {
         var ent = _gameWorld.GetEntityById(commandData.IdEntity);
+        ent.ApplyCommand(commandData);
         ent.Config.UseCommand(ent, commandData.KeyCommand, commandData.Message, _gameWorld);
     }
 
@@ -140,11 +141,19 @@ public class GameProcess
             var eip = _entities.FirstOrDefault(e => e.Id == newEnt);
             if (eip == null)
             {
-                var ed = _gameWorld.entityDatas.FirstOrDefault(x => x.Id == newEnt);
-                var neweip = new EntityInProcess(ed);
-                AddEIP(neweip);
-                //is client
-                MessageAboutSpawnEntity(neweip);
+                var ed = _gameWorld.GetEntityById(newEnt);
+
+                if (ed != null)
+                {
+                    var neweip = new EntityInProcess(ed);
+                    AddEIP(neweip);
+                    //is client
+                    MessageAboutSpawnEntity(neweip);
+                }
+                else
+                {
+                    //was deleted
+                }
             }
             else
             {

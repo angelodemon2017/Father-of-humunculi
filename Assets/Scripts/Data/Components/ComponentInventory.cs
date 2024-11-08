@@ -35,7 +35,7 @@ public class ComponentInventory : ComponentData
             return;
         }
 
-        var slot = Items.FirstOrDefault(i => i.EnumId == item.EnumId && !i.IsFullSlot);
+        var slot = Items.FirstOrDefault(i => i.Id == item.Id && !i.IsFullSlot);
         if (slot == null)
         {
             slot = Items.FirstOrDefault(i => i.IsEmpty);

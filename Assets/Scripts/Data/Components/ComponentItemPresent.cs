@@ -7,12 +7,17 @@
 
     public string Tip => $"{_itemData.EnumId}({_itemData.Count})";
 
-    public ComponentItemPresent(EnumItem keyItem) : base()
+    public ComponentItemPresent()
     {
-        _itemData = new ItemData(ItemsController.GetItem(keyItem));
+
     }
 
     public ComponentItemPresent(ItemData keyItem) : base()
+    {
+        _itemData = new ItemData(keyItem);
+    }
+
+    public void SetItem(ItemData keyItem)
     {
         _itemData = new ItemData(keyItem);
     }

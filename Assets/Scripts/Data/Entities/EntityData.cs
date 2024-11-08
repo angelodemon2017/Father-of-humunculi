@@ -65,7 +65,7 @@ public class EntityData
             var comp = Components.GetComponent<ComponentPosition>();
             comp.UpdateByCommand(command.Message);
         }
-        if (command.KeyCommand == Dict.Commands.UseItem)
+/*        if (command.KeyCommand == Dict.Commands.UseItem)
         {
             var compInv = Components.GetComponent<ComponentInventory>();
             if (compInv != null)
@@ -84,13 +84,11 @@ public class EntityData
                 {
                     compInv.SubtrackItemsByRecipe(recipe);
 
-                    var newEntity = recipe.Build.GetEntityByRecipe(
-                        float.Parse(mess[1]),
-                        float.Parse(mess[2]));
+                    var newEntity = recipe._entitySOBuild.CreateEntity(float.Parse(mess[1]), float.Parse(mess[2]));
                     GameProcess.Instance.GameWorld.AddEntity(newEntity);
                 }
             }
-        }
+        }/**/
 
         UpdateEntity();
     }

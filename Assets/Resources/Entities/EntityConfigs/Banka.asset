@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77620a3ac2d501c43a380b2e590c19f5, type: 3}
+  m_Name: Banka
+  m_EditorClassIdentifier: 
+  Key: Banka
+  Components:
+  - {fileID: 11400000, guid: f0a7a5e507924c0469368ca4fb8e708e, type: 2}
+  - {fileID: 11400000, guid: 77248f86f5fdf144f982e3692518f140, type: 2}
+  - {fileID: 11400000, guid: 2bc176f4ec99422448cd61ccb372c65e, type: 2}
+  - {fileID: 11400000, guid: 8da8d6f4188b9b1428784b4b3dc818d2, type: 2}
+  Commands:
+  - {fileID: 11400000, guid: de014b49e2165ae4aa70e3f2c35251fe, type: 2}

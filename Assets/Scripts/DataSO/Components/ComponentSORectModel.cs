@@ -13,8 +13,6 @@ public class ComponentSORectModel : ComponentSO
     {
         var sr = Instantiate(_spriteRendererModelPrefab, entityMonobeh.transform);
 
-//        var comp = entityMonobeh.EntityInProcess.EntityData.Components.GetComponent<ComponentModelByRectPrefab>();
-
         sr.sprite = _spriteModel;
     }
 }

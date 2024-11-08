@@ -30,8 +30,8 @@ public static class Dict
     public static class Commands
     {
         public const string UseItem = "UseItem";
+        public const string DropItem = "DropItem";
         public const string SetBuild = "SetBuild";
-        public const string Interact = "ComponentInterractable";// typeof(ComponentInterractable).Name;
     }
 
     public static class RectKeys
