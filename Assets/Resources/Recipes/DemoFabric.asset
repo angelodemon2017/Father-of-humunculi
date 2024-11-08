@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eddbf71c6b637347934f712dfb0b398, type: 3}
   m_Name: DemoFabric
   m_EditorClassIdentifier: 
-  Index: 0
+  Index: 1
   Build: 2
-  IconBuild: {fileID: -1854455611, guid: 183f3ba47d746ea4190c5bb109108e88, type: 3}
+  IconBuild: {fileID: 21300000, guid: 64e5f033d2c52424babe0a21c7832b8b, type: 3}
   Result:
     ItemConfig: {fileID: 0}
     Count: 1

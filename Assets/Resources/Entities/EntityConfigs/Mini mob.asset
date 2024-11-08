@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee72125a3ff426f47a6e79f22e6b000e, type: 3}
-  m_Name: Spawn Entity Command
+  m_Script: {fileID: 11500000, guid: 77620a3ac2d501c43a380b2e590c19f5, type: 3}
+  m_Name: Mini mob
   m_EditorClassIdentifier: 
-  _entity: {fileID: 11400000, guid: e64d53c1e4393304fa16f05078a7e208, type: 2}
+  Key: MiniMob
+  Components:
+  - {fileID: 11400000, guid: 7f661a7649be8c34f99fb13ea73241b3, type: 2}
+  - {fileID: 11400000, guid: 8f3e25d21d3602e41a6332629f6d9561, type: 2}
+  Commands: []
