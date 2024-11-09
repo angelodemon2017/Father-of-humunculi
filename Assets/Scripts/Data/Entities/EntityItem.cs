@@ -3,17 +3,10 @@ using System.Linq;
 
 public class EntityItem : EntityData
 {
-/*    public EntityItem(EnumItem idRes, float xpos, float zpos) : base(xpos, zpos)
-    {
-        Components.AddRange(new List<ComponentData>()
-        {
-            new ComponentItemPresent(idRes),
-            new ComponentInterractable(GetTip),
-        });
-    }/**/
-
     public EntityItem(ItemData item, float xpos, float zpos) : base(xpos, zpos)
     {
+        //remove when repair ComponentInventory
+        TypeKey = "ItemPresent";
         Components.AddRange(new List<ComponentData>()
         {
             new ComponentItemPresent(item),

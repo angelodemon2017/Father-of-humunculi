@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eddbf71c6b637347934f712dfb0b398, type: 3}
+  m_Name: HomuLeaf
+  m_EditorClassIdentifier: 
+  Index: 1
+  _entitySOBuild: {fileID: 11400000, guid: f0395a69431f4304a85b4321538cacf8, type: 2}
+  IconBuild: {fileID: -606357570, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
+  Result:
+    ItemConfig: {fileID: 0}
+    Count: 1
+  Resources:
+  - ItemConfig: {fileID: 11400000, guid: 2ffe704ada27d7049866dc9fc65ad9bc, type: 2}
+    Count: 1
+  - ItemConfig: {fileID: 11400000, guid: b57b2733457685b489a3f7071e69869c, type: 2}
+    Count: 1
+  GroupRecipeTag: {fileID: 11400000, guid: 77efa91eb47a4fc43874892e76e58029, type: 2}

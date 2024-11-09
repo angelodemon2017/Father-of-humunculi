@@ -19,7 +19,6 @@ public class GameProcess
         }
     }
 
-//    private CommandHandler _commandHandler = new();
     private bool _gameLaunched = false;
     [UnityEngine.SerializeField] private WorldData _gameWorld;
     [UnityEngine.SerializeField] private List<EntityInProcess> _entities = new();
@@ -113,16 +112,12 @@ public class GameProcess
             _sessionTime.Add(_second);
             _seconder -= 1f;
 
-            /*            foreach (var _cashEnt in _cashEntities) 
-                        {
-                            _cashEnt.Value.ForEach(e => e.DoSecond());
-                        }/**/
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             foreach (var entIP in _entities)
             {
                 entIP.DoSecond();
-            }/**/
+            }
             stopwatch.Stop();
             if (WorldViewer.Instance.DebugMode)
             {

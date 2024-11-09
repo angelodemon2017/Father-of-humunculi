@@ -2,8 +2,7 @@
 
 public class ItemData
 {
-    public EnumItem EnumId;
-    public string Id;//or string or enum?
+    public string Id;
     public int Count;
     public int Durability;
     public int Quality;
@@ -15,7 +14,6 @@ public class ItemData
 
     public ItemData(ItemConfig config)
     {
-        EnumId = config.EnumKey;
         Id = config.Key;
         Count = Random.Range(config.MinSpawnItem, config.MaxSpawnItem + 1);
         Durability = config.BaseDurability;
@@ -25,7 +23,6 @@ public class ItemData
 
     public ItemData(ItemData itemData)
     {
-        EnumId = itemData.EnumId;
         Id = itemData.Id;
         Count = itemData.Count;
         Durability = itemData.Durability;
@@ -53,7 +50,6 @@ public class ItemData
 
     public void Replace(ItemData item)
     {
-        EnumId = item.EnumId;
         Id = item.Id;
         Count = item.Count;
         Durability = item.Durability;
@@ -65,7 +61,6 @@ public class ItemData
     {
         var emptyItem = ItemsController.GetEmpty();
 
-        EnumId = emptyItem.EnumKey;
         Count = 0;
         Id = emptyItem.Key;
         Durability = emptyItem.BaseDurability;

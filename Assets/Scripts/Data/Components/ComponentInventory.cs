@@ -9,8 +9,6 @@ public class ComponentInventory : ComponentData
     public List<ItemData> Items = new();
     public int MaxItems;
 
-//    private Transform _entityME;
-
     public ComponentInventory(ComponentInventory component) : this (component.MaxItems) { }
 
     public ComponentInventory(int maxItems = 5)
@@ -22,11 +20,6 @@ public class ComponentInventory : ComponentData
             Items.Add(new ItemData(emptyConf));
         }
     }
-
-/*    public override void Init(Transform entityME)
-    {
-        _entityME = entityME;
-    }/**/
 
     public void AddItem(ItemData item)
     {
@@ -82,7 +75,7 @@ public class ComponentInventory : ComponentData
     {
         foreach (var r in recipe.Resources)
         {
-            SubtrackItems(r.ItemConfig.EnumKey, r.Count);
+            SubtrackItems(r.ItemConfig.Key, r.Count);
         }
     }
 
@@ -90,7 +83,7 @@ public class ComponentInventory : ComponentData
     {
         foreach (var r in recipe.Resources)
         {
-            if (GetCountOfItem(r.ItemConfig.EnumKey) < r.Count)
+            if (GetCountOfItem(r.ItemConfig.Key) < r.Count)
             {
                 return false;
             }
@@ -99,15 +92,15 @@ public class ComponentInventory : ComponentData
         return true;
     }
 
-    public int GetCountOfItem(EnumItem enumItem)
+    public int GetCountOfItem(string keyItem)
     {
-        return Items.Where(i => i.EnumId == enumItem).Sum(i => i.Count);
+        return Items.Where(i => i.Id == keyItem).Sum(i => i.Count);
     }
 
-    public bool SubtrackItems(EnumItem enumItem, int count)
+    public bool SubtrackItems(string keyItem, int count)
     {
-        var slot = Items.FirstOrDefault(i => i.EnumId == enumItem);
-        if (slot == null || count <= 0 || enumItem == EnumItem.None)
+        var slot = Items.FirstOrDefault(i => i.Id == keyItem);
+        if (slot == null || count <= 0 || keyItem == "none")
         {
             return false;
         }
@@ -124,7 +117,7 @@ public class ComponentInventory : ComponentData
         {
             var dif = count - slot.Count;
             slot.SetEmpty();
-            SubtrackItems(enumItem, dif);
+            SubtrackItems(keyItem, dif);
         }
 
         return true;
@@ -156,6 +149,10 @@ public class ComponentInventory : ComponentData
         DropItem(item);
     }
 
+    /// <summary>
+    ///TODO move to inventorySO
+    /// </summary>
+    /// <param name="item"></param>
     public void DropItem(ItemData item)
     {//TODO need command 
         if (item.IsEmpty)
@@ -177,7 +174,7 @@ public class ComponentInventory : ComponentData
         {
             var iConf = i.ItemConfig;
 
-            Debug.Log($"{i.EnumId}, count:{i.Count}/{iConf.AmountStack}");
+            Debug.Log($"{i.Id}, count:{i.Count}/{iConf.AmountStack}");
         }
     }
 

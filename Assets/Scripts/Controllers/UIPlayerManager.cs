@@ -85,7 +85,7 @@ public class UIPlayerManager : MonoBehaviour
         {
             dropItem.Replace(itemHand);
         }
-        else if (itemHand.EnumId == dropItem.EnumId)
+        else if (itemHand.Id == dropItem.Id)
         {
             itemHand.Count = dropItem.TryAdd(itemHand);
             var ci = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentInventory>();

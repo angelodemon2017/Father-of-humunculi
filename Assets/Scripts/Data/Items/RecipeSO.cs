@@ -8,10 +8,6 @@ public class RecipeSO : ScriptableObject
     public int Index;
 
     public EntitySO _entitySOBuild;
-    /// <summary>
-    ///TODO DELETE ALL LOGIC
-    /// </summary>
-    public EnumBuilds Build = EnumBuilds.None;
     public Sprite IconBuild;
 
     public ElementRecipe Result;

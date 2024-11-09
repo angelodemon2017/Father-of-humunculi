@@ -3,7 +3,7 @@ public class ComponentPlayerId : ComponentData
 {
     public string PlayerName;
 
-    private ItemData _itemInHand;// = new ItemData(ItemsController.GetEmpty());
+    private ItemData _itemInHand;
 
     public ItemData ItemHand => _itemInHand;
 
@@ -26,16 +26,6 @@ public class ComponentPlayerId : ComponentData
             return;
         }
 
-//        var posit = CameraController.Instance.FocusPosition;
-
-//        GameProcess.Instance.GameWorld.AddEntity(new EntityItem(item, posit.x, posit.z));
-
         item.SetEmpty();
     }
-    /*    public override void Init(Transform entityME)
-        {
-            CameraController.Instance.SetTarget(entityME);
-            var eip = entityME.GetComponent<EntityMonobeh>();
-            UIPlayerManager.Instance.InitEntity(eip);
-        }/**/
 }

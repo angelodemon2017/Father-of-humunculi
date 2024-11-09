@@ -12,7 +12,7 @@ public class WorldConstructor
     public static List<EntityData> GenerateEntitiesByChunk(int x, int z, List<WorldTileData> chunk)
     {
         List<EntityData> result = new();
-        List<WorldTileData> tempPoint = chunk.Where(t => t.Id > 0).ToList();
+/*        List<WorldTileData> tempPoint = chunk.Where(t => t.Id > 0).ToList();
         var pointForGen = GetRandomTiles(tempPoint, tempPoint.Count > Config.EntitiesInChunk ? Config.EntitiesInChunk : tempPoint.Count);
 
         foreach (var ed in pointForGen)
@@ -24,7 +24,7 @@ public class WorldConstructor
             result.Add(newEnt);
         }
 
-        pointForGen = GetRandomTiles(tempPoint, 1);
+        pointForGen = GetRandomTiles(tempPoint, 1);/**/
 
 /*        foreach (var ed in pointForGen)
         {

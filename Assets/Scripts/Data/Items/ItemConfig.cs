@@ -4,7 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ItemConfig", order = 1)]
 public class ItemConfig : ScriptableObject
 {
-    public EnumItem EnumKey;
     public string Key;//localize key, dictionary key, etc...
     public string Description;
     public int AmountStack;

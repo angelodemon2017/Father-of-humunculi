@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77620a3ac2d501c43a380b2e590c19f5, type: 3}
+  m_Name: HomuStone
+  m_EditorClassIdentifier: 
+  Key: HomuStone
+  Components:
+  - {fileID: 11400000, guid: 7f661a7649be8c34f99fb13ea73241b3, type: 2}
+  - {fileID: 11400000, guid: 8f3e25d21d3602e41a6332629f6d9561, type: 2}
+  - {fileID: 11400000, guid: efba65e407b52fa41a7e7cf6c423d0e5, type: 2}
+  - {fileID: 11400000, guid: 42b88982236c3cf48bbdcdf13818f7d2, type: 2}
+  Commands: []

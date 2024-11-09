@@ -5,7 +5,7 @@
     public ItemConfig ItemConfig => _itemData.ItemConfig;
     public ItemData ItemData => _itemData;
 
-    public string Tip => $"{_itemData.EnumId}({_itemData.Count})";
+    public string Tip => $"{_itemData.Id}({_itemData.Count})";
 
     public ComponentItemPresent()
     {

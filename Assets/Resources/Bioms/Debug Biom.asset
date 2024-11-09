@@ -22,3 +22,5 @@ MonoBehaviour:
   Entities:
   - Entity: {fileID: 11400000, guid: e64d53c1e4393304fa16f05078a7e208, type: 2}
     Weight: 1
+  - Entity: {fileID: 11400000, guid: 23f3c0d637fdb1e459fbd6e3d9d5f55b, type: 2}
+    Weight: 1

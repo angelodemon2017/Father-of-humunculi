@@ -20,6 +20,12 @@ public class ComponentUIlabels : ComponentData
         {
             TextView = $"res: {cmp._debugCounter}";
         }
+
+        var cmpHom = entity.Components.GetComponent<ComponentHomu>();
+        if (cmpHom != null)
+        {
+            TextView = cmpHom._titleDemo;
+        }
     }
     //bundle data for ui generate
 }

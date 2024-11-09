@@ -43,10 +43,6 @@ public class WorldData
             }
 
         AddEntity(EntityController.GetEntity("Player").CreateEntity(0f, 0f));
-/*        if (false)
-        {//TODO replace to player from SO
-            AddEntity(new EntityPlayer(0f, 0f));
-        }/**/
     }
 
     public IEnumerator CheckAndGenChunk(int x, int z)

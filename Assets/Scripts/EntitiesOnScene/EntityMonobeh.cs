@@ -20,17 +20,6 @@ public class EntityMonobeh : MonoBehaviour
 
     private void InitComponents()
     {
-/*        foreach (var cd in _entityInProcess.EntityData.Components)
-        {
-            var pbc = _prefabsByComponent.GetPrefab(cd.KeyName);
-            if (pbc != null)
-            {
-                var newpbc = Instantiate(pbc, transform);
-                newpbc.Init(cd, _entityInProcess);
-            }
-            cd.Init(transform);
-        }/**/
-
         _entityInProcess.EntityData.Config.InitOnScene(this);
 
         _entityInProcess.UpdateEntity();

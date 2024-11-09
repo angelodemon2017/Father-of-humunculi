@@ -13,16 +13,9 @@ public static class ItemsController
         return _items.FirstOrDefault(i => i.Key == key);
     }
 
-    public static ItemConfig GetItem(EnumItem key)
-    {
-        Init();
-
-        return _items.FirstOrDefault(i => i.EnumKey == key);
-    }
-
     public static ItemConfig GetEmpty()
     {
-        return GetItem(EnumItem.None);
+        return GetItem("none");
     }
 
     private static void Init()

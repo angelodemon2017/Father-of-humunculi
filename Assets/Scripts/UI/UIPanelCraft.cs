@@ -44,7 +44,7 @@ public class UIPanelCraft : MonoBehaviour
         foreach (var r in _recipe.Resources)
         {
             var uicp = Instantiate(_prefabResources, _parentResources);
-            uicp.InitIcon(new UIIconModel(r, _componentInventory.GetCountOfItem(r.ItemConfig.EnumKey), aspectMode: AspectRatioFitter.AspectMode.HeightControlsWidth));
+            uicp.InitIcon(new UIIconModel(r, _componentInventory.GetCountOfItem(r.ItemConfig.Key), aspectMode: AspectRatioFitter.AspectMode.HeightControlsWidth));
         }
     }
 
