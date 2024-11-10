@@ -9,12 +9,11 @@ public class CommandDropItemByPlayer : CommandExecuterSO
 
     public override void Execute(EntityData entity, string message, WorldData worldData)
     {
-        var newEnt = _entityDroppedItem.CreateEntity(entity.Position.x, entity.Position.z);
-
         var compPlayer = entity.Components.GetComponent<ComponentPlayerId>();
 
         if (compPlayer != null)
         {
+            var newEnt = _entityDroppedItem.CreateEntity(entity.Position.x, entity.Position.z);
             var itemPresent = newEnt.Components.GetComponent<ComponentItemPresent>();
             itemPresent.SetItem(compPlayer.ItemHand);
             compPlayer.ItemHand.SetEmpty();

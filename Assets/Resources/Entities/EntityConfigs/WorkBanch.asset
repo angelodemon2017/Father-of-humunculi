@@ -15,4 +15,7 @@ MonoBehaviour:
   Key: WorkBanch
   Components:
   - {fileID: 11400000, guid: 5afa840546425a547a0610552c48c243, type: 2}
-  Commands: []
+  - {fileID: 11400000, guid: fe6721d53fa379b4cb253af886e84510, type: 2}
+  - {fileID: 11400000, guid: 8fbc3117655996947a61c03c25753811, type: 2}
+  Commands:
+  - {fileID: 11400000, guid: 72d685e95b00ab648a3f362245129d88, type: 2}
