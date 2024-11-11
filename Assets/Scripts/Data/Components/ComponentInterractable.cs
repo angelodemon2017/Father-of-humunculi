@@ -6,6 +6,11 @@ public class ComponentInterractable : ComponentData
 
     private Func<string> _gettingTip;
 
+    public ComponentInterractable()
+    {
+
+    }
+
     public ComponentInterractable(Func<string> gettingTip)
     {
         _gettingTip = gettingTip;

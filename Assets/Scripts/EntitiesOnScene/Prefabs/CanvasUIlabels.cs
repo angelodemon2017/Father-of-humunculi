@@ -8,20 +8,21 @@ public class CanvasUIlabels : PrefabByComponentData
 
     private EntityInProcess _entityInProcess;
     private ComponentUIlabels _componentUIlabels;
-    private Transform _uicanvas;
-    public override string KeyComponent => typeof(ComponentUIlabels).Name;
+//    private Transform _uicanvas;
+    public override string KeyComponent => typeof(CanvasUIlabels).Name;
+    public override string KeyComponentData => typeof(ComponentUIlabels).Name;
+    internal override ComponentData GetComponentData => new ComponentUIlabels();
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {
-        _uicanvas = _testText.transform.parent;
+//        _uicanvas = _testText.transform.parent;
         _componentUIlabels = (ComponentUIlabels)componentData;
         _entityInProcess = entityInProcess;
-        _testText.color = _componentUIlabels.TextColor;
-        _testText.transform.parent.position += Vector3.up * _componentUIlabels.High - Vector3.up;
-            ;
+//        _testText.color = _componentUIlabels.TextColor;
+//        _testText.transform.parent.position += Vector3.up * _componentUIlabels.High - Vector3.up;
 
         _entityInProcess.UpdateEIP += UpdateEntity;
-        _uicanvas.rotation = Camera.main.transform.rotation;
+//        _uicanvas.rotation = Camera.main.transform.rotation;
     }
 
     private void UpdateEntity()

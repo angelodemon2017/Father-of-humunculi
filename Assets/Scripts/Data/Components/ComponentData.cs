@@ -14,9 +14,9 @@ public abstract class ComponentData
 
     public virtual void Init(Transform entityME) { }
 
-    public virtual void DoSecond()
+    public virtual bool DoSecond()
     {
-
+        return false;
     }
 
     internal virtual void UpdateAfterEntityUpdate(EntityData entity)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using UnityEngine;
 
 public class GameProcess
 {
@@ -20,6 +21,7 @@ public class GameProcess
     }
 
     private bool _gameLaunched = false;
+    private EntitiesLibrary _entitiesLibrary;
     [UnityEngine.SerializeField] private WorldData _gameWorld;
     [UnityEngine.SerializeField] private List<EntityInProcess> _entities = new();
     /// <summary>
@@ -36,7 +38,8 @@ public class GameProcess
 
     public GameProcess()
     {
-//        NewGame(new WorldData());
+        _entitiesLibrary = Resources.LoadAll<EntitiesLibrary>(string.Empty).FirstOrDefault();
+        //        NewGame(new WorldData());
     }
 
     public List<EntityInProcess> GetEntitiesByChunk(int x, int z)
@@ -89,7 +92,12 @@ public class GameProcess
     {
         var ent = _gameWorld.GetEntityById(commandData.IdEntity);
         ent.ApplyCommand(commandData);
+
         ent.Config.UseCommand(ent, commandData.KeyCommand, commandData.Message, _gameWorld);
+
+        var entConfig = _entitiesLibrary.GetConfig(ent.TypeKey);
+        entConfig.UseCommand(ent, commandData.KeyCommand, commandData.Message, _gameWorld);
+
     }
 
     public void StartGame()
@@ -116,6 +124,7 @@ public class GameProcess
             stopwatch.Start();
             foreach (var entIP in _entities)
             {
+//                _entitiesLibrary.GetConfig(entIP.EntityData.TypeKey).
                 entIP.DoSecond();
             }
             stopwatch.Stop();

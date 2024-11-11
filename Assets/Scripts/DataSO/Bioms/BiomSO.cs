@@ -15,12 +15,12 @@ public class BiomSO : ScriptableObject
         List<EntityData> result = new();
 
         List<WorldTileData> tempPoint = chunk.Where(t => t.Id > 0).ToList();
-        var oneDigital = int.Parse(seed.MapNoiseFrom10To99);
+/*        var oneDigital = int.Parse(seed.MapNoiseFrom10To99);
         if (Random.Range(-10, 110) > oneDigital) 
         {
             AddEntByIndex(result, tempPoint, 0); 
-        }
-        AddEntByIndex(result, tempPoint, 1);
+        }/**/
+        AddEntByIndex(result, tempPoint, 0);
 
         return result;
     }
@@ -44,6 +44,7 @@ public class BiomSO : ScriptableObject
 [System.Serializable]
 public class EntityInBiom
 {
-    public EntitySO Entity;
+    public EntityMonobeh Entity;
+    public EntitySO EntitySO;
     public int Weight;
 }

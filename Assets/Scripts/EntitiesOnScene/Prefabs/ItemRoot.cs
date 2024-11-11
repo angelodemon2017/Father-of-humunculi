@@ -7,7 +7,10 @@ public class ItemRoot : PrefabByComponentData
     private ComponentItemPresent _componentItemPresent;
     private EntityInProcess _entityInProcess;
 
-    public override string KeyComponent => typeof(ComponentItemPresent).Name;
+    public override string KeyComponent => typeof(ItemRoot).Name;
+    public override string KeyComponentData => typeof(ComponentItemPresent).Name;
+
+    internal override ComponentData GetComponentData => new ComponentItemPresent();
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {
@@ -16,7 +19,7 @@ public class ItemRoot : PrefabByComponentData
         _entityInProcess = entityInProcess;
         _entityInProcess.UpdateEIP += UpdateModel;
 
-        _spriteRenderer.sprite = _componentItemPresent.ItemConfig.IconItem;
+//        _spriteRenderer.sprite = _componentItemPresent.ItemConfig.IconItem;
 
         UpdateModel();
     }

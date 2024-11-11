@@ -21,7 +21,7 @@ public class WorldData
     public long GetNewId () 
     {
         lastIds++;
-        return lastIds; 
+        return lastIds;
     }
     public List<long> needUpdates = new();
     public bool IsDeleted(long idCheck)
@@ -42,7 +42,10 @@ public class WorldData
                 GetChunk(x, z);
             }
 
-        AddEntity(EntityController.GetEntity("Player").CreateEntity(0f, 0f));
+        if (false)
+        {
+            AddEntity(EntityController.GetEntity("Player").CreateEntity(0f, 0f));
+        }
     }
 
     public IEnumerator CheckAndGenChunk(int x, int z)

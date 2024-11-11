@@ -6,6 +6,11 @@ public class ComponentUIlabels : ComponentData
     public float High;
     public string TextView = string.Empty;
 
+    public ComponentUIlabels()
+    {
+
+    }
+
     public ComponentUIlabels(Color setColor, float high = 1f, string defaulthText = "")
     {
         TextColor = setColor;

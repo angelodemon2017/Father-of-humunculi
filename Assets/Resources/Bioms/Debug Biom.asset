@@ -20,7 +20,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1eeb3f5ae519b5844b62d1746d27283a, type: 2}
   - {fileID: 11400000, guid: c2fcd3f61dafe1f4d8a99d6124131659, type: 2}
   Entities:
-  - Entity: {fileID: 11400000, guid: e64d53c1e4393304fa16f05078a7e208, type: 2}
-    Weight: 1
-  - Entity: {fileID: 11400000, guid: 23f3c0d637fdb1e459fbd6e3d9d5f55b, type: 2}
+  - Entity: {fileID: 5597222920646075619, guid: c6f26334c3ac3b1458cecc19c6d18ebb,
+      type: 3}
+    EntitySO: {fileID: 0}
     Weight: 1

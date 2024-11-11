@@ -47,6 +47,22 @@ public class EntityData
         Components.Add(new ComponentPosition(xpos, zpos));
     }
 
+    public void DoSecond()
+    {
+        bool isChanged = false;
+        foreach (var c in Components)
+        {
+            if (c.DoSecond())
+            {
+                isChanged = true;
+            }
+        }
+        if (isChanged)
+        {
+            UpdateEntity();
+        }
+    }
+
     public void SetUpdateAction(Action<long> updater)
     {
         _updater = updater;

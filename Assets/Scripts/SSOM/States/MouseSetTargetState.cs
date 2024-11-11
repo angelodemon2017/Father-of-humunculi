@@ -17,7 +17,7 @@ public class MouseSetTargetState : State
     protected override void Init()
     {
         var mii = TryGetMII();
-        _targetEM = mii.EM;
+        _targetEM = mii.RootMonobeh;
         _target = mii.transform.position;
 
         _navMeshAgent = ((IMovableCharacter)Character).GetNavMeshAgent();
@@ -34,7 +34,7 @@ public class MouseSetTargetState : State
         var mii = TryGetMII();
         if (mii != null)
         {
-            _targetEM = mii.EM;
+            _targetEM = mii.RootMonobeh;
             _target = mii.transform.position;
             _navMeshAgent.SetDestination(_target);
         }

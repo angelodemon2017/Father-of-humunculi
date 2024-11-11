@@ -1,7 +1,7 @@
 ﻿using System;
 
 [Serializable]
-public class ComponentCounter : ComponentData, ISeconder
+public class ComponentCounter : ComponentData//, ISeconder
 {
     public int _chanceUpper = 50;
     public int _debugCounter = 0;
@@ -19,11 +19,14 @@ public class ComponentCounter : ComponentData, ISeconder
         _callBack = callBack;
     }
 
-    public override void DoSecond()
+    public override bool DoSecond()
     {
         if (_chanceUpper.GetChance())
         {
-            _callBack?.Invoke();
+            _debugCounter++;
+            return true;
+//            _callBack?.Invoke();
         }
+        return false;
     }
 }
