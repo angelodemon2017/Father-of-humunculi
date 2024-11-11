@@ -1,11 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EntityMonobeh : MonoBehaviour
 {
-    [SerializeField] private PrefabsByComponent _prefabsByComponent;
+    [SerializeField] private List<PrefabByComponentData> _prefabsByComponents;
 
     private EntityInProcess _entityInProcess;
 
+    public List<PrefabByComponentData> PrefabsByComponents => _prefabsByComponents;
     public long Id => _entityInProcess.Id;
     public EntityInProcess EntityInProcess => _entityInProcess;
 

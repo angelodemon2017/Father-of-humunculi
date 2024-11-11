@@ -1,11 +1,13 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MouseInterfaceInteraction : PrefabByComponentData
 {
     //can decompose to several component with individual settings
     [SerializeField] private GameObject _tip;
     [SerializeField] private TextMeshProUGUI _tipText;
+    [SerializeField] private UnityEvent _actions;
 
     private EntityMonobeh _linkParent;
     private float _showTip;
@@ -31,6 +33,11 @@ public class MouseInterfaceInteraction : PrefabByComponentData
 
         _tip.transform.rotation = Camera.main.transform.rotation;
         _tip.SetActive(false);
+    }
+
+    public void OnClick(EntityMonobeh whoTouch)
+    {
+
     }
 
     public void ShowTip()

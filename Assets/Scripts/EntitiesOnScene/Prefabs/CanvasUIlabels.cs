@@ -4,11 +4,11 @@ using UnityEngine;
 public class CanvasUIlabels : PrefabByComponentData
 {
     [SerializeField] private TextMeshProUGUI _testText;
+    [SerializeField] private PrefabByComponentData GetText;
 
     private EntityInProcess _entityInProcess;
     private ComponentUIlabels _componentUIlabels;
     private Transform _uicanvas;
-
     public override string KeyComponent => typeof(ComponentUIlabels).Name;
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
@@ -26,8 +26,15 @@ public class CanvasUIlabels : PrefabByComponentData
 
     private void UpdateEntity()
     {
-        _testText.text = _componentUIlabels.TextView;
-//            _entityInProcess.TestDebugProp;
+//        _testText.text = _componentUIlabels.TextView;
+        //            _entityInProcess.TestDebugProp;
+
+        TestCheckText();
+    }
+
+    private void TestCheckText()
+    {
+        _testText.text = GetText != null ? GetText.GetDebugText : string.Empty;
     }
 
     private void OnDestroy()
