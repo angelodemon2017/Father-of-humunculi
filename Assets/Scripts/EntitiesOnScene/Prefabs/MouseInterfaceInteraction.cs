@@ -19,6 +19,11 @@ public class MouseInterfaceInteraction : PrefabByComponentData
     public override string KeyComponentData => typeof(ComponentInterractable).Name;
     internal override ComponentData GetComponentData => new ComponentInterractable();
 
+    private void Awake()
+    {
+        _tip.SetActive(false);
+    }
+
     public void Init(EntityMonobeh entityMonobeh, ComponentInterractable componentInterractable)
     {
 //        _linkParent = entityMonobeh;
@@ -36,16 +41,21 @@ public class MouseInterfaceInteraction : PrefabByComponentData
 //        _tipText.text = componentInterractable.TipKey;//can init several component
 
 //        _tip.transform.rotation = Camera.main.transform.rotation;
-        _tip.SetActive(false);
+//        _tip.SetActive(false);
     }
 
     public void OnClick(EntityMonobeh whoTouch)
     {
-        RootMonobeh.SendCommand(new CommandData()
+        RootMonobeh.EntityInProcess.SendCommand(new CommandData()
         {
             KeyCommand = KeyComponent,
             Message = $"{whoTouch}",
         });
+/*        RootMonobeh.SendCommand(new CommandData()
+        {
+            KeyCommand = KeyComponent,
+            Message = $"{whoTouch}",
+        });/**/
     }
 
     public override void ExecuteCommand(EntityData entity, string message, WorldData worldData)

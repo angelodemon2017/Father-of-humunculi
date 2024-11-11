@@ -31,7 +31,7 @@ public class FSMController : MonoBehaviour, IStatesCharacter, IMovableCharacter
         if (_lastPosition != _transform.position)
         {
             _lastPosition = _transform.position;
-            _entityMonobeh.SendCommand(ComponentPosition.CommandUpdate(_lastPosition));
+            _entityMonobeh.EntityInProcess.SendCommand(ComponentPosition.CommandUpdate(_lastPosition));
         }
     }
 

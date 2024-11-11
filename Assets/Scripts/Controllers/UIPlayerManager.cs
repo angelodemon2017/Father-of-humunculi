@@ -173,7 +173,7 @@ public class UIPlayerManager : MonoBehaviour
             var itemHand = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
             if (!itemHand.IsEmpty)
             {
-                _entityMonobehPlayer.SendCommand(CommandDropItemByPlayer.GetCommand(_entityMonobehPlayer.EntityInProcess.EntityData));
+                _entityMonobehPlayer.EntityInProcess.SendCommand(CommandDropItemByPlayer.GetCommand(_entityMonobehPlayer.EntityInProcess.EntityData));
 
                 _tempFromSlot = null;
                 UpdateModules();

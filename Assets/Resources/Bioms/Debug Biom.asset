@@ -24,3 +24,7 @@ MonoBehaviour:
       type: 3}
     EntitySO: {fileID: 0}
     Weight: 1
+  - Entity: {fileID: 5597222920646075619, guid: 4a12b88dbcef388498b33d81b93a4b93,
+      type: 3}
+    EntitySO: {fileID: 0}
+    Weight: 1

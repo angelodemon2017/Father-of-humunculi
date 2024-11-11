@@ -5,6 +5,7 @@ public class EntityMonobeh : MonoBehaviour
 {
     [SerializeField] private List<PrefabByComponentData> _prefabsByComponents;
 
+    private List<PrefabByComponentData> _cashUpdatePrefabByComponentDatas = new();
     private EntityInProcess _entityInProcess;
 
     public List<PrefabByComponentData> PrefabsByComponents => _prefabsByComponents;
@@ -33,7 +34,13 @@ public class EntityMonobeh : MonoBehaviour
                 pbc.Init(c, _entityInProcess);
             }
         }
-
+        foreach (var c in _prefabsByComponents)
+        {
+            if (c._isNeedUpdate)
+            {
+                _cashUpdatePrefabByComponentDatas.Add(c);
+            }
+        }
 //        _entityInProcess.EntityData.Components.ForEach(c => PrefabsByComponents.GetComponent(c).Init(c));
     }
 
@@ -44,11 +51,29 @@ public class EntityMonobeh : MonoBehaviour
             GameProcess.Instance.RemoveEIP(_entityInProcess);
             WorldViewer.Instance.RemoveEntity(this);
         }
+        else
+        {
+            _cashUpdatePrefabByComponentDatas.ForEach(c => c.UpdateComponent());
+//            PrefabsByComponents.ForEach(c => c.UpdateComponent());
+        }
     }
 
     private void OnDestroy()
     {
         _entityInProcess.UpdateEIP -= UpdateEntity;
+    }
+
+    #region Config/Backend
+
+    public void UseCommand(EntityData entity, string keyCommand, string message, WorldData worldData)
+    {
+        foreach (var c in _prefabsByComponents)
+        {
+            if (c.KeyComponent == keyCommand)
+            {
+                c.ExecuteCommand(entity, message, worldData);
+            }
+        }
     }
 
     public EntityData CreateEntity(float xpos = 0, float zpos = 0)
@@ -64,19 +89,5 @@ public class EntityMonobeh : MonoBehaviour
         return newEntity;
     }
 
-    public void SendCommand(CommandData comand)
-    {
-        _entityInProcess.SendCommand(comand);
-    }
-
-    public void UseCommand(EntityData entity, string keyCommand, string message, WorldData worldData)
-    {
-        foreach (var c in _prefabsByComponents)
-        {
-            if (c.KeyComponent == keyCommand)
-            {
-                c.ExecuteCommand(entity, message, worldData);
-            }
-        }
-    }
+    #endregion
 }
