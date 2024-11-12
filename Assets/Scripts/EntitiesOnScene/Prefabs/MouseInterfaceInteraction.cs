@@ -7,7 +7,7 @@ public class MouseInterfaceInteraction : PrefabByComponentData
     //can decompose to several component with individual settings
     [SerializeField] private GameObject _tip;
     [SerializeField] private TextMeshProUGUI _tipText;
-    [SerializeField] private UnityEvent<EntityData, string, WorldData> _executeCommandTouch;
+    [SerializeField] private UnityEvent<EntityData, string, string, WorldData> _executeCommandTouch;
 
     public EntityMonobeh RootMonobeh;
 
@@ -48,7 +48,7 @@ public class MouseInterfaceInteraction : PrefabByComponentData
     {
         RootMonobeh.EntityInProcess.SendCommand(new CommandData()
         {
-            KeyCommand = KeyComponent,
+            KeyComponent = KeyComponent,
             Message = $"{whoTouch.Id}",
         });
 /*        RootMonobeh.SendCommand(new CommandData()
@@ -58,9 +58,9 @@ public class MouseInterfaceInteraction : PrefabByComponentData
         });/**/
     }
 
-    public override void ExecuteCommand(EntityData entity, string message, WorldData worldData)
+    public override void ExecuteCommand(EntityData entity, string command, string message, WorldData worldData)
     {
-        _executeCommandTouch?.Invoke(entity, message, worldData);
+        _executeCommandTouch?.Invoke(entity, command, message, worldData);
     }
 
     public void ShowTip()

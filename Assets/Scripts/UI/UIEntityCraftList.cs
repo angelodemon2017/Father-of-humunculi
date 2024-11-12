@@ -5,6 +5,8 @@ using TMPro;
 
 public class UIEntityCraftList : PrefabByComponentData
 {
+    [SerializeField] private GroupSO _recipeGroup;
+
     [SerializeField] private UIIconPresent _uiIconPresentPrefab;
     [SerializeField] private UIPanelCraft _uiPanelCraftPrefab;
 
@@ -20,7 +22,10 @@ public class UIEntityCraftList : PrefabByComponentData
     private ComponentUICraftGroup _componentUICraftGroup;
     private Transform _whoOpened = null;
 
-    public override string KeyComponent => typeof(ComponentUICraftGroup).Name;
+    public override string KeyComponent => typeof(UIEntityCraftList).Name;
+    public override string KeyComponentData => typeof(ComponentUICraftGroup).Name;
+
+    internal override ComponentData GetComponentData => new ComponentUICraftGroup(_recipeGroup.GroupName);
 
     private void Awake()
     {
@@ -36,6 +41,36 @@ public class UIEntityCraftList : PrefabByComponentData
 
         _entityInProcess.UpdateEIP += UpdateEntity;
         InitUI();
+    }
+
+    public override void ExecuteCommand(EntityData entity, string command, string message, WorldData worldData)
+    {
+        switch (command)
+        {
+            case Dict.Commands.CloseUI:
+                CloseUIData(entity);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void CloseUIData(EntityData entity)
+    {
+        var compPlayer = entity.Components.GetComponent<ComponentUICraftGroup>();
+        compPlayer.SetEntityOpener(-1);
+        entity.UpdateEntity();
+    }
+
+    public void PickEntity(EntityData entity, string command, string message, WorldData worldData)
+    {
+        var compPlayer = entity.Components.GetComponent<ComponentUICraftGroup>();
+
+        if (compPlayer != null)
+        {
+            compPlayer.SetEntityOpener(long.Parse(message));
+            entity.UpdateEntity();
+        }
     }
 
     private void InitUI()
@@ -92,7 +127,16 @@ public class UIEntityCraftList : PrefabByComponentData
     private void Close()
     {
         _root.SetActive(false);
-        _entityInProcess.SendCommand(ComponentInterractable.GetTouch("-1"));
+        _entityInProcess.SendCommand(GetCommandCloseUI());
+    }
+
+    private CommandData GetCommandCloseUI()
+    {
+        return new CommandData()
+        {
+            KeyCommand = Dict.Commands.CloseUI,
+            KeyComponent = KeyComponent,
+        };
     }
 
     private void FixedUpdate()

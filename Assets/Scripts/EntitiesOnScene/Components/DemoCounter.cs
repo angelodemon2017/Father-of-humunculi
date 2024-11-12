@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class DemoCounter : PrefabByComponentData
 {
-    [SerializeField] private EntityMonobeh _demoMiniMob;
     [SerializeField] private ItemConfig _givingItem;
     [SerializeField] private ComponentCounter _defaultValues;
 
@@ -20,7 +19,7 @@ public class DemoCounter : PrefabByComponentData
         _component = (ComponentCounter)componentData;
     }
 
-    public void PickEntity(EntityData entity, string message, WorldData worldData)
+    public void PickEntity(EntityData entity, string command, string message, WorldData worldData)
     {
         var counter = entity.Components.GetComponent<ComponentCounter>();
 
@@ -40,8 +39,6 @@ public class DemoCounter : PrefabByComponentData
 
             entity.UpdateEntity();
             touchedEntity.UpdateEntity();
-
-            worldData.AddEntity(_demoMiniMob.CreateEntity(entity.Position.x, entity.Position.z));
         }
     }
 }

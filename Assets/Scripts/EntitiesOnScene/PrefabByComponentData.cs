@@ -21,7 +21,7 @@ public class PrefabByComponentData : MonoBehaviour
 
     #region Config/Backend
 
-    public virtual void ExecuteCommand(EntityData entity, string message, WorldData worldData)
+    public virtual void ExecuteCommand(EntityData entity, string command, string message, WorldData worldData)
     {
 
     }

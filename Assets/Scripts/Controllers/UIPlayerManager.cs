@@ -119,10 +119,14 @@ public class UIPlayerManager : MonoBehaviour
 
     public void TrySetBuild(Vector3 target)
     {
-        _entityMonobehPlayer.EntityInProcess.SendCommand(
+        var compInv = _entityMonobehPlayer.PrefabsByComponents.GetComponent<InventoryPBCD>();
+        var cmdSetter = compInv.GetCommandSetEntity(_entityMonobehPlayer.EntityInProcess.EntityData, _tempRecipe, target);
+        _entityMonobehPlayer.EntityInProcess.SendCommand(cmdSetter);
+
+/*        _entityMonobehPlayer.EntityInProcess.SendCommand(
             CommandExecuteRecipe.GetCommand(
                 _entityMonobehPlayer.EntityInProcess.EntityData,
-                _tempRecipe, target));
+                _tempRecipe, target));/**/
 
         CancelPlanBuild();
     }
@@ -173,11 +177,17 @@ public class UIPlayerManager : MonoBehaviour
             var itemHand = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
             if (!itemHand.IsEmpty)
             {
-                _entityMonobehPlayer.EntityInProcess.SendCommand(new CommandData()
-                {
-                    KeyCommand = typeof(InventoryPBCD).Name,
-                });
-                _entityMonobehPlayer.EntityInProcess.SendCommand(CommandDropItemByPlayer.GetCommand(_entityMonobehPlayer.EntityInProcess.EntityData));
+                var compPBC = _entityMonobehPlayer.PrefabsByComponents.GetComponent<PlayerPresent>();
+
+                var cmdDropItem = compPBC.GetCommandDropItem(_entityMonobehPlayer.EntityInProcess.EntityData);
+
+                _entityMonobehPlayer.EntityInProcess.SendCommand(cmdDropItem);
+
+                /*                _entityMonobehPlayer.EntityInProcess.SendCommand(new CommandData()
+                                {
+                                    KeyCommand = typeof(InventoryPBCD).Name,
+                                });/**/
+                //                _entityMonobehPlayer.EntityInProcess.SendCommand(CommandDropItemByPlayer.GetCommand(_entityMonobehPlayer.EntityInProcess.EntityData));
 
                 _tempFromSlot = null;
                 UpdateModules();

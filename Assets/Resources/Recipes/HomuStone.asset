@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eddbf71c6b637347934f712dfb0b398, type: 3}
   m_Name: HomuStone
   m_EditorClassIdentifier: 
-  Index: 1
+  Index: 6
+  homuType: 1
+  _entityConfig: {fileID: 5597222920646075619, guid: 1317a1ba86758444890902d5b6e587e3,
+    type: 3}
   _entitySOBuild: {fileID: 11400000, guid: 6c484aeb51c22ef4aad3d016dc0c7c9e, type: 2}
   IconBuild: {fileID: -606357570, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
   Result:

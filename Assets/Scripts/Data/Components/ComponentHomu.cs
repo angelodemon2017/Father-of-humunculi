@@ -23,4 +23,9 @@ public class ComponentHomu : ComponentData
     {
         _homuType = homuType;
     }
+
+    public void ApplyRecipe(RecipeSO recipe)
+    {
+        _homuType = recipe.homuType;
+    }
 }

@@ -16,7 +16,7 @@ public class EntityShop : EntityData
 
     public override void ApplyCommand(CommandData command)
     {
-        if (command.KeyCommand == typeof(ComponentInterractable).Name)
+        if (command.KeyComponent == typeof(ComponentInterractable).Name)
         {
             var com = Components.GetComponent<ComponentUICraftGroup>();
             com.SetEntityOpener(long.Parse(command.Message));

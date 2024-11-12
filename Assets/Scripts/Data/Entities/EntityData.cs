@@ -76,7 +76,7 @@ public class EntityData
 
     public virtual void ApplyCommand(CommandData command)
     {
-        if (command.KeyCommand == typeof(ComponentPosition).Name)
+        if (command.KeyComponent == typeof(ComponentPosition).Name)
         {
             var comp = Components.GetComponent<ComponentPosition>();
             comp.UpdateByCommand(command.Message);

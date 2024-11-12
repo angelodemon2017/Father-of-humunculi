@@ -65,13 +65,13 @@ public class EntityMonobeh : MonoBehaviour
 
     #region Config/Backend
 
-    public void UseCommand(EntityData entity, string keyCommand, string message, WorldData worldData)
+    public void UseCommand(EntityData entity, string keyComponent, string keyCommand, string message, WorldData worldData)
     {
         foreach (var c in _prefabsByComponents)
         {
-            if (c.KeyComponent == keyCommand)
+            if (c.KeyComponent == keyComponent)
             {
-                c.ExecuteCommand(entity, message, worldData);
+                c.ExecuteCommand(entity, keyCommand, message, worldData);
             }
         }
     }

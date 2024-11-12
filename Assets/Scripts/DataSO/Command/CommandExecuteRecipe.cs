@@ -5,7 +5,7 @@ public class CommandExecuteRecipe : CommandExecuterSO
 {
     private const char splitter = '^';
 
-    internal override string Key => Dict.Commands.SetBuild;//???
+    internal override string Key => Dict.Commands.SetEntity;//???
 
     public override void Execute(EntityData entity, string message, WorldData worldData)
     {
@@ -20,7 +20,7 @@ public class CommandExecuteRecipe : CommandExecuterSO
                 compInv.SubtrackItemsByRecipe(recipe);
 
                 var newEntity = recipe._entitySOBuild.CreateEntity(float.Parse(mess[1]), float.Parse(mess[2]));
-                GameProcess.Instance.GameWorld.AddEntity(newEntity);
+                worldData.AddEntity(newEntity);
             }
         }
     }
@@ -30,7 +30,7 @@ public class CommandExecuteRecipe : CommandExecuterSO
         return new CommandData()
         {
             IdEntity = entityData.Id,
-            KeyCommand = Dict.Commands.SetBuild,
+            KeyComponent = Dict.Commands.SetEntity,
             Message = $"{recipe.Index}{splitter}{position.x}{splitter}{position.z}",
         };
     }

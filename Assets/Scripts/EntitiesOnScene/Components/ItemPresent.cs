@@ -17,7 +17,7 @@ public class ItemPresent : PrefabByComponentData
         _itemRoot.SetSprite(_component.ItemConfig.IconItem);
     }
 
-    public void PickEntity(EntityData entity, string message, WorldData worldData)
+    public void PickEntity(EntityData entity, string command, string message, WorldData worldData)
     {
         var comItPr = entity.Components.GetComponent<ComponentItemPresent>();
 
@@ -33,6 +33,6 @@ public class ItemPresent : PrefabByComponentData
             entUsed.UpdateEntity();
 
             worldData.RemoveEntity(entity.Id);
-        }
+        }/**/
     }
 }

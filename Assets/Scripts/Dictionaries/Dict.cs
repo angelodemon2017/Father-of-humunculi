@@ -31,7 +31,8 @@ public static class Dict
     {
         public const string UseItem = "UseItem";
         public const string DropItem = "DropItem";
-        public const string SetBuild = "SetBuild";
+        public const string SetEntity = "SetEntity";
+        public const string CloseUI = "CloseUI";
     }
 
     public static class RectKeys

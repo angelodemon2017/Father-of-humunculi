@@ -1,6 +1,7 @@
 ﻿public struct CommandData
 {
     public long IdEntity;
+    public string KeyComponent;
     public string KeyCommand;
     /// <summary>
     /// Arguments
@@ -10,7 +11,8 @@
     public CommandData(long id, string component, string message = "")
     {
         IdEntity = id;
-        KeyCommand = component;
+        KeyComponent = component;
+        KeyCommand = string.Empty;
         Message = message;
     }
 }

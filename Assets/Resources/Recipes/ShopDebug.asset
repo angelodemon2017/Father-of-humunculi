@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eddbf71c6b637347934f712dfb0b398, type: 3}
   m_Name: ShopDebug
   m_EditorClassIdentifier: 
-  Index: 8
+  Index: 11
+  homuType: 0
+  _entityConfig: {fileID: 5597222920646075619, guid: fbc5d0e64cb492649a49c0c33af2087a,
+    type: 3}
   _entitySOBuild: {fileID: 11400000, guid: a10037e629bd0224eb48a3d68a904451, type: 2}
-  Build: 1
   IconBuild: {fileID: 21300000, guid: 564105285b6071d49ac1630643fde994, type: 3}
   Result:
     ItemConfig: {fileID: 0}

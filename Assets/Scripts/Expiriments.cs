@@ -12,7 +12,6 @@ public class Expiriments : ScriptableObject
     {
         for (int i = 0; i < count; i++)
         {
-
         }
 
         //        RunFunc(TestFunc1, "just");
