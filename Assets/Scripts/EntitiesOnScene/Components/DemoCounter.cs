@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class DemoCounter : PrefabByComponentData
 {
+    [SerializeField] private EntityMonobeh _demoMiniMob;
     [SerializeField] private ItemConfig _givingItem;
     [SerializeField] private ComponentCounter _defaultValues;
 
@@ -35,11 +36,12 @@ public class DemoCounter : PrefabByComponentData
             addedItem.Count = counter._debugCounter;
             counter._debugCounter = 0;
 
-
             inventoryComp.AddItem(addedItem);
 
             entity.UpdateEntity();
             touchedEntity.UpdateEntity();
+
+            worldData.AddEntity(_demoMiniMob.CreateEntity(entity.Position.x, entity.Position.z));
         }
     }
 }

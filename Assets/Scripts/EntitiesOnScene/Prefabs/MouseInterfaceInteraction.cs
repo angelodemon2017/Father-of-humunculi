@@ -49,7 +49,7 @@ public class MouseInterfaceInteraction : PrefabByComponentData
         RootMonobeh.EntityInProcess.SendCommand(new CommandData()
         {
             KeyCommand = KeyComponent,
-            Message = $"{whoTouch}",
+            Message = $"{whoTouch.Id}",
         });
 /*        RootMonobeh.SendCommand(new CommandData()
         {

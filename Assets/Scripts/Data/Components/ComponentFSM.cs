@@ -2,6 +2,11 @@
 {
     public State StartState;
 
+    public ComponentFSM()
+    {
+
+    }
+
     public ComponentFSM(State initState)
     {
         StartState = initState;

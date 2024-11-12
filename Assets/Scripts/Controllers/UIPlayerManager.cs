@@ -173,6 +173,10 @@ public class UIPlayerManager : MonoBehaviour
             var itemHand = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
             if (!itemHand.IsEmpty)
             {
+                _entityMonobehPlayer.EntityInProcess.SendCommand(new CommandData()
+                {
+                    KeyCommand = typeof(InventoryPBCD).Name,
+                });
                 _entityMonobehPlayer.EntityInProcess.SendCommand(CommandDropItemByPlayer.GetCommand(_entityMonobehPlayer.EntityInProcess.EntityData));
 
                 _tempFromSlot = null;

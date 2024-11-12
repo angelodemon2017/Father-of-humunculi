@@ -15,3 +15,5 @@ MonoBehaviour:
   _entities:
   - {fileID: 5597222920646075619, guid: c6f26334c3ac3b1458cecc19c6d18ebb, type: 3}
   - {fileID: 5597222920646075619, guid: 4a12b88dbcef388498b33d81b93a4b93, type: 3}
+  - {fileID: 5597222920646075619, guid: 6ef20a6ddc3ad3549b2b0a97f45b69d8, type: 3}
+  - {fileID: 5597222920646075619, guid: e1f376f9284ff4c48ad8075dc28b9123, type: 3}
