@@ -65,7 +65,7 @@ public class MouseSetTargetState : State
 
     private MouseInterfaceInteraction TryGetMII()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !UIPlayerManager.Instance.MouseOverUI)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, 100, _mask))

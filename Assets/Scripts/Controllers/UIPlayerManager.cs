@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UIPlayerManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class UIPlayerManager : MonoBehaviour
     public EntityMonobeh EntityMonobeh => _entityMonobehPlayer;
     public bool IsReadySetBuild => _tempRecipe != null;
     public UIPresentInventory UIPresentInventory => uIPresentInventory;
+    public bool MouseOverUI => EventSystem.current.IsPointerOverGameObject();
 
     private void Awake()
     {
@@ -172,7 +174,7 @@ public class UIPlayerManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && !MouseOverUI)
         {
             var itemHand = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
             if (!itemHand.IsEmpty)

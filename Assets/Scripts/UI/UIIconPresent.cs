@@ -15,12 +15,21 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private RectTransform rectTransform;
 
     private int _indexIcon;
+    public Action<int, long> OnClickIconByEntity;
     public Action<int> OnClickIcon;
     public Action<int> OnClickRBM;
     public Action<int> OnPointerEnter;
     public Action<int> OnPointerExit;
+    /// <summary>
+    /// Схватить
+    /// </summary>
     public Action<int> OnDragHandler;
+    /// <summary>
+    /// Отпустить
+    /// </summary>
     public Action<int> OnDropHandler;
+    public Action<int, long> OnDragHandlerByEntity;
+    public Action<int, long> OnDropHandlerByEntity;
 
     private void Awake()
     {
@@ -41,6 +50,7 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private void OnClick()
     {
         OnClickIcon?.Invoke(_indexIcon);
+        OnClickIconByEntity?.Invoke(_indexIcon, UIPlayerManager.Instance.EntityMonobeh.Id);
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
@@ -56,11 +66,13 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnDrag(PointerEventData eventData)
     {
         OnDragHandler?.Invoke(_indexIcon);
+        OnDragHandlerByEntity?.Invoke(_indexIcon, UIPlayerManager.Instance.EntityMonobeh.Id);
     }
 
     public void OnDrop(PointerEventData eventData)
     {
         OnDropHandler?.Invoke(_indexIcon);
+        OnDropHandlerByEntity?.Invoke(_indexIcon, UIPlayerManager.Instance.EntityMonobeh.Id);
     }
 
     private void OnDestroy()
