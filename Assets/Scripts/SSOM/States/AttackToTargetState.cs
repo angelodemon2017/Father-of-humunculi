@@ -7,13 +7,13 @@ public class AttackToTargetState : State
     [SerializeField] private int Power;
 
     private float _timerAttack;
-    private InteractableController _target;
+//    private InteractableController _target;
 
     protected override void Init()
     {
-        _target = GetAvailableTarget(Character);
+//        _target = GetAvailableTarget(Character);
         _timerAttack = _timeAttack;
-        _target.TakeDamage(Power);
+//        _target.TakeDamage(Power);
     }
 
     protected override void Run()
@@ -31,13 +31,13 @@ public class AttackToTargetState : State
 
     public override bool CheckRules(IStatesCharacter character)
     {
-        _target = GetAvailableTarget(character);
-        return character.IsFinishedCurrentState() && _target != null;
+        //        _target = GetAvailableTarget(character);
+        return character.IsFinishedCurrentState();// && _target != null;
     }
 
-    private InteractableController GetAvailableTarget(IStatesCharacter character)
+/*    private InteractableController GetAvailableTarget(IStatesCharacter character)
     {
         var sc = character.GetStatusController();
         return sc.GetAvailableForAttack();
-    }
+    }/**/
 }

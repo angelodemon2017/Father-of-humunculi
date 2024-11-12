@@ -19,7 +19,6 @@ public class GameplayAdapter : MonoBehaviour
 
     private void Awake()
     {
-        PrefabsByComponent.isInit = false;
         Instance = this;
         gameProcess = GameProcess.Instance;
     }

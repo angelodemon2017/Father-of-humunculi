@@ -10,16 +10,17 @@ public class ChaseState : State
     [SerializeField] private State _prepareAttackState;
 
     private UnityEngine.AI.NavMeshAgent _navMeshAgent;
-    private InteractableController _target;
+    private Transform _target;
 
     private float _currentDistance(IStatesCharacter chr) =>
-        Vector3.Distance(chr.GetTransform().position, _target.transform.position);
+        Vector3.Distance(chr.GetTransform().position, _target.position);
 
     public override string DebugField => $"{_currentDistance(Character)}";
 
     protected override void Init()
     {
-        _target = GetAvailableTarget(Character);
+        _target = Character.GetTransform();
+            //GetAvailableTarget(Character);
         _navMeshAgent = ((IMovableCharacter)Character).GetNavMeshAgent();
         _navMeshAgent.speed = _chaseSpeed;
     }
@@ -42,9 +43,9 @@ public class ChaseState : State
 
     public override bool CheckRules(IStatesCharacter character)
     {
-        var avSC = GetAvailableTarget(character);
+//        var avSC = GetAvailableTarget(character);
 
-        return avSC != null;
+        return false;// avSC != null;
     }
 
     public override void ExitState()
@@ -52,9 +53,9 @@ public class ChaseState : State
         _navMeshAgent.SetDestination(Character.GetTransform().position);
     }
 
-    private InteractableController GetAvailableTarget(IStatesCharacter character)
+/*    private InteractableController GetAvailableTarget(IStatesCharacter character)
     {
         var sc = character.GetStatusController();
         return sc.GetAvailableForAttack();
-    }
+    }/**/
 }

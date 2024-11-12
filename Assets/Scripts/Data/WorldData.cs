@@ -44,7 +44,7 @@ public class WorldData
 
         if (true)
         {
-            AddEntity(EntityController.GetEntity("Player").CreateEntity(0f, 0f));
+            AddEntity(EntitiesLibrary.Instance.GetConfig("Player").CreateEntity(0f, 0f));
         }
     }
 

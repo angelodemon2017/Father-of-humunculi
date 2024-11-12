@@ -45,6 +45,5 @@ public class BiomSO : ScriptableObject
 public class EntityInBiom
 {
     public EntityMonobeh Entity;
-//    public EntitySO EntitySO;
     public int Weight;
 }

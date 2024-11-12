@@ -21,7 +21,7 @@ public class GameProcess
     }
 
     private bool _gameLaunched = false;
-    private EntitiesLibrary _entitiesLibrary;
+//    private EntitiesLibrary _entitiesLibrary;
     [UnityEngine.SerializeField] private WorldData _gameWorld;
     [UnityEngine.SerializeField] private List<EntityInProcess> _entities = new();
     /// <summary>
@@ -38,7 +38,7 @@ public class GameProcess
 
     public GameProcess()
     {
-        _entitiesLibrary = Resources.LoadAll<EntitiesLibrary>(string.Empty).FirstOrDefault();
+//        _entitiesLibrary = Resources.LoadAll<EntitiesLibrary>(string.Empty).FirstOrDefault();
         //        NewGame(new WorldData());
     }
 
@@ -95,7 +95,7 @@ public class GameProcess
 
 //        ent.Config.UseCommand(ent, commandData.KeyCommand, commandData.Message, _gameWorld);
 
-        var entConfig = _entitiesLibrary.GetConfig(ent.TypeKey);
+        var entConfig = EntitiesLibrary.Instance.GetConfig(ent.TypeKey);
         entConfig.UseCommand(ent, commandData.KeyComponent, commandData.KeyCommand, commandData.Message, _gameWorld);
 
     }

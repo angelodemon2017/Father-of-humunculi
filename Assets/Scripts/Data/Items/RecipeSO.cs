@@ -9,7 +9,6 @@ public class RecipeSO : ScriptableObject
 
     public EnumHomuType homuType;
     public EntityMonobeh _entityConfig;
-    public EntitySO _entitySOBuild;
     public Sprite IconBuild;
 
     public ElementRecipe Result;

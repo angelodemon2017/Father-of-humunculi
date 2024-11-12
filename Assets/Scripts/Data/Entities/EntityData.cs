@@ -10,19 +10,6 @@ public class EntityData
 //    public PropsData Props = new();
 
     private Action<long> _updater;
-
-    private EntitySO _cashConfig;
-    public EntitySO Config
-    {
-        get 
-        {
-            if (_cashConfig == null)
-            {
-                _cashConfig = EntityController.GetEntity(TypeKey);
-            }
-            return _cashConfig;
-        }   
-    }
     internal WorldData worldData => GameProcess.Instance.GameWorld;
     internal string _DebugField = string.Empty;
     public virtual string DebugField => _DebugField;

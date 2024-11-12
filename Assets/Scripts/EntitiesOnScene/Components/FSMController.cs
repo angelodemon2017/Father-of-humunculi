@@ -64,8 +64,8 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
         _currentState.InitState(this);
     }
 
-    public InteractableController GetStatusController()
+/*    public InteractableController GetStatusController()
     {
         throw new System.NotImplementedException();
-    }
+    }/**/
 }

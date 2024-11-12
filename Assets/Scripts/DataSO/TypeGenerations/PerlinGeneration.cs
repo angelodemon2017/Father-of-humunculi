@@ -9,16 +9,14 @@ public class PerlinGeneration : TypeGeneration
     [SerializeField] private float PerlinScale;
     [Range(-1, 1)]
     [SerializeField] private float HolesMap;
+    [SerializeField] private BiomSO biom;
 
     public override WorldTileData GenerateTile(int x, int z, SeedData seed)
     {
-        var biomes = BCFGController.GetBioms(_TypeGeneration);
 
         var mapNoise = int.Parse(seed.MapNoiseFrom10To99) * 100;
 
         var pr = Mathf.PerlinNoise((x - mapNoise) * PerlinScale, (z + mapNoise) * PerlinScale);
-
-        var biom = biomes.FirstOrDefault()._biomSO;
 
         var index = pr * biom._textures.Count + HolesMap;
         index = index.FixIndex(biom._textures.Count);

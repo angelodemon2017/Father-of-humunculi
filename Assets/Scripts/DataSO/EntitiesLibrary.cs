@@ -5,6 +5,20 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Entity Library", order = 1)]
 public class EntitiesLibrary : ScriptableObject
 {
+    private static EntitiesLibrary _instance;
+    public static EntitiesLibrary Instance 
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = Resources.LoadAll<EntitiesLibrary>(string.Empty).FirstOrDefault();
+            }
+
+            return _instance;
+        }
+    }
+
     [SerializeField] private List<EntityMonobeh> _entities;
     private Dictionary<string, EntityMonobeh> _cashEntities = new();
 

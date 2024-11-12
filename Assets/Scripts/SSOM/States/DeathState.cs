@@ -16,8 +16,8 @@ public class DeathState : State
 
     public override bool CheckRules(IStatesCharacter character)
     {
-        var sc = character.GetStatusController();
+        //        var sc = character.GetStatusController();
 
-        return sc.IsDeath;
+        return false;// sc.IsDeath;
     }
 }

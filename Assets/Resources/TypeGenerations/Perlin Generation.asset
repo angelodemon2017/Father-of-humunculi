@@ -16,3 +16,4 @@ MonoBehaviour:
   _TypeGeneration: 0
   PerlinScale: 0.1
   HolesMap: 0
+  biom: {fileID: 11400000, guid: 0268745fb62ba54449007e726e357b59, type: 2}
