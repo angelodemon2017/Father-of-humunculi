@@ -6,6 +6,7 @@
     public static int EntitiesInChunk = 1;
 
     public static float CloseUIDistance = 2f;
+    public static float DistanceForShowHeyHint = 2f;
 
     public static string PathEntityModels = "EntityModels";
     public static string PathEntityConfigs = "Entities/EntityConfigs";
