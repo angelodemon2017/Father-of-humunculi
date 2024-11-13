@@ -31,11 +31,6 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public Action<int, long> OnDragHandlerByEntity;
     public Action<int, long> OnDropHandlerByEntity;
 
-    public void TestDrop(BaseEventData ev)
-    {
-        Debug.Log($"how it working");
-    }
-
     private void Awake()
     {
         _button.onClick.AddListener(OnClick);
@@ -89,7 +84,6 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            Debug.Log("Правый клик по UI элементу: " + gameObject.name);
             OnClickRBM?.Invoke(_indexIcon);
         }
     }

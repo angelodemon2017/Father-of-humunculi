@@ -41,7 +41,6 @@ public class EntityMonobeh : MonoBehaviour
                 _cashUpdatePrefabByComponentDatas.Add(c);
             }
         }
-//        _entityInProcess.EntityData.Components.ForEach(c => PrefabsByComponents.GetComponent(c).Init(c));
     }
 
     private void UpdateEntity()
@@ -54,7 +53,6 @@ public class EntityMonobeh : MonoBehaviour
         else
         {
             _cashUpdatePrefabByComponentDatas.ForEach(c => c.UpdateComponent());
-//            PrefabsByComponents.ForEach(c => c.UpdateComponent());
         }
     }
 

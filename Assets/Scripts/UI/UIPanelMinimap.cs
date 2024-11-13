@@ -53,7 +53,7 @@ public class UIPanelMinimap : MonoBehaviour
                 continue;
             }
 
-            var txt = WorldViewer.Instance.Textures[t.Id];
+            var txt = WorldViewer.Instance.GetTE(t.Id);
             texture.SetPixel(x,
                 z,
                 txt.BaseColor);

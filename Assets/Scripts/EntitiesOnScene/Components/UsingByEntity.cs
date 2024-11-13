@@ -10,6 +10,7 @@ public class UsingByEntity : PrefabByComponentData
     private ComponentUsingByEntity _component;
     private EntityInProcess _entityInProcess;
 
+    internal override bool _isNeedUpdate => true;
     private bool _isOpen => _component.EntityId == UIPlayerManager.Instance.EntityMonobeh.Id;
     public override string KeyComponent => typeof(UsingByEntity).Name;
     public override string KeyComponentData => typeof(ComponentUsingByEntity).Name;

@@ -44,7 +44,6 @@ public class MouseSetTargetState : State
             if (_targetEM != null)
             {
                 var myEM = Character.GetTransform().GetComponent<EntityMonobeh>();
-//                _targetEM.SendCommand(ComponentInterractable.GetTouch($"{myEM.Id}"));
 
                 var miicomp = _targetEM.PrefabsByComponents.GetComponent<MouseInterfaceInteraction>();
                 miicomp.OnClick(myEM);
@@ -65,7 +64,7 @@ public class MouseSetTargetState : State
 
     private MouseInterfaceInteraction TryGetMII()
     {
-        if (Input.GetMouseButtonDown(0) && !UIPlayerManager.Instance.MouseOverUI)
+        if (Input.GetMouseButtonDown(0))// && !UIPlayerManager.Instance.MouseOverUI)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, 100, _mask))

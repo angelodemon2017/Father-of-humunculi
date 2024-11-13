@@ -31,9 +31,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1429129657406622003}
   - {fileID: 2934436765539240188}
   - {fileID: 3705514528183001706}
+  - {fileID: 1429129657406622003}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5597222920646075619
@@ -311,6 +311,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParentSlots
       objectReference: {fileID: 0}
+    - target: {fileID: 5912199495434794589, guid: 140cb2b69e995de4aa8e21cd93b9821c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7477199382401903211, guid: 140cb2b69e995de4aa8e21cd93b9821c,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -381,6 +386,12 @@ PrefabInstance:
       propertyPath: _testText
       value: 
       objectReference: {fileID: 5574571341054923980}
+    - target: {fileID: 8589075811014175899, guid: 140cb2b69e995de4aa8e21cd93b9821c,
+        type: 3}
+      propertyPath: _emptyItem
+      value: 
+      objectReference: {fileID: 11400000, guid: e880c4905b01dd04eafeeae042f8de3e,
+        type: 2}
     - target: {fileID: 8589075811014175899, guid: 140cb2b69e995de4aa8e21cd93b9821c,
         type: 3}
       propertyPath: _buttonClose
@@ -522,6 +533,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2615996432848669648, guid: 8813f3823d434934b89cbc3ef6a69d8d,
+        type: 3}
+      propertyPath: m_LayerOverridePriority
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5162382166840344670, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
       propertyPath: m_Name
@@ -538,6 +554,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -1044363121, guid: 183f3ba47d746ea4190c5bb109108e88,
         type: 3}
+    - target: {fileID: 7433180754587744815, guid: 8813f3823d434934b89cbc3ef6a69d8d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7990784587225503361, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
       propertyPath: m_LocalPosition.x

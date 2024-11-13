@@ -97,6 +97,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2615996432848669648, guid: 8813f3823d434934b89cbc3ef6a69d8d,
+        type: 3}
+      propertyPath: m_LayerOverridePriority
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5162382166840344670, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
       propertyPath: m_Name
@@ -113,6 +118,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 64e5f033d2c52424babe0a21c7832b8b,
         type: 3}
+    - target: {fileID: 7433180754587744815, guid: 8813f3823d434934b89cbc3ef6a69d8d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7990784587225503361, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -454,6 +464,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CanvasUILabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3366892875087085282, guid: 9d006e5f67306e44f860705a39d88df4,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7203183109865287021, guid: 9d006e5f67306e44f860705a39d88df4,
         type: 3}

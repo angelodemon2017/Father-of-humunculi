@@ -516,8 +516,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7653e860b68807140a0a8601db0fb61d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _uiIconPresentPrefab: {fileID: 0}
   _maxItems: 0
-  _testText: {fileID: 0}
+  _parentSlots: {fileID: 0}
+  _startItems: []
 --- !u!1 &949856936972609601
 GameObject:
   m_ObjectHideFlags: 0

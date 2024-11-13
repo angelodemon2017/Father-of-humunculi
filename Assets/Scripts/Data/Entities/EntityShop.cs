@@ -12,18 +12,5 @@ public class EntityShop : EntityData
             new ComponentInterractable(GetTip),
             new ComponentUICraftGroup(Dict.RecipeGroups.ShopDebug),
         });
-    }
-
-    public override void ApplyCommand(CommandData command)
-    {
-        if (command.KeyComponent == typeof(ComponentInterractable).Name)
-        {
-            var com = Components.GetComponent<ComponentUICraftGroup>();
-            com.SetEntityOpener(long.Parse(command.Message));
-        }
-
-        base.ApplyCommand(command);
-    }
-
-    
+    }    
 }

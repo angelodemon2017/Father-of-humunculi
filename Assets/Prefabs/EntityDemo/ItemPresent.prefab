@@ -76,6 +76,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 635947310242672396}
     m_Modifications:
+    - target: {fileID: 2615996432848669648, guid: 8813f3823d434934b89cbc3ef6a69d8d,
+        type: 3}
+      propertyPath: m_LayerOverridePriority
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5162382166840344670, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
       propertyPath: m_Name
@@ -87,6 +92,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -1819958283, guid: a03e9228371be9449a97a937850924ca,
         type: 3}
+    - target: {fileID: 7433180754587744815, guid: 8813f3823d434934b89cbc3ef6a69d8d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7990784587225503361, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
       propertyPath: m_LocalPosition.x

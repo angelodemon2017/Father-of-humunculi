@@ -65,8 +65,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 410d625adb782f741890617eda6d205c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _demoMiniMob: {fileID: 5597222920646075619, guid: e1f376f9284ff4c48ad8075dc28b9123,
-    type: 3}
   _givingItem: {fileID: 11400000, guid: 8ea3d15d644ffca45ade6bea68c2e972, type: 2}
   _defaultValues:
     _chanceUpper: 50
@@ -79,6 +77,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 635947310242672396}
     m_Modifications:
+    - target: {fileID: 2615996432848669648, guid: 8813f3823d434934b89cbc3ef6a69d8d,
+        type: 3}
+      propertyPath: m_LayerOverridePriority
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5162382166840344670, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
       propertyPath: m_Name
@@ -90,6 +93,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: ba04dd7842ff9f141b4df468f78f909c,
         type: 3}
+    - target: {fileID: 7433180754587744815, guid: 8813f3823d434934b89cbc3ef6a69d8d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7990784587225503361, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -431,6 +439,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CanvasUILabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3366892875087085282, guid: 9d006e5f67306e44f860705a39d88df4,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7203183109865287021, guid: 9d006e5f67306e44f860705a39d88df4,
         type: 3}

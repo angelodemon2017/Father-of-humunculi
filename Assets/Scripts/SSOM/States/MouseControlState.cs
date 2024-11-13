@@ -49,6 +49,6 @@ public class MouseControlState : State
 
     public override bool CheckRules(IStatesCharacter character)
     {
-        return Input.GetMouseButtonDown(1) && !UIPlayerManager.Instance.MouseOverUI;
+        return Input.GetMouseButtonDown(1);// && !UIPlayerManager.Instance.MouseOverUI;
     }
 }

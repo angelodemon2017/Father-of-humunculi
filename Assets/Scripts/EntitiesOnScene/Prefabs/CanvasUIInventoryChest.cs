@@ -6,6 +6,7 @@ public class CanvasUIInventoryChest : PrefabByComponentData
     private const char splitter = '^';
 
     [SerializeField] private UIIconPresent _uiIconPresentPrefab;
+    [SerializeField] private ItemConfig _emptyItem;
     [SerializeField] private int _maxItems;
     [SerializeField] private Transform _parentSlots;
     [SerializeField] private List<ItemConfig> _startItems;
@@ -32,18 +33,19 @@ public class CanvasUIInventoryChest : PrefabByComponentData
     {
         _component = (ComponentInventory)componentData;
         _entityInProcess = entityInProcess;
+
+        InitSlots();
     }
 
-    internal override void UpdateComponent()
+    private void InitSlots()
     {
         _tempSlots.Clear();
         _parentSlots.DestroyChildrens();
-
-        for (int i = 0; i < _component.Items.Count; i++)
+        for (int i = 0; i < _component.MaxItems; i++)
         {
             var uicp = Instantiate(_uiIconPresentPrefab, _parentSlots);
 
-            UIIconModel iconModel = new UIIconModel(_component.Items[i]);
+            UIIconModel iconModel = new UIIconModel(new ItemData(_emptyItem));
             iconModel.Index = i;
 
             uicp.InitIcon(iconModel);
@@ -52,6 +54,16 @@ public class CanvasUIInventoryChest : PrefabByComponentData
             uicp.OnDropHandlerByEntity += DropSlot;
 
             _tempSlots.Add(uicp);
+        }
+    }
+
+    internal override void UpdateComponent()
+    {
+        for (int i = 0; i < _component.Items.Count; i++)
+        {
+            UIIconModel iconModel = new UIIconModel(_component.Items[i]);
+            iconModel.Index = i;
+            _tempSlots[i].InitIcon(iconModel);
         }
     }
 

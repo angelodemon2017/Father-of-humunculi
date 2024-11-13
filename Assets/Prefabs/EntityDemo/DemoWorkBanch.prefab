@@ -304,12 +304,12 @@ PrefabInstance:
     - target: {fileID: 5729297842131199269, guid: 07ced13eeffc3e948a49b02d099d62b3,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5729297842131199269, guid: 07ced13eeffc3e948a49b02d099d62b3,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5729297842131199269, guid: 07ced13eeffc3e948a49b02d099d62b3,
         type: 3}
@@ -441,6 +441,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2615996432848669648, guid: 8813f3823d434934b89cbc3ef6a69d8d,
+        type: 3}
+      propertyPath: m_LayerOverridePriority
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5162382166840344670, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
       propertyPath: m_Name
@@ -457,6 +462,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 564105285b6071d49ac1630643fde994,
         type: 3}
+    - target: {fileID: 7433180754587744815, guid: 8813f3823d434934b89cbc3ef6a69d8d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7990784587225503361, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
       propertyPath: m_LocalPosition.x

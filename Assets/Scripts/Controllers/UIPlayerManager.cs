@@ -174,7 +174,7 @@ public class UIPlayerManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (Input.GetMouseButtonUp(0) && !MouseOverUI)
+        if (Input.GetMouseButtonUp(0))// && !MouseOverUI)
         {
             var itemHand = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
             if (!itemHand.IsEmpty)
@@ -184,12 +184,6 @@ public class UIPlayerManager : MonoBehaviour
                 var cmdDropItem = compPBC.GetCommandDropItem(_entityMonobehPlayer.EntityInProcess.EntityData);
 
                 _entityMonobehPlayer.EntityInProcess.SendCommand(cmdDropItem);
-
-                /*                _entityMonobehPlayer.EntityInProcess.SendCommand(new CommandData()
-                                {
-                                    KeyCommand = typeof(InventoryPBCD).Name,
-                                });/**/
-                //                _entityMonobehPlayer.EntityInProcess.SendCommand(CommandDropItemByPlayer.GetCommand(_entityMonobehPlayer.EntityInProcess.EntityData));
 
                 _tempFromSlot = null;
                 UpdateModules();
