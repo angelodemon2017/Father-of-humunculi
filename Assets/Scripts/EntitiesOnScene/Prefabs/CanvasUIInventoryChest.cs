@@ -1,13 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CanvasUIInventoryChest : PrefabByComponentData
 {
     private const char splitter = '^';
 
-    [SerializeField] private GameObject _root;
-    [SerializeField] private Button _buttonClose;
     [SerializeField] private UIIconPresent _uiIconPresentPrefab;
     [SerializeField] private int _maxItems;
     [SerializeField] private Transform _parentSlots;
@@ -16,7 +13,6 @@ public class CanvasUIInventoryChest : PrefabByComponentData
     private ComponentInventory _component;
     private EntityInProcess _entityInProcess;
     private List<UIIconPresent> _tempSlots = new();
-    private Transform _whoOpened = null;
 
     internal override bool _isNeedUpdate => true;
     public override string KeyComponent => typeof(CanvasUIInventoryChest).Name;
@@ -34,15 +30,12 @@ public class CanvasUIInventoryChest : PrefabByComponentData
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {
-        _root.SetActive(false);
-        _buttonClose.onClick.AddListener(Close);
         _component = (ComponentInventory)componentData;
         _entityInProcess = entityInProcess;
     }
 
     internal override void UpdateComponent()
     {
-        IsOpened();
         _tempSlots.Clear();
         _parentSlots.DestroyChildrens();
 
@@ -66,9 +59,6 @@ public class CanvasUIInventoryChest : PrefabByComponentData
     {
         switch (command)
         {
-            case Dict.Commands.CloseUI:
-                CloseUIData(entity);
-                break;
             case Dict.Commands.SlotClick:
                 ClickSlotByEntity(entity, message, worldData);
                 break;
@@ -81,24 +71,6 @@ public class CanvasUIInventoryChest : PrefabByComponentData
             default:
                 break;
         }
-    }
-
-    public void PickEntity(EntityData entity, string command, string message, WorldData worldData)
-    {
-        var compPlayer = entity.Components.GetComponent<ComponentInventory>();
-
-        if (compPlayer != null)
-        {
-            compPlayer.SetEntityOpener(long.Parse(message));
-            entity.UpdateEntity();
-        }
-    }
-
-    private void CloseUIData(EntityData entity)
-    {
-        var compPlayer = entity.Components.GetComponent<ComponentInventory>();
-        compPlayer.SetEntityOpener(-1);
-        entity.UpdateEntity();
     }
 
     private void ClickSlotByEntity(EntityData entity, string message, WorldData worldData)
@@ -170,16 +142,6 @@ public class CanvasUIInventoryChest : PrefabByComponentData
         }
     }
 
-    private void IsOpened()
-    {
-        var isOpen = _component.WhoOpened == UIPlayerManager.Instance.EntityMonobeh.Id;
-        _root.SetActive(isOpen);
-        if (_root.activeSelf)
-        {
-            _whoOpened = UIPlayerManager.Instance.EntityMonobeh.transform;
-        }
-    }
-
     private void ClickOnSlot(int i, long idEntity)
     {
         _entityInProcess.SendCommand(GetCommandActionBySlot(i, idEntity, Dict.Commands.SlotClick));
@@ -195,12 +157,6 @@ public class CanvasUIInventoryChest : PrefabByComponentData
         _entityInProcess.SendCommand(GetCommandActionBySlot(i, idEntity, Dict.Commands.SlotDrop));
     }
 
-    private void Close()
-    {
-        _root.SetActive(false);
-        _entityInProcess.SendCommand(GetCommandCloseUI());
-    }
-
     private CommandData GetCommandActionBySlot(int idSlot, long whoClick, string command)
     {
         return new CommandData()
@@ -209,30 +165,5 @@ public class CanvasUIInventoryChest : PrefabByComponentData
             KeyComponent = KeyComponent,
             Message = $"{idSlot}{splitter}{whoClick}",
         };
-    }
-
-    private CommandData GetCommandCloseUI()
-    {
-        return new CommandData()
-        {
-            KeyCommand = Dict.Commands.CloseUI,
-            KeyComponent = KeyComponent,
-        };
-    }
-
-    private void FixedUpdate()
-    {
-        if (_root.activeSelf)
-        {
-            if (Vector3.Distance(transform.position, _whoOpened.position) > Config.CloseUIDistance)
-            {
-                Close();
-            }
-        }
-    }
-
-    private void OnDestroy()
-    {
-        
     }
 }

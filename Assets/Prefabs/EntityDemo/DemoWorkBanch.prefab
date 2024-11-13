@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 635947310242672396}
   - component: {fileID: 5597222920646075619}
+  - component: {fileID: 653055325177773399}
   m_Layer: 0
   m_Name: DemoWorkBanch
   m_TagString: Untagged
@@ -51,6 +52,22 @@ MonoBehaviour:
   - {fileID: 7716080897352376532}
   - {fileID: 8471272043882828294}
   - {fileID: 7516991489892046993}
+  - {fileID: 653055325177773399}
+--- !u!114 &653055325177773399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58151514028472945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bd0299a7cd002e438e0f5912815e56c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onOffsObjects:
+  - {fileID: 3249270395795443267}
+  _closeButton: {fileID: 2869596346367659416}
 --- !u!1001 &1043953363451486208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -287,12 +304,12 @@ PrefabInstance:
     - target: {fileID: 5729297842131199269, guid: 07ced13eeffc3e948a49b02d099d62b3,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5729297842131199269, guid: 07ced13eeffc3e948a49b02d099d62b3,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5729297842131199269, guid: 07ced13eeffc3e948a49b02d099d62b3,
         type: 3}
@@ -366,13 +383,31 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1043953363451486208}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2869596346367659416 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3003343094605770136, guid: 07ced13eeffc3e948a49b02d099d62b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1043953363451486208}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &3249270395795443267 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2552243806154862147, guid: 07ced13eeffc3e948a49b02d099d62b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1043953363451486208}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7516991489892046993 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7362657391113926801, guid: 07ced13eeffc3e948a49b02d099d62b3,
     type: 3}
   m_PrefabInstance: {fileID: 1043953363451486208}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 3249270395795443267}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d999efa0f2e630c42b733456b9668d8d, type: 3}
@@ -532,7 +567,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _executeCommandTouch.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7516991489892046993}
+      objectReference: {fileID: 653055325177773399}
     - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
         type: 3}
       propertyPath: _executeCommandTouch.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -541,7 +576,7 @@ PrefabInstance:
     - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
         type: 3}
       propertyPath: _executeCommandTouch.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PickEntity
+      value: Pick
       objectReference: {fileID: 0}
     - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
         type: 3}
@@ -551,7 +586,7 @@ PrefabInstance:
     - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
         type: 3}
       propertyPath: _executeCommandTouch.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIEntityCraftList, Assembly-CSharp
+      value: UsingByEntity, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
         type: 3}

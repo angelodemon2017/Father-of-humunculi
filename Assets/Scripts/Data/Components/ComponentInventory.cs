@@ -6,14 +6,8 @@ using System;
 [Serializable]
 public class ComponentInventory : ComponentData
 {
-    public long WhoOpened;//TODO TEMP!!! NEED COMPONENT!
     public List<ItemData> Items = new();
     public int MaxItems;
-
-    public void SetEntityOpener(long idEntity)
-    {
-        WhoOpened = idEntity;
-    }
 
     public ComponentInventory(ComponentInventory component) : this (component.MaxItems) { }
 
