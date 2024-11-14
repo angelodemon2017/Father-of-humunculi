@@ -7,6 +7,10 @@ public class ItemData
     public int Durability;
     public int Quality;
     public string Meta;
+    /// <summary>
+    /// IMPOTANT!!!
+    /// </summary>
+    public EnumItemCategory CATEGORYOFSLOT;
 
     public bool IsFullSlot => Count == ItemConfig.AmountStack;
     public bool IsEmpty => Id == "none";

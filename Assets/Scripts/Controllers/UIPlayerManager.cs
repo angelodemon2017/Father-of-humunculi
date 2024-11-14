@@ -14,6 +14,7 @@ public class UIPlayerManager : MonoBehaviour
 
     private RecipeSO _tempRecipe;
     private EntityMonobeh _entityMonobehPlayer;
+    private long _tempIdInv;
     private ItemData _tempFromSlot;//need some remove to data layer
 
     public EntityMonobeh EntityMonobeh => _entityMonobehPlayer;
@@ -59,6 +60,23 @@ public class UIPlayerManager : MonoBehaviour
         {
             _uIIconPresent.InitIcon(new UIIconModel(itemHand));
         }
+    }
+
+    private void DragItem(long idInv, string idInvKey/*??*/, ItemData dragItem)
+    {
+        _tempIdInv = idInv;
+        _tempFromSlot = dragItem;
+
+        var playerComp = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>();
+        playerComp.PickItemByHand(dragItem);
+        //send command player pick item and remove item from inventory
+
+        UpdateModules();
+    }
+
+    private void DropItem(long idInv, string idInvKey/*??*/, ItemData dropSlot)
+    {
+        //send command id from and to inventory, id slots, idEnt hand
     }
 
     private void DragItem(ItemData dragItem)
@@ -125,11 +143,6 @@ public class UIPlayerManager : MonoBehaviour
         var compInv = _entityMonobehPlayer.PrefabsByComponents.GetComponent<InventoryPBCD>();
         var cmdSetter = compInv.GetCommandSetEntity(_entityMonobehPlayer.EntityInProcess.EntityData, _tempRecipe, target);
         _entityMonobehPlayer.EntityInProcess.SendCommand(cmdSetter);
-
-/*        _entityMonobehPlayer.EntityInProcess.SendCommand(
-            CommandExecuteRecipe.GetCommand(
-                _entityMonobehPlayer.EntityInProcess.EntityData,
-                _tempRecipe, target));/**/
 
         CancelPlanBuild();
     }

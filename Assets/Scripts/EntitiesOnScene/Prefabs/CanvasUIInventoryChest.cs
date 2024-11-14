@@ -8,6 +8,7 @@ public class CanvasUIInventoryChest : PrefabByComponentData
     [SerializeField] private UIIconPresent _uiIconPresentPrefab;
     [SerializeField] private ItemConfig _emptyItem;
     [SerializeField] private int _maxItems;
+    [SerializeField] private string _addingKey;
     [SerializeField] private Transform _parentSlots;
     [SerializeField] private List<ItemConfig> _startItems;
 
@@ -17,7 +18,7 @@ public class CanvasUIInventoryChest : PrefabByComponentData
 
     internal override bool _isNeedUpdate => true;
     public override string KeyComponent => typeof(CanvasUIInventoryChest).Name;
-    public override string KeyComponentData => typeof(ComponentInventory).Name;
+    public override string KeyComponentData => typeof(ComponentInventory).Name;//+some key?
     internal override ComponentData GetComponentData => GenComponent();
 
     private ComponentInventory GenComponent()

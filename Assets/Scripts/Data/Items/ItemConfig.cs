@@ -6,6 +6,7 @@ public class ItemConfig : ScriptableObject
 {
     public string Key;//localize key, dictionary key, etc...
     public string Description;
+    public EnumItemCategory ItemCategory;
     public int AmountStack;
     public int BaseDurability;//max durability
     public Sprite IconItem;
