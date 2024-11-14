@@ -28,7 +28,7 @@ public class UIPresentInventory : MonoBehaviour
             var newSlot = Instantiate(_iconPrefab, _parentIcons);
 
             newSlot.OnClickIcon += UseSlot;
-            newSlot.OnClickRBM += ClickSlotRBM;
+            newSlot.OnClickMBM += ClickSlotMBM;
             newSlot.OnDragHandler += DragSlot;
             newSlot.OnDropHandler += DropSlot;
             newSlot.OnPointerEnter += PointerEnter;
@@ -74,7 +74,7 @@ public class UIPresentInventory : MonoBehaviour
         };
         if (item.Count > 1)
         {
-            hintModel.UseHints.Add("* ПКМ - разделение предмета на 2 слота");
+            hintModel.UseHints.Add("* СКМ - разделение предмета на 2 слота");
         }
         if (item.ItemConfig.ItemActions.Count > 0)
         {
@@ -95,7 +95,7 @@ public class UIPresentInventory : MonoBehaviour
         OnUseItem?.Invoke(idButton);
     }
 
-    private void ClickSlotRBM(int idSlot)
+    private void ClickSlotMBM(int idSlot)
     {
         _componentInventory.SplitSlot(idSlot);
         UpdateSlots();
@@ -125,7 +125,7 @@ public class UIPresentInventory : MonoBehaviour
             ci.OnClickIcon -= UseSlot;
             ci.OnDragHandler -= DragSlot;
             ci.OnDropHandler -= DropSlot;
-            ci.OnClickRBM -= ClickSlotRBM;
+            ci.OnClickMBM -= ClickSlotMBM;
         }
     }
 }

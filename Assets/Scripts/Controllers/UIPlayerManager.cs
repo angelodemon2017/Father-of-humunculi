@@ -9,7 +9,8 @@ public class UIPlayerManager : MonoBehaviour
     [SerializeField] private UIPanelCraftGroups _uIPanelCraftGroups;
     [SerializeField] private UIIconPresent _uIIconPresent;
     [SerializeField] private SetterBuild _setterBuild;
-//    [SerializeField] private State _setPlanBuildState;
+    //    [SerializeField] private State _setPlanBuildState;
+    [SerializeField] private GameObject _panelForDropItem;
 
     private RecipeSO _tempRecipe;
     private EntityMonobeh _entityMonobehPlayer;
@@ -17,7 +18,6 @@ public class UIPlayerManager : MonoBehaviour
 
     public EntityMonobeh EntityMonobeh => _entityMonobehPlayer;
     public bool IsReadySetBuild => _tempRecipe != null;
-    public UIPresentInventory UIPresentInventory => uIPresentInventory;
     public bool MouseOverUI => EventSystem.current.IsPointerOverGameObject();
 
     private void Awake()
@@ -54,6 +54,7 @@ public class UIPlayerManager : MonoBehaviour
         uIPresentInventory.UpdateSlots();
 
         _uIIconPresent.gameObject.SetActive(!itemHand.IsEmpty);
+//        _panelForDropItem.SetActive(!itemHand.IsEmpty);
         if (!itemHand.IsEmpty)
         {
             _uIIconPresent.InitIcon(new UIIconModel(itemHand));
@@ -172,6 +173,22 @@ public class UIPlayerManager : MonoBehaviour
         }
     }
 
+    public void DropItem(BaseEventData eventData)
+    {
+        var itemHand = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
+        if (!itemHand.IsEmpty)
+        {
+            var compPBC = _entityMonobehPlayer.PrefabsByComponents.GetComponent<PlayerPresent>();
+
+            var cmdDropItem = compPBC.GetCommandDropItem(_entityMonobehPlayer.EntityInProcess.EntityData);
+
+            _entityMonobehPlayer.EntityInProcess.SendCommand(cmdDropItem);
+
+            _tempFromSlot = null;
+            UpdateModules();
+        }
+    }
+
     private void LateUpdate()
     {
         if (Input.GetMouseButtonUp(0))// && !MouseOverUI)
@@ -188,7 +205,7 @@ public class UIPlayerManager : MonoBehaviour
                 _tempFromSlot = null;
                 UpdateModules();
             }
-        }
+        }/**/
     }
 
     private void OnDestroy()

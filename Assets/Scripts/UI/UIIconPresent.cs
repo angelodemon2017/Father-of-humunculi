@@ -17,7 +17,7 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private int _indexIcon;
     public Action<int, long> OnClickIconByEntity;
     public Action<int> OnClickIcon;
-    public Action<int> OnClickRBM;
+    public Action<int> OnClickMBM;
     public Action<int> OnPointerEnter;
     public Action<int> OnPointerExit;
     /// <summary>
@@ -82,9 +82,9 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right)
+        if (eventData.button == PointerEventData.InputButton.Middle)
         {
-            OnClickRBM?.Invoke(_indexIcon);
+            OnClickMBM?.Invoke(_indexIcon);
         }
     }
 }
