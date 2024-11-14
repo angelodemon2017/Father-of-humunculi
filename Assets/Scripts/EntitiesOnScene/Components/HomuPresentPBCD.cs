@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HomuPresentPBCD : PrefabByComponentData
@@ -17,7 +15,7 @@ public class HomuPresentPBCD : PrefabByComponentData
     {
         _component = (ComponentHomu)componentData;
 
-        UpdateHome();
+        UpdateHomu();
     }
 
     private ComponentHomu GetCompHomu()
@@ -25,7 +23,7 @@ public class HomuPresentPBCD : PrefabByComponentData
         return new ComponentHomu();
     }
 
-    private void UpdateHome()
+    private void UpdateHomu()
     {
         _spriteRenderer.color = _component._colorModelDemo;
     }

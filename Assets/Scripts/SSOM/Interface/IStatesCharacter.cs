@@ -6,14 +6,11 @@ public interface IStatesCharacter
 
     Transform GetTransform();
 
-//    InteractableController GetStatusController();
-
 //    void PlayAnimation(EnumAnimations animation);
 
-    void SetState(State state);
+    void SetState(State state, bool newState = false);
 
 //    bool CheckProp(EnumProps prop);
 
-//    void CreateObj(GameObject keepObj);
 //    void InitAttackZone(GameObject attackZone);
 }

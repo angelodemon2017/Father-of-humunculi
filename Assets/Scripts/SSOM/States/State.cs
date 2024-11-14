@@ -35,6 +35,7 @@ public abstract class State : ScriptableObject
             if (AvailableStates[i].CheckRules(Character))
             {
                 Character.SetState(AvailableStates[i]);
+                break;
             }
         }
     }

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Idling
   m_EditorClassIdentifier: 
   AvailableStates:
-  - {fileID: 11400000, guid: 1497f70a6fd4c53429ee8a8ee2191a8a, type: 2}
+  - {fileID: 11400000, guid: 197d0c1c2b3d8c74d897cbd5b862b27b, type: 2}
   Animation: 0
   _timeIdle: 1.5

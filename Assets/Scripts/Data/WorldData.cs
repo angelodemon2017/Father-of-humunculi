@@ -109,12 +109,14 @@ public class WorldData
         return entityDatas.FirstOrDefault(e => e.Id == id);
     }
 
-    public void AddEntity(EntityData entityData)
+    public long AddEntity(EntityData entityData)
     {
         entityData.Id = GetNewId();
         entityData.SetUpdateAction(AddEntityForUpdate);
         entityDatas.Add(entityData);
         AddEntityForUpdate(entityData.Id);
+
+        return entityData.Id;
     }
 
     public void RemoveEntity(long id)

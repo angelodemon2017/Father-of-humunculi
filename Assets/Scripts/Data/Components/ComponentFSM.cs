@@ -1,14 +1,10 @@
 ﻿public class ComponentFSM : ComponentData
 {
-    public State StartState;
+    public long EntityOfBirth;
+    public long EntityTarget;
 
     public ComponentFSM()
     {
 
-    }
-
-    public ComponentFSM(State initState)
-    {
-        StartState = initState;
     }
 }

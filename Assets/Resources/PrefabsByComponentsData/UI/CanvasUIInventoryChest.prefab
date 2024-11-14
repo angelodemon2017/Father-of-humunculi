@@ -517,6 +517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiIconPresentPrefab: {fileID: 0}
+  _emptyItem: {fileID: 0}
   _maxItems: 0
   _parentSlots: {fileID: 0}
   _startItems: []

@@ -59,6 +59,20 @@ public class UIPanelCraftItems : MonoBehaviour
         _tempPanelCraft.OnApplyRecipe += WasClickCraft;
     }
 
+    private void CraftRecipe(int index)
+    {
+        if (_recipes[index].IsBuild)
+        {
+            UIPlayerManager.Instance.RunPlanBuild(_recipes[index]);
+        }
+        else
+        {
+            _componentInventory.TryApplyRecipe(_recipes[index]);
+            //TODO MEGA CRUNCH, need use send command to entity
+            UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData.UpdateEntity();
+        }
+    }
+
     private void UpdateUI()
     {
         _recipes.Clear();
@@ -72,6 +86,7 @@ public class UIPanelCraftItems : MonoBehaviour
             iconModel.Index = r;
             uicp.InitIcon(iconModel);
             uicp.OnPointerEnter += SelectRecipe;
+            uicp.OnClickIcon += CraftRecipe;
 
             _recipes.Add(tempRecipes[r]);
         }

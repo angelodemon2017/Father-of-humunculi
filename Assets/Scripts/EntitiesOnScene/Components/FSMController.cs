@@ -7,6 +7,7 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
     [SerializeField] private State _startState;
 
     private State _currentState;
+    private ComponentFSM _component;
 
     private NavMeshAgent _navMeshAgent;
     private Transform _transform;
@@ -19,8 +20,7 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
     public override string KeyComponent => typeof(FSMController).Name;
     public override string KeyComponentData => typeof(ComponentFSM).Name;
     internal override ComponentData GetComponentData => new ComponentFSM();
-
-    private ComponentFSM _component;
+    public ComponentFSM ComponentData => _component;
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {
@@ -51,7 +51,7 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
         }
     }
 
-    public void SetState(State state)
+    public void SetState(State state, bool newState = false)
     {
         if (_currentState == state)
         {
@@ -60,12 +60,12 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
 
         _currentState?.ExitState();
 
-        _currentState = Instantiate(state);
+        _currentState = newState ? state : Instantiate(state);
         _currentState.InitState(this);
     }
 
-/*    public InteractableController GetStatusController()
+    public bool IsCurrentState(State checkedState)
     {
-        throw new System.NotImplementedException();
-    }/**/
+        return checkedState.DebugField == _currentState.DebugField;
+    }
 }

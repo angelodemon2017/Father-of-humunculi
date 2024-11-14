@@ -7,5 +7,4 @@
     InteractEntity,
     PickUpAction,
     Cancel,
-    Apply,
 }

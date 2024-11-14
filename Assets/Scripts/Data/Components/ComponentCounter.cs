@@ -5,27 +5,27 @@ public class ComponentCounter : ComponentData//, ISeconder
 {
     public int _chanceUpper = 50;
     public int _debugCounter = 0;
-    private Action _callBack;
+    public int _maxCount = 0;
 
     public ComponentCounter(ComponentCounter component)
     {
         _chanceUpper = component._chanceUpper;
         _debugCounter = component._debugCounter;
+        _maxCount = component._maxCount;
     }
 
-    public ComponentCounter(int chanceCall = 50, Action callBack = null)
+    public ComponentCounter(int chanceCall = 50)
     {
         _chanceUpper = chanceCall;
-        _callBack = callBack;
     }
 
     public override bool DoSecond()
     {
-        if (_chanceUpper.GetChance())
+        if ((_maxCount == 0 || _debugCounter < _maxCount) &&
+            _chanceUpper.GetChance())
         {
             _debugCounter++;
             return true;
-//            _callBack?.Invoke();
         }
         return false;
     }

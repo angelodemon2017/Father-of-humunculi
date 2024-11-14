@@ -1259,6 +1259,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerName: 
+  InputActions:
+  - keyCode: 119
+    controlInputPlayer: 0
+    IsPressed: 0
+    ShotKey: 0
+    IsStop: 0
+  - keyCode: 97
+    controlInputPlayer: 2
+    IsPressed: 0
+    ShotKey: 0
+    IsStop: 0
+  - keyCode: 115
+    controlInputPlayer: 1
+    IsPressed: 0
+    ShotKey: 0
+    IsStop: 0
+  - keyCode: 100
+    controlInputPlayer: 3
+    IsPressed: 0
+    ShotKey: 0
+    IsStop: 0
+  - keyCode: 32
+    controlInputPlayer: 5
+    IsPressed: 0
+    ShotKey: 0
+    IsStop: 0
+  - keyCode: 27
+    controlInputPlayer: 6
+    IsPressed: 0
+    ShotKey: 1
+    IsStop: 0
+  - keyCode: 101
+    controlInputPlayer: 4
+    IsPressed: 0
+    ShotKey: 1
+    IsStop: 0
 --- !u!1 &528885861
 GameObject:
   m_ObjectHideFlags: 0
@@ -1519,7 +1555,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 26.234009, y: 0}
+  m_AnchoredPosition: {x: 23.464996, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &608053011
@@ -4740,7 +4776,7 @@ PrefabInstance:
     - target: {fileID: 606379720454363618, guid: 9e80b7173d6fb1549bac224874221577,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 48.468002
+      value: 42.929993
       objectReference: {fileID: 0}
     - target: {fileID: 606379720454363618, guid: 9e80b7173d6fb1549bac224874221577,
         type: 3}

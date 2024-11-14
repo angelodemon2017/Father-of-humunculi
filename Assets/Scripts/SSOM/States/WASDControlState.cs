@@ -19,19 +19,19 @@ public class WASDControlState : State
     {
         _target = Vector3.zero;
 
-        if (Input.GetKey(KeyCode.W))
+        if (EnumControlInputPlayer.MoveUp.CheckAction())
         {
             _target += Vector3.forward + Vector3.right;
         }
-        if (Input.GetKey(KeyCode.A))
+        if (EnumControlInputPlayer.MoveLeft.CheckAction())
         {
             _target += Vector3.left + Vector3.forward;
         }
-        if (Input.GetKey(KeyCode.S))
+        if (EnumControlInputPlayer.MoveDown.CheckAction())
         {
             _target += Vector3.back + Vector3.left;
         }
-        if (Input.GetKey(KeyCode.D))
+        if (EnumControlInputPlayer.MoveRight.CheckAction())
         {
             _target += Vector3.right + Vector3.back;
         }
@@ -57,9 +57,9 @@ public class WASDControlState : State
 
     public override bool CheckRules(IStatesCharacter character)
     {
-        return (Input.GetKey(KeyCode.W) ||
-            Input.GetKey(KeyCode.A) ||
-            Input.GetKey(KeyCode.S) ||
-            Input.GetKey(KeyCode.D));
+        return EnumControlInputPlayer.MoveDown.CheckAction() ||
+            EnumControlInputPlayer.MoveLeft.CheckAction() ||
+            EnumControlInputPlayer.MoveRight.CheckAction() ||
+            EnumControlInputPlayer.MoveUp.CheckAction();
     }
 }

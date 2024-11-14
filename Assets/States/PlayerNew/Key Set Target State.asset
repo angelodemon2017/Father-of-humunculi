@@ -9,16 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cc7c822e89a0b441a616cc9e89e6751, type: 3}
-  m_Name: walking to Target
+  m_Script: {fileID: 11500000, guid: d22ab8bcd8912314aa9d3764a23abc64, type: 3}
+  m_Name: Key Set Target State
   m_EditorClassIdentifier: 
   AvailableStates:
-  - {fileID: 11400000, guid: e6e94f1fa8292874f8c2c0782c2d22ef, type: 2}
-  - {fileID: 11400000, guid: 2cf43fd94f7aa9f439cb0a2c978e1794, type: 2}
-  - {fileID: 11400000, guid: 8231d7ae5f5f5664ca1f41c7062e5b4d, type: 2}
   - {fileID: 11400000, guid: 6901d32c371f480468150c0a8d96c77b, type: 2}
+  - {fileID: 11400000, guid: 2cf43fd94f7aa9f439cb0a2c978e1794, type: 2}
+  - {fileID: 11400000, guid: e6e94f1fa8292874f8c2c0782c2d22ef, type: 2}
+  - {fileID: 11400000, guid: f65bac2e619f6054896494ff493fe54f, type: 2}
+  - {fileID: 11400000, guid: 8231d7ae5f5f5664ca1f41c7062e5b4d, type: 2}
   Animation: 1
   MoveSpeed: 3.5
-  _mask:
-    serializedVersion: 2
-    m_Bits: 8
+  DistanceToTouch: 1

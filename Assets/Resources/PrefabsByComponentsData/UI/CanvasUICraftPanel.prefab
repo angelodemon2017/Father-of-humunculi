@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 3366892875087085282}
   - component: {fileID: 8139609872035428509}
   - component: {fileID: 8812010846471584019}
+  - component: {fileID: 7362657391113926801}
   - component: {fileID: 6097563178705762976}
-  - component: {fileID: -2532090676709913645}
   m_Layer: 5
-  m_Name: CanvasUIQeueFabric
+  m_Name: CanvasUICraftPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,6 +104,26 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7362657391113926801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2552243806154862147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d999efa0f2e630c42b733456b9668d8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _recipeGroup: {fileID: 0}
+  _uiIconPresentPrefab: {fileID: 7775513454749864798, guid: 9e80b7173d6fb1549bac224874221577,
+    type: 3}
+  _uiPanelCraftPrefab: {fileID: 6532960552706449451, guid: d4a12a4043de79a4da0c29cdc9cbfe30,
+    type: 3}
+  _textTitle: {fileID: 5764990122063341384}
+  _parentButtons: {fileID: 5729297842131199269}
+  _parentCraft: {fileID: 1903926625475167466}
 --- !u!114 &6097563178705762976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,18 +137,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isRect: 1
---- !u!114 &-2532090676709913645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2552243806154862147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49018e86f6d37964fb2c8265b1ca3e00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2695482350665525007
 GameObject:
   m_ObjectHideFlags: 0
