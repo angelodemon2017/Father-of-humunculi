@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30094d33d53636745985b25d08532374, type: 3}
   m_Name: Money
   m_EditorClassIdentifier: 
-  EnumKey: 5
   Key: Money
   Description: "\u041A\u0442\u043E \u0438\u0445 \u0442\u0443\u0442 \u043F\u0440\u0438\u0434\u0443\u043C\u0430\u043B?"
+  ItemCategory: 2
   AmountStack: 999
   BaseDurability: 1
   IconItem: {fileID: 341401526, guid: 183f3ba47d746ea4190c5bb109108e88, type: 3}

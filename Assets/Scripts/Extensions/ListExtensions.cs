@@ -30,9 +30,10 @@ public static class ListExtensions
         return result;
     }
 
-    public static T GetComponent<T>(this List<ComponentData> components) where T : class
+    public static T GetComponent<T>(this List<ComponentData> components, string addKey = "") where T : class
     {
-        return components.FirstOrDefault(x => x.KeyName == typeof(T).Name) as T;
+        return components.FirstOrDefault(x => x.KeyName == typeof(T).Name && 
+            (string.IsNullOrEmpty(addKey) || x.AddingKey == addKey)) as T;
     }
 
     public static T GetComponent<T>(this List<PrefabByComponentData> components) where T : class

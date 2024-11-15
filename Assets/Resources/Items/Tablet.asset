@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30094d33d53636745985b25d08532374, type: 3}
   m_Name: Tablet
   m_EditorClassIdentifier: 
-  EnumKey: 7
   Key: Tablet
   Description: 
+  ItemCategory: 1
   AmountStack: 5
   BaseDurability: 1
   IconItem: {fileID: -1797084938, guid: 183f3ba47d746ea4190c5bb109108e88, type: 3}

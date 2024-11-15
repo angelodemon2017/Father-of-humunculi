@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30094d33d53636745985b25d08532374, type: 3}
   m_Name: Stone
   m_EditorClassIdentifier: 
-  EnumKey: 1
   Key: Stone
   Description: "\u041A\u0430\u043C\u0435\u043D\u044C"
+  ItemCategory: 2
   AmountStack: 10
   BaseDurability: 1
   IconItem: {fileID: -1767539795, guid: a03e9228371be9449a97a937850924ca, type: 3}

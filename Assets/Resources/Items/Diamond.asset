@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30094d33d53636745985b25d08532374, type: 3}
   m_Name: Diamond
   m_EditorClassIdentifier: 
-  EnumKey: 2
   Key: Diamond
   Description: "\u0411\u043B\u044D\u0441\u0442\u044F\u0448\u043A\u0430"
+  ItemCategory: 2
   AmountStack: 10
   BaseDurability: 1
   IconItem: {fileID: 1391132574, guid: 183f3ba47d746ea4190c5bb109108e88, type: 3}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 635947310242672396}
   - component: {fileID: 5597222920646075619}
   - component: {fileID: 7146410972368720946}
+  - component: {fileID: 5528738013402946683}
   m_Layer: 0
   m_Name: DemoChest
   m_TagString: Untagged
@@ -69,6 +70,20 @@ MonoBehaviour:
   _onOffsObjects:
   - {fileID: 4483022102161743303}
   _closeButton: {fileID: 3815538721823333916}
+--- !u!114 &5528738013402946683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58151514028472945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97ee8ded1ccd9234e8cff2e2dc37be06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots: 3f3f3f3f
+  _addingKey: 
 --- !u!1001 &3826748863607209162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -320,12 +335,12 @@ PrefabInstance:
     - target: {fileID: 7477199382401903211, guid: 140cb2b69e995de4aa8e21cd93b9821c,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7477199382401903211, guid: 140cb2b69e995de4aa8e21cd93b9821c,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7477199382401903211, guid: 140cb2b69e995de4aa8e21cd93b9821c,
         type: 3}

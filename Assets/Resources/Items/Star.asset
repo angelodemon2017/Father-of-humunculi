@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30094d33d53636745985b25d08532374, type: 3}
   m_Name: Star
   m_EditorClassIdentifier: 
-  EnumKey: 3
   Key: Star
   Description: "\u0421\u043E\u0431\u0438\u0440\u0430\u044F \u0433\u0440\u0438\u0431\u044B
     \u0441 \u043A\u0443\u0441\u0442\u043E\u0432 \u043F\u043E\u043B\u0443\u0447\u0430\u044E\u0442\u0441\u044F
     \u0437\u0432\u0451\u0437\u0434\u044B \u041E_\u041E"
+  ItemCategory: 2
   AmountStack: 50
   BaseDurability: 1
   IconItem: {fileID: 1094542290, guid: 183f3ba47d746ea4190c5bb109108e88, type: 3}

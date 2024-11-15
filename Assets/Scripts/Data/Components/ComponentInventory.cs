@@ -8,12 +8,12 @@ public class ComponentInventory : ComponentData
 {
     public List<ItemData> Items = new();
     public int MaxItems;
-    public string AddingKey;
 
     public ComponentInventory(ComponentInventory component) : this (component.MaxItems) { }
 
-    public ComponentInventory(List<EnumItemCategory> slots)
+    public ComponentInventory(List<EnumItemCategory> slots, string addingKey)
     {
+        AddingKey = addingKey;
         MaxItems = slots.Count;
         var emptyConf = ItemsController.GetEmpty();
         for (var i = 0; i < MaxItems; i++)

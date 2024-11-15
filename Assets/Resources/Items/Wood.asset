@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30094d33d53636745985b25d08532374, type: 3}
   m_Name: Wood
   m_EditorClassIdentifier: 
-  EnumKey: 1
   Key: Wood
   Description: "\u0414\u0435\u0440\u0435\u0432\u043E"
+  ItemCategory: 2
   AmountStack: 10
   BaseDurability: 1
   IconItem: {fileID: -1819958283, guid: a03e9228371be9449a97a937850924ca, type: 3}

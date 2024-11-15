@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30094d33d53636745985b25d08532374, type: 3}
   m_Name: Crown
   m_EditorClassIdentifier: 
-  EnumKey: 4
   Key: Crown
   Description: "\u0412\u044B\u0433\u043B\u044F\u0434\u0438\u0442 \u0434\u043E\u0440\u043E\u0433\u043E"
+  ItemCategory: 1
   AmountStack: 5
   BaseDurability: 1
   IconItem: {fileID: -68234588, guid: 183f3ba47d746ea4190c5bb109108e88, type: 3}
