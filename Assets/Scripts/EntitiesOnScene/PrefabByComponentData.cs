@@ -6,6 +6,7 @@ public class PrefabByComponentData : MonoBehaviour
     public virtual string KeyComponentData => string.Empty;
     public virtual string GetDebugText => string.Empty;
     internal virtual bool _isNeedUpdate => false;
+    internal virtual string AddingKey => string.Empty;
 
     internal virtual ComponentData GetComponentData { get; }
 

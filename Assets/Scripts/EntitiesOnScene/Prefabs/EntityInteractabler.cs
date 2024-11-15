@@ -20,16 +20,22 @@ public class EntityInteractabler : MonoBehaviour//PrefabByComponentData
 
     private void CheckInteract()
     {
-        if (_otherEnts.Count > 0 && !fSMController.IsCurrentState(_stateSetTarget))
+        if (_otherEnts.Count > 0)
         {
             var kh = _otherEnts.OrderBy(e => Vector3.Distance(e.transform.position, transform.position)).FirstOrDefault();
-            if (kh.IsPressActionButton)
+
+            if (!fSMController.IsCurrentState(_stateSetTarget) && kh.IsPressActionButton)
             {
                 var tempState = Instantiate(_stateSetTarget);
 
                 tempState.SetTarget(kh.Entity);
 
                 fSMController.SetState(tempState, true);
+            }
+
+            foreach (var ent in _otherEnts)
+            {
+                ent.IsNearest(ent == kh);
             }
         }
     }

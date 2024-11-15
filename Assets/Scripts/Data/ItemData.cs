@@ -11,6 +11,7 @@ public class ItemData
     /// IMPOTANT!!!
     /// </summary>
     public EnumItemCategory CATEGORYOFSLOT;
+    public EnumAvailableSlotAction availableSlotAction;
 
     public bool IsFullSlot => Count == ItemConfig.AmountStack;
     public bool IsEmpty => Id == "none";

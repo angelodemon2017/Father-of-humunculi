@@ -8,6 +8,7 @@ public class UIPresentInventory : MonoBehaviour
     [SerializeField] private UIIconPresent _iconPrefab;
     [SerializeField] private Transform _parentIcons;
     [SerializeField] private UIPanelHint _uiPanelHint;
+    [SerializeField] private BaseInventoryAdapter _baseInventoryAdapter;
 
     private ComponentInventory _componentInventory;
     private List<UIIconPresent> _inventorySlots = new();
@@ -27,20 +28,21 @@ public class UIPresentInventory : MonoBehaviour
         {
             var newSlot = Instantiate(_iconPrefab, _parentIcons);
 
-            newSlot.OnClickIcon += UseSlot;
+/*            newSlot.OnClickIcon += UseSlot;
             newSlot.OnClickMBM += ClickSlotMBM;
             newSlot.OnDragHandler += DragSlot;
             newSlot.OnDropHandler += DropSlot;
             newSlot.OnPointerEnter += PointerEnter;
-            newSlot.OnPointerExit += PointerExit;
+            newSlot.OnPointerExit += PointerExit;/**/
 
             _inventorySlots.Add(newSlot);
         }
 
-        UpdateSlots();
+//        UpdateSlots();
+        _baseInventoryAdapter.InitSlots(_inventorySlots);
     }
 
-    private void DragSlot(int idSlot)
+/*    private void DragSlot(int idSlot)
     {
         var item = _componentInventory.Items[idSlot];
         if (item.IsEmpty)
@@ -101,13 +103,6 @@ public class UIPresentInventory : MonoBehaviour
         UpdateSlots();
     }
 
-    private IEnumerator Crunch()
-    {
-        yield return new WaitForSeconds(0.1f);
-        _parentIcons.gameObject.SetActive(false);
-        _parentIcons.gameObject.SetActive(true);
-    }
-
     public void UpdateSlots()
     {
         for (int i = 0; i < _inventorySlots.Count; i++)
@@ -116,16 +111,16 @@ public class UIPresentInventory : MonoBehaviour
 
             _inventorySlots[i].InitIcon(iconModel);
         }
-    }
+    }/**/
 
     private void OnDestroy()
     {
         foreach (var ci in _inventorySlots)
         {
-            ci.OnClickIcon -= UseSlot;
+/*            ci.OnClickIcon -= UseSlot;
             ci.OnDragHandler -= DragSlot;
             ci.OnDropHandler -= DropSlot;
-            ci.OnClickMBM -= ClickSlotMBM;
+            ci.OnClickMBM -= ClickSlotMBM;/**/
         }
     }
 }

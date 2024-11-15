@@ -70,6 +70,56 @@ public class ComponentInventory : ComponentData
         }
     }
 
+    public bool AvailableAddItem(ItemData item)
+    {
+        if (Items.Any(i => i.IsEmpty))
+        {
+            return true;
+        }
+        if (Items.Any(i => i.Id == item.Id && !i.IsFullSlot))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public ItemData AddItem(ItemData item, int idSlot)
+    {
+        if (item == null || item.Count == 0 || item.IsEmpty)
+        {
+            return item;
+        }
+
+        ItemData itemSlot;
+        if (idSlot > 0 || idSlot < Items.Count)
+        {
+            itemSlot = Items[idSlot];
+        }
+        else
+        {
+            return item;
+        }
+
+        if (itemSlot.IsEmpty)
+        {
+            itemSlot.Replace(item);
+            item.Count -= itemSlot.Count;
+        }
+        else if (itemSlot.Id == item.Id)
+        {
+            item.Count = itemSlot.TryAdd(item);
+        }
+        else
+        {
+            var tempItem = new ItemData(itemSlot);
+            itemSlot.Replace(item);
+            item.Replace(tempItem);
+        }
+
+        return item;
+    }
+
     public void TryApplyRecipe(RecipeSO recipe)
     {
         if (!AvailableRecipe(recipe))

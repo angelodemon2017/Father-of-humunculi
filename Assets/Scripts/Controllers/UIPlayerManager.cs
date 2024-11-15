@@ -13,9 +13,10 @@ public class UIPlayerManager : MonoBehaviour
     [SerializeField] private GameObject _panelForDropItem;
 
     private RecipeSO _tempRecipe;
+    public InventoryController _inventoryController = new();
     private EntityMonobeh _entityMonobehPlayer;
-    private long _tempIdInv;
-    private ItemData _tempFromSlot;//need some remove to data layer
+//    private long _tempIdInv;
+//    private ItemData _tempFromSlot;//need some remove to data layer
 
     public EntityMonobeh EntityMonobeh => _entityMonobehPlayer;
     public bool IsReadySetBuild => _tempRecipe != null;
@@ -50,9 +51,11 @@ public class UIPlayerManager : MonoBehaviour
 
     private void UpdateModules()
     {
+        _inventoryController.UpdateHandler();
+
         var itemHand = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
 
-        uIPresentInventory.UpdateSlots();
+//        uIPresentInventory.UpdateSlots();
 
         _uIIconPresent.gameObject.SetActive(!itemHand.IsEmpty);
 //        _panelForDropItem.SetActive(!itemHand.IsEmpty);
@@ -64,8 +67,9 @@ public class UIPlayerManager : MonoBehaviour
 
     private void DragItem(long idInv, string idInvKey/*??*/, ItemData dragItem)
     {
-        _tempIdInv = idInv;
-        _tempFromSlot = dragItem;
+//        _inventoryController.DragSlot(idInv, idInvKey, dragItem);
+        //        _tempIdInv = idInv;
+//        _tempFromSlot = dragItem;
 
         var playerComp = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>();
         playerComp.PickItemByHand(dragItem);
@@ -81,15 +85,8 @@ public class UIPlayerManager : MonoBehaviour
 
     private void DragItem(ItemData dragItem)
     {
-        _tempFromSlot = dragItem;
-
-        var playerComp = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>();
-        playerComp.PickItemByHand(dragItem);
-
+        _inventoryController.UpdateHand(dragItem);
         dragItem.SetEmpty();
-        _tempFromSlot.SetEmpty();
-
-        UpdateModules();
     }
 
     private void DropItem(ItemData dropItem)
@@ -114,11 +111,11 @@ public class UIPlayerManager : MonoBehaviour
         }
         else
         {
-            _tempFromSlot.Replace(dropItem);
+//            _tempFromSlot.Replace(dropItem);
             dropItem.Replace(itemHand);
         }
 
-        _tempFromSlot = null;
+//        _tempFromSlot = null;
         itemHand.SetEmpty();
 
         UpdateModules();
@@ -197,7 +194,7 @@ public class UIPlayerManager : MonoBehaviour
 
             _entityMonobehPlayer.EntityInProcess.SendCommand(cmdDropItem);
 
-            _tempFromSlot = null;
+//            _tempFromSlot = null;
             UpdateModules();
         }
     }
@@ -215,7 +212,7 @@ public class UIPlayerManager : MonoBehaviour
 
                 _entityMonobehPlayer.EntityInProcess.SendCommand(cmdDropItem);
 
-                _tempFromSlot = null;
+//                _tempFromSlot = null;
                 UpdateModules();
             }
         }/**/

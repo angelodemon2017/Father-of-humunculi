@@ -43,6 +43,6 @@ public static class ListExtensions
 
     public static PrefabByComponentData GetComponent(this List<PrefabByComponentData> components, ComponentData componentData)
     {
-        return components.FirstOrDefault(x => x.KeyComponentData == componentData.KeyName);
+        return components.FirstOrDefault(x => x.KeyComponentData == componentData.KeyName && x.AddingKey == componentData.AddingKey);
     }
 }

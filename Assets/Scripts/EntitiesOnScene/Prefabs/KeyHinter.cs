@@ -35,9 +35,14 @@ public class KeyHinter : MonoBehaviour// PrefabByComponentData
             }
 
             entInt.AddKeyHinter(this);
-            _isShow = true;
-            _tip.SetActive(_isShow);
+//            _isShow = true;
+//            _tip.SetActive(_isShow);
         }
+    }
+
+    public void IsNearest(bool nearest)
+    {
+        _tip.SetActive(nearest);
     }
 
     public void Disconect()
