@@ -7,7 +7,7 @@ public class UIPlayerManager : MonoBehaviour
 
     [SerializeField] private UIPresentInventory uIPresentInventory;
     [SerializeField] private UIPanelCraftGroups _uIPanelCraftGroups;
-    [SerializeField] private UIIconPresent _uIIconPresent;
+//    [SerializeField] private UIIconPresent _uIIconPresent;
     [SerializeField] private SetterBuild _setterBuild;
     //    [SerializeField] private State _setPlanBuildState;
     [SerializeField] private GameObject _panelForDropItem;
@@ -38,9 +38,9 @@ public class UIPlayerManager : MonoBehaviour
         //TODO cycle init all components
         var ci = entity.EntityInProcess.EntityData.Components.GetComponent<ComponentInventory>();
 
-        uIPresentInventory.Init(ci);
-        uIPresentInventory.OnDragItem += DragItem;
-        uIPresentInventory.OnDropItem += DropItem;
+        uIPresentInventory.Init(ci, entity.EntityInProcess);
+//        uIPresentInventory.OnDragItem += DragItem;
+//        uIPresentInventory.OnDropItem += DropItem;
         uIPresentInventory.OnUseItem += UseItemByInventory;
 
         _uIPanelCraftGroups.Init(ci);
@@ -53,16 +53,16 @@ public class UIPlayerManager : MonoBehaviour
     {
         _inventoryController.UpdateHandler();
 
-        var itemHand = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
+//        var itemHand = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
 
-//        uIPresentInventory.UpdateSlots();
+        //        uIPresentInventory.UpdateSlots();
 
-        _uIIconPresent.gameObject.SetActive(!itemHand.IsEmpty);
-//        _panelForDropItem.SetActive(!itemHand.IsEmpty);
-        if (!itemHand.IsEmpty)
-        {
-            _uIIconPresent.InitIcon(new UIIconModel(itemHand));
-        }
+        //        _uIIconPresent.gameObject.SetActive(!itemHand.IsEmpty);
+        //        _panelForDropItem.SetActive(!itemHand.IsEmpty);
+        /*        if (!itemHand.IsEmpty)
+                {
+                    _uIIconPresent.InitIcon(new UIIconModel(itemHand));
+                }/**/
     }
 
     private void DragItem(long idInv, string idInvKey/*??*/, ItemData dragItem)
@@ -137,7 +137,7 @@ public class UIPlayerManager : MonoBehaviour
 
     public void TrySetBuild(Vector3 target)
     {
-        var compInv = _entityMonobehPlayer.PrefabsByComponents.GetComponent<InventoryPBCD>();
+        var compInv = _entityMonobehPlayer.PrefabsByComponents.GetComponent<BaseInventoryAdapter>();
         var cmdSetter = compInv.GetCommandSetEntity(_entityMonobehPlayer.EntityInProcess.EntityData, _tempRecipe, target);
         _entityMonobehPlayer.EntityInProcess.SendCommand(cmdSetter);
 

@@ -5,7 +5,7 @@ public abstract class ComponentData
 {
     internal long _idEntity;
     public string KeyName => GetType().Name;
-    public string AddingKey;
+    public string AddingKey = string.Empty;
     public Action changed;
 
     internal void SetIdEntity(long id)

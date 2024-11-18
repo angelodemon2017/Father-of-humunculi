@@ -36,6 +36,7 @@ public static class Dict
         public const string SlotClick = "SlotClick";
         public const string SlotDrag = "SlotDrag";
         public const string SlotDrop = "SlotDrop";
+        public const string SplitSlot = "SplitSlot";
     }
 
     public static class RectKeys

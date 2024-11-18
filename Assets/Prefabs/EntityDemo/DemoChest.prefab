@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 635947310242672396}
   - component: {fileID: 5597222920646075619}
   - component: {fileID: 7146410972368720946}
-  - component: {fileID: 5528738013402946683}
+  - component: {fileID: 7202232455274042544}
   m_Layer: 0
   m_Name: DemoChest
   m_TagString: Untagged
@@ -53,8 +53,8 @@ MonoBehaviour:
   _prefabsByComponents:
   - {fileID: 7716080897352376532}
   - {fileID: 8471272043882828294}
-  - {fileID: 4767571617990152273}
   - {fileID: 7146410972368720946}
+  - {fileID: 4767571617990152273}
 --- !u!114 &7146410972368720946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,7 +70,7 @@ MonoBehaviour:
   _onOffsObjects:
   - {fileID: 4483022102161743303}
   _closeButton: {fileID: 3815538721823333916}
---- !u!114 &5528738013402946683
+--- !u!114 &7202232455274042544
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -82,7 +82,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97ee8ded1ccd9234e8cff2e2dc37be06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slots: 3f3f3f3f
+  _droppedItemPrefab: {fileID: 5597222920646075619, guid: 4a12b88dbcef388498b33d81b93a4b93,
+    type: 3}
+  defaulthSlots: 
   _addingKey: 
 --- !u!1001 &3826748863607209162
 PrefabInstance:
@@ -424,6 +426,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7775513454749864798, guid: 9e80b7173d6fb1549bac224874221577,
         type: 3}
+    - target: {fileID: 8589075811014175899, guid: 140cb2b69e995de4aa8e21cd93b9821c,
+        type: 3}
+      propertyPath: _baseInventoryAdapter
+      value: 
+      objectReference: {fileID: 7202232455274042544}
     - target: {fileID: 8589075811014175899, guid: 140cb2b69e995de4aa8e21cd93b9821c,
         type: 3}
       propertyPath: _startItems.Array.size

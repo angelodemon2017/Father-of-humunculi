@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 
+[System.Serializable]
 public class InventoryController
 {
-    [SerializeField] private UIIconPresent _uIIconPresent;
+    [SerializeField] private UIIconPresent _cursorDragDrop;
 
     private long _tempIdInv = -1;
     private string _keyTempInventory = string.Empty;
@@ -26,7 +27,7 @@ public class InventoryController
         _keyTempInventory = addingKey;
         _tempIdSlot = idSlot;
 
-        var command = PlayerPresent.GetCommandDragItem(_tempIdInv, addingKey, _tempIdSlot);
+        var command = PlayerPresent.GetCommandDragItem(_tempIdInv, _keyTempInventory, _tempIdSlot);
 
         UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.SendCommand(command);
         //send update inv from and ent with hand
@@ -39,21 +40,27 @@ public class InventoryController
         _tempIdSlot = -1;
     }
 
-    public void DropSlot(long idEntity, string addingKey, int idSlot)
+    public string DropSlot(long idEntity, string addingKey, int idSlot)
     {
+        TransportMessage mes = new()
+        {
+            IdEntityInventoryFrom = _tempIdInv,
+            KeyInventoryFrom = _keyTempInventory,
+            IdSlotInvenotyFrom = _tempIdSlot,
+            IdEntityHand = UIPlayerManager.Instance.EntityMonobeh.Id,
+            IdEntityInventoryTo = idEntity,
+            KeyInventoryTo = addingKey,
+            IdSlotInvenotyTo = idSlot,
+        };
 
-//        TransportMessage mes = 
-
-//        var command = PlayerPresent.GetCommandDragItem(_tempIdInv, addingKey, _tempIdSlot);
-
-        //        UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.SendCommand(command);
+        return JsonUtility.ToJson(mes);
     }
 
     public void UpdateHandler()
     {
         var itemHand = UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
 
-        _uIIconPresent.gameObject.SetActive(!itemHand.IsEmpty);
+        _cursorDragDrop.gameObject.SetActive(!itemHand.IsEmpty);
         if (!itemHand.IsEmpty)
         {
             UpdateHand(itemHand);
@@ -62,10 +69,10 @@ public class InventoryController
 
     public void UpdateHand(ItemData itemData)
     {
-        _uIIconPresent.InitIcon(new UIIconModel(itemData));
+        _cursorDragDrop.InitIcon(new UIIconModel(itemData));
     }
 
-    public static void PrepareTransportMessage(string message, WorldData worldData)
+    public static void PrepareTransportMessage(string message, WorldData worldData, EntityMonobeh  prefabForCreateEnt)
     {
         var trMes = JsonUtility.FromJson<TransportMessage>(message);
 
@@ -81,13 +88,17 @@ public class InventoryController
         }
 
         ItemData focusItem = null;
+        ComponentInventory fromInv = null;
+        if (fromEnt != null)
+        {
+            fromInv = fromEnt.Components.GetComponent<ComponentInventory>(trMes.KeyInventoryFrom);
+        }
         if (trMes.IdEntityHand != -1)
         {
             focusItem = worldData.GetEntityById(trMes.IdEntityHand).Components.GetComponent<ComponentPlayerId>().ItemHand;
         }
         else if (fromEnt != null)
         {
-            var fromInv = fromEnt.Components.GetComponent<ComponentInventory>(trMes.KeyInventoryFrom);
             focusItem = fromInv.Items[trMes.IdSlotInvenotyFrom];
         } 
         else
@@ -95,7 +106,27 @@ public class InventoryController
             Debug.LogError($"BLA PIZDEC: {message}");
         }
 
+        var toInv = toEnt.Components.GetComponent<ComponentInventory>(trMes.KeyInventoryTo);
+        var leftItem = toInv.AddItem(focusItem, trMes.IdSlotInvenotyTo);
+        if (leftItem.Count > 0)
+        {
+            if(fromInv != null)
+            {
+                fromInv.AddItem(leftItem, trMes.IdSlotInvenotyFrom);
+            }
+            else
+            {
+                var placeForDrop = toEnt.Position;
 
+                var itemEnt = prefabForCreateEnt.CreateEntity(placeForDrop.x, placeForDrop.z);
+
+                var cmpItem = itemEnt.Components.GetComponent<ComponentItemPresent>();
+                cmpItem.SetItem(leftItem);
+
+                worldData.AddEntity(itemEnt);
+            }
+        }
+        focusItem.SetEmpty();
 
         if (fromEnt != null)
         {

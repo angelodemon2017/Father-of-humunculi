@@ -11,6 +11,7 @@ public class CanvasUIInventoryChest : PrefabByComponentData
     [SerializeField] private string _addingKey;
     [SerializeField] private Transform _parentSlots;
     [SerializeField] private List<ItemConfig> _startItems;
+    [SerializeField] private BaseInventoryAdapter _baseInventoryAdapter;
 
     private ComponentInventory _component;
     private EntityInProcess _entityInProcess;
@@ -36,6 +37,8 @@ public class CanvasUIInventoryChest : PrefabByComponentData
         _entityInProcess = entityInProcess;
 
         InitSlots();
+        _baseInventoryAdapter.Init(_component, _entityInProcess);
+        _baseInventoryAdapter.InitSlots(_tempSlots);
     }
 
     private void InitSlots()
@@ -46,13 +49,13 @@ public class CanvasUIInventoryChest : PrefabByComponentData
         {
             var uicp = Instantiate(_uiIconPresentPrefab, _parentSlots);
 
-            UIIconModel iconModel = new UIIconModel(new ItemData(_emptyItem));
-            iconModel.Index = i;
+//            UIIconModel iconModel = new UIIconModel(new ItemData(_emptyItem));
+//            iconModel.Index = i;
 
-            uicp.InitIcon(iconModel);
-            uicp.OnClickIconByEntity += ClickOnSlot;
-            uicp.OnDragHandlerByEntity += DragSlot;
-            uicp.OnDropHandlerByEntity += DropSlot;
+//            uicp.InitIcon(iconModel);
+//            uicp.OnClickIconByEntity += ClickOnSlot;
+//            uicp.OnDragHandlerByEntity += DragSlot;
+//            uicp.OnDropHandlerByEntity += DropSlot;
 
             _tempSlots.Add(uicp);
         }
@@ -60,12 +63,12 @@ public class CanvasUIInventoryChest : PrefabByComponentData
 
     internal override void UpdateComponent()
     {
-        for (int i = 0; i < _component.Items.Count; i++)
+/*        for (int i = 0; i < _component.Items.Count; i++)
         {
             UIIconModel iconModel = new UIIconModel(_component.Items[i]);
             iconModel.Index = i;
             _tempSlots[i].InitIcon(iconModel);
-        }
+        }/**/
     }
 
     public override void ExecuteCommand(EntityData entity, string command, string message, WorldData worldData)
@@ -148,6 +151,7 @@ public class CanvasUIInventoryChest : PrefabByComponentData
         {
             chestInventory.AddItem(playerComp.ItemHand);
 
+            Debug.Log($"CanvasChest.SetEmpty");
             playerComp.ItemHand.SetEmpty();
 
             clickedEntity.UpdateEntity();

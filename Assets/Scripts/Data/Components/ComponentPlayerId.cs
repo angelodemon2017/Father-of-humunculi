@@ -12,7 +12,6 @@ public class ComponentPlayerId : ComponentData
         _itemInHand = handItem;
     }
 
-
     public void PickItemByHand(ItemData item)
     {
         DropItem(_itemInHand);//А точно ли нужно такое делать?

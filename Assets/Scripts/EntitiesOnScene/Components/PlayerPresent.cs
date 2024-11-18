@@ -34,7 +34,6 @@ public class PlayerPresent : PrefabByComponentData
                 var invEnt = worldData.GetEntityById(long.Parse(args[0]));
                 var invComp = invEnt.Components.GetComponent<ComponentInventory>(args[1]);
                 var slotInv = invComp.Items[int.Parse(args[2])];
-
                 playerComp.ItemHand.Replace(slotInv);
                 slotInv.SetEmpty();
 
@@ -79,7 +78,7 @@ public class PlayerPresent : PrefabByComponentData
         return new CommandData()
         {
             KeyComponent = KeyComponent,
-            Message = Dict.Commands.DropItem,
+            KeyCommand = Dict.Commands.DropItem,
         };
     }
 }

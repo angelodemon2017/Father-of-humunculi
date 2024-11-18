@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1186518513851610787}
   - component: {fileID: 5151671897234752002}
   - component: {fileID: 692392699808059807}
+  - component: {fileID: 4408948037706997871}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -54,8 +55,8 @@ MonoBehaviour:
   - {fileID: 8471272043882828294}
   - {fileID: 1186518513851610787}
   - {fileID: 5151671897234752002}
-  - {fileID: 692392699808059807}
   - {fileID: 671639918325783108}
+  - {fileID: 4408948037706997871}
 --- !u!114 &1186518513851610787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,6 +102,22 @@ MonoBehaviour:
   _dropItem: {fileID: 5597222920646075619, guid: 4a12b88dbcef388498b33d81b93a4b93,
     type: 3}
   _maxItems: 5
+--- !u!114 &4408948037706997871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58151514028472945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97ee8ded1ccd9234e8cff2e2dc37be06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _droppedItemPrefab: {fileID: 5597222920646075619, guid: 4a12b88dbcef388498b33d81b93a4b93,
+    type: 3}
+  defaulthSlots: 3f3f3f3f3f
+  _addingKey: a
 --- !u!1001 &5070435866379165309
 PrefabInstance:
   m_ObjectHideFlags: 0

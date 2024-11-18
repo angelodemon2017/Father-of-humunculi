@@ -4,7 +4,7 @@ using TMPro;
 using System;
 using UnityEngine.EventSystems;
 
-public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IDropHandler, IPointerClickHandler
+public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IDropHandler, IPointerClickHandler, IBeginDragHandler
 {
     [SerializeField] private AspectRatioFitter _aspectRatioFitter;
     [SerializeField] private Button _button;
@@ -63,10 +63,16 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         OnPointerExit?.Invoke(_indexIcon);
     }
 
-    public void OnDrag(PointerEventData eventData)
+    public void OnBeginDrag(PointerEventData eventData)
     {
         OnDragHandler?.Invoke(_indexIcon);
         OnDragHandlerByEntity?.Invoke(_indexIcon, UIPlayerManager.Instance.EntityMonobeh.Id);
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+//        OnDragHandler?.Invoke(_indexIcon);
+//        OnDragHandlerByEntity?.Invoke(_indexIcon, UIPlayerManager.Instance.EntityMonobeh.Id);
     }
 
     public void OnDrop(PointerEventData eventData)

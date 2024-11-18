@@ -18,7 +18,7 @@ public class UIPresentInventory : MonoBehaviour
     public Action<ItemData> OnDropItem;
     public Action<int> OnUseItem;
 
-    public void Init(ComponentInventory componentInventory)
+    public void Init(ComponentInventory componentInventory, EntityInProcess entityInProcess)
     {
         _uiPanelHint.Hide();
 
@@ -27,7 +27,6 @@ public class UIPresentInventory : MonoBehaviour
         for (int i = 0; i < _componentInventory.MaxItems; i++)
         {
             var newSlot = Instantiate(_iconPrefab, _parentIcons);
-
 /*            newSlot.OnClickIcon += UseSlot;
             newSlot.OnClickMBM += ClickSlotMBM;
             newSlot.OnDragHandler += DragSlot;
@@ -38,7 +37,8 @@ public class UIPresentInventory : MonoBehaviour
             _inventorySlots.Add(newSlot);
         }
 
-//        UpdateSlots();
+        //        UpdateSlots();
+        _baseInventoryAdapter.Init(_componentInventory, entityInProcess);
         _baseInventoryAdapter.InitSlots(_inventorySlots);
     }
 
