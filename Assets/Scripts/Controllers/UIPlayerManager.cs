@@ -183,7 +183,7 @@ public class UIPlayerManager : MonoBehaviour
         }
     }
 
-    public void DropItem(BaseEventData eventData)
+/*    public void DropItem(BaseEventData eventData)
     {
         var itemHand = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
         if (!itemHand.IsEmpty)
@@ -197,7 +197,7 @@ public class UIPlayerManager : MonoBehaviour
 //            _tempFromSlot = null;
             UpdateModules();
         }
-    }
+    }/**/
 
     private void LateUpdate()
     {

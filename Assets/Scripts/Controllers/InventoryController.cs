@@ -52,7 +52,7 @@ public class InventoryController
             KeyInventoryTo = addingKey,
             IdSlotInvenotyTo = idSlot,
         };
-
+        
         return JsonUtility.ToJson(mes);
     }
 
@@ -93,9 +93,10 @@ public class InventoryController
         {
             fromInv = fromEnt.Components.GetComponent<ComponentInventory>(trMes.KeyInventoryFrom);
         }
+        EntityData handEnt = worldData.GetEntityById(trMes.IdEntityHand);
         if (trMes.IdEntityHand != -1)
         {
-            focusItem = worldData.GetEntityById(trMes.IdEntityHand).Components.GetComponent<ComponentPlayerId>().ItemHand;
+            focusItem = handEnt.Components.GetComponent<ComponentPlayerId>().ItemHand;
         }
         else if (fromEnt != null)
         {
@@ -135,6 +136,10 @@ public class InventoryController
         if (toEnt != null)
         {
             toEnt.UpdateEntity();
+        }
+        if (handEnt != null && trMes.IdEntityInventoryFrom == trMes.IdEntityInventoryTo)
+        {
+            handEnt.UpdateEntity();
         }
     }
 }

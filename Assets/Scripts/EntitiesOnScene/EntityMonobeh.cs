@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class EntityMonobeh : MonoBehaviour
 {
@@ -28,10 +29,14 @@ public class EntityMonobeh : MonoBehaviour
     {
         foreach (var c in _entityInProcess.EntityData.Components)
         {
-            var pbc = PrefabsByComponents.GetComponent(c);
-            if (pbc != null)
+            var pbcs = PrefabsByComponents.GetComponents(c);
+/*            if (pbc != null)
             {
                 pbc.Init(c, _entityInProcess);
+            }/**/
+            foreach (var p in pbcs)
+            {
+                p.Init(c, _entityInProcess);
             }
         }
         foreach (var c in _prefabsByComponents)
@@ -79,9 +84,12 @@ public class EntityMonobeh : MonoBehaviour
         var newEntity = new EntityData(xpos, zpos);
         newEntity.TypeKey = gameObject.name;
 
-        foreach (var c in _prefabsByComponents)
+        foreach (var p in _prefabsByComponents)
         {
-            newEntity.Components.Add(c.GetComponentData);
+            if (!newEntity.Components.Any(c => c.KeyName == p.KeyComponentData && c.AddingKey == p.AddingKey))
+            {
+                newEntity.Components.Add(p.GetComponentData);
+            }
         }
 
         return newEntity;

@@ -41,8 +41,8 @@ public static class ListExtensions
         return components.FirstOrDefault(x => x.KeyComponent == typeof(T).Name) as T;
     }
 
-    public static PrefabByComponentData GetComponent(this List<PrefabByComponentData> components, ComponentData componentData)
+    public static List<PrefabByComponentData> GetComponents(this List<PrefabByComponentData> components, ComponentData componentData)
     {
-        return components.FirstOrDefault(x => x.KeyComponentData == componentData.KeyName && x.AddingKey == componentData.AddingKey);
+        return components.Where(x => x.KeyComponentData == componentData.KeyName && x.AddingKey == componentData.AddingKey).ToList();
     }
 }

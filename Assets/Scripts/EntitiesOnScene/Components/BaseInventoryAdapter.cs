@@ -25,7 +25,7 @@ public class BaseInventoryAdapter : PrefabByComponentData
         _entityInProcess = entityInProcess;
         _entityInProcess.UpdateEIP += UpdateComponent;
         _componentData = (ComponentInventory)componentData;
-            //entityInProcess.EntityData.Components.GetComponent<ComponentInventory>(_addingKey);
+        //entityInProcess.EntityData.Components.GetComponent<ComponentInventory>(_addingKey);
     }
 
     public override void ExecuteCommand(EntityData entity, string command, string message, WorldData worldData)
@@ -67,7 +67,7 @@ public class BaseInventoryAdapter : PrefabByComponentData
 
     private void UpdateSlots()
     {
-        if (_slots.Count <= 0)
+        if (_slots.Count <= 0 || _componentData == null)
         {
             return;
         }
@@ -81,7 +81,7 @@ public class BaseInventoryAdapter : PrefabByComponentData
 
     private void ClickSlot(int idSlot)
     {
-        UIPlayerManager.Instance._inventoryController.ClickSlot(_entityInProcess.Id, AddingKey, idSlot);
+        UIPlayerManager.Instance._inventoryController.ClickSlot(_entityInProcess.Id, _addingKey, idSlot);
     }
 
     private void MMB(int idSlot)
@@ -92,12 +92,12 @@ public class BaseInventoryAdapter : PrefabByComponentData
 
     private void DragSlot(int idSlot)
     {
-        UIPlayerManager.Instance._inventoryController.DragSlot(_entityInProcess.Id, AddingKey, idSlot);
+        UIPlayerManager.Instance._inventoryController.DragSlot(_entityInProcess.Id, _addingKey, idSlot);
     }
 
     private void DropSlot(int idSlot)
     {
-        var mes = UIPlayerManager.Instance._inventoryController.DropSlot(_entityInProcess.Id, AddingKey, idSlot);
+        var mes = UIPlayerManager.Instance._inventoryController.DropSlot(_entityInProcess.Id, _addingKey, idSlot);
         var com = GetCommandDropSlot(_entityInProcess.Id, mes);
         _entityInProcess.SendCommand(com);
     }
