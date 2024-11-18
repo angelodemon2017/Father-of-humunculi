@@ -8,7 +8,7 @@ public class PrefabByComponentData : MonoBehaviour
     internal virtual bool _isNeedUpdate => false;
     internal virtual string AddingKey => string.Empty;
 
-    internal virtual ComponentData GetComponentData { get; }
+    internal virtual ComponentData GetComponentData => new ComponentData();
 
     public virtual void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {

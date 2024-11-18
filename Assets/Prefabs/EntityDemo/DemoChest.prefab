@@ -51,11 +51,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefabsByComponents:
+  - {fileID: 4767571617990152273}
   - {fileID: 7146410972368720946}
   - {fileID: 7202232455274042544}
   - {fileID: 7716080897352376532}
   - {fileID: 8471272043882828294}
-  - {fileID: 4767571617990152273}
 --- !u!114 &7146410972368720946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,7 +85,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _droppedItemPrefab: {fileID: 5597222920646075619, guid: 4a12b88dbcef388498b33d81b93a4b93,
     type: 3}
-  defaulthSlots: 3f3f3f3f
+  defaulthSlots: 
   _addingKey: b
 --- !u!1001 &3826748863607209162
 PrefabInstance:

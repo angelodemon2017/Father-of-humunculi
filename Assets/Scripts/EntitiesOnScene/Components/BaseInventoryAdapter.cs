@@ -14,11 +14,13 @@ public class BaseInventoryAdapter : PrefabByComponentData
     private ComponentInventory _componentData;
     private List<UIIconPresent> _slots = new();
 
-//    internal override bool _isNeedUpdate => true;
+    internal override string AddingKey => _addingKey;
+    //    internal override bool _isNeedUpdate => true;
     public override string KeyComponent => typeof(BaseInventoryAdapter).Name;
     public override string KeyComponentData => typeof(ComponentInventory).Name;
 
-    internal override ComponentData GetComponentData => new ComponentInventory(defaulthSlots, _addingKey);
+    internal override ComponentData GetComponentData => defaulthSlots.Count > 0 ? new ComponentInventory(defaulthSlots, _addingKey) : base.GetComponentData;
+    //    internal override ComponentData GetComponentData =>  new ComponentInventory(defaulthSlots, _addingKey);
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {

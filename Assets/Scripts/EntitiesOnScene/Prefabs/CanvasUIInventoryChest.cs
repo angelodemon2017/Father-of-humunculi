@@ -17,7 +17,7 @@ public class CanvasUIInventoryChest : PrefabByComponentData
     private EntityInProcess _entityInProcess;
     private List<UIIconPresent> _tempSlots = new();
 
-    internal override string AddingKey => "b";
+    internal override string AddingKey => _baseInventoryAdapter.AddingKey;
     internal override bool _isNeedUpdate => true;
     public override string KeyComponent => typeof(CanvasUIInventoryChest).Name;
     public override string KeyComponentData => typeof(ComponentInventory).Name;
@@ -26,7 +26,7 @@ public class CanvasUIInventoryChest : PrefabByComponentData
     private ComponentInventory GenComponent()
     {
         var newComp = new ComponentInventory(_maxItems);
-
+        newComp.AddingKey = AddingKey;
         _startItems.ForEach(i => newComp.AddItem(new ItemData(i)));
 
         return newComp;

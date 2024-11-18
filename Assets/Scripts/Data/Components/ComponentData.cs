@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public abstract class ComponentData
+public class ComponentData
 {
     internal long _idEntity;
     public string KeyName => GetType().Name;
