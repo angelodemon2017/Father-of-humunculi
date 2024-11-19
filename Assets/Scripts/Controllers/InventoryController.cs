@@ -137,7 +137,7 @@ public class InventoryController
         {
             toEnt.UpdateEntity();
         }
-        if (handEnt != null && trMes.IdEntityInventoryFrom == trMes.IdEntityInventoryTo)
+        if (handEnt != null)
         {
             handEnt.UpdateEntity();
         }

@@ -7,7 +7,8 @@ public class UIPlayerManager : MonoBehaviour
 
     [SerializeField] private UIPresentInventory uIPresentInventory;
     [SerializeField] private UIPanelCraftGroups _uIPanelCraftGroups;
-//    [SerializeField] private UIIconPresent _uIIconPresent;
+    [SerializeField] private UIEquipmentView _uIEquipmentView;
+    //    [SerializeField] private UIIconPresent _uIIconPresent;
     [SerializeField] private SetterBuild _setterBuild;
     //    [SerializeField] private State _setPlanBuildState;
     [SerializeField] private GameObject _panelForDropItem;
@@ -36,7 +37,7 @@ public class UIPlayerManager : MonoBehaviour
         _entityMonobehPlayer.EntityInProcess.UpdateEIP += UpdateModules;
 
         //TODO cycle init all components
-        var ci = entity.EntityInProcess.EntityData.Components.GetComponent<ComponentInventory>();
+        var ci = entity.EntityInProcess.EntityData.Components.GetComponent<ComponentInventory>("a");
 
         uIPresentInventory.Init(ci, entity.EntityInProcess);
 //        uIPresentInventory.OnDragItem += DragItem;
@@ -45,6 +46,9 @@ public class UIPlayerManager : MonoBehaviour
 
         _uIPanelCraftGroups.Init(ci);
         _uIPanelCraftGroups.OnApplyCraft += UpdateModules;
+
+        var ci2 = entity.EntityInProcess.EntityData.Components.GetComponent<ComponentInventory>("b");
+        _uIEquipmentView.Init(ci2, entity.EntityInProcess);
 
         UpdateModules();
     }

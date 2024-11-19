@@ -98,6 +98,11 @@ public class ComponentInventory : ComponentData
         }
         else
         {
+            if (idSlot == -1)
+            {
+                AddItem(item);
+                item.SetEmpty();
+            }
             return item;
         }
 
