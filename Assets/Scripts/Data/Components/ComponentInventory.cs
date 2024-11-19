@@ -34,25 +34,25 @@ public class ComponentInventory : ComponentData
         }
     }
 
-    public void AddItem(ItemData item)
+    public ItemData AddItem(ItemData item)
     {
         if (item == null || item.Count == 0 || item.IsEmpty)
         {
-            return;
+            return item;
         }
 
-        var slot = Items.FirstOrDefault(i => i.Id == item.Id && !i.IsFullSlot);
+        var slot = Items.FirstOrDefault(i => i.Id == item.Id && !i.IsFullSlot && i.AvailableSlotForItem(item));
         if (slot == null)
         {
-            slot = Items.FirstOrDefault(i => i.IsEmpty);
+            slot = Items.FirstOrDefault(i => i.IsEmpty && i.AvailableSlotForItem(item));
         }
 
         if (slot == null)
         {
             if (Items.Count >= MaxItems)
             {
-                DropItem(item);
-                return;
+//                DropItem(item);
+                return item;
             }
 
             Items.Add(item);
@@ -68,15 +68,17 @@ public class ComponentInventory : ComponentData
             item.Count = slot.TryAdd(item);
             AddItem(item);
         }
+        item.SetEmpty();
+        return item;
     }
 
     public bool AvailableAddItem(ItemData item)
     {
-        if (Items.Any(i => i.IsEmpty))
+        if (Items.Any(i => i.IsEmpty && i.AvailableSlotForItem(item)))
         {
             return true;
         }
-        if (Items.Any(i => i.Id == item.Id && !i.IsFullSlot))
+        if (Items.Any(i => i.Id == item.Id && !i.IsFullSlot && i.AvailableSlotForItem(item)))
         {
             return true;
         }
@@ -100,9 +102,15 @@ public class ComponentInventory : ComponentData
         {
             if (idSlot == -1)
             {
-                AddItem(item);
+                var tryadditem = AddItem(item);
                 item.SetEmpty();
+                return tryadditem;
             }
+            return item;
+        }
+
+        if (!itemSlot.AvailableSlotForItem(item))
+        {
             return item;
         }
 
@@ -209,30 +217,6 @@ public class ComponentInventory : ComponentData
 
         emptySlot.Replace(item);
         emptySlot.Count = splitCount;
-    }
-
-    public void DropSlot(int index)
-    {
-        var item = Items[index];
-        DropItem(item);
-    }
-
-    /// <summary>
-    ///TODO move to inventorySO
-    /// </summary>
-    /// <param name="item"></param>
-    public void DropItem(ItemData item)
-    {//TODO need command 
-        if (item.IsEmpty)
-        {
-            return;
-        }
-
-        var ent = GameProcess.Instance.GameWorld.entityDatas.FirstOrDefault(e => e.Id == _idEntity);
-
-        GameProcess.Instance.GameWorld.AddEntity(new EntityItem(item, ent.Position.x, ent.Position.z));
-
-        item.SetEmpty();
     }
 
     public void TestLog()

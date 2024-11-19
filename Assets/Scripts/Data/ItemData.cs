@@ -82,6 +82,11 @@ public class ItemData
         }
     }
 
+    public bool AvailableSlotForItem(ItemData item)
+    {
+        return CATEGORYOFSLOT.HasFlag(item.ItemConfig.ItemCategory);
+    }
+
     public void UseItem(EntityData entityData)
     {
         ItemConfig.UseItem(this, entityData);

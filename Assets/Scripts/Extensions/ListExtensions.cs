@@ -30,9 +30,9 @@ public static class ListExtensions
         return result;
     }
 
-    public static List<T> GetComponents<T>(this List<ComponentData> components) where T : class
+    public static List<ComponentData> GetComponents(this List<ComponentData> components, string keyName)
     {
-        return components.Where(x => x.KeyName == typeof(T).Name) as List<T>;
+        return components.Where(x => x.KeyName == keyName).ToList();
     }
 
     public static T GetComponent<T>(this List<ComponentData> components, string addKey = "") where T : class

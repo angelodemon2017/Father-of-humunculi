@@ -10,6 +10,11 @@ public class PrefabByComponentData : MonoBehaviour
 
     internal virtual ComponentData GetComponentData => new ComponentData();
 
+    internal virtual void PrepareEntityBeforeCreate(EntityData entityData)
+    {
+
+    }
+
     public virtual void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {
 

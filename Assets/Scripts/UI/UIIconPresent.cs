@@ -11,6 +11,7 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private Image _colorBorder;
     [SerializeField] private Image _colorBackground;
     [SerializeField] private Image _iconItem;
+    [SerializeField] private Image _iconTypeItem;
     [SerializeField] private TextMeshProUGUI _textBottom;
     [SerializeField] private RectTransform rectTransform;
 
@@ -41,6 +42,8 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         _indexIcon = iconModel.Index;
         _colorBackground.color = iconModel.ColorBackGround;
         _iconItem.sprite = iconModel.Icon;
+        _iconTypeItem.sprite = iconModel.IconType;
+        _iconTypeItem.enabled = iconModel.Icon == null;
         _textBottom.text = iconModel.BottomText;
         _aspectRatioFitter.aspectMode = iconModel.AspectMode;
         _colorBorder.color = iconModel.ClickableIcon ? Color.white : Color.gray;
@@ -99,6 +102,7 @@ public class UIIconModel
 {
     public int Index;
     public Sprite Icon;
+    public Sprite IconType;
     public Color ColorBackGround;
     public string BottomText;
     public AspectRatioFitter.AspectMode AspectMode;
@@ -121,6 +125,7 @@ public class UIIconModel
         var conf = item.ItemConfig;
 
         Icon = conf.IconItem;
+        IconType = ItemTypeIconLibrary.Instance.GetIcon(item.CATEGORYOFSLOT);
         ColorBackGround = conf.ColorBackGround;
         BottomText = item.Count > 0 ? $"{item.Count}" : string.Empty;
         AspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
@@ -132,6 +137,7 @@ public class UIIconModel
 
         Index = index;
         Icon = conf.IconItem;
+        IconType = ItemTypeIconLibrary.Instance.GetIcon(item.CATEGORYOFSLOT);
         ColorBackGround = conf.ColorBackGround;
         BottomText = item.Count > 0 ? $"{item.Count}" : string.Empty;
         AspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;

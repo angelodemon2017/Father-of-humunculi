@@ -100,7 +100,7 @@ public class BaseInventoryAdapter : PrefabByComponentData
     private void DropSlot(int idSlot)
     {
         var mes = UIPlayerManager.Instance._inventoryController.DropSlot(_entityInProcess.Id, _addingKey, idSlot);
-        var com = GetCommandDropSlot(_entityInProcess.Id, mes);
+        var com = GetCommandDropSlot(_entityInProcess.Id, AddingKey, mes);
         _entityInProcess.SendCommand(com);
     }
 
@@ -142,17 +142,19 @@ public class BaseInventoryAdapter : PrefabByComponentData
         {
             IdEntity = entityData.Id,
             KeyComponent = KeyComponent,
+            AddingKeyComponent = AddingKey,
             KeyCommand = Dict.Commands.SetEntity,
             Message = $"{recipe.Index}{splitter}{position.x}{splitter}{position.z}",
         };
     }
 
-    public static CommandData GetCommandDropSlot(long idEnt, string mess)
+    public static CommandData GetCommandDropSlot(long idEnt, string addingKey, string mess)
     {
         return new CommandData()
         {
             IdEntity = idEnt,
             KeyComponent = typeof(BaseInventoryAdapter).Name,
+            AddingKeyComponent = addingKey,
             KeyCommand = Dict.Commands.SlotDrop,
             Message = mess,
         };
@@ -164,6 +166,7 @@ public class BaseInventoryAdapter : PrefabByComponentData
         {
             IdEntity = idEnt,
             KeyComponent = KeyComponent,
+            AddingKeyComponent = AddingKey,
             KeyCommand = Dict.Commands.SplitSlot,
             Message = $"{slot}",
         };

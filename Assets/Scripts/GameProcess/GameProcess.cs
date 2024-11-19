@@ -99,7 +99,7 @@ public class GameProcess
         ent.ApplyCommand(commandData);
 
         var entConfig = EntitiesLibrary.Instance.GetConfig(ent.TypeKey);
-        entConfig.UseCommand(ent, commandData.KeyComponent, commandData.KeyCommand, commandData.Message, _gameWorld);
+        entConfig.UseCommand(ent, commandData.KeyComponent, commandData.AddingKeyComponent, commandData.KeyCommand, commandData.Message, _gameWorld);
 
     }
 

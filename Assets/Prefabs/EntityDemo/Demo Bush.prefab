@@ -68,8 +68,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _givingItem: {fileID: 11400000, guid: 8ea3d15d644ffca45ade6bea68c2e972, type: 2}
   _defaultValues:
+    AddingKey: 
     _chanceUpper: 50
-    _debugCounter: 1
+    _debugCounter: 10
     _maxCount: 50
 --- !u!1001 &4348201081616714646
 PrefabInstance:

@@ -72,7 +72,7 @@ public class InventoryController
         _cursorDragDrop.InitIcon(new UIIconModel(itemData));
     }
 
-    public static void PrepareTransportMessage(string message, WorldData worldData, EntityMonobeh  prefabForCreateEnt)
+    public static void PrepareTransportMessage(string message, WorldData worldData, EntityMonobeh prefabForCreateEnt)
     {
         var trMes = JsonUtility.FromJson<TransportMessage>(message);
 
@@ -101,7 +101,7 @@ public class InventoryController
         else if (fromEnt != null)
         {
             focusItem = fromInv.Items[trMes.IdSlotInvenotyFrom];
-        } 
+        }
         else
         {
             Debug.LogError($"BLA PIZDEC: {message}");
@@ -111,9 +111,16 @@ public class InventoryController
         var leftItem = toInv.AddItem(focusItem, trMes.IdSlotInvenotyTo);
         if (leftItem.Count > 0)
         {
-            if(fromInv != null)
+            if (fromInv != null)
             {
-                fromInv.AddItem(leftItem, trMes.IdSlotInvenotyFrom);
+                if (fromInv.Items[trMes.IdSlotInvenotyFrom].AvailableSlotForItem(leftItem))
+                {
+                    fromInv.AddItem(leftItem, trMes.IdSlotInvenotyFrom);
+                }
+                else
+                {
+                    toInv.AddItem(leftItem);
+                }
             }
             else
             {

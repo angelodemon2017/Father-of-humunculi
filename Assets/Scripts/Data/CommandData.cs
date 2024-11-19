@@ -2,6 +2,7 @@
 {
     public long IdEntity;
     public string KeyComponent;
+    public string AddingKeyComponent;
     public string KeyCommand;
     /// <summary>
     /// Arguments
@@ -12,6 +13,7 @@
     {
         IdEntity = id;
         KeyComponent = component;
+        AddingKeyComponent = string.Empty;
         KeyCommand = string.Empty;
         Message = message;
     }

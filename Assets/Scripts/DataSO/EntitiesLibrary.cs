@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Entity Library", order = 1)]
@@ -12,7 +11,7 @@ public class EntitiesLibrary : ScriptableObject
         {
             if (_instance == null)
             {
-                _instance = Resources.LoadAll<EntitiesLibrary>(string.Empty).FirstOrDefault();
+                _instance = Resources.LoadAll<EntitiesLibrary>(string.Empty)[0];
             }
 
             return _instance;

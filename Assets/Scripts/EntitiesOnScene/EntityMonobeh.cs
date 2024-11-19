@@ -30,10 +30,6 @@ public class EntityMonobeh : MonoBehaviour
         foreach (var c in _entityInProcess.EntityData.Components)
         {
             var pbcs = PrefabsByComponents.GetComponents(c);
-/*            if (pbc != null)
-            {
-                pbc.Init(c, _entityInProcess);
-            }/**/
             foreach (var p in pbcs)
             {
                 p.Init(c, _entityInProcess);
@@ -68,11 +64,11 @@ public class EntityMonobeh : MonoBehaviour
 
     #region Config/Backend
 
-    public void UseCommand(EntityData entity, string keyComponent, string keyCommand, string message, WorldData worldData)
+    public void UseCommand(EntityData entity, string keyComponent, string addingKey, string keyCommand, string message, WorldData worldData)
     {
         foreach (var c in _prefabsByComponents)
         {
-            if (c.KeyComponent == keyComponent)
+            if (c.KeyComponent == keyComponent && c.AddingKey == addingKey)
             {
                 c.ExecuteCommand(entity, keyCommand, message, worldData);
             }
@@ -91,6 +87,7 @@ public class EntityMonobeh : MonoBehaviour
                 newEntity.Components.Add(p.GetComponentData);
             }
         }
+        _prefabsByComponents.ForEach(x => x.PrepareEntityBeforeCreate(newEntity));
 
         return newEntity;
     }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +13,15 @@ public class UIEquipmentView : MonoBehaviour
     public void Init(ComponentInventory componentInventory, EntityInProcess entityInProcess)
     {
         _componentInventory = componentInventory;
+
+        InitSlots();
+        _baseInventoryAdapter.Init(_componentInventory, entityInProcess);
+        _baseInventoryAdapter.InitSlots(_inventorySlots);
+    }
+
+    private void InitSlots()
+    {
+        _inventorySlots.Clear();
         _parentIcons.DestroyChildrens();
 
         for (int i = 0; i < _componentInventory.MaxItems; i++)
@@ -22,8 +30,5 @@ public class UIEquipmentView : MonoBehaviour
 
             _inventorySlots.Add(newSlot);
         }
-
-        _baseInventoryAdapter.Init(_componentInventory, entityInProcess);
-        _baseInventoryAdapter.InitSlots(_inventorySlots);
     }
 }

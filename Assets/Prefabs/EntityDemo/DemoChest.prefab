@@ -85,8 +85,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _droppedItemPrefab: {fileID: 5597222920646075619, guid: 4a12b88dbcef388498b33d81b93a4b93,
     type: 3}
-  defaulthSlots: 
-  _addingKey: b
+  defaulthSlots: 3f3f3f3f
+  _addingKey: c
 --- !u!1001 &3826748863607209162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -338,12 +338,12 @@ PrefabInstance:
     - target: {fileID: 7477199382401903211, guid: 140cb2b69e995de4aa8e21cd93b9821c,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7477199382401903211, guid: 140cb2b69e995de4aa8e21cd93b9821c,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7477199382401903211, guid: 140cb2b69e995de4aa8e21cd93b9821c,
         type: 3}

@@ -25,14 +25,17 @@ public class ItemPresent : PrefabByComponentData
 
         var entUsed = worldData.GetEntityById(idEnt);
 
-        var invComp = entUsed.Components.GetComponent<ComponentInventory>();
-
-        if (invComp != null)
+        var invs = entUsed.Components.GetComponents(typeof(ComponentInventory).Name);
+        foreach (ComponentInventory inv in invs)
         {
-            invComp.AddItem(comItPr.ItemData);
-            entUsed.UpdateEntity();
+            if (inv.AvailableAddItem(comItPr.ItemData))
+            {
+                inv.AddItem(comItPr.ItemData);
+                entUsed.UpdateEntity();
 
-            worldData.RemoveEntity(entity.Id);
-        }/**/
+                worldData.RemoveEntity(entity.Id);
+                break;
+            }
+        }
     }
 }

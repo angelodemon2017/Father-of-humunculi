@@ -75,6 +75,7 @@ public class UsingByEntity : PrefabByComponentData
         return new CommandData()
         {
             KeyCommand = Dict.Commands.CloseUI,
+            AddingKeyComponent = AddingKey,
             KeyComponent = KeyComponent,
         };
     }

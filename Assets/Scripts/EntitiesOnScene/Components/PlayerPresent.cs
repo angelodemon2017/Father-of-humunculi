@@ -69,6 +69,7 @@ public class PlayerPresent : PrefabByComponentData
         {
             KeyComponent = typeof(PlayerPresent).Name,
             KeyCommand = Dict.Commands.SlotDrag,
+            AddingKeyComponent = string.Empty,
             Message = $"{idEntity}{splitter}{addingKey}{splitter}{idSlot}",
         };
     }
@@ -78,6 +79,7 @@ public class PlayerPresent : PrefabByComponentData
         return new CommandData()
         {
             KeyComponent = KeyComponent,
+            AddingKeyComponent = string.Empty,
             KeyCommand = Dict.Commands.DropItem,
         };
     }

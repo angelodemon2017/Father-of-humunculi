@@ -29,13 +29,22 @@ public class DemoCounter : PrefabByComponentData
 
             var touchedEntity = worldData.GetEntityById(idFromMessage);
 
-            var inventoryComp = touchedEntity.Components.GetComponent<ComponentInventory>();
-
             var addedItem = new ItemData(_givingItem);
-            addedItem.Count = counter._debugCounter;
-            counter._debugCounter = 0;
+            var invs = touchedEntity.Components.GetComponents(typeof(ComponentInventory).Name);
+            foreach (ComponentInventory inv in invs)
+            {
+                if (inv.AvailableAddItem(addedItem))
+                {
+                    addedItem.Count = counter._debugCounter;
 
-            inventoryComp.AddItem(addedItem);
+                    inv.AddItem(addedItem);
+                    touchedEntity.UpdateEntity();
+
+                    counter._debugCounter = 0;
+
+                    break;
+                }
+            }
 
             entity.UpdateEntity();
             touchedEntity.UpdateEntity();
