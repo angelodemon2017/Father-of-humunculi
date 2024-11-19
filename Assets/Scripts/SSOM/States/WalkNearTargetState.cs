@@ -39,6 +39,11 @@ public class WalkNearTargetState : State
             Random.Range(centerPoint.z - radius, centerPoint.z + radius));
     }
 
+    public override void ExitState()
+    {
+        _navMeshAgent.SetDestination(Character.GetTransform().position);
+    }
+
     protected override void Run()
     {
         var distance = Vector3.Distance(Character.GetTransform().position, _target);

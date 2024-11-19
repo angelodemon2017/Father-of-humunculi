@@ -5,14 +5,14 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
 {
     public EntityMonobeh _entityMonobeh;
     [SerializeField] private State _startState;
+    [SerializeField] private NavMeshAgent _navMeshAgent;
 
     private State _currentState;
     private ComponentFSM _component;
-
-    private NavMeshAgent _navMeshAgent;
     private Transform _transform;
     private Vector3 _lastPosition;
 
+    public State GetCurrentState => _currentState;
     public bool IsFinishedCurrentState() => _currentState.IsFinished;
     public Transform GetTransform() => _transform;
     public NavMeshAgent GetNavMeshAgent() => _navMeshAgent;
@@ -26,19 +26,22 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
     {
         _component = (ComponentFSM)componentData;
         _transform = _entityMonobeh.transform;
-        _navMeshAgent = (NavMeshAgent)_transform.gameObject.AddComponent(typeof(NavMeshAgent));
-        _navMeshAgent.angularSpeed = 0f;
+        if (_navMeshAgent == null)
+        {
+            _navMeshAgent = (NavMeshAgent)_transform.gameObject.AddComponent(typeof(NavMeshAgent));
+            _navMeshAgent.angularSpeed = 0f;
+        }
         SetState(_startState);
     }
 
-    public void Init(Transform transform, State initState)
+/*    public void Init(Transform transform, State initState)
     {
         _transform = transform;
         _navMeshAgent = (NavMeshAgent)_transform.gameObject.AddComponent(typeof(NavMeshAgent));
         _navMeshAgent.angularSpeed = 0f;
         SetState(initState);
         _entityMonobeh = transform.GetComponent<EntityMonobeh>();
-    }
+    }/**/
 
     private void Update()
     {

@@ -7,7 +7,6 @@ public class EntityData
     public string TypeKey;
     
     public List<ComponentData> Components = new();
-//    public PropsData Props = new();
 
     private Action<long> _updater;
     internal WorldData worldData => GameProcess.Instance.GameWorld;
@@ -21,12 +20,6 @@ public class EntityData
             var comp = Components.GetComponent<ComponentPosition>();
             return comp == null ? UnityEngine.Vector3.zero : comp.Position;
         }
-    }
-
-    public EntityData(string key, PropsData props)
-    {
-        TypeKey = key;
-//        Props = props;
     }
 
     public EntityData(float xpos = 0, float zpos = 0)
