@@ -14,13 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 4
   _baseTexture: {fileID: 2800000, guid: 1e42927868a88c548b464f84f79c7c45, type: 3}
-  _baseColor: {r: 0, g: 1, b: 0, a: 1}
+  _baseColor: {r: 0.34509805, g: 0.36862746, b: 0.32941177, a: 1}
   _sgmaterial: {fileID: 2100000, guid: 42f6a2c2bf8f0a84ab00b89579783a83, type: 2}
-  _sideMask:
-  - {fileID: 2800000, guid: 6361abf884bcc67459a6eff1db35513f, type: 3}
-  - {fileID: 2800000, guid: f94a136527bd1ee498e61c72e33caf69, type: 3}
-  - {fileID: 2800000, guid: eb54bda55772f044f94e3b981df89eb5, type: 3}
-  - {fileID: 2800000, guid: ac43893496d31b74ca8c9444738e5d2c, type: 3}
   _maskCombine:
   - Masks:
     - {fileID: 2800000, guid: 57c030f0aff7d1f4ebc165f6ceac0f39, type: 3}
@@ -94,9 +89,4 @@ MonoBehaviour:
     - EnumDirect: 4
       TileDirect: 1
       ExceptDirects: 4
-  _cornerMask:
-  - {fileID: 2800000, guid: 4b587618b2eeb5a479709c20b8c19f1b, type: 3}
-  _invertCornerMask:
-  - {fileID: 2800000, guid: 6b137448891f0274395d274520d3e400, type: 3}
-  - {fileID: 2800000, guid: 572227317e21c0b4484a24dc78eb8467, type: 3}
-  - {fileID: 2800000, guid: e5f023ba23fcea84ebba7b8b6312d072, type: 3}
+  _speedMove: 1

@@ -10,6 +10,7 @@ public class ItemConfig : ScriptableObject
     public int AmountStack;
     public int BaseDurability;//max durability
     public Sprite IconItem;
+    public List<Sprite> IconItems;
     public int BaseQuality;
     public string BaseMeta;
     public int MinSpawnItem;
@@ -27,6 +28,7 @@ public class ItemConfig : ScriptableObject
         { 6, Color.red },
     };
 
+    public Sprite GetSprite(int seedid) => IconItems.Count > 0 ? IconItems.GetRandom(seedid) : null;
     public Color ColorBackGround => _qualityColors[BaseQuality];
     public bool IsUseLess => ItemActions.Count > 0;
 

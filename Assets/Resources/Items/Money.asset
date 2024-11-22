@@ -18,6 +18,8 @@ MonoBehaviour:
   AmountStack: 999
   BaseDurability: 1
   IconItem: {fileID: 341401526, guid: 183f3ba47d746ea4190c5bb109108e88, type: 3}
+  IconItems:
+  - {fileID: 341401526, guid: 183f3ba47d746ea4190c5bb109108e88, type: 3}
   BaseQuality: 2
   BaseMeta: 
   MinSpawnItem: 1

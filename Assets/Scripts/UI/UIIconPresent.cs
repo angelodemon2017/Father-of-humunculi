@@ -124,7 +124,7 @@ public class UIIconModel
     {
         var conf = item.ItemConfig;
 
-        Icon = conf.IconItem;
+        Icon = conf.GetSprite(0);
         IconType = ItemTypeIconLibrary.Instance.GetIcon(item.CATEGORYOFSLOT);
         ColorBackGround = conf.ColorBackGround;
         BottomText = item.Count > 0 ? $"{item.Count}" : string.Empty;
@@ -136,7 +136,7 @@ public class UIIconModel
         var conf = item.ItemConfig;
 
         Index = index;
-        Icon = conf.IconItem;
+        Icon = conf.GetSprite(0);
         IconType = ItemTypeIconLibrary.Instance.GetIcon(item.CATEGORYOFSLOT);
         ColorBackGround = conf.ColorBackGround;
         BottomText = item.Count > 0 ? $"{item.Count}" : string.Empty;
@@ -146,7 +146,7 @@ public class UIIconModel
 
     public UIIconModel(ElementRecipe recipe)
     {
-        Icon = recipe.ItemConfig.IconItem;
+        Icon = recipe.ItemConfig.GetSprite(0);
         ColorBackGround = Color.white;
         BottomText = recipe.Count > 1 ? $"{recipe.Count}" : string.Empty;
         AspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
@@ -155,7 +155,7 @@ public class UIIconModel
     public UIIconModel(ElementRecipe recipe, bool isHaveResource, int index)
     {
         Index = index;
-        Icon = recipe.ItemConfig.IconItem;
+        Icon = recipe.ItemConfig.GetSprite(0);
         ColorBackGround = isHaveResource ? Color.white : Color.gray;
         BottomText = string.Empty;
         AspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
@@ -164,7 +164,7 @@ public class UIIconModel
     public UIIconModel(ElementRecipe recipe, int currentCount, AspectRatioFitter.AspectMode aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight)
     {
         Index = 0;
-        Icon = recipe.ItemConfig.IconItem;
+        Icon = recipe.ItemConfig.GetSprite(0);
         ColorBackGround = currentCount >= recipe.Count ? Color.white : Color.gray;
         BottomText = $"{currentCount}/{recipe.Count}";
         AspectMode = aspectMode;

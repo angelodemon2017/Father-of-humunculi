@@ -70,6 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _givingItem: {fileID: 11400000, guid: 2ffe704ada27d7049866dc9fc65ad9bc, type: 2}
   _defaultValues:
+    AddingKey: 
     _chanceUpper: 90
     _debugCounter: 2
     _maxCount: 5
@@ -230,7 +231,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 64e5f033d2c52424babe0a21c7832b8b,
+      objectReference: {fileID: 21300000, guid: e563a07d3c305a745904c9a90cc1d82d,
         type: 3}
     - target: {fileID: 7433180754587744815, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}

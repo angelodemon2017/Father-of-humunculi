@@ -19,6 +19,8 @@ MonoBehaviour:
   AmountStack: 1
   BaseDurability: 1
   IconItem: {fileID: 633012495, guid: a03e9228371be9449a97a937850924ca, type: 3}
+  IconItems:
+  - {fileID: 633012495, guid: a03e9228371be9449a97a937850924ca, type: 3}
   BaseQuality: 1
   BaseMeta: 
   MinSpawnItem: 1
