@@ -5,9 +5,11 @@ using System.Collections.Generic;
 public class EntityInProcess
 {
     private EntityData _entityData;
-//    private List<ComponentInProcess<ComponentData>> _components = new();
-//    private List<ComponentInProcess<ComponentData>> _updaterComponents = new();
+    //    private List<ComponentInProcess<ComponentData>> _components = new();
+    //    private List<ComponentInProcess<ComponentData>> _updaterComponents = new();
     private List<ISeconder> _updaterComponents = new();
+
+    private EntityMonobeh _config = null;
 
     public UnityEngine.Vector3 Position => _entityData.Position;
     public long Id => _entityData.Id;
@@ -16,6 +18,18 @@ public class EntityInProcess
 
     public Action UpdateEIP;
     public bool EntityIsDeleted => GameProcess.Instance.GameWorld.IsDeleted(Id);
+    private EntityMonobeh GetMonobeh
+    {
+        get
+        {
+            if (_config == null)
+            {
+                _config = EntitiesLibrary.Instance.GetConfig(_entityData.TypeKey);
+            }
+
+            return _config;
+        }
+    }
 
     public EntityInProcess(EntityData entityData)
     {
@@ -34,6 +48,7 @@ public class EntityInProcess
             componentIP.DoSecond();
         }
         _entityData.DoSecond();
+        GetMonobeh.PrefabsByComponents.ForEach(pc => pc.DoSecond(_entityData));
 //        _entityData.Config.DoSecond(_entityData);
     }
 

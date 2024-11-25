@@ -32,5 +32,10 @@ public class PrefabByComponentData : MonoBehaviour
 
     }
 
+    public virtual void DoSecond(EntityData entity)
+    {
+
+    }
+
     #endregion
 }

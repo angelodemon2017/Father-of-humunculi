@@ -24,6 +24,7 @@ MonoBehaviour:
     Weight: 1
     BlackList:
     - {fileID: 11400000, guid: 1eeb3f5ae519b5844b62d1746d27283a, type: 2}
+    - {fileID: 11400000, guid: 29d26e298dd81924d8c4d6d96e4ba1a2, type: 2}
   - Entity: {fileID: 5597222920646075619, guid: 4a12b88dbcef388498b33d81b93a4b93,
       type: 3}
     Weight: 1

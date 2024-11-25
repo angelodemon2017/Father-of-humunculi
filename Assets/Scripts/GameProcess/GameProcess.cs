@@ -127,7 +127,6 @@ public class GameProcess
             stopwatch.Start();
             foreach (var entIP in _entities)
             {
-//                _entitiesLibrary.GetConfig(entIP.EntityData.TypeKey).
                 entIP.DoSecond();
             }
             stopwatch.Stop();

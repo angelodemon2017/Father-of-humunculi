@@ -4,6 +4,7 @@ public class LookToCamera : MonoBehaviour
 {
     private Transform _thisTransform;
     [SerializeField] private bool _isRect;
+    [SerializeField] private bool _isUpdate;
 
     private void Awake()
     {
@@ -17,6 +18,10 @@ public class LookToCamera : MonoBehaviour
 
     void Update()
     {
+        if (_isUpdate)
+        {
+            UpdateLookRotation();
+        }
     }
 
     private void UpdateLookRotation()

@@ -5,13 +5,12 @@ public class DemoCounter : PrefabByComponentData
     [SerializeField] private ItemConfig _givingItem;
     [SerializeField] private ComponentCounter _defaultValues;
 
-    public override string KeyComponent => typeof(DemoCounter).Name;
-    public override string KeyComponentData => typeof(ComponentCounter).Name;
-
-    public override string GetDebugText => $"res: {_component._debugCounter}";
-
     private ComponentCounter _component;
 
+    public ItemData GivingItem => new ItemData(_givingItem);
+    public override string KeyComponent => typeof(DemoCounter).Name;
+    public override string KeyComponentData => typeof(ComponentCounter).Name;
+    public override string GetDebugText => $"res: {_component._debugCounter}";
     internal override ComponentData GetComponentData => new ComponentCounter(_defaultValues);
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
@@ -29,7 +28,7 @@ public class DemoCounter : PrefabByComponentData
 
             var touchedEntity = worldData.GetEntityById(idFromMessage);
 
-            var addedItem = new ItemData(_givingItem);
+            var addedItem = GivingItem;
             var invs = touchedEntity.Components.GetComponents(typeof(ComponentInventory).Name);
             foreach (ComponentInventory inv in invs)
             {
