@@ -41,7 +41,10 @@ public class WalkNearTargetState : State
 
     public override void ExitState()
     {
-        _navMeshAgent.SetDestination(Character.GetTransform().position);
+        if (_navMeshAgent != null)
+        {
+            _navMeshAgent.SetDestination(Character.GetTransform().position);
+        }
     }
 
     protected override void Run()

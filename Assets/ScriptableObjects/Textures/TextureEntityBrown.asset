@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 2
   _baseTexture: {fileID: 2800000, guid: 1e42927868a88c548b464f84f79c7c45, type: 3}
+  _baseAddedTexture:
+  - {fileID: 2800000, guid: c3bba392e3b6c574b953e5afe04821a9, type: 3}
   _baseColor: {r: 0.5686275, g: 0.53333336, b: 0.49803925, a: 1}
   _sgmaterial: {fileID: 2100000, guid: 42f6a2c2bf8f0a84ab00b89579783a83, type: 2}
   _maskCombine:

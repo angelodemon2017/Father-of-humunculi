@@ -18,9 +18,13 @@ public class BiomSO : ScriptableObject
         var oneDigital = int.Parse(seed.MapNoiseFrom10To99);
         if (Random.Range(-10, 110) > oneDigital) 
         {
-            AddEntByIndex(result, tempPoint, 0); 
+            AddEntByIndex(result, tempPoint, 0);
         }
         AddEntByIndex(result, tempPoint, 1);
+        //trees
+        AddEntByIndex(result, tempPoint, 2);
+        AddEntByIndex(result, tempPoint, 3);
+        AddEntByIndex(result, tempPoint, 3);
 
         return result;
     }

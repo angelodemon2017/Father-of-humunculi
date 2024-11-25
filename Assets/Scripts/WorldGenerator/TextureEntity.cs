@@ -7,6 +7,7 @@ public class TextureEntity : ScriptableObject
 {
     [SerializeField] private int _id;
     [SerializeField] private Texture2D _baseTexture;
+    [SerializeField] private List<Texture2D> _baseAddedTexture;
     [SerializeField] private Color _baseColor;
     [SerializeField] private Material _sgmaterial;
     [SerializeField] private List<TextureCombine> _maskCombine;
@@ -14,6 +15,7 @@ public class TextureEntity : ScriptableObject
 
     public int Id => _id;
     public Texture2D BaseTexture => _baseTexture;
+    public List<Texture2D> BaseAddedTexture => _baseAddedTexture;
     public Color BaseColor => _baseColor;
     public float SpeedMove => _speedMove;
 
@@ -31,6 +33,7 @@ public class TextureEntity : ScriptableObject
             var sgeTemp = _maskCombine.FirstOrDefault(x => x.Contain(summaryDirect)).GetEntity(summaryDirect, swiftSeed);
 
             sgeTemp.Item1.Id = _id;
+            sgeTemp.Item1.AddingMask = _baseAddedTexture.GetRandom(swiftSeed);
             sgeTemp.Item1.Color = _baseColor;
 
             sges.Add(sgeTemp.Item1);

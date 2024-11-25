@@ -48,6 +48,7 @@ public class BasePlaneWorld : MonoBehaviour
         _collider.SetActive(_textureEntity.SpeedMove <= 0);
         _renderer.material.SetColor("_BaseColor", _textureEntity.BaseColor);
         _renderer.material.SetTexture("_BaseTexture", _textureEntity.BaseTexture);
+        _renderer.material.SetTexture("_BaseAddingMask", _textureEntity.BaseAddedTexture.GetRandom(_worldPart.Xpos + _worldPart.Zpos));
 
         GenerateBorders();
     }
@@ -84,12 +85,14 @@ public class BasePlaneWorld : MonoBehaviour
             if (layer > sgs.Count)
             {
                 _renderer.material.SetTexture($"_maskL{layer}", _textureBlackMask);
+                _renderer.material.SetTexture($"_AddingMask{layer}", _textureBlackMask);
                 _renderer.material.SetColor($"_colorL{layer}", Color.white);
                 _renderer.material.SetFloat($"_rotL{layer}", 0);
             }
             else
             {
                 _renderer.material.SetTexture($"_maskL{layer}", sgs[layer - 1].Mask);
+                _renderer.material.SetTexture($"_AddingMask{layer}", sgs[layer - 1].AddingMask);
                 _renderer.material.SetColor($"_colorL{layer}", sgs[layer - 1].Color);
                 _renderer.material.SetFloat($"_rotL{layer}", sgs[layer - 1].Rotate);
             }
@@ -117,6 +120,7 @@ public class SGEntity
     public EnumTileDirect DirectionTexture;
     public int Id;
     public Texture2D Mask;
+    public Texture2D AddingMask;
     public Color Color;
     public float Rotate;
 }

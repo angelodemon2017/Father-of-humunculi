@@ -123,6 +123,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: KeyHinter
       objectReference: {fileID: 0}
+    - target: {fileID: 2510732355901659393, guid: cfa5dcc4a51862647b0906aa229d0487,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9161566637841536773, guid: cfa5dcc4a51862647b0906aa229d0487,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -594,6 +599,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255438829876546911, guid: 9d006e5f67306e44f860705a39d88df4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

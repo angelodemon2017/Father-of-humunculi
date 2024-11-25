@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5597222920646075619}
   - component: {fileID: 9080533731924881794}
   m_Layer: 0
-  m_Name: Demo Bush
+  m_Name: Demo tree1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,12 +66,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 410d625adb782f741890617eda6d205c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _givingItem: {fileID: 11400000, guid: 8ea3d15d644ffca45ade6bea68c2e972, type: 2}
+  _givingItem: {fileID: 11400000, guid: 1d51120011131b44f9d60dea71849c0e, type: 2}
   _defaultValues:
     AddingKey: 
-    _chanceUpper: 50
-    _debugCounter: 10
-    _maxCount: 50
+    _chanceUpper: 2
+    _debugCounter: 1
+    _maxCount: 2
 --- !u!1001 &4348201081616714646
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -99,6 +99,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: KeyHinter
+      objectReference: {fileID: 0}
+    - target: {fileID: 2510732355901659393, guid: cfa5dcc4a51862647b0906aa229d0487,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9161566637841536773, guid: cfa5dcc4a51862647b0906aa229d0487,
         type: 3}
@@ -179,11 +184,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Model
       objectReference: {fileID: 0}
+    - target: {fileID: 6338143241473012965, guid: 8813f3823d434934b89cbc3ef6a69d8d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 7433180754587744815, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: ba04dd7842ff9f141b4df468f78f909c,
+      objectReference: {fileID: 21300000, guid: 5f8dd55add37118469fb7ce2627b0872,
         type: 3}
     - target: {fileID: 7433180754587744815, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
@@ -238,6 +248,11 @@ PrefabInstance:
     - target: {fileID: 7990784587225503361, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8091077971673982153, guid: 8813f3823d434934b89cbc3ef6a69d8d,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
