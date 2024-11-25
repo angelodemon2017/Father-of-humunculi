@@ -18,4 +18,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f65bac2e619f6054896494ff493fe54f, type: 2}
   - {fileID: 11400000, guid: 6901d32c371f480468150c0a8d96c77b, type: 2}
   Animation: 1
-  _walkSpeed: 3.5
+  _walkSpeed: 2

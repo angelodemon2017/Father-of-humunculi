@@ -18,7 +18,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8231d7ae5f5f5664ca1f41c7062e5b4d, type: 2}
   - {fileID: 11400000, guid: 6901d32c371f480468150c0a8d96c77b, type: 2}
   Animation: 1
-  MoveSpeed: 3.5
+  MoveSpeed: 2
   _mask:
     serializedVersion: 2
     m_Bits: 8

@@ -7,7 +7,7 @@ public class Expiriments : ScriptableObject
 {
     static int count = 10000000;
 
-    [MenuItem("Tools/MyTool/Do It in C#")]
+//    [MenuItem("Tools/MyTool/Do It in C#")]
     static void DoIt()
     {
         for (int i = 0; i < count; i++)

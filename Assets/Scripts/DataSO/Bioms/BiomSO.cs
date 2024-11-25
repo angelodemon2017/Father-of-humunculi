@@ -15,11 +15,12 @@ public class BiomSO : ScriptableObject
         List<EntityData> result = new();
 
         List<WorldTileData> tempPoint = chunk.Where(t => t.Id > 0).ToList();
-        var oneDigital = int.Parse(seed.MapNoiseFrom10To99);
+/*        var oneDigital = int.Parse(seed.MapNoiseFrom10To99);
         if (Random.Range(-10, 110) > oneDigital) 
         {
-            AddEntByIndex(result, tempPoint, 0);
-        }
+        }/**/
+        AddEntByIndex(result, tempPoint, 0);
+        AddEntByIndex(result, tempPoint, 0);
         AddEntByIndex(result, tempPoint, 1);
         //trees
         AddEntByIndex(result, tempPoint, 2);
@@ -33,7 +34,13 @@ public class BiomSO : ScriptableObject
     {
         if (tempPoint.Count > 0 && Entities.Count > index)
         {
-            var randPoint = tempPoint.GetRandom(tempPoint[0].Xpos * tempPoint[0].Zpos + tempPoint.Count + index);
+            var tempBlackIds = Entities[index].BlackList.Select(x => x.Id).ToList();
+            var tempRandPoint = tempPoint.Where(x => !tempBlackIds.Contains(x.Id)).ToList();
+            if (tempRandPoint.Count == 0)
+            {
+                return;
+            }
+            var randPoint = tempRandPoint.GetRandom(tempPoint[0].Xpos * tempPoint[0].Zpos + tempPoint.Count + index);
 
             var xEntPos = randPoint.Xpos * Config.TileSize;
             var zEntPos = randPoint.Zpos * Config.TileSize;
@@ -50,4 +57,5 @@ public class EntityInBiom
 {
     public EntityMonobeh Entity;
     public int Weight;
+    public List<TextureEntity> BlackList;
 }

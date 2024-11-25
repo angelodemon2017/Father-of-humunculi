@@ -10,7 +10,16 @@ public class LookToCamera : MonoBehaviour
         _thisTransform = transform;
     }
 
+    private void Start()
+    {
+        UpdateLookRotation();
+    }
+
     void Update()
+    {
+    }
+
+    private void UpdateLookRotation()
     {
         if (CameraController.Instance != null)
         {

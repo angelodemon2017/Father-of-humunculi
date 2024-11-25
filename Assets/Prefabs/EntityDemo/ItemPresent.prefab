@@ -90,13 +90,13 @@ PrefabInstance:
     - target: {fileID: 6338143241473012965, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7433180754587744815, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1819958283, guid: a03e9228371be9449a97a937850924ca,
+      objectReference: {fileID: 21300000, guid: f8003638ac9fcf34ca2d14f9d3a528d5,
         type: 3}
     - target: {fileID: 7433180754587744815, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
