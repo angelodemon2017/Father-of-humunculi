@@ -175,5 +175,6 @@ public class BaseInventoryAdapter : PrefabByComponentData
     private void OnDestroy()
     {
         _entityInProcess.UpdateEIP -= UpdateComponent;
+        _slots.Clear();
     }
 }
