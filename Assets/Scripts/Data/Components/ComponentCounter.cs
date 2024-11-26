@@ -19,7 +19,7 @@ public class ComponentCounter : ComponentData//, ISeconder
         _chanceUpper = chanceCall;
     }
 
-    public override bool DoSecond()
+/*    public override bool DoSecond()
     {
         if ((_maxCount == 0 || _debugCounter < _maxCount) &&
             _chanceUpper.GetChance())
@@ -28,5 +28,5 @@ public class ComponentCounter : ComponentData//, ISeconder
             return true;
         }
         return false;
-    }
+    }/**/
 }

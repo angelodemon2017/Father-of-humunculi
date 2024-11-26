@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class ItemData
+﻿public class ItemData
 {
     public string Id;
     public int Count;
@@ -20,7 +18,7 @@ public class ItemData
     public ItemData(ItemConfig config)
     {
         Id = config.Key;
-        Count = 1;// Random.Range(config.MinSpawnItem, config.MaxSpawnItem + 1);
+        Count = IsEmpty ? 0 : 1;// Random.Range(config.MinSpawnItem, config.MaxSpawnItem + 1);
         Durability = config.BaseDurability;
         Quality = config.BaseQuality;
         Meta = config.BaseMeta;

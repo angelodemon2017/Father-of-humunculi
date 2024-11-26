@@ -19,9 +19,4 @@ public class ComponentData
     {
         return false;
     }
-
-    internal virtual void UpdateAfterEntityUpdate(EntityData entity)
-    {
-
-    }
 }

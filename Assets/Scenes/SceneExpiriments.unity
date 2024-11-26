@@ -1655,7 +1655,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 24.244995, y: 0}
+  m_AnchoredPosition: {x: 21.255005, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &608053011
@@ -2107,7 +2107,6 @@ MonoBehaviour:
   _groupPlayer:
   - {fileID: 11400000, guid: b173f62f78601974a888f1a37ab4d1f6, type: 2}
   - {fileID: 11400000, guid: 4509e24022ad9ac4aaf7926685c79890, type: 2}
-  - {fileID: 11400000, guid: 77efa91eb47a4fc43874892e76e58029, type: 2}
 --- !u!1 &730053786
 GameObject:
   m_ObjectHideFlags: 0
@@ -4919,7 +4918,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugMode: 0
-  _navMeshSurface: {fileID: 2048953670}
+  _navMeshUpdaterPrefab: {fileID: 1392074580519984644, guid: fab22a967047ad84a8aed9c796dae4e1,
+    type: 3}
   _basePlaneWorld: {fileID: 9153346946954840708, guid: b44572d1d788b5446adb97e92e2cc800,
     type: 3}
   _entityMonobehPrefab: {fileID: 5597222920646075619, guid: 01a786462b52b2a43b4de9298be7be2f,
@@ -5115,7 +5115,7 @@ PrefabInstance:
     - target: {fileID: 606379720454363618, guid: 9e80b7173d6fb1549bac224874221577,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 44.48999
+      value: 38.509995
       objectReference: {fileID: 0}
     - target: {fileID: 606379720454363618, guid: 9e80b7173d6fb1549bac224874221577,
         type: 3}

@@ -8,6 +8,7 @@ public class KeyHinter : MonoBehaviour// PrefabByComponentData
     [SerializeField] private EntityMonobeh _entityMonobeh;
     [SerializeField] private SphereCollider _sphereCollider;
     [SerializeField] private EnumControlInputPlayer _actionForPickUp;
+    [SerializeField] private MouseInterfaceInteraction _mouseInterfaceInteraction;
     [SerializeField] private string _desc;
     [SerializeField] private bool StopInteract;
 
@@ -29,25 +30,27 @@ public class KeyHinter : MonoBehaviour// PrefabByComponentData
         if (other.gameObject.tag == "Player")
         {
             var entInt = other.gameObject.GetComponent<EntityInteractabler>();
-            if (entInt == null)
+            if (entInt == null || !_mouseInterfaceInteraction.CanInterAct || !_entityMonobeh.gameObject.activeSelf)
             {
                 return;
             }
 
             entInt.AddKeyHinter(this);
-//            _isShow = true;
-//            _tip.SetActive(_isShow);
         }
     }
 
     public void IsNearest(bool nearest)
     {
-        _tip.SetActive(nearest);
+        if (nearest)
+        {
+            _mouseInterfaceInteraction.ShowTip();
+        }
+//        _tip.SetActive(nearest);
     }
 
     public void Disconect()
     {
-        _isShow = false;
-        _tip.SetActive(_isShow);
+//        _isShow = false;
+//        _tip.SetActive(_isShow);
     }
 }

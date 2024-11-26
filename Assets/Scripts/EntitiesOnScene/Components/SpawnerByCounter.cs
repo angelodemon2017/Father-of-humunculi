@@ -34,19 +34,19 @@ public class SpawnerByCounter : PrefabByComponentData
         var compCS = entity.Components.GetComponent<ComponentSpawner>();
         foreach (var entId in compCS.Entities)
         {
-            var tempEnt = GameProcess.Instance.GameWorld.GetEntityById(entId);
-            if (tempEnt == null)
+            if (GameProcess.Instance.GameWorld.HaveEnt(entId))
             {
-                forDel = entId;
-                break;
-            }
-            else
-            {
+                var tempEnt = GameProcess.Instance.GameWorld.GetEntityById(entId);
                 if (Vector3.Distance(entity.Position, tempEnt.Position) > 4f)
                 {
                     forDel = entId;
                     break;
                 }
+            }
+            else
+            {
+                forDel = entId;
+                break;
             }
         }
         if (forDel != -1)
@@ -73,9 +73,7 @@ public class SpawnerByCounter : PrefabByComponentData
                 var compItem = newEnt.Components.GetComponent<ComponentItemPresent>();
                 if (compItem != null)
                 {
-                    var entConfig = EntitiesLibrary.Instance.GetConfig(entity.TypeKey);
-                    var dcComp = entConfig.PrefabsByComponents.GetComponent<DemoCounter>();
-                    compItem.SetItem(dcComp.GivingItem);
+                    compItem.SetItem(_demoCounter.GivingItem);
                 }
             }
             else

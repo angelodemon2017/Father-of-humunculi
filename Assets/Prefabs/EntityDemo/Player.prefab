@@ -91,6 +91,7 @@ MonoBehaviour:
     type: 3}
   _emptyItem: {fileID: 11400000, guid: e880c4905b01dd04eafeeae042f8de3e, type: 2}
   _entityMonobeh: {fileID: 5597222920646075619}
+  _navMeshAgent: {fileID: 7086998586925192290}
 --- !u!114 &4408948037706997871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,7 +167,7 @@ PrefabInstance:
     - target: {fileID: 6338143241473012965, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.088
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7433180754587744815, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}

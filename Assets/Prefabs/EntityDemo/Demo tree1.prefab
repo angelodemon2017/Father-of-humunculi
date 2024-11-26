@@ -89,7 +89,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _demoCounter: {fileID: 9080533731924881794}
   _needCounterForSpawn: 1
-  _maxEntities: 10
+  _maxEntities: 5
   _spawnDistanceMin: 1
   _spawnDistanceMax: 2
   _entityForSpawn: {fileID: 5597222920646075619, guid: 4a12b88dbcef388498b33d81b93a4b93,
@@ -117,6 +117,11 @@ PrefabInstance:
       propertyPath: _actionForPickUp
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 946085851892957644, guid: cfa5dcc4a51862647b0906aa229d0487,
+        type: 3}
+      propertyPath: _mouseInterfaceInteraction
+      value: 
+      objectReference: {fileID: 7716080897352376532}
     - target: {fileID: 2510732355901659393, guid: cfa5dcc4a51862647b0906aa229d0487,
         type: 3}
       propertyPath: m_Name
@@ -408,6 +413,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: "*\u0441\u043E\u0431\u0440\u0430\u0442\u044C*"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5346163851116472650, guid: 7a004244922a9b649880930db6aea915,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8002112855113046110, guid: 7a004244922a9b649880930db6aea915,
         type: 3}

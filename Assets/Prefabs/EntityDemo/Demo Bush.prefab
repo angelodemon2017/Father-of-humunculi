@@ -71,8 +71,8 @@ MonoBehaviour:
   _defaultValues:
     AddingKey: 
     _chanceUpper: 50
-    _debugCounter: 10
-    _maxCount: 50
+    _debugCounter: 1
+    _maxCount: 5
 --- !u!1001 &4348201081616714646
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -96,6 +96,11 @@ PrefabInstance:
       propertyPath: _actionForPickUp
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 946085851892957644, guid: cfa5dcc4a51862647b0906aa229d0487,
+        type: 3}
+      propertyPath: _mouseInterfaceInteraction
+      value: 
+      objectReference: {fileID: 7716080897352376532}
     - target: {fileID: 2510732355901659393, guid: cfa5dcc4a51862647b0906aa229d0487,
         type: 3}
       propertyPath: m_Name
@@ -313,6 +318,16 @@ PrefabInstance:
       propertyPath: RootMonobeh
       value: 
       objectReference: {fileID: 5597222920646075619}
+    - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
+        type: 3}
+      propertyPath: _canInteractabler.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
+        type: 3}
+      propertyPath: _canInteractabler.Array.data[0]
+      value: 
+      objectReference: {fileID: 9080533731924881794}
     - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
         type: 3}
       propertyPath: _executeCommand.m_PersistentCalls.m_Calls.Array.size
@@ -629,7 +644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isRect: 1
-  _isUpdate: 0
+  _isUpdate: 1
 --- !u!224 &7715032066112268157 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1047308157164780215, guid: 9d006e5f67306e44f860705a39d88df4,

@@ -11,6 +11,7 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
     private ComponentFSM _component;
     private Transform _transform;
     private Vector3 _lastPosition;
+    private NavMeshSurfaceVolumeUpdater _navMeshSurfaceVolumeUpdater;
 
     public State GetCurrentState => _currentState;
     public bool IsFinishedCurrentState() => _currentState.IsFinished;
@@ -31,6 +32,9 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
             _navMeshAgent = (NavMeshAgent)_transform.gameObject.AddComponent(typeof(NavMeshAgent));
             _navMeshAgent.angularSpeed = 0f;
         }
+        _navMeshSurfaceVolumeUpdater = WorldViewer.Instance.GetUpdater();
+        _navMeshSurfaceVolumeUpdater.Init(_navMeshAgent);
+
         SetState(_startState);
     }
 
@@ -52,6 +56,12 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
             _lastPosition = _transform.position;
             _entityMonobeh.EntityInProcess.SendCommand(ComponentPosition.CommandUpdate(_lastPosition));
         }
+    }
+
+    internal override void VirtualDestroy()
+    {
+        WorldViewer.Instance.Remove(_navMeshSurfaceVolumeUpdater);
+        _navMeshSurfaceVolumeUpdater = null;
     }
 
     public void SetState(State state, bool newState = false)

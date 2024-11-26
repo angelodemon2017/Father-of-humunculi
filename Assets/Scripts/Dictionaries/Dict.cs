@@ -24,6 +24,10 @@ public static class Dict
 
     public static EnumTileDirect GetDirectBySwift(int X, int Z)
     {
+        if (X < -1 || X > 1 || Z < -1 || Z > 1)
+        {
+            UnityEngine.Debug.Log($"GetDirectBySwift:{X},{Z}");
+        }
         return directs[(X, Z)];
     }
 

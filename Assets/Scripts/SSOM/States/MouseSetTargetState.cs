@@ -69,7 +69,7 @@ public class MouseSetTargetState : State
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, 100, _mask))
             {
-                if (hit.transform.TryGetComponent(out MouseInterfaceInteraction mii))
+                if (hit.transform.TryGetComponent(out MouseInterfaceInteraction mii) && mii.CanInterAct)
                 {
                     return mii;
                 }

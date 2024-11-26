@@ -15,6 +15,11 @@ public class BasePlaneWorld : MonoBehaviour
 
     public string DebugText;
 
+    public void VirtualCreate()
+    {
+        gameObject.SetActive(true);
+    }
+
     public void Init(WorldTile worldPart, List<WorldTile> neigbors)
     {
         _worldPart = worldPart;
@@ -103,6 +108,17 @@ public class BasePlaneWorld : MonoBehaviour
     {
         var rndTxr = WorldViewer.Instance.Textures.GetRandom();
         _worldPart.SetNewId(rndTxr.Id);
+    }
+
+    public void VirtualDestroy()
+    {
+        gameObject.SetActive(false);
+        _worldPart.ChangedId -= UpdateNeigbor;
+        foreach (var tile in _neigbors)
+        {
+            tile.ChangedId -= UpdateNeigbor;
+        }
+        _neigbors.Clear();
     }
 
     private void OnDestroy()

@@ -6,6 +6,7 @@ public class ItemPresent : PrefabByComponentData
     [SerializeField] private List<ItemConfig> _itemsGenerate;
     [SerializeField] private RootSpriteRender _itemRoot;
 
+    internal override bool CanInterAct => true;
     public override string KeyComponent => typeof(ItemPresent).Name;
     public override string KeyComponentData => typeof(ComponentItemPresent).Name;
 

@@ -14,6 +14,11 @@ public class EntityMonobeh : MonoBehaviour
     public long Id => _entityInProcess.Id;
     public EntityInProcess EntityInProcess => _entityInProcess;
 
+    internal void VirtualCreate()
+    {
+        gameObject.SetActive(true);
+    }
+
     public void Init(EntityInProcess entityInProcess)
     {
         _entityInProcess = entityInProcess;
@@ -61,6 +66,15 @@ public class EntityMonobeh : MonoBehaviour
     private void OnDestroy()
     {
         _entityInProcess.UpdateEIP -= UpdateEntity;
+    }
+
+    internal void VirtualDestroy()
+    {
+        gameObject.SetActive(false);
+        _entityInProcess.UpdateEIP -= UpdateEntity;
+//        _entityInProcess = null;
+        _cashUpdatePrefabByComponentDatas.Clear();
+        _prefabsByComponents.ForEach(c => c.VirtualDestroy());
     }
 
     #region Config/Backend

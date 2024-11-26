@@ -12,7 +12,7 @@ public class WorldData
     public List<WorldTileData> worldTileDatas = new();
     public List<WorldChunkData> worldChunkDatas = new();//labels about loaded??
 
-    public List<EntityData> entityDatas = new();
+    private Dictionary<long, EntityData> _cashEntityDatas = new();
 
     private Dictionary<(int, int), WorldTileData> _cashTiles = new();
     private List<long> _deletedIds = new();
@@ -40,7 +40,7 @@ public class WorldData
     {
         lock (lockObjectEntities)
         {
-            return entityDatas;
+            return _cashEntityDatas.Values.ToList();
         }
     }
 
@@ -124,11 +124,19 @@ public class WorldData
         return result;
     }
 
+    public bool HaveEnt(long id)
+    {
+        lock (lockObjectEntities)
+        {
+            return _cashEntityDatas.ContainsKey(id);
+        }
+    }         
+
     public EntityData GetEntityById(long id)
     {
         lock (lockObjectEntities)
         {
-            return entityDatas.FirstOrDefault(e => e.Id == id);
+            return _cashEntityDatas[id];
         }
     }
 
@@ -139,7 +147,7 @@ public class WorldData
 
         lock (lockObjectEntities)
         {
-            entityDatas.Add(entityData);
+            _cashEntityDatas.Add(entityData.Id, entityData);
         }
         AddEntityForUpdate(entityData.Id);
 
@@ -150,10 +158,10 @@ public class WorldData
     {
         lock (lockObjectEntities)
         {
-            var ed = entityDatas.FirstOrDefault(e => e.Id == id);
+            var ed = GetEntityById(id);
             if (ed != null)
             {
-                entityDatas.Remove(ed);
+                _cashEntityDatas.Remove(id);
 
                 lock (lockObjectUpdateIds)
                 {

@@ -486,6 +486,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8995995605791913454, guid: 140cb2b69e995de4aa8e21cd93b9821c,
+        type: 3}
+      propertyPath: _isUpdate
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -687,6 +692,16 @@ PrefabInstance:
       objectReference: {fileID: 5597222920646075619}
     - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
         type: 3}
+      propertyPath: _canInteractabler.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
+        type: 3}
+      propertyPath: _canInteractabler.Array.data[0]
+      value: 
+      objectReference: {fileID: 7146410972368720946}
+    - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
+        type: 3}
       propertyPath: _executeCommand.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -851,6 +866,11 @@ PrefabInstance:
       propertyPath: _actionForPickUp
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 946085851892957644, guid: cfa5dcc4a51862647b0906aa229d0487,
+        type: 3}
+      propertyPath: _mouseInterfaceInteraction
+      value: 
+      objectReference: {fileID: 7716080897352376532}
     - target: {fileID: 2510732355901659393, guid: cfa5dcc4a51862647b0906aa229d0487,
         type: 3}
       propertyPath: m_Name

@@ -20,9 +20,12 @@ public class ComponentHomu : ComponentData
         { "Leaf", EnumHomuType.Leaf },
     };
 
+    public int _thinkingTime = 0;
+
     private EnumHomuType _homuType = EnumHomuType.Dummy;
     public Color _colorModelDemo => colors[_homuType];
     public string _titleDemo => $"Homu {_homuType}";
+    public bool IsNoType => _homuType == EnumHomuType.None || _homuType == EnumHomuType.Dummy;
 
     public ComponentHomu()
     {
@@ -42,33 +45,5 @@ public class ComponentHomu : ComponentData
     private void SetHomuType(EnumHomuType homuType)
     {
         _homuType = homuType;
-    }
-
-    internal override void UpdateAfterEntityUpdate(EntityData entity)
-    {
-        if (_homuType == EnumHomuType.None || _homuType == EnumHomuType.Dummy)
-        {
-            var invs = entity.Components.GetComponents(typeof(ComponentInventory).Name);
-            foreach (ComponentInventory i in invs)
-            {
-                var targetI = i.Items.FirstOrDefault(x => mutats.ContainsKey(x.Id));
-                if (targetI != null)
-                {
-                    ChangeType(entity, i, targetI);
-                }
-            }
-        }
-    }
-
-    private void ChangeType(EntityData entity, ComponentInventory i, ItemData targetI)
-    {
-        SetHomuType(mutats[targetI.Id]);
-        i.SubtrackItems(targetI.Id, 1);
-
-        ComponentFSM compFSM = entity.Components.GetComponent<ComponentFSM>();
-        if (compFSM != null)
-        {
-            compFSM.EntityTarget = UIPlayerManager.Instance.EntityMonobeh.Id;
-        }
     }
 }

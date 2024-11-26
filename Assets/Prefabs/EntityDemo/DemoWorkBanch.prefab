@@ -443,6 +443,11 @@ PrefabInstance:
       propertyPath: _actionForPickUp
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 946085851892957644, guid: cfa5dcc4a51862647b0906aa229d0487,
+        type: 3}
+      propertyPath: _mouseInterfaceInteraction
+      value: 
+      objectReference: {fileID: 7716080897352376532}
     - target: {fileID: 2510732355901659393, guid: cfa5dcc4a51862647b0906aa229d0487,
         type: 3}
       propertyPath: m_Name
@@ -613,6 +618,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8091077971673982153, guid: 8813f3823d434934b89cbc3ef6a69d8d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -649,6 +659,16 @@ PrefabInstance:
       propertyPath: RootMonobeh
       value: 
       objectReference: {fileID: 5597222920646075619}
+    - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
+        type: 3}
+      propertyPath: _canInteractabler.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
+        type: 3}
+      propertyPath: _canInteractabler.Array.data[0]
+      value: 
+      objectReference: {fileID: 653055325177773399}
     - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
         type: 3}
       propertyPath: _executeCommand.m_PersistentCalls.m_Calls.Array.size

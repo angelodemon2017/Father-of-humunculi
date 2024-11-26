@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerPresent : PrefabByComponentData
 {
@@ -7,6 +8,7 @@ public class PlayerPresent : PrefabByComponentData
     [SerializeField] private EntityMonobeh _dropItem;
     [SerializeField] private ItemConfig _emptyItem;
     [SerializeField] private EntityMonobeh _entityMonobeh;
+    [SerializeField] private NavMeshAgent _navMeshAgent;
 
     private ComponentPlayerId _component;
 

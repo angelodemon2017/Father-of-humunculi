@@ -9,7 +9,9 @@ public class WorldViewer : MonoBehaviour
     public static WorldViewer Instance;
 
     public bool DebugMode;
-    [SerializeField] private NavMeshSurface _navMeshSurface;
+//    public NavMeshSurfaceVolumeUpdater _updaterOnScene;
+    [SerializeField] private NavMeshSurfaceVolumeUpdater _navMeshUpdaterPrefab;
+//    [SerializeField] private NavMeshSurface _navMeshSurface;
     [SerializeField] private BasePlaneWorld _basePlaneWorld;
     [SerializeField] private EntityMonobeh _entityMonobehPrefab;
     [SerializeField] private Transform _entityParent;
@@ -17,10 +19,8 @@ public class WorldViewer : MonoBehaviour
     [SerializeField] private List<TextureEntity> _textureEntities = new();
     [SerializeField] private EntitiesLibrary entitiesLibrary;
 
-//    [SerializeField] 
     private List<WorldChunkView> _chunksView = new();
     private Dictionary<(int, int), WorldTile> _cashTiles = new();
-//    [SerializeField] 
     private List<EntityMonobeh> _cashEntities = new();
 
     private Vector3 _focusChunkPosition;
@@ -28,6 +28,11 @@ public class WorldViewer : MonoBehaviour
 
     public List<TextureEntity> Textures => _textureEntities;
     private WorldData _gameWorld => GameProcess.Instance.GameWorld;
+
+    private HashSet<BasePlaneWorld> _poolBPW = new();
+    private Dictionary<string, HashSet<EntityMonobeh>> _poolEntities = new();
+    private HashSet<NavMeshSurfaceVolumeUpdater> _poolSurfacers = new();
+
 
     private void Awake()
     {
@@ -79,7 +84,8 @@ public class WorldViewer : MonoBehaviour
         _cashTiles.Clear();
         foreach (var c in _chunksView)
         {
-            c.CleanChunk();
+            var newBPWs = c.CleanChunk();
+            newBPWs.ForEach(x => _poolBPW.Add(x));
         }
         _chunksView.Clear();
 
@@ -132,7 +138,6 @@ public class WorldViewer : MonoBehaviour
                 _chunkPoints.Add(newP);
                 chunkPreGenerate.Remove(newP);
             }
-
         List<WorldChunkView> chunkForDelete = new();
         List<Vector3> exceptChunk = new();
         var distanceVisible = Config.VisibilityChunkDistance * Config.ChunkSize;
@@ -160,10 +165,10 @@ public class WorldViewer : MonoBehaviour
             {
                 RemoveEntity(ent);
             }
-            chunk.CleanChunk();
+            var newBPWs = chunk.CleanChunk();
+            newBPWs.ForEach(x => _poolBPW.Add(x));
             _chunksView.Remove(chunk);
         }
-
         foreach (var point in exceptChunk)
         {
             _chunkPoints.Remove(point);
@@ -180,18 +185,10 @@ public class WorldViewer : MonoBehaviour
             }
         }
 
-        _navMeshSurface.BuildNavMesh();
-
         foreach (var c in chunkPreGenerate)
         {
             StartCoroutine(GameProcess.Instance.GameWorld.CheckAndGenChunk((int)(c.x / Config.ChunkSize), (int)(c.z / Config.ChunkSize)));
         }
-    }
-
-    public void RemoveEntity(EntityMonobeh entityMonobeh)
-    {
-        Destroy(entityMonobeh.gameObject);
-        _cashEntities.Remove(entityMonobeh);
     }
 
     public void TryAddEntity(EntityInProcess entityInProcess)
@@ -206,14 +203,70 @@ public class WorldViewer : MonoBehaviour
             return;
         }
 
-        var entMon = entitiesLibrary.GetConfig(entityInProcess.EntityData.TypeKey);
-        var newEM = Instantiate(entMon, _entityParent);
+        var newEM = Create(entityInProcess.EntityData.TypeKey);
         newEM.Init(entityInProcess);
         _cashEntities.Add(newEM);
     }
 
+    public void RemoveEntity(EntityMonobeh entityMonobeh)
+    {
+        _cashEntities.Remove(entityMonobeh);
+
+        if (_poolEntities.TryGetValue(entityMonobeh.EntityInProcess.EntityData.TypeKey, out HashSet<EntityMonobeh> pool))
+        {
+            pool.Add(entityMonobeh);
+        }
+        else
+        {
+            _poolEntities.Add(entityMonobeh.EntityInProcess.EntityData.TypeKey, new());
+            _poolEntities[entityMonobeh.EntityInProcess.EntityData.TypeKey].Add(entityMonobeh);
+        }
+        entityMonobeh.VirtualDestroy();
+    }
+
+    private EntityMonobeh Create(string key)
+    {
+        if (_poolEntities.ContainsKey(key) && _poolEntities[key].Count > 0)
+        {
+            var tempEMB = _poolEntities[key].ElementAt(0);
+            _poolEntities[key].Remove(tempEMB);
+            tempEMB.VirtualCreate();
+            return tempEMB;
+        }
+
+        var entMon = entitiesLibrary.GetConfig(key);
+        return Instantiate(entMon, _entityParent);
+    }
+
+    public void Remove(NavMeshSurfaceVolumeUpdater nmsvu)
+    {
+        nmsvu.VirtualDestroy();
+        _poolSurfacers.Add(nmsvu);
+    }
+
+    public NavMeshSurfaceVolumeUpdater GetUpdater()
+    {
+        if (_poolSurfacers.Count > 0)
+        {
+            var tempPS = _poolSurfacers.ElementAt(0);
+            _poolSurfacers.Remove(tempPS);
+            tempPS.VirtualCreate();
+            return tempPS;
+        }
+
+        return Instantiate(_navMeshUpdaterPrefab, transform);
+    }
+
     private BasePlaneWorld Create()
     {
+        if (_poolBPW.Count > 0)
+        {
+            var tempBPW = _poolBPW.ElementAt(0);
+            _poolBPW.Remove(tempBPW);
+            tempBPW.VirtualCreate();
+            return tempBPW;
+        }
+
         return Instantiate(_basePlaneWorld, transform);
     }
 }
@@ -241,9 +294,9 @@ public class WorldChunkView
         }
     }
 
-    public void CleanChunk()
+    public List<BasePlaneWorld> CleanChunk()
     {
-        _cashTiles.ForEach(t => GameObject.Destroy(t.gameObject));
-        _cashTiles.Clear();
+        _cashTiles.ForEach(t => t.VirtualDestroy());
+        return _cashTiles;
     }
 }

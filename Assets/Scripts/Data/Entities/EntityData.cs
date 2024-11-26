@@ -27,7 +27,7 @@ public class EntityData
         Components.Add(new ComponentPosition(xpos, zpos));
     }
 
-    public void DoSecond()
+/*    public void DoSecond()
     {
         bool isChanged = false;
         foreach (var c in Components)
@@ -41,7 +41,7 @@ public class EntityData
         {
             UpdateEntity();
         }
-    }
+    }/**/
 
     public void SetUpdateAction(Action<long> updater)
     {
@@ -50,7 +50,6 @@ public class EntityData
 
     internal void UpdateEntity()
     {
-        Components.ForEach(c => c.UpdateAfterEntityUpdate(this));
         _updater?.Invoke(Id);
     }
 
@@ -60,9 +59,8 @@ public class EntityData
         {
             var comp = Components.GetComponent<ComponentPosition>();
             comp.UpdateByCommand(command.Message);
+            UpdateEntity();
         }
-
-        UpdateEntity();
     }
 }
 

@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Linq;
 
 public class MouseInterfaceInteraction : PrefabByComponentData
 {
@@ -8,11 +10,13 @@ public class MouseInterfaceInteraction : PrefabByComponentData
     [SerializeField] private GameObject _tip;
     [SerializeField] private TextMeshProUGUI _tipText;
     [SerializeField] private UnityEvent<EntityData, string, string, WorldData> _executeCommandTouch;
+    [SerializeField] private List<PrefabByComponentData> _canInteractabler;
 
     public EntityMonobeh RootMonobeh;
 
     private float _showTip;
 
+    internal override bool CanInterAct => _canInteractabler.Count > 0 ? _canInteractabler.Any(c => c.CanInterAct) : false;
     public override string KeyComponent => typeof(MouseInterfaceInteraction).Name;
     public override string KeyComponentData => typeof(ComponentInterractable).Name;
     internal override ComponentData GetComponentData => new ComponentInterractable();
@@ -24,12 +28,20 @@ public class MouseInterfaceInteraction : PrefabByComponentData
 
     public void OnClick(EntityMonobeh whoTouch)
     {
-        RootMonobeh.EntityInProcess.SendCommand(new CommandData()
+        if (RootMonobeh.EntityInProcess == null)
         {
-            KeyComponent = KeyComponent,
-            AddingKeyComponent = AddingKey,
-            Message = $"{whoTouch.Id}",
-        });
+            WorldViewer.Instance.RemoveEntity(RootMonobeh);
+            Debug.Log($"Mysterious circumstances");
+        }
+        else
+        {
+            RootMonobeh.EntityInProcess.SendCommand(new CommandData()
+            {
+                KeyComponent = KeyComponent,
+                AddingKeyComponent = AddingKey,
+                Message = $"{whoTouch.Id}",
+            });
+        }
     }
 
     public override void ExecuteCommand(EntityData entity, string command, string message, WorldData worldData)
@@ -39,8 +51,11 @@ public class MouseInterfaceInteraction : PrefabByComponentData
 
     public void ShowTip()
     {
-        _showTip = 0.1f;
-        _tip.SetActive(true);
+        if (CanInterAct)
+        {
+            _showTip = 0.1f;
+            _tip.SetActive(true);
+        }
     }
 
     private void FixedUpdate()

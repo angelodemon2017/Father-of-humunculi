@@ -7,6 +7,7 @@ public class PrefabByComponentData : MonoBehaviour
     public virtual string GetDebugText => string.Empty;
     internal virtual bool _isNeedUpdate => false;
     internal virtual string AddingKey => string.Empty;
+    internal virtual bool CanInterAct => false;
 
     internal virtual ComponentData GetComponentData => new ComponentData();
 
@@ -21,6 +22,11 @@ public class PrefabByComponentData : MonoBehaviour
     }
 
     internal virtual void UpdateComponent()
+    {
+
+    }
+
+    internal virtual void VirtualDestroy()
     {
 
     }

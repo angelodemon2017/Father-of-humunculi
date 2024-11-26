@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 635947310242672396}
   - component: {fileID: 5597222920646075619}
-  - component: {fileID: 1186518513851610787}
   - component: {fileID: 6616014993413753289}
+  - component: {fileID: 1186518513851610787}
   - component: {fileID: 858363550221772974}
   - component: {fileID: 417894046671857887}
   m_Layer: 0
@@ -62,21 +62,6 @@ MonoBehaviour:
   - {fileID: 6616014993413753289}
   - {fileID: 417894046671857887}
   - {fileID: 410329709181716453}
---- !u!114 &1186518513851610787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58151514028472945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90e081ce63bdff94a8e33e9a890c45c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _entityMonobeh: {fileID: 5597222920646075619}
-  _startState: {fileID: 11400000, guid: 079ee7faae8248e45b4eb48af8538c92, type: 2}
-  _navMeshAgent: {fileID: 858363550221772974}
 --- !u!114 &6616014993413753289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +77,21 @@ MonoBehaviour:
   _onOffsObjects:
   - {fileID: 8952119101492270132}
   _closeButton: {fileID: 8572936681353369583}
+--- !u!114 &1186518513851610787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58151514028472945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90e081ce63bdff94a8e33e9a890c45c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entityMonobeh: {fileID: 5597222920646075619}
+  _startState: {fileID: 11400000, guid: 079ee7faae8248e45b4eb48af8538c92, type: 2}
+  _navMeshAgent: {fileID: 858363550221772974}
 --- !u!195 &858363550221772974
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1978,6 +1978,11 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 2412302179493143634}
   _fSMController: {fileID: 1186518513851610787}
   _stateWaiting: {fileID: 11400000, guid: 983c30069a14e1d47acfe5cc04fbc1b3, type: 2}
+  SecondsToTransform: 3
+  _itemsToUpgrade:
+  - {fileID: 11400000, guid: 000ebfd76c352a74bbec471628bdd54f, type: 2}
+  - {fileID: 11400000, guid: a530ba9b556b5d04e8ce18c114b753d1, type: 2}
+  - {fileID: 11400000, guid: fd5b28fe06b5c3046a6998f2828c4b95, type: 2}
 --- !u!1001 &1446916518863265377
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2006,6 +2011,11 @@ PrefabInstance:
       propertyPath: _actionForPickUp
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 946085851892957644, guid: cfa5dcc4a51862647b0906aa229d0487,
+        type: 3}
+      propertyPath: _mouseInterfaceInteraction
+      value: 
+      objectReference: {fileID: 793492340114231484}
     - target: {fileID: 2510732355901659393, guid: cfa5dcc4a51862647b0906aa229d0487,
         type: 3}
       propertyPath: m_Name
@@ -2090,6 +2100,16 @@ PrefabInstance:
       propertyPath: RootMonobeh
       value: 
       objectReference: {fileID: 5597222920646075619}
+    - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
+        type: 3}
+      propertyPath: _canInteractabler.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
+        type: 3}
+      propertyPath: _canInteractabler.Array.data[0]
+      value: 
+      objectReference: {fileID: 6616014993413753289}
     - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
         type: 3}
       propertyPath: _executeCommandTouch.m_PersistentCalls.m_Calls.Array.size
@@ -2504,7 +2524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isRect: 1
-  _isUpdate: 0
+  _isUpdate: 1
 --- !u!224 &7552494062593445951 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1047308157164780215, guid: 9d006e5f67306e44f860705a39d88df4,

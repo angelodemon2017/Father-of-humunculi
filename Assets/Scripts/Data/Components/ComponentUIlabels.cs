@@ -18,7 +18,7 @@ public class ComponentUIlabels : ComponentData
         TextView = defaulthText;
     }
 
-    internal override void UpdateAfterEntityUpdate(EntityData entity)
+/*    internal override void UpdateAfterEntityUpdate(EntityData entity)
     {
         var cmp = entity.Components.GetComponent<ComponentCounter>();
         if (cmp != null)
@@ -31,6 +31,6 @@ public class ComponentUIlabels : ComponentData
         {
             TextView = cmpHom._titleDemo;
         }
-    }
+    }/**/
     //bundle data for ui generate
 }

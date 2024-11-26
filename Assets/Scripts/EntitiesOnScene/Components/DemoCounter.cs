@@ -7,6 +7,7 @@ public class DemoCounter : PrefabByComponentData
 
     private ComponentCounter _component;
 
+    internal override bool CanInterAct => _component._debugCounter > 0;
     public ItemData GivingItem => new ItemData(_givingItem);
     public override string KeyComponent => typeof(DemoCounter).Name;
     public override string KeyComponentData => typeof(ComponentCounter).Name;
@@ -47,6 +48,20 @@ public class DemoCounter : PrefabByComponentData
 
             entity.UpdateEntity();
             touchedEntity.UpdateEntity();
+        }
+    }
+
+    public override void DoSecond(EntityData entity)
+    {
+        var cc = entity.Components.GetComponent<ComponentCounter>();
+        if (cc != null)
+        {
+            if ((cc._maxCount == 0 || cc._debugCounter < cc._maxCount) &&
+                cc._chanceUpper.GetChance())
+            {
+                cc._debugCounter++;
+                entity.UpdateEntity();
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eddbf71c6b637347934f712dfb0b398, type: 3}
   m_Name: HomuWood
   m_EditorClassIdentifier: 
-  Index: 7
+  Index: 10
   homuType: 3
   _entityConfig: {fileID: 5597222920646075619, guid: 1317a1ba86758444890902d5b6e587e3,
     type: 3}
@@ -21,8 +21,6 @@ MonoBehaviour:
     ItemConfig: {fileID: 0}
     Count: 1
   Resources:
-  - ItemConfig: {fileID: 11400000, guid: 2ffe704ada27d7049866dc9fc65ad9bc, type: 2}
-    Count: 1
   - ItemConfig: {fileID: 11400000, guid: 1d51120011131b44f9d60dea71849c0e, type: 2}
     Count: 1
   GroupRecipeTag: {fileID: 11400000, guid: 77efa91eb47a4fc43874892e76e58029, type: 2}

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using UnityEngine;
 
 public class GameProcess
 {
@@ -22,58 +21,46 @@ public class GameProcess
     }
 
     private bool _gameLaunched = false;
-//    private EntitiesLibrary _entitiesLibrary;
     [UnityEngine.SerializeField] private WorldData _gameWorld;
 
-
     private readonly object lockObjectEips = new object();
-    [UnityEngine.SerializeField] private List<EntityInProcess> _entities = new();
-    /// <summary>
-    /// key - by chunk
-    /// </summary>
-//    private Dictionary<(int,int),List<EntityInProcess>> _cashEntities = new();
+    private Dictionary<long, EntityInProcess> _cashEntities = new();
+    private Dictionary<(int, int), Dictionary<long, EntityInProcess>> _cashEIPsByChunk = new();
 
     private TimeSpan _sessionTime = new();
     private TimeSpan _second = TimeSpan.FromSeconds(1);
     private float _seconder;
 
     public WorldData GameWorld => _gameWorld;
-    public List<EntityInProcess> Entities => _entities;
+    public List<EntityInProcess> Entities => _cashEntities.Values.ToList();
 
     public GameProcess()
     {
 //        _entitiesLibrary = Resources.LoadAll<EntitiesLibrary>(string.Empty).FirstOrDefault();
-        //        NewGame(new WorldData());
     }
 
     public List<EntityInProcess> GetEntitiesByChunk(int x, int z)
     {
-        var centerChunk = Config.ChunkSize / 2;
-
-        var xmin = x - centerChunk;
-        var xmax = x + centerChunk;
-        var zmin = z - centerChunk;
-        var zmax = z + centerChunk;
-
         lock (lockObjectEips)
         {
-            var result = _entities.Where(e =>
-            e.Position.x >= xmin &&
-            e.Position.x < xmax &&
-            e.Position.z >= zmin &&
-            e.Position.z < zmax).ToList();
 
-            return result;
+            if (_cashEIPsByChunk.TryGetValue((x, z), out Dictionary<long, EntityInProcess> dictEIPs))
+            {
+                return dictEIPs.Values.ToList();
+            }
+            else
+            {
+                return new();
+            }
         }
     }
 
     public void NewGame(WorldData worldData)
     {
         _gameLaunched = false;
-        //        _cashEntities.Clear();
         lock (lockObjectEips)
         {
-            _entities.Clear();
+            _cashEntities.Clear();
         }
         _gameWorld = worldData; 
         CheckEntities();
@@ -100,17 +87,22 @@ public class GameProcess
 
     public void GetRequest(CommandData commandData)//web request in future <=
     {
-        var ent = _gameWorld.GetEntityById(commandData.IdEntity);
-        if (ent == null)
+        if (!_gameWorld.HaveEnt(commandData.IdEntity))
         {
             return;
         }
+
+        if (commandData.KeyComponent == typeof(ComponentPosition).Name)
+        {
+            //TODO update _cashEIPsByChunk
+        }
+
+        var ent = _gameWorld.GetEntityById(commandData.IdEntity);
 
         ent.ApplyCommand(commandData);
 
         var entConfig = EntitiesLibrary.Instance.GetConfig(ent.TypeKey);
         entConfig.UseCommand(ent, commandData.KeyComponent, commandData.AddingKeyComponent, commandData.KeyCommand, commandData.Message, _gameWorld);
-
     }
 
     public void StartGame()
@@ -123,31 +115,31 @@ public class GameProcess
         _gameLaunched = false;
     }
 
+    Stopwatch stopwatch = new Stopwatch();
     public void GameTime(float deltaTime)
     {
         //is host
-
-        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.Reset();
         stopwatch.Start();
-
         CheckEntities();
-        stopwatch.Stop();
-        if (WorldViewer.Instance.DebugMode && stopwatch.ElapsedMilliseconds > 0)
-        {
-            lock (lockObjectEips)
-            {
-                UnityEngine.Debug.Log($"Entities: {_entities.Count()}, components: {GameplayAdapter.Instance.TESTCOMPONENTS}, total calls:{_entities.Count() * GameplayAdapter.Instance.TESTCOMPONENTS}");
-            }
-            UnityEngine.Debug.Log("Second update: " + stopwatch.ElapsedMilliseconds + " ms");
-        }
         _seconder += deltaTime;
         if (_seconder >= 1f)
         {
             _sessionTime.Add(_second);
             _seconder -= 1f;
 
+            //            SecondEntities();
             Thread thread = new Thread(SecondEntities);
             thread.Start();
+        }
+        stopwatch.Stop();
+        if (WorldViewer.Instance.DebugMode && stopwatch.ElapsedMilliseconds > 0)
+        {
+            lock (lockObjectEips)
+            {
+                UnityEngine.Debug.Log($"Entities: {_cashEntities.Count()}, components: {GameplayAdapter.Instance.TESTCOMPONENTS}, total calls:{_cashEntities.Count() * GameplayAdapter.Instance.TESTCOMPONENTS}");
+            }
+            UnityEngine.Debug.Log("Second update: " + stopwatch.ElapsedMilliseconds + " ms");
         }
     }
 
@@ -155,9 +147,9 @@ public class GameProcess
     {
         lock (lockObjectEips)
         {
-            foreach (var entIP in _entities)
+            foreach (var entIP in _cashEntities)
             {
-                entIP.DoSecond();
+                entIP.Value.DoSecond();
             }
         }
     }
@@ -170,13 +162,15 @@ public class GameProcess
         {
             lock (lockObjectEips)
             {
-                var eip = _entities.FirstOrDefault(e => e.Id == newEnt);
-                if (eip == null)
+                if (_cashEntities.TryGetValue(newEnt, out EntityInProcess eip))
                 {
-                    var ed = _gameWorld.GetEntityById(newEnt);
-
-                    if (ed != null)
+                    eip.UpdateEntity();
+                }
+                else
+                {
+                    if (_gameWorld.HaveEnt(newEnt))
                     {
+                        var ed = _gameWorld.GetEntityById(newEnt);
                         var neweip = new EntityInProcess(ed);
                         AddEIP(neweip);
                         //is client
@@ -186,10 +180,6 @@ public class GameProcess
                     {
                         //was deleted
                     }
-                }
-                else
-                {
-                    eip.UpdateEntity();
                 }
                 //TODO this send to network for clients
                 idsForDel.Add(newEnt);
@@ -208,7 +198,18 @@ public class GameProcess
 
         lock (lockObjectEips)
         {
-            _entities.Add(eip);
+            _cashEntities.Add(eip.EntityData.Id, eip);
+
+            var tempPos = eip.Position.GetChunkPosInt();
+            if (_cashEIPsByChunk.TryGetValue((tempPos.x, tempPos.z), out Dictionary<long, EntityInProcess> dictEIPs))
+            {
+                dictEIPs.Add(eip.EntityData.Id, eip);
+            }
+            else
+            {
+                _cashEIPsByChunk.Add((tempPos.x, tempPos.z), new Dictionary<long, EntityInProcess>());
+                _cashEIPsByChunk[(tempPos.x, tempPos.z)].Add(eip.EntityData.Id, eip);
+            }
         }
     }
 
@@ -216,7 +217,10 @@ public class GameProcess
     {
         lock (lockObjectEips)
         {
-            _entities.Remove(eip);
+            _cashEntities.Remove(eip.Id);
+
+            var tempPos = eip.Position.GetChunkPosInt();
+            _cashEIPsByChunk[(tempPos.x, tempPos.z)].Remove(eip.Id);
         }
     }
 
