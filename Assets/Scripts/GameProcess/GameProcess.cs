@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 
 public class GameProcess
@@ -23,6 +24,9 @@ public class GameProcess
     private bool _gameLaunched = false;
 //    private EntitiesLibrary _entitiesLibrary;
     [UnityEngine.SerializeField] private WorldData _gameWorld;
+
+
+    private readonly object lockObjectEips = new object();
     [UnityEngine.SerializeField] private List<EntityInProcess> _entities = new();
     /// <summary>
     /// key - by chunk
@@ -51,20 +55,26 @@ public class GameProcess
         var zmin = z - centerChunk;
         var zmax = z + centerChunk;
 
-        var result = _entities.Where(e => 
+        lock (lockObjectEips)
+        {
+            var result = _entities.Where(e =>
             e.Position.x >= xmin &&
             e.Position.x < xmax &&
             e.Position.z >= zmin &&
             e.Position.z < zmax).ToList();
 
-        return result;
+            return result;
+        }
     }
 
     public void NewGame(WorldData worldData)
     {
         _gameLaunched = false;
-//        _cashEntities.Clear();
-        _entities.Clear();
+        //        _cashEntities.Clear();
+        lock (lockObjectEips)
+        {
+            _entities.Clear();
+        }
         _gameWorld = worldData; 
         CheckEntities();
 
@@ -75,7 +85,7 @@ public class GameProcess
     public GameProcess(WorldData newWorld)
     {
         _gameWorld = newWorld;
-        _gameWorld.entityDatas.ForEach(e => AddEIP(new(e)));
+        _gameWorld.GetEnts().ForEach(e => AddEIP(new(e)));
     }
 
     public void ConnectToHost()
@@ -116,24 +126,38 @@ public class GameProcess
     public void GameTime(float deltaTime)
     {
         //is host
+
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.Start();
+
         CheckEntities();
+        stopwatch.Stop();
+        if (WorldViewer.Instance.DebugMode && stopwatch.ElapsedMilliseconds > 0)
+        {
+            lock (lockObjectEips)
+            {
+                UnityEngine.Debug.Log($"Entities: {_entities.Count()}, components: {GameplayAdapter.Instance.TESTCOMPONENTS}, total calls:{_entities.Count() * GameplayAdapter.Instance.TESTCOMPONENTS}");
+            }
+            UnityEngine.Debug.Log("Second update: " + stopwatch.ElapsedMilliseconds + " ms");
+        }
         _seconder += deltaTime;
         if (_seconder >= 1f)
         {
             _sessionTime.Add(_second);
             _seconder -= 1f;
 
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
+            Thread thread = new Thread(SecondEntities);
+            thread.Start();
+        }
+    }
+
+    private void SecondEntities()
+    {
+        lock (lockObjectEips)
+        {
             foreach (var entIP in _entities)
             {
                 entIP.DoSecond();
-            }
-            stopwatch.Stop();
-            if (WorldViewer.Instance.DebugMode)
-            {
-                UnityEngine.Debug.Log($"Entities: {_entities.Count()}, components: {GameplayAdapter.Instance.TESTCOMPONENTS}, total calls:{_entities.Count() * GameplayAdapter.Instance.TESTCOMPONENTS}");
-                UnityEngine.Debug.Log("Second update: " + stopwatch.ElapsedMilliseconds + " ms");
             }
         }
     }
@@ -142,31 +166,34 @@ public class GameProcess
     {
         //is host
         HashSet<long> idsForDel = new();
-        foreach (var newEnt in _gameWorld.needUpdates)
+        foreach (var newEnt in _gameWorld.GetIds())
         {
-            var eip = _entities.FirstOrDefault(e => e.Id == newEnt);
-            if (eip == null)
+            lock (lockObjectEips)
             {
-                var ed = _gameWorld.GetEntityById(newEnt);
-
-                if (ed != null)
+                var eip = _entities.FirstOrDefault(e => e.Id == newEnt);
+                if (eip == null)
                 {
-                    var neweip = new EntityInProcess(ed);
-                    AddEIP(neweip);
-                    //is client
-                    MessageAboutSpawnEntity(neweip);
+                    var ed = _gameWorld.GetEntityById(newEnt);
+
+                    if (ed != null)
+                    {
+                        var neweip = new EntityInProcess(ed);
+                        AddEIP(neweip);
+                        //is client
+                        MessageAboutSpawnEntity(neweip);
+                    }
+                    else
+                    {
+                        //was deleted
+                    }
                 }
                 else
                 {
-                    //was deleted
+                    eip.UpdateEntity();
                 }
+                //TODO this send to network for clients
+                idsForDel.Add(newEnt);
             }
-            else
-            {
-                eip.UpdateEntity();
-            }
-            //TODO this send to network for clients
-            idsForDel.Add(newEnt);
         }
 
         foreach (var id in idsForDel)
@@ -178,12 +205,19 @@ public class GameProcess
     public void AddEIP(EntityInProcess eip)
     {
         eip.EntityData.Components.ForEach(c => c.SetIdEntity(eip.EntityData.Id));
-        _entities.Add(eip);
+
+        lock (lockObjectEips)
+        {
+            _entities.Add(eip);
+        }
     }
 
     public void RemoveEIP(EntityInProcess eip)
     {
-        _entities.Remove(eip);
+        lock (lockObjectEips)
+        {
+            _entities.Remove(eip);
+        }
     }
 
     private void MessageAboutSpawnEntity(EntityInProcess eip)

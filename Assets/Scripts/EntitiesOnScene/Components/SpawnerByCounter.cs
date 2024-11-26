@@ -62,8 +62,8 @@ public class SpawnerByCounter : PrefabByComponentData
 
         if (compCount._debugCounter >= _needCounterForSpawn && compCS.Entities.Count < _maxEntities)
         {
-            var randDecPos = new Vector2(Random.Range(-2f, 2f), Random.Range(-2f, 2f));
-            var swiftPos = randDecPos.normalized * Random.Range(_spawnDistanceMin, _spawnDistanceMax);
+            var randDecPos = new Vector2(SimpleExtensions.GetRandom(-2f, 2f), SimpleExtensions.GetRandom(-2f, 2f));
+            var swiftPos = randDecPos.normalized * SimpleExtensions.GetRandom(_spawnDistanceMin, _spawnDistanceMax);
 
             var newEnt = _entityForSpawn.CreateEntity(entity.Position.x + swiftPos.x, entity.Position.z + swiftPos.y);
             compCount._debugCounter -= _needCounterForSpawn;

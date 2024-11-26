@@ -20,7 +20,7 @@ public class ItemData
     public ItemData(ItemConfig config)
     {
         Id = config.Key;
-        Count = Random.Range(config.MinSpawnItem, config.MaxSpawnItem + 1);
+        Count = 1;// Random.Range(config.MinSpawnItem, config.MaxSpawnItem + 1);
         Durability = config.BaseDurability;
         Quality = config.BaseQuality;
         Meta = config.BaseMeta;

@@ -4,6 +4,7 @@ using System.Linq;
 
 public class EntityMonobeh : MonoBehaviour
 {
+    [SerializeField] private string TypeKey;
     [SerializeField] private List<PrefabByComponentData> _prefabsByComponents;
 
     private List<PrefabByComponentData> _cashUpdatePrefabByComponentDatas = new();
@@ -78,7 +79,7 @@ public class EntityMonobeh : MonoBehaviour
     public EntityData CreateEntity(float xpos = 0, float zpos = 0)
     {
         var newEntity = new EntityData(xpos, zpos);
-        newEntity.TypeKey = gameObject.name;
+        newEntity.TypeKey = TypeKey;// gameObject.name;
 
         foreach (var p in _prefabsByComponents)
         {

@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
 
 public static class SimpleExtensions
 {
+    private static Random rnd = new();
+
     public static float FixIndex(this float index, int count)
     {
         if (index >= count)
@@ -17,6 +19,16 @@ public static class SimpleExtensions
 
     public static bool GetChance(this int chance)
     {
-        return Random.Range(0, 100) < chance;
+        return rnd.Next(100) < chance;
+    }
+
+    public static int GetRandom(this int max)
+    {
+        return rnd.Next(max);
+    }
+
+    public static float GetRandom(float min, float max)
+    {
+        return ((float)rnd.Next((int)(min * 1000), (int)(max * 1000))) / 1000f;
     }
 }

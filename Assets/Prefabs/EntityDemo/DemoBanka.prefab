@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3edae84600c21c04fb8e5e29ba775688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TypeKey: DemoBanka
   _prefabsByComponents:
   - {fileID: 9080533731924881794}
   - {fileID: 7716080897352376532}
@@ -86,6 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cefbd5c2a114584aa186bd268c56069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _demoCounter: {fileID: 0}
   _needCounterForSpawn: 5
   _maxEntities: 5
   _spawnDistanceMin: 1
@@ -647,6 +649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isRect: 1
+  _isUpdate: 0
 --- !u!224 &7715032066112268157 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1047308157164780215, guid: 9d006e5f67306e44f860705a39d88df4,

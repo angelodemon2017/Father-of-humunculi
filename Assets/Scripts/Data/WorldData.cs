@@ -23,7 +23,27 @@ public class WorldData
         lastIds++;
         return lastIds;
     }
+
+    private readonly object lockObjectUpdateIds = new object();
+    private readonly object lockObjectEntities = new object();
     public List<long> needUpdates = new();
+
+    public List<long> GetIds()
+    {
+        lock (lockObjectUpdateIds)
+        {
+            return new(needUpdates);
+        }
+    }
+
+    public List<EntityData> GetEnts()
+    {
+        lock (lockObjectEntities)
+        {
+            return entityDatas;
+        }
+    }
+
     public bool IsDeleted(long idCheck)
     {
         return _deletedIds.Any(x => x == idCheck);
@@ -106,14 +126,21 @@ public class WorldData
 
     public EntityData GetEntityById(long id)
     {
-        return entityDatas.FirstOrDefault(e => e.Id == id);
+        lock (lockObjectEntities)
+        {
+            return entityDatas.FirstOrDefault(e => e.Id == id);
+        }
     }
 
     public long AddEntity(EntityData entityData)
     {
         entityData.Id = GetNewId();
         entityData.SetUpdateAction(AddEntityForUpdate);
-        entityDatas.Add(entityData);
+
+        lock (lockObjectEntities)
+        {
+            entityDatas.Add(entityData);
+        }
         AddEntityForUpdate(entityData.Id);
 
         return entityData.Id;
@@ -121,26 +148,39 @@ public class WorldData
 
     public void RemoveEntity(long id)
     {
-        var ed = entityDatas.FirstOrDefault(e => e.Id == id);
-        if (ed != null)
+        lock (lockObjectEntities)
         {
-            entityDatas.Remove(ed);
-            needUpdates.Add(id);
-            _deletedIds.Add(id);
+            var ed = entityDatas.FirstOrDefault(e => e.Id == id);
+            if (ed != null)
+            {
+                entityDatas.Remove(ed);
+
+                lock (lockObjectUpdateIds)
+                {
+                    needUpdates.Add(id);
+                }
+                _deletedIds.Add(id);
+            }
         }
     }
 
     public void AddEntityForUpdate(long id)
     {
-        if (needUpdates.Contains(id)) return;
-        needUpdates.Add(id);
+        lock (lockObjectUpdateIds)
+        {
+            if (needUpdates.Contains(id)) return;
+            needUpdates.Add(id);
+        }
     }
 
     public void RemoveUpdateId(long id)
     {
-        if (needUpdates.Contains(id))
+        lock (lockObjectUpdateIds)
         {
-            needUpdates.Remove(id);
+            if (needUpdates.Contains(id))
+            {
+                needUpdates.Remove(id);
+            }
         }
     }
 

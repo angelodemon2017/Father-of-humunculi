@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3edae84600c21c04fb8e5e29ba775688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TypeKey: Demo tree1
   _prefabsByComponents:
   - {fileID: 9080533731924881794}
   - {fileID: 7716080897352376532}
@@ -72,7 +73,7 @@ MonoBehaviour:
   _defaultValues:
     AddingKey: 
     _chanceUpper: 100
-    _debugCounter: 0
+    _debugCounter: 3
     _maxCount: 1
 --- !u!114 &1075913567266275299
 MonoBehaviour:
@@ -88,7 +89,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _demoCounter: {fileID: 9080533731924881794}
   _needCounterForSpawn: 1
-  _maxEntities: 1
+  _maxEntities: 10
   _spawnDistanceMin: 1
   _spawnDistanceMax: 2
   _entityForSpawn: {fileID: 5597222920646075619, guid: 4a12b88dbcef388498b33d81b93a4b93,

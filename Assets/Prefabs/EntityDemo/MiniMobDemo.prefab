@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3edae84600c21c04fb8e5e29ba775688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TypeKey: MiniMobDemo
   _prefabsByComponents:
   - {fileID: 8471272043882828294}
   - {fileID: 1186518513851610787}
@@ -63,6 +64,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entityMonobeh: {fileID: 5597222920646075619}
   _startState: {fileID: 11400000, guid: 079ee7faae8248e45b4eb48af8538c92, type: 2}
+  _navMeshAgent: {fileID: 0}
 --- !u!1001 &5070435866379165309
 PrefabInstance:
   m_ObjectHideFlags: 0
