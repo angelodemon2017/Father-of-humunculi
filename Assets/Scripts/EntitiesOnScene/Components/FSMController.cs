@@ -38,14 +38,28 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
         SetState(_startState);
     }
 
-/*    public void Init(Transform transform, State initState)
+    public override void ExecuteCommand(EntityData entity, string command, string message, WorldData worldData)
     {
-        _transform = transform;
-        _navMeshAgent = (NavMeshAgent)_transform.gameObject.AddComponent(typeof(NavMeshAgent));
-        _navMeshAgent.angularSpeed = 0f;
-        SetState(initState);
-        _entityMonobeh = transform.GetComponent<EntityMonobeh>();
-    }/**/
+        switch (command)
+        {
+            case Dict.Commands.SetterState:
+                SetStateKey(entity, message, worldData);
+                break;
+        }
+    }
+
+    private void SetStateKey(EntityData entity, string message, WorldData worldData)
+    {
+        var cmpFSM = entity.Components.GetComponent<ComponentFSM>();
+        if (cmpFSM != null)
+        {
+            if (cmpFSM.CurrentState != message)
+            {
+                cmpFSM.CurrentState = message;
+                entity.UpdateEntity();
+            }
+        }
+    }
 
     private void Update()
     {
@@ -75,10 +89,22 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
 
         _currentState = newState ? state : Instantiate(state);
         _currentState.InitState(this);
+
+        _entityMonobeh.EntityInProcess.SendCommand(GetCommandSetState(state.StateKey));
     }
 
     public bool IsCurrentState(State checkedState)
     {
         return checkedState.DebugField == _currentState.DebugField;
+    }
+
+    private CommandData GetCommandSetState(string stateKey)
+    {
+        return new CommandData()
+        {
+            KeyComponent = KeyComponent,
+            KeyCommand = Dict.Commands.SetterState,
+            Message = stateKey,
+        };
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public abstract class State : ScriptableObject
 {
+    internal virtual string StateKey => GetType().Name;
     public bool IsFinished { get; protected set; }
     [HideInInspector] public IStatesCharacter Character;
     [SerializeField] protected List<State> AvailableStates;

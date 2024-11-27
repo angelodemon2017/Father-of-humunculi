@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class ComponentHomu : ComponentData
 {
@@ -13,13 +12,9 @@ public class ComponentHomu : ComponentData
         { EnumHomuType.Leaf, Color.green },
     };
 
-    private Dictionary<string, EnumHomuType> mutats = new()
-    {
-        { "Stone", EnumHomuType.Stone },
-        { "Wood", EnumHomuType.Wood },
-        { "Leaf", EnumHomuType.Leaf },
-    };
-
+    public long IdInFocus = -1;
+    public HashSet<long> _idsInFocus = new();
+    public EnumHomuRole HomuRole;
     public int _thinkingTime = 0;
 
     private EnumHomuType _homuType = EnumHomuType.Dummy;
@@ -45,5 +40,10 @@ public class ComponentHomu : ComponentData
     private void SetHomuType(EnumHomuType homuType)
     {
         _homuType = homuType;
+    }
+
+    public void AddIdFocus(long id)
+    {
+        _idsInFocus.Add(id);
     }
 }

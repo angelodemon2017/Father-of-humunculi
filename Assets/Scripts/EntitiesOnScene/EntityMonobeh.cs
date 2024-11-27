@@ -13,6 +13,11 @@ public class EntityMonobeh : MonoBehaviour
     public List<PrefabByComponentData> PrefabsByComponents => _prefabsByComponents;
     public long Id => _entityInProcess.Id;
     public EntityInProcess EntityInProcess => _entityInProcess;
+    /// <summary>
+    /// not destroy
+    /// </summary>
+    public bool IsExist => gameObject.activeSelf;
+    public string GetTypeKey => TypeKey;
 
     internal void VirtualCreate()
     {

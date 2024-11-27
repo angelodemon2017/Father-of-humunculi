@@ -1,5 +1,6 @@
 ﻿public class ComponentFSM : ComponentData
 {
+    public string CurrentState;
     public long EntityOfBirth;
     public long EntityTarget;
     public int xPosFocus;

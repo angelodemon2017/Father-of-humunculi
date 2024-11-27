@@ -43,6 +43,8 @@ public static class Dict
         public const string SplitSlot = "SplitSlot";
         public const string SelectFollow = "SelectFollow";
         public const string SelectRole = "SelectRole";
+        public const string SetterState = "SetterState";
+        public const string AddEntityFocus = "AddEntityFocus";
     }
 
     public static class RectKeys

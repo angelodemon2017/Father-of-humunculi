@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using System.Linq;
 using TMPro;
 
@@ -9,13 +8,16 @@ public class HomuPresentPBCD : PrefabByComponentData
     [SerializeField] private UIIconPresent _uiIconPresentPrefab;
     [SerializeField] private Transform _parentSlots;
     [SerializeField] private BaseInventoryAdapter _baseInventoryAdapter;
+    [SerializeField] private UsingByEntity _usingByEntity;
 
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private FSMController _fSMController;
     [SerializeField] private WaitFinishInteractState _stateWaiting;
     [SerializeField] private int SecondsToTransform = 2;
     [SerializeField] private List<RecipeSO> _itemsToUpgrade;
-    [SerializeField] private TMP_Dropdown _dropdown;
+    [SerializeField] private TMP_Dropdown _dropdownSelectFollow;
+    [SerializeField] private TMP_Dropdown _dropdownSelectRole;
+    [SerializeField] private EntityGoKeepItemState _stateForKeepItem;
 
     private ComponentHomu _component;
     private ComponentInventory _componentInventory;
@@ -30,7 +32,8 @@ public class HomuPresentPBCD : PrefabByComponentData
 
     private void Awake()
     {
-        _dropdown.onValueChanged.AddListener(SelectFollowing);
+        _dropdownSelectFollow.onValueChanged.AddListener(SelectFollowing);
+        _dropdownSelectRole.onValueChanged.AddListener(SelectRole);
     }
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
@@ -57,17 +60,24 @@ public class HomuPresentPBCD : PrefabByComponentData
         }
     }
 
-    private void OnEnable()
-    {
-        var tempState = Instantiate(_stateWaiting);
-        tempState.SetSpectator(gameObject, _fSMController.GetCurrentState);
-        _fSMController.SetState(tempState, true);
-    }
-
     private ComponentHomu GetCompHomu()
     {
         //... ?
         return new ComponentHomu();
+    }
+
+    public void CheckCollider(Collider other)
+    {
+        if (_fSMController.ComponentData.CurrentState == _stateForKeepItem.StateKey || _component.HomuRole != EnumHomuRole.dragItems)
+        {
+            return;
+        }
+
+        var pbcd = other.GetComponent<MouseInterfaceInteraction>();
+        if (pbcd != null && pbcd.RootMonobeh.GetTypeKey == "ItemPresent")
+        {
+            _entityInProcess.SendCommand(GetCommandAddEntityToFocus(pbcd.RootMonobeh.Id));
+        }
     }
 
     public override void ExecuteCommand(EntityData entity, string command, string message, WorldData worldData)
@@ -76,6 +86,12 @@ public class HomuPresentPBCD : PrefabByComponentData
         {
             case Dict.Commands.SelectFollow:
                 SetTargetFollow(entity, message, worldData);
+                break;
+            case Dict.Commands.SelectRole:
+                SetRole(entity, message, worldData);
+                break;
+            case Dict.Commands.AddEntityFocus:
+                AddFocusEntity(entity, message);
                 break;
         }
     }
@@ -99,10 +115,52 @@ public class HomuPresentPBCD : PrefabByComponentData
         }
     }
 
+    private void SetRole(EntityData entity, string mes, WorldData worldData)
+    {
+        var cmpHom = entity.Components.GetComponent<ComponentHomu>();
+        if (cmpHom != null)
+        {
+            var role = (EnumHomuRole)int.Parse(mes);
+            cmpHom.HomuRole = role;
+            entity.UpdateEntity();
+        }
+    }
+
+    private void AddFocusEntity(EntityData entity, string mes)
+    {
+        var cmpHom = entity.Components.GetComponent<ComponentHomu>();
+        if (cmpHom != null)
+        {
+            var id = long.Parse(mes);
+            cmpHom.AddIdFocus(id);
+        }
+    }
+
     internal override void UpdateComponent()
     {
         UpdateHomu();
+
+        if (_usingByEntity._isOpen && !_isOnEnabled)
+        {
+            _isOnEnabled = true;
+            var tempState = Instantiate(_stateWaiting);
+            tempState.SetSpectator(gameObject, _fSMController.GetCurrentState);
+            _fSMController.SetState(tempState, true);
+        }
+        if (_component.IdInFocus != -1 && _fSMController.ComponentData.CurrentState != _stateForKeepItem.StateKey && _component.HomuRole == EnumHomuRole.dragItems)
+        {
+            var tempState = Instantiate(_stateForKeepItem);
+            tempState.SetTargetEM(WorldViewer.Instance.GetEM(_component.IdInFocus), this);
+            _fSMController.SetState(tempState, true);
+        }
     }
+
+    private void OnDisable()
+    {
+        _isOnEnabled = false;
+    }
+
+    private bool _isOnEnabled = false;
 
     private void UpdateHomu()
     {
@@ -124,6 +182,12 @@ public class HomuPresentPBCD : PrefabByComponentData
         }
     }
 
+    public void SelectRole(int select)
+    {
+        //TODO Need new solution
+//        _entityInProcess.SendCommand(GetCommandSelectRole((EnumHomuRole)select));
+    }
+
     public override void DoSecond(EntityData entity)
     {
         var ch = entity.Components.GetComponent<ComponentHomu>();
@@ -132,6 +196,29 @@ public class HomuPresentPBCD : PrefabByComponentData
             if (ch.IsNoType)
             {
                 CheckInventory(ch, entity);
+            }
+            if (ch._idsInFocus.Count > 0 && ch.IdInFocus == -1)
+            {
+                var cmpFSM = entity.Components.GetComponent<ComponentFSM>();
+                if (cmpFSM != null && cmpFSM.CurrentState != _stateForKeepItem.StateKey)
+                {
+                    List<EntityData> ents = new();
+                    foreach (var id in ch._idsInFocus)
+                    {
+                        var tmpEnt = GameProcess.Instance.GameWorld.GetEntityById(id);
+                        if (tmpEnt != null)
+                        {
+                            ents.Add(tmpEnt);
+                        }
+                    }
+                    if (ents.Count > 0)
+                    {
+                        ents = ents.OrderBy(e => Vector3.Distance(e.Position, entity.Position)).ToList();
+                        ch.IdInFocus = ents[0].Id;
+                        ch._idsInFocus.Clear();
+                        entity.UpdateEntity();
+                    }
+                }
             }
         }
     }
@@ -172,14 +259,31 @@ public class HomuPresentPBCD : PrefabByComponentData
         };
     }
 
-    public CommandData GetCommandSelectRole(int role)
+    public CommandData GetCommandSelectRole(EnumHomuRole role)
     {
         return new CommandData()
         {
             KeyComponent = typeof(HomuPresentPBCD).Name,
             AddingKeyComponent = "",
             KeyCommand = Dict.Commands.SelectRole,
-            Message = $"{role}",
+            Message = $"{(int)role}",
         };
+    }
+
+    public CommandData GetCommandAddEntityToFocus(long id)
+    {
+        return new CommandData()
+        {
+            KeyComponent = typeof(HomuPresentPBCD).Name,
+            AddingKeyComponent = "",
+            KeyCommand = Dict.Commands.AddEntityFocus,
+            Message = $"{id}",
+        };
+    }
+
+    private void OnDestroy()
+    {
+        _dropdownSelectFollow.onValueChanged.RemoveAllListeners();
+        _dropdownSelectRole.onValueChanged.RemoveAllListeners();
     }
 }

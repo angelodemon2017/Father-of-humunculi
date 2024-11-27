@@ -10,7 +10,7 @@ public class WaitFinishInteractState : State
     {
         if (!_panel.activeSelf)
         {
-            Character.SetState(_nextState);
+            Character.SetState(_nextState, true);
         }
     }
 

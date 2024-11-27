@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.AI.Navigation;
 using UnityEngine;
 
 public class WorldViewer : MonoBehaviour
@@ -26,6 +25,7 @@ public class WorldViewer : MonoBehaviour
     private Vector3 _focusChunkPosition;
     private List<Vector3> _chunkPoints = new();
 
+    public EntityMonobeh GetEM(long id) => _cashEntities.FirstOrDefault(e => e.Id == id);
     public List<TextureEntity> Textures => _textureEntities;
     private WorldData _gameWorld => GameProcess.Instance.GameWorld;
 

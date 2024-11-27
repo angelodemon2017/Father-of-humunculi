@@ -12,7 +12,7 @@ public class UsingByEntity : PrefabByComponentData
 
     internal override bool CanInterAct => _component.EntityId == -1;
     internal override bool _isNeedUpdate => true;
-    private bool _isOpen => _component.EntityId == UIPlayerManager.Instance.EntityMonobeh.Id;
+    internal bool _isOpen => _component.EntityId == UIPlayerManager.Instance.EntityMonobeh.Id;
     public override string KeyComponent => typeof(UsingByEntity).Name;
     public override string KeyComponentData => typeof(ComponentUsingByEntity).Name;
     internal override ComponentData GetComponentData => new ComponentUsingByEntity();
