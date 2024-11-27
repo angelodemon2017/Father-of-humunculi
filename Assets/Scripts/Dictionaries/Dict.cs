@@ -41,6 +41,8 @@ public static class Dict
         public const string SlotDrag = "SlotDrag";
         public const string SlotDrop = "SlotDrop";
         public const string SplitSlot = "SplitSlot";
+        public const string SelectFollow = "SelectFollow";
+        public const string SelectRole = "SelectRole";
     }
 
     public static class RectKeys

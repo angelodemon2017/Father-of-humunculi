@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
+using TMPro;
 
 public class HomuPresentPBCD : PrefabByComponentData
 {
@@ -13,19 +15,7 @@ public class HomuPresentPBCD : PrefabByComponentData
     [SerializeField] private WaitFinishInteractState _stateWaiting;
     [SerializeField] private int SecondsToTransform = 2;
     [SerializeField] private List<RecipeSO> _itemsToUpgrade;
-/*    private List<string> _keyTriggers = new();
-    private List<string> KeyTriggers 
-    {
-        get
-        {
-            if (_keyTriggers.Count == 0 && _itemsToUpgrade.Count != 0)
-            {
-                _keyTriggers = _itemsToUpgrade.Select(i => i.Key).ToList();
-            }
-
-            return _keyTriggers;
-        }
-    }/**/
+    [SerializeField] private TMP_Dropdown _dropdown;
 
     private ComponentHomu _component;
     private ComponentInventory _componentInventory;
@@ -37,6 +27,11 @@ public class HomuPresentPBCD : PrefabByComponentData
     public override string KeyComponentData => typeof(ComponentHomu).Name;
     internal override ComponentData GetComponentData => GetCompHomu();
     public override string GetDebugText => _component._titleDemo;
+
+    private void Awake()
+    {
+        _dropdown.onValueChanged.AddListener(SelectFollowing);
+    }
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {
@@ -75,6 +70,35 @@ public class HomuPresentPBCD : PrefabByComponentData
         return new ComponentHomu();
     }
 
+    public override void ExecuteCommand(EntityData entity, string command, string message, WorldData worldData)
+    {
+        switch (command)
+        {
+            case Dict.Commands.SelectFollow:
+                SetTargetFollow(entity, message, worldData);
+                break;
+        }
+    }
+
+    private void SetTargetFollow(EntityData entity, string mes, WorldData worldData)
+    {
+        var cmpFSM = entity.Components.GetComponent<ComponentFSM>();
+        if (cmpFSM != null)
+        {
+            var idEnt = long.Parse(mes);
+            if (worldData.HaveEnt(idEnt))
+            {
+                cmpFSM.EntityTarget = idEnt;
+            }
+            else
+            {
+                cmpFSM.EntityTarget = -1;
+                cmpFSM.SetPosFocus(entity.Position.x, entity.Position.z);
+            }
+            entity.UpdateEntity();
+        }
+    }
+
     internal override void UpdateComponent()
     {
         UpdateHomu();
@@ -83,6 +107,21 @@ public class HomuPresentPBCD : PrefabByComponentData
     private void UpdateHomu()
     {
         _spriteRenderer.color = _component._colorModelDemo;
+    }
+
+    public void SelectFollowing(int select)
+    {
+        switch (select)
+        {
+            case 0:
+                _entityInProcess.SendCommand(GetCommandSelectFollowing(-1));
+                break;
+            case 1:
+                _entityInProcess.SendCommand(GetCommandSelectFollowing(UIPlayerManager.Instance.EntityMonobeh.Id));
+                break;
+            default:
+                break;
+        }
     }
 
     public override void DoSecond(EntityData entity)
@@ -120,5 +159,27 @@ public class HomuPresentPBCD : PrefabByComponentData
             }
         }
         ch._thinkingTime = 0;
+    }
+
+    public CommandData GetCommandSelectFollowing(long idFollow)
+    {
+        return new CommandData()
+        {
+            KeyComponent = typeof(HomuPresentPBCD).Name,
+            AddingKeyComponent = "",
+            KeyCommand = Dict.Commands.SelectFollow,
+            Message = $"{idFollow}",
+        };
+    }
+
+    public CommandData GetCommandSelectRole(int role)
+    {
+        return new CommandData()
+        {
+            KeyComponent = typeof(HomuPresentPBCD).Name,
+            AddingKeyComponent = "",
+            KeyCommand = Dict.Commands.SelectRole,
+            Message = $"{role}",
+        };
     }
 }

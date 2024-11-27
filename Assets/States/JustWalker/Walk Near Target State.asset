@@ -16,5 +16,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 079ee7faae8248e45b4eb48af8538c92, type: 2}
   Animation: 1
   _distanceForDone: 1
-  _distanceRandomPoint: 4
-  _speed: 3.5
+  _distanceRandomPoint: 2
+  _speed: 3
