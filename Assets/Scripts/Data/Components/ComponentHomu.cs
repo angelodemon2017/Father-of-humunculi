@@ -12,8 +12,8 @@ public class ComponentHomu : ComponentData
         { EnumHomuType.Leaf, Color.green },
     };
 
-    public long IdInFocus = -1;
-    public HashSet<long> _idsInFocus = new();
+    public long IdInFocus = -1;//!!!
+    public HashSet<long> _idsInFocus = new();//!!!
     public EnumHomuRole HomuRole;
     public int _thinkingTime = 0;
 

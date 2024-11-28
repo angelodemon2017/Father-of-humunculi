@@ -43,7 +43,7 @@ public class MouseSetTargetState : State
         {
             if (_targetEM != null)
             {
-                var myEM = Character.GetTransform().GetComponent<EntityMonobeh>();
+                var myEM = Character.GetEntityMonobeh();
 
                 var miicomp = _targetEM.PrefabsByComponents.GetComponent<MouseInterfaceInteraction>();
                 miicomp.OnClick(myEM);

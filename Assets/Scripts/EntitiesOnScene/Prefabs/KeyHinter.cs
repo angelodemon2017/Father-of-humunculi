@@ -14,6 +14,7 @@ public class KeyHinter : MonoBehaviour// PrefabByComponentData
 
     private bool _isShow;
 
+    internal bool IsCanInteract => _mouseInterfaceInteraction.CanInterAct;
     public EntityMonobeh Entity => _entityMonobeh;
     public bool IsPressActionButton => _actionForPickUp.CheckAction(StopInteract);
 

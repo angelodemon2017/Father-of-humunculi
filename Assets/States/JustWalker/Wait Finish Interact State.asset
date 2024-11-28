@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd8c5418bb204a4b89d671481dde034, type: 3}
   m_Name: Wait Finish Interact State
   m_EditorClassIdentifier: 
-  AvailableStates: []
+  AvailableStates:
+  - {fileID: 11400000, guid: 079ee7faae8248e45b4eb48af8538c92, type: 2}
   Animation: 0

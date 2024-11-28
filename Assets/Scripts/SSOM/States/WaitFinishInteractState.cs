@@ -3,25 +3,32 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "States/WaitFinishInteractState", order = 1)]
 public class WaitFinishInteractState : State
 {
-    private State _nextState;
-    private GameObject _panel;
+    private UsingByEntity _usingByEntity;
+
+    protected override void Init()
+    {
+        var EM = Character.GetEntityMonobeh();
+        _usingByEntity = EM.PrefabsByComponents.GetComponent<UsingByEntity>();
+    }
 
     protected override void Run()
     {
-        if (!_panel.activeSelf)
+        if (!_usingByEntity._isOpen)
         {
-            Character.SetState(_nextState, true);
+            IsFinished = true;
         }
     }
 
-    public void SetSpectator(GameObject panel, State nextState)
+    public override void ExitState()
     {
-        _panel = panel;
-        _nextState = nextState;
+        _usingByEntity.Close();
     }
 
     public override bool CheckRules(IStatesCharacter character)
     {
-        return true;
+        var EM = character.GetEntityMonobeh();
+        var ube = EM.PrefabsByComponents.GetComponent<UsingByEntity>();
+
+        return ube._isOpen;
     }
 }

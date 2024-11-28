@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu(menuName = "States/EntityGoKeepItemState", order = 1)]
+[CreateAssetMenu(menuName = "States/Entity Go Keep Item State", order = 1)]
 public class EntityGoKeepItemState : State
 {
     [SerializeField] private float MoveSpeed;
@@ -14,39 +14,37 @@ public class EntityGoKeepItemState : State
 
     protected override void Init()
     {
+        var EM = Character.GetEntityMonobeh();
+        _homuPresent = EM.PrefabsByComponents.GetComponent<HomuPresentPBCD>();
+        _targetEM = _homuPresent.NearEM;
+
         _target = _targetEM.transform.position;
 
         _navMeshAgent = ((IMovableCharacter)Character).GetNavMeshAgent();
         _navMeshAgent.SetDestination(_target);
-    }
 
-    public void SetTargetEM(EntityMonobeh targetEM, HomuPresentPBCD homuPresent)
-    {
-        _targetEM = targetEM;
-        _homuPresent = homuPresent;
+        var fSMController = Character.GetEntityMonobeh().PrefabsByComponents.GetComponent<FSMController>();
+        var dist = Vector3.Distance(Character.GetTransform().position, WalkNearTargetState.MainFocus(fSMController));
+//        Debug.Log($"1.Init EntityGoKeepItemState, distance = {dist}");
     }
 
     protected override void Run()
     {
-        if (_targetEM == null)
+        if (_targetEM == null || IsFinished)
         {
             IsFinished = true;
+            return;
         }
-
-/*        if (_targetEM != null && _targetEM.IsExist)
-        {
-            _target = _targetEM.transform.position;
-            _navMeshAgent.SetDestination(_target);
-        }/**/
 
         if (Vector3.Distance(Character.GetTransform().position, _target) < DistanceToTouch)
         {
             if (_targetEM != null && _targetEM.IsExist)
             {
-                var myEM = Character.GetTransform().GetComponent<EntityMonobeh>();
+                var myEM = Character.GetEntityMonobeh();
 
                 var miicomp = _targetEM.PrefabsByComponents.GetComponent<MouseInterfaceInteraction>();
                 miicomp.OnClick(myEM);
+                _homuPresent.UnFocuse(_targetEM);
             }
             IsFinished = true;
         }
@@ -62,6 +60,14 @@ public class EntityGoKeepItemState : State
 
     public override bool CheckRules(IStatesCharacter character)
     {
-        return true;
+        return RuleRole(character);
+    }
+
+    private bool RuleRole(IStatesCharacter character)
+    {
+        var EM = character.GetEntityMonobeh();
+        var homuPresent = EM.PrefabsByComponents.GetComponent<HomuPresentPBCD>();
+
+        return homuPresent.IsCanGoInteractItems;
     }
 }

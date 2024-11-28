@@ -2,4 +2,6 @@
 {
     none,
     dragItems,
+    toAttack,
+    defense,
 }

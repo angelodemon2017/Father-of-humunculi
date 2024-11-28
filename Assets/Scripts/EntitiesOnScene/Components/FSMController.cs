@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -5,7 +6,10 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
 {
     public EntityMonobeh _entityMonobeh;
     [SerializeField] private State _startState;
+    [SerializeField] private List<State> _availableState;
     [SerializeField] private NavMeshAgent _navMeshAgent;
+
+    private Dictionary<string, State> _cashState = new();
 
     private State _currentState;
     private ComponentFSM _component;
@@ -13,15 +17,18 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
     private Vector3 _lastPosition;
     private NavMeshSurfaceVolumeUpdater _navMeshSurfaceVolumeUpdater;
 
-    public State GetCurrentState => _currentState;
     public bool IsFinishedCurrentState() => _currentState.IsFinished;
     public Transform GetTransform() => _transform;
     public NavMeshAgent GetNavMeshAgent() => _navMeshAgent;
+    public ComponentFSM ComponentData => _component;
 
     public override string KeyComponent => typeof(FSMController).Name;
     public override string KeyComponentData => typeof(ComponentFSM).Name;
-    internal override ComponentData GetComponentData => new ComponentFSM();
-    public ComponentFSM ComponentData => _component;
+    internal override ComponentData GetComponentData => new ComponentFSM(_startState.StateKey);
+    public EntityMonobeh GetEntityMonobeh()
+    {
+        return _entityMonobeh;
+    }
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {
@@ -35,7 +42,7 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
         _navMeshSurfaceVolumeUpdater = WorldViewer.Instance.GetUpdater();
         _navMeshSurfaceVolumeUpdater.Init(_navMeshAgent);
 
-        SetState(_startState);
+        SetState(GetState(_component.CurrentState));
     }
 
     public override void ExecuteCommand(EntityData entity, string command, string message, WorldData worldData)
@@ -43,12 +50,22 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
         switch (command)
         {
             case Dict.Commands.SetterState:
-                SetStateKey(entity, message, worldData);
+                SetStateKey(entity, message);
                 break;
         }
     }
 
-    private void SetStateKey(EntityData entity, string message, WorldData worldData)
+    private State GetState(string keyState)
+    {
+        if (_cashState.Count == 0)
+        {
+            _availableState.ForEach(x => _cashState.Add(x.StateKey, x));
+        }
+
+        return _cashState[keyState];
+    }
+
+    private void SetStateKey(EntityData entity, string message)
     {
         var cmpFSM = entity.Components.GetComponent<ComponentFSM>();
         if (cmpFSM != null)
@@ -80,7 +97,7 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
 
     public void SetState(State state, bool newState = false)
     {
-        if (_currentState == state)
+        if (_currentState != null && _currentState.StateKey == state.StateKey)
         {
             return;
         }
@@ -91,11 +108,6 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
         _currentState.InitState(this);
 
         _entityMonobeh.EntityInProcess.SendCommand(GetCommandSetState(state.StateKey));
-    }
-
-    public bool IsCurrentState(State checkedState)
-    {
-        return checkedState.DebugField == _currentState.DebugField;
     }
 
     private CommandData GetCommandSetState(string stateKey)

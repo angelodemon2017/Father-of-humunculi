@@ -19,22 +19,24 @@ public class WalkNearTargetState : State
 
     protected override void Init()
     {
-        _fSMController = Character.GetTransform().GetComponent<FSMController>();
-        var targetEntity = MainFocus();
+        _fSMController = Character.GetEntityMonobeh().PrefabsByComponents.GetComponent<FSMController>();
+        var targetEntity = MainFocus(_fSMController);
 
         _timerProblem = _timeProblem;
         _navMeshAgent = ((IMovableCharacter)Character).GetNavMeshAgent();
         _navMeshAgent.speed = _speed;
         _target = SearchNewRandomTarget(targetEntity, _distanceRandomPoint);
         _navMeshAgent.SetDestination(_target);
+
+        var dist = Vector3.Distance(Character.GetTransform().position, targetEntity);
+        Debug.Log($"2.Init WalkNearTargetState, distance = {dist}");
     }
 
-    private Vector3 MainFocus()
+    public static Vector3 MainFocus(FSMController fSMController)
     {
-        return _fSMController.ComponentData.EntityTarget == -1 ?
-               new Vector3(_fSMController.ComponentData.xPosFocus, 0f, _fSMController.ComponentData.zPosFocus) :
-               GameProcess.Instance.GameWorld.GetEntityById(
-                   _fSMController.ComponentData.EntityTarget).Position;
+        return fSMController.ComponentData.EntityTarget == -1 ?
+               new Vector3(fSMController.ComponentData.xPosFocus, 0f, fSMController.ComponentData.zPosFocus) :
+               GameProcess.Instance.GameWorld.GetEntityById(fSMController.ComponentData.EntityTarget).Position;
     }
 
     private Vector3 SearchNewRandomTarget(Vector3 centerPoint, float radius)
@@ -59,7 +61,7 @@ public class WalkNearTargetState : State
 
         if (distance < _distanceForDone)
         {
-            var CheckPoint = MainFocus();
+            var CheckPoint = MainFocus(_fSMController);
             var controlDistance = Vector3.Distance(CheckPoint, Character.GetTransform().position);
             if (controlDistance < _distanceForDone)
             {
@@ -89,6 +91,9 @@ public class WalkNearTargetState : State
 
     public override bool CheckRules(IStatesCharacter character)
     {
-        return character.IsFinishedCurrentState();
+        var fSMController = character.GetEntityMonobeh().PrefabsByComponents.GetComponent<FSMController>();
+        var targetEntity = MainFocus(fSMController);
+
+        return character.IsFinishedCurrentState() && Vector3.Distance(targetEntity, character.GetTransform().position) > _distanceRandomPoint * 2;
     }
 }

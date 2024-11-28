@@ -19,13 +19,17 @@ public class BiomSO : ScriptableObject
         if (Random.Range(-10, 110) > oneDigital) 
         {
         }/**/
-        AddEntByIndex(result, tempPoint, 0);
-        AddEntByIndex(result, tempPoint, 0);
-        AddEntByIndex(result, tempPoint, 1);
         //trees
         AddEntByIndex(result, tempPoint, 2);
         AddEntByIndex(result, tempPoint, 3);
+        AddEntByIndex(result, tempPoint, 4);
         AddEntByIndex(result, tempPoint, 3);
+        AddEntByIndex(result, tempPoint, 4);
+        AddEntByIndex(result, tempPoint, 4);
+        AddEntByIndex(result, tempPoint, 0);
+        AddEntByIndex(result, tempPoint, 0);
+        AddEntByIndex(result, tempPoint, 1);
+        AddEntByIndex(result, tempPoint, 1);
 
         return result;
     }
@@ -42,8 +46,10 @@ public class BiomSO : ScriptableObject
             }
             var randPoint = tempRandPoint.GetRandom(tempPoint[0].Xpos * tempPoint[0].Zpos + tempPoint.Count + index);
 
-            var xEntPos = randPoint.Xpos * Config.TileSize;
-            var zEntPos = randPoint.Zpos * Config.TileSize;
+            var halfTile = Config.TileSize / 2;
+
+            var xEntPos = randPoint.Xpos * Config.TileSize + SimpleExtensions.GetRandom(-halfTile, halfTile);
+            var zEntPos = randPoint.Zpos * Config.TileSize + SimpleExtensions.GetRandom(-halfTile, halfTile);
 
             var newEnt = Entities[index].Entity.CreateEntity(xEntPos, zEntPos);
             ents.Add(newEnt);

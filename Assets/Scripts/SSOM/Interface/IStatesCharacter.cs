@@ -6,7 +6,7 @@ public interface IStatesCharacter
 
     Transform GetTransform();
 
-//    void PlayAnimation(EnumAnimations animation);
+    EntityMonobeh GetEntityMonobeh();
 
     void SetState(State state, bool newState = false);
 

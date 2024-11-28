@@ -65,10 +65,13 @@ public class UsingByEntity : PrefabByComponentData
         }
     }
 
-    private void Close()
+    internal void Close()
     {
-        _onOffsObjects.ForEach(g => g.SetActive(false));
-        _entityInProcess.SendCommand(GetCommandCloseUI());
+        if (_isOpen)
+        {
+            _onOffsObjects.ForEach(g => g.SetActive(false));
+            _entityInProcess.SendCommand(GetCommandCloseUI());
+        }
     }
 
     private CommandData GetCommandCloseUI()

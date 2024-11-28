@@ -11,6 +11,11 @@
 
     }
 
+    public ComponentFSM(string initState)
+    {
+        CurrentState = initState;
+    }
+
     public void SetPosFocus(float x, float z)
     {
         xPosFocus = (int)x;

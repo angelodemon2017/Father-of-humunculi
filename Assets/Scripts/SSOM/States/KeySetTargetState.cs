@@ -8,13 +8,15 @@ public class KeySetTargetState : State
     [SerializeField] private float DistanceToTouch;
     private Vector3 _target;
     private NavMeshAgent _navMeshAgent;
-
     private EntityMonobeh _targetEM;
 
     public override string DebugField => typeof(KeySetTargetState).Name;
 
     protected override void Init()
     {
+        var ei = Character.GetEntityMonobeh().PrefabsByComponents.GetComponent<EntityInteractabler>();
+        _targetEM = ei.GetNearKH.Entity;
+
         _target = _targetEM.transform.position;
 
         _navMeshAgent = ((IMovableCharacter)Character).GetNavMeshAgent();
@@ -23,16 +25,17 @@ public class KeySetTargetState : State
 
     protected override void Run()
     {
-        if (_targetEM == null)
+        if (_targetEM == null || !_targetEM.IsExist)
         {
             IsFinished = true;
+            return;
         }
 
         if (Vector3.Distance(Character.GetTransform().position, _target) < DistanceToTouch)
         {
             if (_targetEM != null)
             {
-                var myEM = Character.GetTransform().GetComponent<EntityMonobeh>();
+                var myEM = Character.GetEntityMonobeh();
 
                 var miicomp = _targetEM.PrefabsByComponents.GetComponent<MouseInterfaceInteraction>();
                 if (miicomp.CanInterAct)
@@ -44,11 +47,6 @@ public class KeySetTargetState : State
         }
     }
 
-    public void SetTarget(EntityMonobeh entity)
-    {
-        _targetEM = entity;
-    }
-
     public override void ExitState()
     {
         _navMeshAgent.SetDestination(Character.GetTransform().position);
@@ -56,6 +54,8 @@ public class KeySetTargetState : State
 
     public override bool CheckRules(IStatesCharacter character)
     {
-        return false;
+        var ei = character.GetEntityMonobeh().PrefabsByComponents.GetComponent<EntityInteractabler>();
+
+        return ei.IsCanGo;
     }
 }

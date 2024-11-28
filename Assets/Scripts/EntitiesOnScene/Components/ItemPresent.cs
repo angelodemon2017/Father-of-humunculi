@@ -6,16 +6,19 @@ public class ItemPresent : PrefabByComponentData
     [SerializeField] private List<ItemConfig> _itemsGenerate;
     [SerializeField] private RootSpriteRender _itemRoot;
 
+    private ComponentItemPresent _componentItemPresent;
+
     internal override bool CanInterAct => true;
     public override string KeyComponent => typeof(ItemPresent).Name;
     public override string KeyComponentData => typeof(ComponentItemPresent).Name;
+    internal ComponentItemPresent ComponentItem => _componentItemPresent;
 
     internal override ComponentData GetComponentData => new ComponentItemPresent(new ItemData(_itemsGenerate.GetRandom()));
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {
-        var _component = (ComponentItemPresent)componentData;
-        _itemRoot.SetSprite(_component.ItemConfig.GetSprite((int)entityInProcess.Id));
+        _componentItemPresent = (ComponentItemPresent)componentData;
+        _itemRoot.SetSprite(_componentItemPresent.ItemConfig.GetSprite((int)entityInProcess.Id));
     }
 
     public void PickEntity(EntityData entity, string command, string message, WorldData worldData)

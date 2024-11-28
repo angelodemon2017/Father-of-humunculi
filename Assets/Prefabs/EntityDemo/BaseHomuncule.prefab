@@ -92,6 +92,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entityMonobeh: {fileID: 5597222920646075619}
   _startState: {fileID: 11400000, guid: 079ee7faae8248e45b4eb48af8538c92, type: 2}
+  _availableState:
+  - {fileID: 11400000, guid: 079ee7faae8248e45b4eb48af8538c92, type: 2}
+  - {fileID: 11400000, guid: 27f5d417330632e43a5275fb04f39518, type: 2}
+  - {fileID: 11400000, guid: 983c30069a14e1d47acfe5cc04fbc1b3, type: 2}
+  - {fileID: 11400000, guid: 197d0c1c2b3d8c74d897cbd5b862b27b, type: 2}
   _navMeshAgent: {fileID: 858363550221772974}
 --- !u!195 &858363550221772974
 NavMeshAgent:
@@ -2631,7 +2636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7026547305605528948
 Transform:
   m_ObjectHideFlags: 0
@@ -4764,7 +4769,6 @@ MonoBehaviour:
   _usingByEntity: {fileID: 6616014993413753289}
   _spriteRenderer: {fileID: 2412302179493143634}
   _fSMController: {fileID: 1186518513851610787}
-  _stateWaiting: {fileID: 11400000, guid: 983c30069a14e1d47acfe5cc04fbc1b3, type: 2}
   SecondsToTransform: 3
   _itemsToUpgrade:
   - {fileID: 11400000, guid: 000ebfd76c352a74bbec471628bdd54f, type: 2}
@@ -4772,7 +4776,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fd5b28fe06b5c3046a6998f2828c4b95, type: 2}
   _dropdownSelectFollow: {fileID: 7721644243945825425}
   _dropdownSelectRole: {fileID: 8515417932173653855}
-  _stateForKeepItem: {fileID: 11400000, guid: 27f5d417330632e43a5275fb04f39518, type: 2}
 --- !u!1 &8983260203812043556
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,6 +35,12 @@ MonoBehaviour:
     BlackList:
     - {fileID: 11400000, guid: 1eeb3f5ae519b5844b62d1746d27283a, type: 2}
     - {fileID: 11400000, guid: 6684a3edf2ef51841be6545a89d84ba0, type: 2}
+  - Entity: {fileID: 5597222920646075619, guid: d59df3d86687ca14787810a885fde8cb,
+      type: 3}
+    Weight: 1
+    BlackList:
+    - {fileID: 11400000, guid: 1eeb3f5ae519b5844b62d1746d27283a, type: 2}
+    - {fileID: 11400000, guid: 6684a3edf2ef51841be6545a89d84ba0, type: 2}
   - Entity: {fileID: 5597222920646075619, guid: c227f0edb19bbba48b913a0ec52ec469,
       type: 3}
     Weight: 1

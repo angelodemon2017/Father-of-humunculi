@@ -2,14 +2,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class EntityInteractabler : MonoBehaviour//PrefabByComponentData
+public class EntityInteractabler : PrefabByComponentData
 {
     [SerializeField] private SphereCollider _sphereCollider;
     [SerializeField] private FSMController fSMController;
-    [SerializeField] private KeySetTargetState _stateSetTarget;
 
     private List<KeyHinter> _otherEnts = new();
     private List<KeyHinter> _forClear = new();
+
+    public bool IsCanGo => _otherEnts.Count > 0 && GetNearKH.IsPressActionButton;
+    public override string KeyComponent => typeof(EntityInteractabler).Name;
+    public KeyHinter GetNearKH => _otherEnts.OrderBy(e => Vector3.Distance(e.transform.position, transform.position)).FirstOrDefault();
 
     private void Update()
     {
@@ -22,20 +25,9 @@ public class EntityInteractabler : MonoBehaviour//PrefabByComponentData
     {
         if (_otherEnts.Count > 0)
         {
-            var kh = _otherEnts.OrderBy(e => Vector3.Distance(e.transform.position, transform.position)).FirstOrDefault();
-
-            if (!fSMController.IsCurrentState(_stateSetTarget) && kh.IsPressActionButton)
-            {
-                var tempState = Instantiate(_stateSetTarget);
-
-                tempState.SetTarget(kh.Entity);
-
-                fSMController.SetState(tempState, true);
-            }
-
             foreach (var ent in _otherEnts)
             {
-                ent.IsNearest(ent == kh);
+                ent.IsNearest(ent == GetNearKH);
             }
         }
     }
@@ -44,7 +36,7 @@ public class EntityInteractabler : MonoBehaviour//PrefabByComponentData
     {
         foreach (var h in _otherEnts)
         {
-            if (h == null)
+            if (h == null || !h.Entity.IsExist || !h.IsCanInteract)
             {
                 _forClear.Add(h);
                 continue;
@@ -67,7 +59,7 @@ public class EntityInteractabler : MonoBehaviour//PrefabByComponentData
 
     public void AddKeyHinter(KeyHinter keyHinter)
     {
-        if (!_otherEnts.Contains(keyHinter))
+        if (!_otherEnts.Contains(keyHinter) && keyHinter.IsCanInteract)
         {
             _otherEnts.Add(keyHinter);
         }
