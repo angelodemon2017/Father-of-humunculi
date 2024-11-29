@@ -18,3 +18,5 @@ MonoBehaviour:
   Animation: 1
   MoveSpeed: 3
   DistanceToTouch: 1
+  EntityFilter: 8
+  NeedHomuRole: 1

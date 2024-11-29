@@ -9,5 +9,6 @@ public class ComponentSpawner : ComponentData
     public float DistanceSpawnMin;
     public float DistanceSpawnMax;
     public string KeyEntity;
+    public float DistanceDetach;
     public List<long> Entities = new();
 }

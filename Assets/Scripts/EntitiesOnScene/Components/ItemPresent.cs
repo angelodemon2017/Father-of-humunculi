@@ -9,7 +9,6 @@ public class ItemPresent : PrefabByComponentData
     private ComponentItemPresent _componentItemPresent;
 
     internal override bool CanInterAct => true;
-    public override string KeyComponent => typeof(ItemPresent).Name;
     public override string KeyComponentData => typeof(ComponentItemPresent).Name;
     internal ComponentItemPresent ComponentItem => _componentItemPresent;
 

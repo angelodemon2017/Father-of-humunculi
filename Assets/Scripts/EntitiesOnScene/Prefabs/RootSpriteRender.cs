@@ -7,7 +7,6 @@ public class RootSpriteRender : PrefabByComponentData
 //    private ComponentItemPresent _componentItemPresent;
 //    private EntityInProcess _entityInProcess;
 
-    public override string KeyComponent => typeof(RootSpriteRender).Name;
     public override string KeyComponentData => typeof(ComponentModelPrefab).Name;
 
     internal override ComponentData GetComponentData => new ComponentModelPrefab();

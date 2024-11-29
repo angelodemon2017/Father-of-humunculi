@@ -14,7 +14,6 @@ public class CanvasUIInventoryChest : PrefabByComponentData
 
     internal override string AddingKey => _baseInventoryAdapter.AddingKey;
     internal override bool _isNeedUpdate => true;
-    public override string KeyComponent => typeof(CanvasUIInventoryChest).Name;
     public override string KeyComponentData => typeof(ComponentInventory).Name;
     internal override ComponentData GetComponentData => new ComponentData();
 

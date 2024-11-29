@@ -6,17 +6,19 @@ public class EntityGoKeepItemState : State
 {
     [SerializeField] private float MoveSpeed;
     [SerializeField] private float DistanceToTouch;
+    [SerializeField] private EnumFraction EntityFilter;
+    [SerializeField] private EnumHomuRole NeedHomuRole;
+
     private Vector3 _target;
     private NavMeshAgent _navMeshAgent;
-
     private EntityMonobeh _targetEM;
-    private HomuPresentPBCD _homuPresent;
 
     protected override void Init()
     {
         var EM = Character.GetEntityMonobeh();
-        _homuPresent = EM.PrefabsByComponents.GetComponent<HomuPresentPBCD>();
-        _targetEM = _homuPresent.NearEM;
+        var visor = EM.GetMyComponent<VisorComponent>();
+
+        _targetEM = visor.GetNearEntity(EntityFilter).Root;
 
         _target = _targetEM.transform.position;
 
@@ -38,9 +40,8 @@ public class EntityGoKeepItemState : State
             {
                 var myEM = Character.GetEntityMonobeh();
 
-                var miicomp = _targetEM.PrefabsByComponents.GetComponent<MouseInterfaceInteraction>();
+                var miicomp = _targetEM.GetMyComponent<MouseInterfaceInteraction>();
                 miicomp.OnClick(myEM);
-                _homuPresent.UnFocuse(_targetEM);
             }
             IsFinished = true;
         }
@@ -62,8 +63,14 @@ public class EntityGoKeepItemState : State
     private bool RuleRole(IStatesCharacter character)
     {
         var EM = character.GetEntityMonobeh();
-        var homuPresent = EM.PrefabsByComponents.GetComponent<HomuPresentPBCD>();
+        var homuPresent = EM.GetMyComponent<HomuPresentPBCD>();
+        if (homuPresent.Component.HomuRole != NeedHomuRole)
+        {
+            return false;
+        }
 
-        return homuPresent.IsCanGoInteractItems;
+        var visor = EM.GetMyComponent<VisorComponent>();
+
+        return visor.AvailableEntity(EntityFilter);
     }
 }

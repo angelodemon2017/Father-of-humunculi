@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,8 +14,6 @@ public class BaseInventoryAdapter : PrefabByComponentData
     private List<UIIconPresent> _slots = new();
 
     internal override string AddingKey => _addingKey;
-    //    internal override bool _isNeedUpdate => true;
-    public override string KeyComponent => typeof(BaseInventoryAdapter).Name;
     public override string KeyComponentData => typeof(ComponentInventory).Name;
 
     internal override ComponentData GetComponentData => defaulthSlots.Count > 0 ? new ComponentInventory(defaulthSlots, _addingKey) : base.GetComponentData;

@@ -1011,7 +1011,6 @@ MonoBehaviour:
   _panelForDropItem: {fileID: 1882296430}
   _inventoryController:
     _cursorDragDrop: {fileID: 335838630}
-  CURSORUI: 0
 --- !u!1 &335838627 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 396095916436145254, guid: 9e80b7173d6fb1549bac224874221577,
@@ -1394,7 +1393,7 @@ MonoBehaviour:
   - keyCode: 101
     controlInputPlayer: 4
     IsPressed: 0
-    ShotKey: 1
+    ShotKey: 0
     IsStop: 0
 --- !u!1 &528885861
 GameObject:

@@ -8,9 +8,9 @@ public class SpawnerByCounter : PrefabByComponentData
     [SerializeField] private int _maxEntities;
     [SerializeField] private float _spawnDistanceMin;
     [SerializeField] private float _spawnDistanceMax;
+    [SerializeField] private float _distanceDetach;
     [SerializeField] private EntityMonobeh _entityForSpawn;
 
-    public override string KeyComponent => typeof(SpawnerByCounter).Name;
     public override string KeyComponentData => typeof(ComponentSpawner).Name;
 
     internal override ComponentData GetComponentData => new ComponentSpawner() 
@@ -20,6 +20,7 @@ public class SpawnerByCounter : PrefabByComponentData
         DistanceSpawnMin = _spawnDistanceMin,
         DistanceSpawnMax = _spawnDistanceMax,
         MaxEntityNear = _maxEntities,
+        DistanceDetach = _distanceDetach,
     };
 
     public override void DoSecond(EntityData entity)
@@ -37,7 +38,7 @@ public class SpawnerByCounter : PrefabByComponentData
             if (GameProcess.Instance.GameWorld.HaveEnt(entId))
             {
                 var tempEnt = GameProcess.Instance.GameWorld.GetEntityById(entId);
-                if (Vector3.Distance(entity.Position, tempEnt.Position) > 4f)
+                if (Vector3.Distance(entity.Position, tempEnt.Position) > compCS.DistanceDetach)
                 {
                     forDel = entId;
                     break;

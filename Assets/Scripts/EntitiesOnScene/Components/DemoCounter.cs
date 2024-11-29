@@ -9,7 +9,6 @@ public class DemoCounter : PrefabByComponentData
 
     internal override bool CanInterAct => _component._debugCounter > 0;
     public ItemData GivingItem => new ItemData(_givingItem);
-    public override string KeyComponent => typeof(DemoCounter).Name;
     public override string KeyComponentData => typeof(ComponentCounter).Name;
     public override string GetDebugText => $"res: {_component._debugCounter}";
     internal override ComponentData GetComponentData => new ComponentCounter(_defaultValues);

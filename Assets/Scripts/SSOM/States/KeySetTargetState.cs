@@ -14,8 +14,9 @@ public class KeySetTargetState : State
 
     protected override void Init()
     {
-        var ei = Character.GetEntityMonobeh().PrefabsByComponents.GetComponent<EntityInteractabler>();
-        _targetEM = ei.GetNearKH.Entity;
+        var visor = Character.GetEntityMonobeh().GetMyComponent<VisorComponent>();
+
+        _targetEM = visor.GetNearByAction().Root;
 
         _target = _targetEM.transform.position;
 
@@ -49,13 +50,16 @@ public class KeySetTargetState : State
 
     public override void ExitState()
     {
-        _navMeshAgent.SetDestination(Character.GetTransform().position);
+        if (_navMeshAgent != null)
+        {
+            _navMeshAgent.SetDestination(Character.GetTransform().position);
+        }
     }
 
     public override bool CheckRules(IStatesCharacter character)
     {
-        var ei = character.GetEntityMonobeh().PrefabsByComponents.GetComponent<EntityInteractabler>();
+        var visor = character.GetEntityMonobeh().GetMyComponent<VisorComponent>();
 
-        return ei.IsCanGo;
+        return visor.AvailableEntity();
     }
 }

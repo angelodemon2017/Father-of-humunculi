@@ -56,7 +56,6 @@ public class EntityInProcess
     {//TODO place for network sending
         command.IdEntity = Id;
         GameProcess.Instance.SendCommand(command);
-//        _entityData.ApplyCommand(command);
     }
 
     public void UpdateEntity()

@@ -21,14 +21,8 @@ public class HomuPresentPBCD : PrefabByComponentData
     private ComponentInventory _componentInventory;
     private EntityInProcess _entityInProcess;
     private List<UIIconPresent> _tempSlots = new();
-    private HashSet<EntityMonobeh> _entityInFocus = new();
 
-    internal EntityMonobeh NearEM => _entityInFocus.Where(e => _componentInventory.AvailableAddItem(e.PrefabsByComponents.GetComponent<ItemPresent>().ComponentItem.ItemData))
-        .OrderBy(e => Vector3.Distance(e.transform.position, transform.position)).FirstOrDefault();
-    internal bool IsCanGoInteractItems => _component.HomuRole == EnumHomuRole.dragItems &&
-        _entityInFocus.Any(e => _componentInventory.AvailableAddItem(e.PrefabsByComponents.GetComponent<ItemPresent>().ComponentItem.ItemData));
     internal override bool _isNeedUpdate => true;
-    public override string KeyComponent => typeof(HomuPresentPBCD).Name;
     public override string KeyComponentData => typeof(ComponentHomu).Name;
     internal override ComponentData GetComponentData => GetCompHomu();
     public override string GetDebugText => _component._titleDemo;
@@ -70,26 +64,6 @@ public class HomuPresentPBCD : PrefabByComponentData
         return new ComponentHomu();
     }
 
-    public void CheckCollider(Collider other)
-    {
-        if (_component.HomuRole != EnumHomuRole.dragItems)
-        {
-            return;
-        }
-
-        var pbcd = other.GetComponent<MouseInterfaceInteraction>();
-        if (pbcd != null && pbcd.RootMonobeh.GetTypeKey == "ItemPresent" && pbcd.RootMonobeh.IsExist)
-        {
-            _entityInFocus.Add(pbcd.RootMonobeh);
-//            _entityInProcess.SendCommand(GetCommandAddEntityToFocus(pbcd.RootMonobeh.Id));
-        }
-    }
-
-    public void UnFocuse(EntityMonobeh em)
-    {
-        _entityInFocus.Remove(em);
-    }
-
     public override void ExecuteCommand(EntityData entity, string command, string message, WorldData worldData)
     {
         switch (command)
@@ -99,12 +73,6 @@ public class HomuPresentPBCD : PrefabByComponentData
                 break;
             case Dict.Commands.SelectRole:
                 SetRole(entity, message, worldData);
-                break;
-            case Dict.Commands.AddEntityFocus:
-                AddFocusEntity(entity, message);
-                break;
-            case Dict.Commands.DraggedItem:
-                DraggedItem(entity);
                 break;
         }
     }
@@ -135,26 +103,6 @@ public class HomuPresentPBCD : PrefabByComponentData
         {
             var role = (EnumHomuRole)int.Parse(mes);
             cmpHom.HomuRole = role;
-            entity.UpdateEntity();
-        }
-    }
-
-    private void AddFocusEntity(EntityData entity, string mes)
-    {
-        var cmpHom = entity.Components.GetComponent<ComponentHomu>();
-        if (cmpHom != null)
-        {
-            var id = long.Parse(mes);
-            cmpHom.AddIdFocus(id);
-        }
-    }
-
-    private void DraggedItem(EntityData entity)
-    {
-        var cmpHom = entity.Components.GetComponent<ComponentHomu>();
-        if (cmpHom != null)
-        {
-            cmpHom.IdInFocus = -1;
             entity.UpdateEntity();
         }
     }
@@ -269,27 +217,6 @@ public class HomuPresentPBCD : PrefabByComponentData
             AddingKeyComponent = "",
             KeyCommand = Dict.Commands.SelectRole,
             Message = $"{(int)role}",
-        };
-    }
-
-    public CommandData GetCommandAddEntityToFocus(long id)
-    {
-        return new CommandData()
-        {
-            KeyComponent = typeof(HomuPresentPBCD).Name,
-            AddingKeyComponent = "",
-            KeyCommand = Dict.Commands.AddEntityFocus,
-            Message = $"{id}",
-        };
-    }
-
-    public CommandData GetCommandDraggedItem()
-    {
-        return new CommandData()
-        {
-            KeyComponent = typeof(HomuPresentPBCD).Name,
-            AddingKeyComponent = "",
-            KeyCommand = Dict.Commands.DraggedItem,
         };
     }
 

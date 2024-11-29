@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0be9b52bc1b79d4594feb0f8eb2119b, type: 3}
+  m_Name: Go To Entity By Visor
+  m_EditorClassIdentifier: 
+  AvailableStates:
+  - {fileID: 11400000, guid: 58058e33cf050184f9047cc26604c2fa, type: 2}
+  Animation: 1
+  MoveSpeed: 3
+  DistanceToTouch: 1
+  EntityFilter: 3
+  _stateSuccesTarget: {fileID: 11400000, guid: 6e105518489dd584f8684c7b53513ddc, type: 2}

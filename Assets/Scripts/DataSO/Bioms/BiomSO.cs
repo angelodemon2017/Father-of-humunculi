@@ -15,12 +15,13 @@ public class BiomSO : ScriptableObject
         List<EntityData> result = new();
 
         List<WorldTileData> tempPoint = chunk.Where(t => t.Id > 0).ToList();
-/*        var oneDigital = int.Parse(seed.MapNoiseFrom10To99);
-        if (Random.Range(-10, 110) > oneDigital) 
+//        var oneDigital = int.Parse(seed.MapNoiseFrom10To99);
+        if (Random.Range(0, 100) < 40)
         {
+            AddEntByIndex(result, tempPoint, 6);
         }/**/
         //trees
-        AddEntByIndex(result, tempPoint, 2);
+//        AddEntByIndex(result, tempPoint, 2);
         AddEntByIndex(result, tempPoint, 3);
         AddEntByIndex(result, tempPoint, 4);
         AddEntByIndex(result, tempPoint, 3);

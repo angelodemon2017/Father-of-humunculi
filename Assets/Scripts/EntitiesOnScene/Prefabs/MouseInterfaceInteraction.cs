@@ -17,7 +17,6 @@ public class MouseInterfaceInteraction : PrefabByComponentData
     private float _showTip;
 
     internal override bool CanInterAct => _canInteractabler.Count > 0 ? _canInteractabler.Any(c => c.CanInterAct) : false;
-    public override string KeyComponent => typeof(MouseInterfaceInteraction).Name;
     public override string KeyComponentData => typeof(ComponentInterractable).Name;
     internal override ComponentData GetComponentData => new ComponentInterractable();
 
@@ -31,7 +30,7 @@ public class MouseInterfaceInteraction : PrefabByComponentData
         if (RootMonobeh.EntityInProcess == null)
         {
             WorldViewer.Instance.RemoveEntity(RootMonobeh);
-            Debug.Log($"Mysterious circumstances");
+            Debug.LogError($"Mysterious circumstances");
         }
         else
         {

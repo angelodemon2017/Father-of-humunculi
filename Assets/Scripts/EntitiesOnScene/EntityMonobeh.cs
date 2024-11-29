@@ -6,6 +6,7 @@ public class EntityMonobeh : MonoBehaviour
 {
     [SerializeField] private string TypeKey;
     [SerializeField] private List<PrefabByComponentData> _prefabsByComponents;
+    private Dictionary<(string, string), PrefabByComponentData> _cashPrefabsByComponents = new();
 
     private List<PrefabByComponentData> _cashUpdatePrefabByComponentDatas = new();
     private EntityInProcess _entityInProcess;
@@ -18,6 +19,20 @@ public class EntityMonobeh : MonoBehaviour
     /// </summary>
     public bool IsExist => gameObject.activeSelf;
     public string GetTypeKey => TypeKey;
+
+    internal T GetMyComponent<T>(string addingKey = "") where T : PrefabByComponentData
+    {
+        InitPBCs();
+
+        return (T)_cashPrefabsByComponents[(typeof(T).Name, addingKey)];
+    }
+    private void InitPBCs()
+    {
+        if (_cashPrefabsByComponents.Count == 0)
+        {
+            _prefabsByComponents.ForEach(p => _cashPrefabsByComponents.Add((p.KeyComponent, p.AddingKey), p));
+        }
+    }
 
     internal void VirtualCreate()
     {

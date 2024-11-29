@@ -18,7 +18,6 @@ public class UIEntityCraftList : PrefabByComponentData
     private EntityInProcess _entityInProcess;
     private ComponentUICraftGroup _componentUICraftGroup;
 
-    public override string KeyComponent => typeof(UIEntityCraftList).Name;
     public override string KeyComponentData => typeof(ComponentUICraftGroup).Name;
 
     internal override ComponentData GetComponentData => new ComponentUICraftGroup(_recipeGroup.GroupName);

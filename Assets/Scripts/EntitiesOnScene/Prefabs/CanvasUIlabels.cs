@@ -7,7 +7,6 @@ public class CanvasUIlabels : PrefabByComponentData
     [SerializeField] private PrefabByComponentData GetText;
 
     internal override bool _isNeedUpdate => true;
-    public override string KeyComponent => typeof(CanvasUIlabels).Name;
     public override string KeyComponentData => typeof(ComponentUIlabels).Name;
     internal override ComponentData GetComponentData => new ComponentUIlabels();
 

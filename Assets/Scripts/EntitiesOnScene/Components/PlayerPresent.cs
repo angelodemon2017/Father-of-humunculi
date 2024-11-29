@@ -12,7 +12,6 @@ public class PlayerPresent : PrefabByComponentData
 
     private ComponentPlayerId _component;
 
-    public override string KeyComponent => typeof(PlayerPresent).Name;
     public override string KeyComponentData => typeof(ComponentPlayerId).Name;
 
     internal override ComponentData GetComponentData => new ComponentPlayerId(new ItemData(_emptyItem));

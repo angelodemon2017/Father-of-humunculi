@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c01bb75a47aace4987d5f3142e52651, type: 3}
-  m_Name: walking
+  m_Name: Walking
   m_EditorClassIdentifier: 
   AvailableStates:
-  - {fileID: 11400000, guid: 65435be009a5a6d4e917df3b368b4ffb, type: 2}
-  - {fileID: 11400000, guid: 9e2d5f09b38b2204c8c7910933a4b6a5, type: 2}
+  - {fileID: 11400000, guid: 58058e33cf050184f9047cc26604c2fa, type: 2}
   Animation: 1
   _distanceForDone: 1
   _distanceRandomPoint: 4
-  _speed: 3.5
+  _speed: 2.5

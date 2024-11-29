@@ -22,7 +22,6 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
     public NavMeshAgent GetNavMeshAgent() => _navMeshAgent;
     public ComponentFSM ComponentData => _component;
 
-    public override string KeyComponent => typeof(FSMController).Name;
     public override string KeyComponentData => typeof(ComponentFSM).Name;
     internal override ComponentData GetComponentData => new ComponentFSM(_startState.StateKey);
     public EntityMonobeh GetEntityMonobeh()
