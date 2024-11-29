@@ -27,9 +27,6 @@ public class WalkNearTargetState : State
         _navMeshAgent.speed = _speed;
         _target = SearchNewRandomTarget(targetEntity, _distanceRandomPoint);
         _navMeshAgent.SetDestination(_target);
-
-        var dist = Vector3.Distance(Character.GetTransform().position, targetEntity);
-        Debug.Log($"2.Init WalkNearTargetState, distance = {dist}");
     }
 
     public static Vector3 MainFocus(FSMController fSMController)
@@ -83,7 +80,7 @@ public class WalkNearTargetState : State
             _timerProblem -= Time.deltaTime;
             if (_timerProblem <= 0f)
             {
-                Debug.Log($"Time Problem in WalkNearTargetState");
+//                Debug.Log($"Time Problem in WalkNearTargetState");
                 IsFinished = true;
             }
         }

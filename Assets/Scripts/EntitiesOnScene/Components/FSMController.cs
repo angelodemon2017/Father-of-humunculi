@@ -95,6 +95,8 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
         _navMeshSurfaceVolumeUpdater = null;
     }
 
+    public string TEST_CURRENT_STATE;
+
     public void SetState(State state, bool newState = false)
     {
         if (_currentState != null && _currentState.StateKey == state.StateKey)
@@ -107,6 +109,7 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
         _currentState = newState ? state : Instantiate(state);
         _currentState.InitState(this);
 
+        TEST_CURRENT_STATE = state.StateKey;
         _entityMonobeh.EntityInProcess.SendCommand(GetCommandSetState(state.StateKey));
     }
 

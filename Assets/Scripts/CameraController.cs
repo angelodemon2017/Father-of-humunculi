@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
     private Quaternion _directParalCamera;
 
     public Vector3 FocusPosition => _currentTargetPoint != null ? _currentTargetPoint.position : Vector3.zero;
+    public Vector3Int FocusTile => Vector3Int.RoundToInt(FocusPosition / Config.TileSize);
     public Quaternion DirectParalCamera => _directParalCamera;
 
     private void Awake()

@@ -8,16 +8,13 @@ public class UIPlayerManager : MonoBehaviour
     [SerializeField] private UIPresentInventory uIPresentInventory;
     [SerializeField] private UIPanelCraftGroups _uIPanelCraftGroups;
     [SerializeField] private UIEquipmentView _uIEquipmentView;
-    //    [SerializeField] private UIIconPresent _uIIconPresent;
     [SerializeField] private SetterBuild _setterBuild;
-    //    [SerializeField] private State _setPlanBuildState;
     [SerializeField] private GameObject _panelForDropItem;
 
     private RecipeSO _tempRecipe;
     public InventoryController _inventoryController = new();
     private EntityMonobeh _entityMonobehPlayer;
-//    private long _tempIdInv;
-//    private ItemData _tempFromSlot;//need some remove to data layer
+    public static bool ISCURSORUNDERUI;
 
     public EntityMonobeh EntityMonobeh => _entityMonobehPlayer;
     public bool IsReadySetBuild => _tempRecipe != null;
@@ -40,8 +37,6 @@ public class UIPlayerManager : MonoBehaviour
         var ci = entity.EntityInProcess.EntityData.Components.GetComponent<ComponentInventory>("a");
 
         uIPresentInventory.Init(ci, entity.EntityInProcess);
-//        uIPresentInventory.OnDragItem += DragItem;
-//        uIPresentInventory.OnDropItem += DropItem;
         uIPresentInventory.OnUseItem += UseItemByInventory;
 
         _uIPanelCraftGroups.Init(ci);
@@ -56,28 +51,12 @@ public class UIPlayerManager : MonoBehaviour
     private void UpdateModules()
     {
         _inventoryController.UpdateHandler();
-
-//        var itemHand = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
-
-        //        uIPresentInventory.UpdateSlots();
-
-        //        _uIIconPresent.gameObject.SetActive(!itemHand.IsEmpty);
-        //        _panelForDropItem.SetActive(!itemHand.IsEmpty);
-        /*        if (!itemHand.IsEmpty)
-                {
-                    _uIIconPresent.InitIcon(new UIIconModel(itemHand));
-                }/**/
     }
 
     private void DragItem(long idInv, string idInvKey/*??*/, ItemData dragItem)
     {
-//        _inventoryController.DragSlot(idInv, idInvKey, dragItem);
-        //        _tempIdInv = idInv;
-//        _tempFromSlot = dragItem;
-
         var playerComp = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>();
         playerComp.PickItemByHand(dragItem);
-        //send command player pick item and remove item from inventory
 
         UpdateModules();
     }
@@ -115,11 +94,9 @@ public class UIPlayerManager : MonoBehaviour
         }
         else
         {
-//            _tempFromSlot.Replace(dropItem);
             dropItem.Replace(itemHand);
         }
 
-//        _tempFromSlot = null;
         itemHand.SetEmpty();
 
         UpdateModules();
@@ -187,25 +164,9 @@ public class UIPlayerManager : MonoBehaviour
         }
     }
 
-/*    public void DropItem(BaseEventData eventData)
-    {
-        var itemHand = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
-        if (!itemHand.IsEmpty)
-        {
-            var compPBC = _entityMonobehPlayer.PrefabsByComponents.GetComponent<PlayerPresent>();
-
-            var cmdDropItem = compPBC.GetCommandDropItem(_entityMonobehPlayer.EntityInProcess.EntityData);
-
-            _entityMonobehPlayer.EntityInProcess.SendCommand(cmdDropItem);
-
-//            _tempFromSlot = null;
-            UpdateModules();
-        }
-    }/**/
-
     private void LateUpdate()
     {
-        if (Input.GetMouseButtonUp(0))// && !MouseOverUI)
+        if (Input.GetMouseButtonUp(0))
         {
             var itemHand = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
             if (!itemHand.IsEmpty)
@@ -216,10 +177,9 @@ public class UIPlayerManager : MonoBehaviour
 
                 _entityMonobehPlayer.EntityInProcess.SendCommand(cmdDropItem);
 
-//                _tempFromSlot = null;
                 UpdateModules();
             }
-        }/**/
+        }
     }
 
     private void OnDestroy()

@@ -58,11 +58,13 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        OnPointerEnter?.Invoke(_indexIcon);
+        UIPlayerManager.ISCURSORUNDERUI = true;
+           OnPointerEnter?.Invoke(_indexIcon);
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
+        UIPlayerManager.ISCURSORUNDERUI = false;
         OnPointerExit?.Invoke(_indexIcon);
     }
 

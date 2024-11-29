@@ -98,6 +98,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 983c30069a14e1d47acfe5cc04fbc1b3, type: 2}
   - {fileID: 11400000, guid: 197d0c1c2b3d8c74d897cbd5b862b27b, type: 2}
   _navMeshAgent: {fileID: 858363550221772974}
+  TEST_STATE: 
 --- !u!195 &858363550221772974
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2630,7 +2631,7 @@ GameObject:
   - component: {fileID: 2237675623241801562}
   - component: {fileID: 6099703865488565205}
   - component: {fileID: 1079197673665183247}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: TestColliderChecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}

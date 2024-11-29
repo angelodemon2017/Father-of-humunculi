@@ -45,8 +45,8 @@ public class UIPanelMinimap : MonoBehaviour
 
         foreach (var t in GameProcess.Instance.GameWorld.worldTileDatas)
         {
-            var x = t.Xpos + textureWidth / 2 - (int)(CameraController.Instance.FocusPosition.x / Config.TileSize);
-            var z = t.Zpos + textureHeight / 2 - (int)(CameraController.Instance.FocusPosition.z / Config.TileSize);
+            var x = t.Xpos + textureWidth / 2 - CameraController.Instance.FocusTile.x;
+            var z = t.Zpos + textureHeight / 2 - CameraController.Instance.FocusTile.z;
 
             if (x < 0 || z < 0 || x >= texture.width || z >= texture.height)
             {
@@ -54,9 +54,24 @@ public class UIPanelMinimap : MonoBehaviour
             }
 
             var txt = WorldViewer.Instance.GetTE(t.Id);
+            var tempColor = txt.BaseColor;
+            var isNearTile = t.Xpos < (CameraController.Instance.FocusTile.x + Config.VisibilityChunkDistance * Config.ChunkTilesSize) && 
+                t.Xpos > (CameraController.Instance.FocusTile.x - Config.VisibilityChunkDistance * Config.ChunkTilesSize) &&
+                t.Zpos < (CameraController.Instance.FocusTile.z + Config.VisibilityChunkDistance * Config.ChunkTilesSize) &&
+                t.Zpos > (CameraController.Instance.FocusTile.z - Config.VisibilityChunkDistance * Config.ChunkTilesSize);
+            if (!isNearTile)
+            {
+                tempColor.b *= tempColor.b;
+                tempColor.r *= tempColor.r;
+                tempColor.g *= tempColor.g;
+            }
+            if (t.Xpos == CameraController.Instance.FocusTile.x && t.Zpos == CameraController.Instance.FocusTile.z)
+            {
+                tempColor = Color.white;
+            }
             texture.SetPixel(x,
                 z,
-                txt.BaseColor);
+                tempColor);
         }
 
         texture.Apply();

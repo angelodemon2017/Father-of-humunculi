@@ -22,10 +22,6 @@ public class EntityGoKeepItemState : State
 
         _navMeshAgent = ((IMovableCharacter)Character).GetNavMeshAgent();
         _navMeshAgent.SetDestination(_target);
-
-        var fSMController = Character.GetEntityMonobeh().PrefabsByComponents.GetComponent<FSMController>();
-        var dist = Vector3.Distance(Character.GetTransform().position, WalkNearTargetState.MainFocus(fSMController));
-//        Debug.Log($"1.Init EntityGoKeepItemState, distance = {dist}");
     }
 
     protected override void Run()
