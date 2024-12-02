@@ -12,6 +12,7 @@ public class EntityData
     internal WorldData worldData => GameProcess.Instance.GameWorld;
     internal string _DebugField = string.Empty;
     public virtual string DebugField => _DebugField;
+    public EntityMonobeh GetConfig => EntitiesLibrary.Instance.GetConfig(TypeKey);
 
     public UnityEngine.Vector3 Position 
     {

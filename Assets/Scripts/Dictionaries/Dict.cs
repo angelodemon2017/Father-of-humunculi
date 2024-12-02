@@ -44,6 +44,7 @@ public static class Dict
         public const string SelectFollow = "SelectFollow";
         public const string SelectRole = "SelectRole";
         public const string SetterState = "SetterState";
+        public const string MakeDamage = "MakeDamage";
     }
 
     public static class RectKeys

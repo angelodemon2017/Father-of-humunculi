@@ -25,6 +25,17 @@ public class MouseInterfaceInteraction : PrefabByComponentData
         _tip.SetActive(false);
     }
 
+    public void AttackInteract(EntityMonobeh whoTouch)
+    {
+        RootMonobeh.EntityInProcess.SendCommand(new CommandData()
+        {
+            KeyComponent = KeyComponent,
+            KeyCommand = Dict.Commands.MakeDamage,
+            AddingKeyComponent = AddingKey,
+            Message = $"{whoTouch.Id}",
+        });
+    }
+
     public void OnClick(EntityMonobeh whoTouch)
     {
         if (RootMonobeh.EntityInProcess == null)
@@ -45,7 +56,17 @@ public class MouseInterfaceInteraction : PrefabByComponentData
 
     public override void ExecuteCommand(EntityData entity, string command, string message, WorldData worldData)
     {
-        _executeCommandTouch?.Invoke(entity, command, message, worldData);
+        switch (command)
+        {
+            case Dict.Commands.MakeDamage:
+                var entId = long.Parse(message);
+                var whoTouched = worldData.GetEntityById(entId);
+                AttackInteract(whoTouched, entity, worldData);
+                break;
+            default:
+                _executeCommandTouch?.Invoke(entity, command, message, worldData);
+                break;
+        }
     }
 
     public void ShowTip()
@@ -66,6 +87,20 @@ public class MouseInterfaceInteraction : PrefabByComponentData
             {
                 _tip.SetActive(false);
             }
+        }
+    }
+
+    private void AttackInteract(EntityData whoTouched, EntityData targetTouch, WorldData worldData)
+    {
+        var whoConf = whoTouched.GetConfig;
+        var targetConf = targetTouch.GetConfig;
+
+        var damageCMP = whoConf.GetMyComponent<DamagerConfig>();
+        var HPPCMP = targetConf.GetMyComponent<HealthPointConfig>();
+
+        if (HPPCMP.GetDamage(targetTouch, damageCMP))
+        {
+            targetTouch.UpdateEntity();
         }
     }
 }
