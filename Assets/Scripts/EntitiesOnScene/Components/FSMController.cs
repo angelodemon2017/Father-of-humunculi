@@ -104,6 +104,10 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
         }
 
         _currentState?.ExitState();
+        if (_currentState != null)
+        {
+            Destroy(_currentState);
+        }
 
         _currentState = newState ? state : Instantiate(state);
         _currentState.InitState(this);

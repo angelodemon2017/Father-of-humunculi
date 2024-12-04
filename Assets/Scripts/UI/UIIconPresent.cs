@@ -15,6 +15,7 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private TextMeshProUGUI _textBottom;
     [SerializeField] private RectTransform rectTransform;
 
+    private bool _isClickable;
     private int _indexIcon;
     public Action<int, long> OnClickIconByEntity;
     public Action<int> OnClickIcon;
@@ -46,14 +47,18 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         _iconTypeItem.enabled = iconModel.Icon == null;
         _textBottom.text = iconModel.BottomText;
         _aspectRatioFitter.aspectMode = iconModel.AspectMode;
+        _isClickable = iconModel.ClickableIcon;
         _colorBorder.color = iconModel.ClickableIcon ? Color.white : Color.gray;
 //        rectTransform.sizeDelta = new Vector2(50f, 50f);
     }
 
     private void OnClick()
     {
-        OnClickIcon?.Invoke(_indexIcon);
-        OnClickIconByEntity?.Invoke(_indexIcon, UIPlayerManager.Instance.EntityMonobeh.Id);
+        if (!_isClickable)
+        {
+            OnClickIcon?.Invoke(_indexIcon);
+            OnClickIconByEntity?.Invoke(_indexIcon, UIPlayerManager.Instance.EntityMonobeh.Id);
+        }
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
@@ -131,9 +136,10 @@ public class UIIconModel
         ColorBackGround = conf.ColorBackGround;
         BottomText = item.Count > 0 ? $"{item.Count}" : string.Empty;
         AspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
+        ClickableIcon = true;
     }
 
-    public UIIconModel(int index, ItemData item)
+/*    public UIIconModel(int index, ItemData item)
     {
         var conf = item.ItemConfig;
 
@@ -144,7 +150,7 @@ public class UIIconModel
         BottomText = item.Count > 0 ? $"{item.Count}" : string.Empty;
         AspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
         ClickableIcon = conf.IsUseLess;
-    }
+    }/**/
 
     public UIIconModel(ElementRecipe recipe)
     {
@@ -152,16 +158,28 @@ public class UIIconModel
         ColorBackGround = Color.white;
         BottomText = recipe.Count > 1 ? $"{recipe.Count}" : string.Empty;
         AspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
+        ClickableIcon = true;
     }
 
-    public UIIconModel(ElementRecipe recipe, bool isHaveResource, int index)
+    public UIIconModel(ResearchSO researchSO)
+    {
+        var isDone = ResearchLibrary.Instance.IsResearchComplete(researchSO.Name);
+
+        Icon = researchSO.IconItem;
+        ColorBackGround = isDone ? Color.green : Color.white;
+        BottomText = string.Empty;
+        AspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
+        ClickableIcon = !isDone;
+    }
+
+/*    public UIIconModel(ElementRecipe recipe, bool isHaveResource, int index)
     {
         Index = index;
         Icon = recipe.ItemConfig.GetSprite(0);
         ColorBackGround = isHaveResource ? Color.white : Color.gray;
         BottomText = string.Empty;
         AspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
-    }
+    }/**/
 
     public UIIconModel(ElementRecipe recipe, int currentCount, AspectRatioFitter.AspectMode aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight)
     {

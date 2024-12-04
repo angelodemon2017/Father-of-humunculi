@@ -61,15 +61,15 @@ public class UIPanelCraftItems : MonoBehaviour
 
     private void CraftRecipe(int index)
     {
-        if (_recipes[index].IsBuild)
+        if (_recipes[index] is RecipeEntitySpawn res)
         {
-            UIPlayerManager.Instance.RunPlanBuild(_recipes[index]);
+            UIPlayerManager.Instance.RunPlanBuild(res);
         }
         else
         {
-            _componentInventory.TryApplyRecipe(_recipes[index]);
-            //TODO MEGA CRUNCH, need use send command to entity
-            UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData.UpdateEntity();
+            var compInv = UIPlayerManager.Instance.EntityMonobeh.PrefabsByComponents.GetComponent<BaseInventoryAdapter>();
+            var cmdSetter = compInv.GetCommandSetEntity(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData, _recipes[index], Vector3.one);
+            UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.SendCommand(cmdSetter);
         }
     }
 

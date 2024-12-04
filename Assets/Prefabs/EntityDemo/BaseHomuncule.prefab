@@ -4680,9 +4680,9 @@ MonoBehaviour:
   _fSMController: {fileID: 1186518513851610787}
   SecondsToTransform: 3
   _itemsToUpgrade:
-  - {fileID: 11400000, guid: 000ebfd76c352a74bbec471628bdd54f, type: 2}
-  - {fileID: 11400000, guid: a530ba9b556b5d04e8ce18c114b753d1, type: 2}
-  - {fileID: 11400000, guid: fd5b28fe06b5c3046a6998f2828c4b95, type: 2}
+  - {fileID: 11400000, guid: 83ba7dd67d25944438d8337f81a6c97a, type: 2}
+  - {fileID: 11400000, guid: 6dd03b481919dea4cacffa3aa5cf7b2b, type: 2}
+  - {fileID: 11400000, guid: 9f65b2361025ba94f9d72118b86fd862, type: 2}
   _dropdownSelectFollow: {fileID: 7721644243945825425}
   _dropdownSelectRole: {fileID: 8515417932173653855}
 --- !u!1 &8983260203812043556

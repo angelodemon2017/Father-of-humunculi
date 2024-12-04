@@ -9,18 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6eddbf71c6b637347934f712dfb0b398, type: 3}
-  m_Name: HomuLeaf
+  m_Script: {fileID: 11500000, guid: 3d9138023e9eda747be44b2b7f804870, type: 3}
+  m_Name: Recipe Coat
   m_EditorClassIdentifier: 
-  Index: 8
-  homuType: 4
-  _entityConfig: {fileID: 5597222920646075619, guid: 1317a1ba86758444890902d5b6e587e3,
-    type: 3}
-  IconBuild: {fileID: -606357570, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
+  Index: 0
   Result:
     ItemConfig: {fileID: 0}
-    Count: 1
+    Count: 0
   Resources:
   - ItemConfig: {fileID: 11400000, guid: b57b2733457685b489a3f7071e69869c, type: 2}
+    Count: 2
+  GroupRecipeTag: {fileID: 11400000, guid: 4509e24022ad9ac4aaf7926685c79890, type: 2}
+  ItemResult:
+    ItemConfig: {fileID: 11400000, guid: e0bcbd949ac5f0743b0e7f060dc18471, type: 2}
     Count: 1
-  GroupRecipeTag: {fileID: 11400000, guid: 77efa91eb47a4fc43874892e76e58029, type: 2}

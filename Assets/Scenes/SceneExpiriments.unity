@@ -2107,6 +2107,7 @@ MonoBehaviour:
   _groupPlayer:
   - {fileID: 11400000, guid: b173f62f78601974a888f1a37ab4d1f6, type: 2}
   - {fileID: 11400000, guid: 4509e24022ad9ac4aaf7926685c79890, type: 2}
+  - {fileID: 11400000, guid: 753569442391fa44c9c37c2eb4f5fc1c, type: 2}
 --- !u!1 &730053786
 GameObject:
   m_ObjectHideFlags: 0

@@ -116,19 +116,15 @@ public class BaseInventoryAdapter : PrefabByComponentData
         if (compInv != null)
         {
             var mess = message.Split(splitter);
-            var recipe = RecipesController.GetRecipe(int.Parse(mess[0]));
+            RecipeSO recipe = RecipesController.GetRecipe(int.Parse(mess[0]));
 
             if (compInv.AvailableRecipe(recipe))
             {
                 compInv.SubtrackItemsByRecipe(recipe);
-
-                var newEntity = recipe._entityConfig.CreateEntity(float.Parse(mess[1]), float.Parse(mess[2]));
-                var compHomu = newEntity.Components.GetComponent<ComponentHomu>();
-                if (compHomu != null)
-                {
-                    compHomu.ApplyRecipe(recipe);
-                }
-                worldData.AddEntity(newEntity);
+                recipe.ReleaseRecipe(entity, message);
+                entity.UpdateEntity();
+//                var newEntity = recipe._entityConfig.CreateEntity(float.Parse(mess[1]), float.Parse(mess[2]));
+//                worldData.AddEntity(newEntity);
             }
         }
     }

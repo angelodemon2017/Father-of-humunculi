@@ -109,7 +109,7 @@ public class UIPlayerManager : MonoBehaviour
         _entityMonobehPlayer.EntityInProcess.SendCommand(com);
     }
 
-    public void RunPlanBuild(RecipeSO recipe)
+    public void RunPlanBuild(RecipeEntitySpawn recipe)
     {
         _tempRecipe = recipe;
         _setterBuild.gameObject.SetActive(true);

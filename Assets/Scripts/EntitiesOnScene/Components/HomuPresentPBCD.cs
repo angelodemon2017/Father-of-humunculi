@@ -13,7 +13,7 @@ public class HomuPresentPBCD : PrefabByComponentData
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private FSMController _fSMController;
     [SerializeField] private int SecondsToTransform = 2;
-    [SerializeField] private List<RecipeSO> _itemsToUpgrade;
+    [SerializeField] private List<RecipeHomu> _itemsToUpgrade;
     [SerializeField] private TMP_Dropdown _dropdownSelectFollow;
     [SerializeField] private TMP_Dropdown _dropdownSelectRole;
 
@@ -184,7 +184,7 @@ public class HomuPresentPBCD : PrefabByComponentData
                 if (ch._thinkingTime >= SecondsToTransform)
                 {
                     i.SubtrackItemsByRecipe(rec);
-                    ch.ApplyRecipe(rec);
+                    rec.ReleaseRecipe(entity);
                     entity.UpdateEntity();
                 }
                 else

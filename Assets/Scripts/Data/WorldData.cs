@@ -11,7 +11,9 @@ public class WorldData
 
     public List<WorldTileData> worldTileDatas = new();
     public List<WorldChunkData> worldChunkDatas = new();//labels about loaded??
+    public List<ResearchEntity> researches = new();
 
+    private Dictionary<string, ResearchEntity> _researches = new();
     private Dictionary<long, EntityData> _cashEntityDatas = new();
 
     private Dictionary<(int, int), WorldTileData> _cashTiles = new();
@@ -27,6 +29,23 @@ public class WorldData
     private readonly object lockObjectUpdateIds = new object();
     private readonly object lockObjectEntities = new object();
     public List<long> needUpdates = new();
+
+    public void UpgradeResearch(string name, int val)
+    {
+        if (_researches.TryGetValue(name, out ResearchEntity researchEntity))
+        {
+            researchEntity.Progress += val;
+        }
+        else
+        {
+            _researches.Add(name, new ResearchEntity(name, val));
+        }
+    }
+
+    public int GetStatusResearch(string name)
+    {
+        return _researches.ContainsKey(name) ? _researches[name].Progress : 0;
+    }
 
     public List<long> GetIds()
     {

@@ -133,7 +133,7 @@ public class ComponentInventory : ComponentData
         return item;
     }
 
-    public void TryApplyRecipe(RecipeSO recipe)
+    public void TryApplyRecipe(RecipeItem recipe)
     {
         if (!AvailableRecipe(recipe))
         {
@@ -142,8 +142,8 @@ public class ComponentInventory : ComponentData
 
         SubtrackItemsByRecipe(recipe);
 
-        var resultItem = new ItemData(recipe.Result.ItemConfig);
-        resultItem.Count = recipe.Result.Count;
+        var resultItem = new ItemData(recipe.ItemResult.ItemConfig);
+        resultItem.Count = recipe.ItemResult.Count;
         AddItem(resultItem);
     }
 

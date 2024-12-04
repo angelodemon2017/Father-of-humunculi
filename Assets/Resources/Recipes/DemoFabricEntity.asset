@@ -9,19 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6eddbf71c6b637347934f712dfb0b398, type: 3}
-  m_Name: ShopDebug
+  m_Script: {fileID: 11500000, guid: b8af36f61561abc4997de59a781ab8af, type: 3}
+  m_Name: DemoFabricEntity
   m_EditorClassIdentifier: 
-  Index: 11
-  homuType: 0
-  _entityConfig: {fileID: 5597222920646075619, guid: fbc5d0e64cb492649a49c0c33af2087a,
-    type: 3}
-  _entitySOBuild: {fileID: 11400000, guid: a10037e629bd0224eb48a3d68a904451, type: 2}
-  IconBuild: {fileID: 21300000, guid: 564105285b6071d49ac1630643fde994, type: 3}
+  Index: 2
   Result:
     ItemConfig: {fileID: 0}
-    Count: 1
+    Count: 0
   Resources:
   - ItemConfig: {fileID: 11400000, guid: 8ea3d15d644ffca45ade6bea68c2e972, type: 2}
-    Count: 5
+    Count: 1
   GroupRecipeTag: {fileID: 11400000, guid: b173f62f78601974a888f1a37ab4d1f6, type: 2}
+  EntityConfig: {fileID: 5597222920646075619, guid: 928f850686d4aaf48a5926b774c341fc,
+    type: 3}
+  IconBuild: {fileID: 21300000, guid: e563a07d3c305a745904c9a90cc1d82d, type: 3}

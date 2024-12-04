@@ -50,15 +50,15 @@ public class UIPanelCraft : MonoBehaviour
 
     private void OnClick()
     {
-        if (_recipe.IsBuild)
+        if (_recipe is RecipeEntitySpawn res)
         {
-            UIPlayerManager.Instance.RunPlanBuild(_recipe);
+            UIPlayerManager.Instance.RunPlanBuild(res);
         }
         else
         {
-            _componentInventory.TryApplyRecipe(_recipe);
-            //TODO MEGA CRUNCH, need use send command to entity
-            UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData.UpdateEntity();
+            var compInv = UIPlayerManager.Instance.EntityMonobeh.PrefabsByComponents.GetComponent<BaseInventoryAdapter>();
+            var cmdSetter = compInv.GetCommandSetEntity(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData, _recipe, Vector3.one);
+            UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.SendCommand(cmdSetter);
         }
 
         UpdatePanel();

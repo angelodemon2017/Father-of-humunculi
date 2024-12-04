@@ -27,17 +27,17 @@ public class ComponentHomu : ComponentData
 
     }
 
-    public ComponentHomu(EnumHomuType homuType)
+/*    public ComponentHomu(EnumHomuType homuType)
     {
         SetHomuType(homuType);
-    }
+    }/**/
 
-    public void ApplyRecipe(RecipeSO recipe)
+/*    public void ApplyRecipe(RecipeHomu recipe)
     {
-        SetHomuType(recipe.homuType);
-    }
+        SetHomuType(recipe.HomuType);
+    }/**/
 
-    private void SetHomuType(EnumHomuType homuType)
+    public void SetHomuType(EnumHomuType homuType)
     {
         _homuType = homuType;
     }
