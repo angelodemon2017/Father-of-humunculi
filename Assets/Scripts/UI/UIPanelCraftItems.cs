@@ -14,7 +14,7 @@ public class UIPanelCraftItems : MonoBehaviour
     [SerializeField] private VerticalLayoutGroup _verticalLayoutGroup;
 
     private List<RecipeSO> _recipes = new();
-    private ComponentInventory _componentInventory;
+//    private ComponentInventory _componentInventory;
     private UIPanelCraft _tempPanelCraft;
     private string _selectGroupRecipe;
 
@@ -25,10 +25,10 @@ public class UIPanelCraftItems : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void Init(string groupName, ComponentInventory componentInventory)
+    public void Init(string groupName)//, ComponentInventory componentInventory)
     {
         _selectGroupRecipe = groupName;
-        _componentInventory = componentInventory;
+//        _componentInventory = componentInventory;
 
         _parentCraftPanel.DestroyChildrens();
 
@@ -53,6 +53,14 @@ public class UIPanelCraftItems : MonoBehaviour
             _tempPanelCraft.OnApplyRecipe -= WasClickCraft;
         }
 
+        if (_recipes[index] is RecipeResearch rr)
+        {
+            if (ResearchLibrary.Instance.IsResearchComplete(rr.research.Name))
+            {
+                return;
+            }
+        }
+
         _tempPanelCraft = Instantiate(_uIPanelCraftPrefab, _parentCraftPanel);
 
         _tempPanelCraft.Init(_recipes[index], _componentInventory);
@@ -61,6 +69,11 @@ public class UIPanelCraftItems : MonoBehaviour
 
     private void CraftRecipe(int index)
     {
+        if (!_recipes[index].AvailableRecipe(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData))
+        {
+            return;
+        }
+
         if (_recipes[index] is RecipeEntitySpawn res)
         {
             UIPlayerManager.Instance.RunPlanBuild(res);
@@ -68,7 +81,7 @@ public class UIPanelCraftItems : MonoBehaviour
         else
         {
             var compInv = UIPlayerManager.Instance.EntityMonobeh.PrefabsByComponents.GetComponent<BaseInventoryAdapter>();
-            var cmdSetter = compInv.GetCommandSetEntity(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData, _recipes[index], Vector3.one);
+            var cmdSetter = compInv.GetCommandUseRecipe(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData, _recipes[index], Vector3.one);
             UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.SendCommand(cmdSetter);
         }
     }

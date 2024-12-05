@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Linq;
 
 public class UIPanelCraft : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class UIPanelCraft : MonoBehaviour
     [SerializeField] private Button _buttonCraft;
 
     private RecipeSO _recipe;
-    private ComponentInventory _componentInventory;
+//    private ComponentInventory _componentInventory;
 
     public Action OnApplyRecipe;
 
@@ -24,7 +25,7 @@ public class UIPanelCraft : MonoBehaviour
 
     public void Init(RecipeSO recipe, ComponentInventory componentInventory)
     {
-        _componentInventory = componentInventory;
+//        _componentInventory = componentInventory;
 
         _recipe = recipe;
 
@@ -38,18 +39,27 @@ public class UIPanelCraft : MonoBehaviour
 
     private void UpdatePanel()
     {
-        _buttonCraft.interactable = _componentInventory.AvailableRecipe(_recipe);
+        var entDat = UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData;
+        _buttonCraft.interactable = _recipe.AvailableRecipe(entDat);
+//            _componentInventory.AvailableRecipe(_recipe);
 
         _parentResources.DestroyChildrens();
         foreach (var r in _recipe.Resources)
         {
+            var sum = entDat.Components.Where(c => c is ComponentInventory).Sum(i => ((ComponentInventory)i).GetCountOfItem(r.ItemConfig.Key));
+
             var uicp = Instantiate(_prefabResources, _parentResources);
-            uicp.InitIcon(new UIIconModel(r, _componentInventory.GetCountOfItem(r.ItemConfig.Key), aspectMode: AspectRatioFitter.AspectMode.HeightControlsWidth));
+            uicp.InitIcon(new UIIconModel(r, sum, aspectMode: AspectRatioFitter.AspectMode.HeightControlsWidth));
         }
     }
 
     private void OnClick()
     {
+        if (!_recipe.AvailableRecipe(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData))
+        {
+            return;
+        }
+
         if (_recipe is RecipeEntitySpawn res)
         {
             UIPlayerManager.Instance.RunPlanBuild(res);
@@ -57,7 +67,7 @@ public class UIPanelCraft : MonoBehaviour
         else
         {
             var compInv = UIPlayerManager.Instance.EntityMonobeh.PrefabsByComponents.GetComponent<BaseInventoryAdapter>();
-            var cmdSetter = compInv.GetCommandSetEntity(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData, _recipe, Vector3.one);
+            var cmdSetter = compInv.GetCommandUseRecipe(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData, _recipe, Vector3.one);
             UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.SendCommand(cmdSetter);
         }
 

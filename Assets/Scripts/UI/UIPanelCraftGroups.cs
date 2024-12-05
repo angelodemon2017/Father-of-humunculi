@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-//using System.Linq;
 using UnityEngine;
 
 public class UIPanelCraftGroups : MonoBehaviour
@@ -11,8 +10,9 @@ public class UIPanelCraftGroups : MonoBehaviour
     [SerializeField] private UIPanelCraftItems _panelCraftItems;
     [SerializeField] private List<GroupSO> _groupPlayer;
 
-    private ComponentInventory _componentInventory;
-//    private List<GroupSO> _groups = new();
+//    private ComponentInventory _componentInventory;
+    private List<UIIconPresent> _tempIcons = new();//??
+    private string _focusEntity = string.Empty;
 
     public Action OnApplyCraft;
 
@@ -21,11 +21,10 @@ public class UIPanelCraftGroups : MonoBehaviour
         _panelCraftItems.OnApplyCraft += UpdateMarks;
     }
 
-    public void Init(ComponentInventory componentInventory)
+    public void Init()//ComponentInventory componentInventory)
     {
-        _componentInventory = componentInventory;
+//        _componentInventory = componentInventory;
         _parentButtons.DestroyChildrens();
-//        var groups = GroupController.GetAllGroups().OrderBy(g => g.Order).ToList();
         for (int g = 0; g < _groupPlayer.Count; g++)
         {
             var uicp = Instantiate(_prefabRecipeIcon, _parentButtons);
@@ -33,7 +32,7 @@ public class UIPanelCraftGroups : MonoBehaviour
             uicp.InitIcon(new UIIconModel(_groupPlayer[g], g));
             uicp.OnPointerEnter += SelectGroup;
 
-//            _groups.Add(groups[g]);
+            _tempIcons.Add(uicp);
         }
     }
 
@@ -45,9 +44,14 @@ public class UIPanelCraftGroups : MonoBehaviour
     private void SelectGroup(int i)
     {
         _panelCraftItems.gameObject.SetActive(true);
-        _panelCraftItems.Init(_groupPlayer[i].GroupName, _componentInventory);
+        _panelCraftItems.Init(_groupPlayer[i].GroupName);//, _componentInventory);
         _panelHider.gameObject.SetActive(true);
         _panelHider.AddGO(_panelCraftItems.gameObject);
+    }
+
+    public void AddTempGroup(GroupSO tempGroup)
+    {
+
     }
 
     private void OnDestroy()

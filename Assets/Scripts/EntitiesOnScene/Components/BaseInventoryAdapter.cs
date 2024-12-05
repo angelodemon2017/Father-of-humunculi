@@ -34,8 +34,8 @@ public class BaseInventoryAdapter : PrefabByComponentData
             case Dict.Commands.SlotDrop:
                 InventoryController.PrepareTransportMessage(message, worldData, _droppedItemPrefab);
                 break;
-            case Dict.Commands.SetEntity:
-                SetEntityByRecipe(entity, message, worldData);
+            case Dict.Commands.UseRecipe:
+                UseRecipe(entity, message, worldData);
                 break;
             case Dict.Commands.SplitSlot:
                 SplitSlot(entity, message);
@@ -110,33 +110,25 @@ public class BaseInventoryAdapter : PrefabByComponentData
         entity.UpdateEntity();
     }
 
-    private void SetEntityByRecipe(EntityData entity, string message, WorldData worldData)
+    private void UseRecipe(EntityData entity, string message, WorldData worldData)
     {
-        var compInv = entity.Components.GetComponent<ComponentInventory>();
-        if (compInv != null)
+        var mess = message.Split(splitter);
+        RecipeSO recipe = RecipesController.GetRecipe(int.Parse(mess[0]));
+        if (recipe.AvailableRecipe(entity))
         {
-            var mess = message.Split(splitter);
-            RecipeSO recipe = RecipesController.GetRecipe(int.Parse(mess[0]));
-
-            if (compInv.AvailableRecipe(recipe))
-            {
-                compInv.SubtrackItemsByRecipe(recipe);
-                recipe.ReleaseRecipe(entity, message);
-                entity.UpdateEntity();
-//                var newEntity = recipe._entityConfig.CreateEntity(float.Parse(mess[1]), float.Parse(mess[2]));
-//                worldData.AddEntity(newEntity);
-            }
+            recipe.UseAndReleaseRecipe(entity, message);
+            entity.UpdateEntity();
         }
     }
 
-    public CommandData GetCommandSetEntity(EntityData entityData, RecipeSO recipe, Vector3 position)
+    public CommandData GetCommandUseRecipe(EntityData entityData, RecipeSO recipe, Vector3 position)
     {
         return new CommandData()
         {
             IdEntity = entityData.Id,
             KeyComponent = KeyComponent,
             AddingKeyComponent = AddingKey,
-            KeyCommand = Dict.Commands.SetEntity,
+            KeyCommand = Dict.Commands.UseRecipe,
             Message = $"{recipe.Index}{splitter}{position.x}{splitter}{position.z}",
         };
     }

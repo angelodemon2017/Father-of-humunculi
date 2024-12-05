@@ -176,23 +176,20 @@ public class HomuPresentPBCD : PrefabByComponentData
     private void CheckInventory(ComponentHomu ch, EntityData entity)
     {
         var invs = entity.Components.GetComponents(typeof(ComponentInventory).Name);
-        foreach (ComponentInventory i in invs)
+
+        var recipeFocus = _itemsToUpgrade.FirstOrDefault(r => r.AvailableRecipe(entity));
+
+        if (recipeFocus != null)
         {
-            var rec = _itemsToUpgrade.FirstOrDefault(r => i.AvailableRecipe(r));
-            if (rec != null)
+            if (ch._thinkingTime >= SecondsToTransform)
             {
-                if (ch._thinkingTime >= SecondsToTransform)
-                {
-                    i.SubtrackItemsByRecipe(rec);
-                    rec.ReleaseRecipe(entity);
-                    entity.UpdateEntity();
-                }
-                else
-                {
-                    ch._thinkingTime += 1;
-                    return;
-                }
-                break;
+                recipeFocus.UseAndReleaseRecipe(entity);
+                entity.UpdateEntity();
+            }
+            else
+            {
+                ch._thinkingTime += 1;
+                return;
             }
         }
         ch._thinkingTime = 0;

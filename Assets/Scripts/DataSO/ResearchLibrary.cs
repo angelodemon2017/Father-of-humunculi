@@ -45,5 +45,5 @@ public class ResearchLibrary : ScriptableObject
                 _cashResearches.Add(ent.Name, ent);
             }
         }
-    }/**/
+    }
 }

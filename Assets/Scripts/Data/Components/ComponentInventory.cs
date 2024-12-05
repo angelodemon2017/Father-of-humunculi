@@ -133,7 +133,7 @@ public class ComponentInventory : ComponentData
         return item;
     }
 
-    public void TryApplyRecipe(RecipeItem recipe)
+/*    public void TryApplyRecipe(RecipeItem recipe)
     {
         if (!AvailableRecipe(recipe))
         {
@@ -145,17 +145,22 @@ public class ComponentInventory : ComponentData
         var resultItem = new ItemData(recipe.ItemResult.ItemConfig);
         resultItem.Count = recipe.ItemResult.Count;
         AddItem(resultItem);
-    }
+    }/**/
 
-    public void SubtrackItemsByRecipe(RecipeSO recipe)
+/*    public void SubtrackItemsByRecipe(RecipeSO recipe)
     {
         foreach (var r in recipe.Resources)
         {
             SubtrackItems(r.ItemConfig.Key, r.Count);
         }
-    }
+    }/**/
 
-    public bool AvailableRecipe(RecipeSO recipe)
+    /// <summary>
+    /// TODO Need remove method
+    /// </summary>
+    /// <param name="recipe"></param>
+    /// <returns></returns>
+/*    public bool AvailableRecipe(RecipeSO recipe)
     {
         foreach (var r in recipe.Resources)
         {
@@ -166,7 +171,7 @@ public class ComponentInventory : ComponentData
         }
 
         return true;
-    }
+    }/**/
 
     public int GetCountOfItem(string keyItem)
     {

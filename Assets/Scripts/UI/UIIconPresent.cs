@@ -54,7 +54,7 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private void OnClick()
     {
-        if (!_isClickable)
+        if (_isClickable)
         {
             OnClickIcon?.Invoke(_indexIcon);
             OnClickIconByEntity?.Invoke(_indexIcon, UIPlayerManager.Instance.EntityMonobeh.Id);

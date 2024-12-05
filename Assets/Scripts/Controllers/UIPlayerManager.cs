@@ -39,7 +39,7 @@ public class UIPlayerManager : MonoBehaviour
         uIPresentInventory.Init(ci, entity.EntityInProcess);
         uIPresentInventory.OnUseItem += UseItemByInventory;
 
-        _uIPanelCraftGroups.Init(ci);
+        _uIPanelCraftGroups.Init();// ci);
         _uIPanelCraftGroups.OnApplyCraft += UpdateModules;
 
         var ci2 = entity.EntityInProcess.EntityData.Components.GetComponent<ComponentInventory>("b");
@@ -118,8 +118,13 @@ public class UIPlayerManager : MonoBehaviour
 
     public void TrySetBuild(Vector3 target)
     {
+        if (!_tempRecipe.AvailableRecipe(_entityMonobehPlayer.EntityInProcess.EntityData))
+        {
+            return;
+        }
+
         var compInv = _entityMonobehPlayer.PrefabsByComponents.GetComponent<BaseInventoryAdapter>();
-        var cmdSetter = compInv.GetCommandSetEntity(_entityMonobehPlayer.EntityInProcess.EntityData, _tempRecipe, target);
+        var cmdSetter = compInv.GetCommandUseRecipe(_entityMonobehPlayer.EntityInProcess.EntityData, _tempRecipe, target);
         _entityMonobehPlayer.EntityInProcess.SendCommand(cmdSetter);
 
         CancelPlanBuild();

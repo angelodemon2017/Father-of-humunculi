@@ -35,7 +35,7 @@ public static class Dict
     {
         public const string UseItem = "UseItem";
         public const string DropItem = "DropItem";
-        public const string SetEntity = "SetEntity";
+        public const string UseRecipe = "UseRecipe";
         public const string CloseUI = "CloseUI";
         public const string SlotClick = "SlotClick";
         public const string SlotDrag = "SlotDrag";
