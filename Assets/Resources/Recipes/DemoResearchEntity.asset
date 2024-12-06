@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8af36f61561abc4997de59a781ab8af, type: 3}
+  m_Name: DemoResearchEntity
+  m_EditorClassIdentifier: 
+  Index: 3
+  Resources:
+  - ItemConfig: {fileID: 11400000, guid: 8ea3d15d644ffca45ade6bea68c2e972, type: 2}
+    Count: 1
+  needResearchs: []
+  GroupRecipeTag: {fileID: 11400000, guid: b173f62f78601974a888f1a37ab4d1f6, type: 2}
+  EntityConfig: {fileID: 5597222920646075619, guid: cc6f4cd7d77f97b41945af68f3a9d3ee,
+    type: 3}
+  IconBuild: {fileID: 110513574, guid: 183f3ba47d746ea4190c5bb109108e88, type: 3}

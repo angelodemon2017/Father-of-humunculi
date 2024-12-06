@@ -11,12 +11,18 @@ public class MouseInterfaceInteraction : PrefabByComponentData
     [SerializeField] private TextMeshProUGUI _tipText;
     [SerializeField] private UnityEvent<EntityData, string, string, WorldData> _executeCommandTouch;
     [SerializeField] private List<PrefabByComponentData> _canInteractabler;
+//    [SerializeField] private List<ItemConfig> _needItems;
+    [SerializeField] private List<MapActions> _mapActions;
+    [SerializeField] private string MessageHelp;
+    [SerializeField] private ItemConfig ConfigForActionWithoutItem;
+    [SerializeField] private bool _defaultAvailableInteract;//DEBUG field
 
     public EntityMonobeh RootMonobeh;
 
     private float _showTip;
 
-    internal override bool CanInterAct => _canInteractabler.Count > 0 ? _canInteractabler.Any(c => c.CanInterAct) : false;
+    private string GetMessageHelp => string.IsNullOrWhiteSpace(MessageHelp) ? "..." : MessageHelp;
+    internal override bool CanInterAct => _canInteractabler.Count > 0 ? _canInteractabler.Any(c => c.CanInterAct) : _defaultAvailableInteract;
     public override string KeyComponentData => typeof(ComponentInterractable).Name;
     internal override ComponentData GetComponentData => new ComponentInterractable();
 
@@ -64,7 +70,7 @@ public class MouseInterfaceInteraction : PrefabByComponentData
                 AttackInteract(whoTouched, entity, worldData);
                 break;
             default:
-                _executeCommandTouch?.Invoke(entity, command, message, worldData);
+                UseMapAction(entity, message, worldData);
                 break;
         }
     }
@@ -102,5 +108,40 @@ public class MouseInterfaceInteraction : PrefabByComponentData
         {
             targetTouch.UpdateEntity();
         }
+    }
+
+    private void UseMapAction(EntityData entity, string message, WorldData worldData)
+    {
+        var entId = long.Parse(message);
+        var whoTouched = worldData.GetEntityById(entId);
+        foreach (var act in _mapActions)
+        {
+            if (act._needItems.Count == 0)
+            {
+                act._executeCommandTouch.Invoke(entity, string.Empty, GetMessageHelp, worldData);
+                break;
+            }
+            else if (act._needItems.Any(ni => ni.Key == ConfigForActionWithoutItem.Key))
+            {
+                act._executeCommandTouch.Invoke(entity, string.Empty, message, worldData);
+                break;
+            }
+            else
+            {
+                var invs = whoTouched.Components.GetComponents(typeof(ComponentInventory).Name);
+                if (act._needItems.Any(ni => invs.Any(i => ((ComponentInventory)i).GetCountOfItem(ni.Key) > 0)))
+                {
+                    act._executeCommandTouch.Invoke(entity, string.Empty, message, worldData);
+                    break;
+                }
+            }
+        }
+    }
+
+    [System.Serializable]
+    private class MapActions
+    {
+        public List<ItemConfig> _needItems;
+        public UnityEvent<EntityData, string, string, WorldData> _executeCommandTouch;
     }
 }

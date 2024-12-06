@@ -11,7 +11,7 @@ public class RecipeItem : RecipeSO
         resultItem.Count = ItemResult.Count;
         return resultItem;
     }
-    public override UIIconModel IconModelResult => new UIIconModel(ItemResult);
+    public override UIIconModel IconModelResult => new UIIconModel(this);
     public override string TitleRecipe => $"{ItemResult.ItemConfig.Key}";
 
     internal override void ReleaseRecipe(EntityData entityData, string args = "")

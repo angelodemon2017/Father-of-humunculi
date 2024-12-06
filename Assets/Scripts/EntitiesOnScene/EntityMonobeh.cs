@@ -24,7 +24,14 @@ public class EntityMonobeh : MonoBehaviour
     {
         InitPBCs();
 
-        return (T)_cashPrefabsByComponents[(typeof(T).Name, addingKey)];
+        if (_cashPrefabsByComponents.TryGetValue((typeof(T).Name, addingKey), out PrefabByComponentData res))
+        {
+            return (T)res;
+        }
+        else
+        {
+            return null;
+        }
     }
     private void InitPBCs()
     {

@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _demoCounter: {fileID: 0}
-  _needCounterForSpawn: 3
+  _needCounterForSpawn: 9
   _maxEntities: 1
   _spawnDistanceMin: 0
   _spawnDistanceMax: 0.5

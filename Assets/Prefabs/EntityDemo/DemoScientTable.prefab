@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 635947310242672396}
   - component: {fileID: 5597222920646075619}
   - component: {fileID: 653055325177773399}
+  - component: {fileID: 3259630263146823358}
   m_Layer: 0
   m_Name: DemoScientTable
   m_TagString: Untagged
@@ -55,6 +56,7 @@ MonoBehaviour:
   - {fileID: 8471272043882828294}
   - {fileID: 7516991489892046993}
   - {fileID: 653055325177773399}
+  - {fileID: 3259630263146823358}
 --- !u!114 &653055325177773399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,6 +72,19 @@ MonoBehaviour:
   _onOffsObjects:
   - {fileID: 3249270395795443267}
   _closeButton: {fileID: 2869596346367659416}
+--- !u!114 &3259630263146823358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58151514028472945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211613397e557994fb13dc439258d060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _groupSO: {fileID: 11400000, guid: 753569442391fa44c9c37c2eb4f5fc1c, type: 2}
 --- !u!1001 &1043953363451486208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -461,7 +476,7 @@ PrefabInstance:
     - target: {fileID: 6338143241473012965, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.713
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7433180754587744815, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}

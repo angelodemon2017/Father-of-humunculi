@@ -13,7 +13,7 @@ public class VisiblerEntity : MonoBehaviour
     public bool IsExist => _root.IsExist;
     public EntityMonobeh Root => _root;
     public Vector3 Position => _cashTransform.position;
-    public bool IsCanInteract => _root.IsExist && _mouseInterfaceInteraction.CanInterAct;
+    public bool IsCanInteract => _root.IsExist && (_mouseInterfaceInteraction == null || _mouseInterfaceInteraction.CanInterAct);
     public bool IsCanInteractByPlayer => IsCanInteract && _actionForInteract.CheckAction();
 
     public Action<VisiblerEntity> OnVirtualDestroyer;
@@ -30,7 +30,10 @@ public class VisiblerEntity : MonoBehaviour
 
     public void Focusable()
     {
-        _mouseInterfaceInteraction.ShowTip();
+        if (_mouseInterfaceInteraction != null)
+        {
+            _mouseInterfaceInteraction.ShowTip();
+        }
     }
 
     private void OnValidate()   

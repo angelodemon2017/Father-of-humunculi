@@ -49,6 +49,7 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         _aspectRatioFitter.aspectMode = iconModel.AspectMode;
         _isClickable = iconModel.ClickableIcon;
         _colorBorder.color = iconModel.ClickableIcon ? Color.white : Color.gray;
+        _button.interactable = iconModel.ClickableIcon;
 //        rectTransform.sizeDelta = new Vector2(50f, 50f);
     }
 
@@ -152,24 +153,42 @@ public class UIIconModel
         ClickableIcon = conf.IsUseLess;
     }/**/
 
-    public UIIconModel(ElementRecipe recipe)
+    public UIIconModel(RecipeEntitySpawn recipe)
+    {
+        Icon = recipe.IconBuild;
+        ColorBackGround = Color.white;
+        BottomText = string.Empty;
+        AspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
+        ClickableIcon = recipe.AvailableRecipe(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData);
+    }
+
+    public UIIconModel(RecipeItem recipe)
+    {
+        Icon = recipe.ItemResult.ItemConfig.GetSprite();
+        ColorBackGround = Color.white;
+        BottomText = recipe.ItemResult.Count > 1 ? $"{recipe.ItemResult.Count}" : string.Empty;
+        AspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
+        ClickableIcon = recipe.AvailableRecipe(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData);
+    }
+
+/*    public UIIconModel(ElementRecipe recipe)
     {
         Icon = recipe.ItemConfig.GetSprite(0);
         ColorBackGround = Color.white;
         BottomText = recipe.Count > 1 ? $"{recipe.Count}" : string.Empty;
         AspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
         ClickableIcon = true;
-    }
+    }/**/
 
-    public UIIconModel(ResearchSO researchSO)
+    public UIIconModel(RecipeResearch recipe)
     {
-        var isDone = ResearchLibrary.Instance.IsResearchComplete(researchSO.Name);
+        var isDone = ResearchLibrary.Instance.IsResearchComplete(recipe.research.Name);
 
-        Icon = researchSO.IconItem;
+        Icon = recipe.research.IconItem;
         ColorBackGround = isDone ? Color.green : Color.white;
         BottomText = string.Empty;
         AspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
-        ClickableIcon = !isDone;
+        ClickableIcon = recipe.AvailableRecipe(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData);
     }
 
 /*    public UIIconModel(ElementRecipe recipe, bool isHaveResource, int index)

@@ -4,6 +4,7 @@ public class DemoCounter : PrefabByComponentData
 {
     [SerializeField] private ItemConfig _givingItem;
     [SerializeField] private ComponentCounter _defaultValues;
+    [SerializeField] private CanvasUITempMessage _canvasUITempMessage;
 
     private ComponentCounter _component;
 
@@ -47,6 +48,10 @@ public class DemoCounter : PrefabByComponentData
 
             entity.UpdateEntity();
             touchedEntity.UpdateEntity();
+        }
+        else
+        {
+            _canvasUITempMessage.ShowDefMessage(entity);
         }
     }
 

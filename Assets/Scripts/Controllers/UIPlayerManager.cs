@@ -39,7 +39,7 @@ public class UIPlayerManager : MonoBehaviour
         uIPresentInventory.Init(ci, entity.EntityInProcess);
         uIPresentInventory.OnUseItem += UseItemByInventory;
 
-        _uIPanelCraftGroups.Init();// ci);
+        _uIPanelCraftGroups.Init(_entityMonobehPlayer);
         _uIPanelCraftGroups.OnApplyCraft += UpdateModules;
 
         var ci2 = entity.EntityInProcess.EntityData.Components.GetComponent<ComponentInventory>("b");

@@ -23,7 +23,7 @@ public class UIPanelCraft : MonoBehaviour
         _buttonCraft.onClick.AddListener(OnClick);
     }
 
-    public void Init(RecipeSO recipe, ComponentInventory componentInventory)
+    public void Init(RecipeSO recipe)//, ComponentInventory componentInventory)
     {
 //        _componentInventory = componentInventory;
 

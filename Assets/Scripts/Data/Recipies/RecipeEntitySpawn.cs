@@ -6,7 +6,7 @@ public class RecipeEntitySpawn : RecipeSO
     public EntityMonobeh EntityConfig;
     public Sprite IconBuild;
 
-    public override UIIconModel IconModelResult => new UIIconModel(IconBuild);
+    public override UIIconModel IconModelResult => new UIIconModel(this);
     public override string TitleRecipe => $"{EntityConfig.gameObject.name}";
 
     internal override void ReleaseRecipe(EntityData entityData, string args = "")

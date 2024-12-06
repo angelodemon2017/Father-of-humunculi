@@ -10,9 +10,11 @@ public class UIPanelCraftGroups : MonoBehaviour
     [SerializeField] private UIPanelCraftItems _panelCraftItems;
     [SerializeField] private List<GroupSO> _groupPlayer;
 
-//    private ComponentInventory _componentInventory;
-    private List<UIIconPresent> _tempIcons = new();//??
-    private string _focusEntity = string.Empty;
+    private List<GroupSO> _tempGroups = new();
+
+    private VisorComponent _visorComponent;
+
+    private List<UIIconPresent> _tempIcons = new();
 
     public Action OnApplyCraft;
 
@@ -21,9 +23,11 @@ public class UIPanelCraftGroups : MonoBehaviour
         _panelCraftItems.OnApplyCraft += UpdateMarks;
     }
 
-    public void Init()//ComponentInventory componentInventory)
+    public void Init(EntityMonobeh EM)
     {
-//        _componentInventory = componentInventory;
+        _visorComponent = EM.GetMyComponent<VisorComponent>();
+        _visorComponent.OnChangedEntities += UpdateAvailableEnts;
+
         _parentButtons.DestroyChildrens();
         for (int g = 0; g < _groupPlayer.Count; g++)
         {
@@ -31,8 +35,6 @@ public class UIPanelCraftGroups : MonoBehaviour
 
             uicp.InitIcon(new UIIconModel(_groupPlayer[g], g));
             uicp.OnPointerEnter += SelectGroup;
-
-            _tempIcons.Add(uicp);
         }
     }
 
@@ -44,14 +46,41 @@ public class UIPanelCraftGroups : MonoBehaviour
     private void SelectGroup(int i)
     {
         _panelCraftItems.gameObject.SetActive(true);
-        _panelCraftItems.Init(_groupPlayer[i].GroupName);//, _componentInventory);
+        _panelCraftItems.Init(i < _groupPlayer.Count ? _groupPlayer[i].GroupName : _tempGroups[i - _groupPlayer.Count].GroupName);
         _panelHider.gameObject.SetActive(true);
         _panelHider.AddGO(_panelCraftItems.gameObject);
     }
 
-    public void AddTempGroup(GroupSO tempGroup)
+    private void UpdateAvailableEnts()
     {
+        _tempGroups.Clear();
+        foreach (var ve in _visorComponent.VEs)
+        {
+            var cmp = ve.Root.GetMyComponent<AvailablerGroupRecipe>();
+            if (cmp != null)
+            {
+                _tempGroups.Add(cmp.GetAvailableGroup);
+            }
+        }
 
+        if (_tempIcons.Count == _tempGroups.Count)
+            return;
+
+        foreach (var ti in _tempIcons)
+        {
+            Destroy(ti.gameObject);
+        }
+        _tempIcons.Clear();
+
+        for (int g = 0; g < _tempGroups.Count; g++)
+        {
+            var uicp = Instantiate(_prefabRecipeIcon, _parentButtons);
+
+            uicp.InitIcon(new UIIconModel(_tempGroups[g], g + _groupPlayer.Count));
+            uicp.OnPointerEnter += SelectGroup;
+
+            _tempIcons.Add(uicp);
+        }
     }
 
     private void OnDestroy()

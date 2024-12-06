@@ -7,7 +7,7 @@ public class RecipeResearch : RecipeSO
     public int CountUpgrade;
 
     public override string TitleRecipe => research.Name;
-    public override UIIconModel IconModelResult => new UIIconModel(research);
+    public override UIIconModel IconModelResult => new UIIconModel(this);
 
     internal override bool AvailableRecipe(EntityData entityData)
     {

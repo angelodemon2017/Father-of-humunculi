@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,6 +10,10 @@ public class VisorComponent : PrefabByComponentData
 
     private Transform _cashTransform;
     private Vector3 _position => _cashTransform.position;
+
+    public List<VisiblerEntity> VEs => _visibleEntities;
+
+    public Action OnChangedEntities;
 
     private void Awake()
     {
@@ -67,6 +72,7 @@ public class VisorComponent : PrefabByComponentData
         {
             ve.OnVirtualDestroyer += DestroedVE;
             _visibleEntities.Add(ve);
+            OnChangedEntities?.Invoke();
         }
     }
 
@@ -76,6 +82,7 @@ public class VisorComponent : PrefabByComponentData
         if (_visibleEntities.Contains(ve))
         {
             _visibleEntities.Remove(ve);
+            OnChangedEntities?.Invoke();
         }
     }
 
@@ -83,5 +90,6 @@ public class VisorComponent : PrefabByComponentData
     {
         visiblerEntity.OnVirtualDestroyer -= DestroedVE;
         _visibleEntities.Remove(visiblerEntity);
+        OnChangedEntities?.Invoke();
     }
 }

@@ -14,6 +14,7 @@ public class UIEntityCraftList : PrefabByComponentData
     [SerializeField] private Transform _parentCraft;
 
     private UIPanelCraft _tempPanelCraft;
+    private List<UIIconPresent> _tempIcons = new();
     private List<RecipeSO> _recipes = new();
     private EntityInProcess _entityInProcess;
     private ComponentUICraftGroup _componentUICraftGroup;
@@ -36,6 +37,7 @@ public class UIEntityCraftList : PrefabByComponentData
         _recipes.Clear();
         _textTitle.text = _componentUICraftGroup.RecipeGroup;
         _parentButtons.DestroyChildrens();
+        _tempIcons.Clear();
         var tempRecipes = RecipesController.GetRecipes(_componentUICraftGroup.RecipeGroup);
         for (int r = 0; r < tempRecipes.Count; r++)
         {
@@ -46,6 +48,7 @@ public class UIEntityCraftList : PrefabByComponentData
             uicp.InitIcon(iconModel);
             uicp.OnClickIcon += SelectRecipe;
 
+            _tempIcons.Add(uicp);
             _recipes.Add(tempRecipes[r]);
         }
     }
@@ -58,14 +61,26 @@ public class UIEntityCraftList : PrefabByComponentData
         _tempPanelCraft = Instantiate(_uiPanelCraftPrefab, _parentCraft);
 
         _tempPanelCraft.gameObject.SetActive(true);
-        _tempPanelCraft.Init(_recipes[index], tempComponentInventory);
+        _tempPanelCraft.Init(_recipes[index]);//, tempComponentInventory);
 
         _tempPanelCraft.OnApplyRecipe += WasClickCraft;
+        UpdateIcons();
+    }
+
+    private void UpdateIcons()
+    {
+        var tempRecipes = RecipesController.GetRecipes(_componentUICraftGroup.RecipeGroup);
+        for (int r = 0; r < tempRecipes.Count; r++)
+        {
+            UIIconModel iconModel = tempRecipes[r].IconModelResult;
+            iconModel.Index = r;
+            _tempIcons[r].InitIcon(iconModel);
+        }
     }
 
     private void WasClickCraft()
     {
-
+        UpdateIcons();
     }
 
     private void UpdateEntity()
@@ -83,6 +98,7 @@ public class UIEntityCraftList : PrefabByComponentData
 
     private void OnDestroy()
     {
+        _tempIcons.Clear();
         if (_entityInProcess != null)
         {
             _entityInProcess.UpdateEIP -= UpdateEntity;

@@ -28,7 +28,7 @@ public class ItemConfig : ScriptableObject
         { 6, Color.red },
     };
 
-    public Sprite GetSprite(int seedid) => IconItems.Count > 0 ? IconItems.GetRandom(seedid) : null;
+    public Sprite GetSprite(int seedid = 0) => IconItems.Count > 0 ? IconItems.GetRandom(seedid) : null;
     public Color ColorBackGround => _qualityColors[BaseQuality];
     public bool IsUseLess => ItemActions.Count > 0;
 
