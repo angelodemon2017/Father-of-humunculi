@@ -132,7 +132,7 @@ public class UIIconModel
     {
         var conf = item.ItemConfig;
 
-        Icon = conf.GetSprite(0);
+        Icon = conf.GetIconSprite;
         IconType = ItemTypeIconLibrary.Instance.GetIcon(item.CATEGORYOFSLOT);
         ColorBackGround = conf.ColorBackGround;
         BottomText = item.Count > 0 ? $"{item.Count}" : string.Empty;
@@ -164,7 +164,7 @@ public class UIIconModel
 
     public UIIconModel(RecipeItem recipe)
     {
-        Icon = recipe.ItemResult.ItemConfig.GetSprite();
+        Icon = recipe.ItemResult.ItemConfig.GetVariablesSprite();
         ColorBackGround = Color.white;
         BottomText = recipe.ItemResult.Count > 1 ? $"{recipe.ItemResult.Count}" : string.Empty;
         AspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
@@ -203,7 +203,7 @@ public class UIIconModel
     public UIIconModel(ElementRecipe recipe, int currentCount, AspectRatioFitter.AspectMode aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight)
     {
         Index = 0;
-        Icon = recipe.ItemConfig.GetSprite(0);
+        Icon = recipe.ItemConfig.GetVariablesSprite(0);
         ColorBackGround = currentCount >= recipe.Count ? Color.white : Color.gray;
         BottomText = $"{currentCount}/{recipe.Count}";
         AspectMode = aspectMode;

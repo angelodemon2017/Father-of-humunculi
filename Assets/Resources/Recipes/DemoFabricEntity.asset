@@ -13,12 +13,10 @@ MonoBehaviour:
   m_Name: DemoFabricEntity
   m_EditorClassIdentifier: 
   Index: 2
-  Result:
-    ItemConfig: {fileID: 0}
-    Count: 0
   Resources:
-  - ItemConfig: {fileID: 11400000, guid: 8ea3d15d644ffca45ade6bea68c2e972, type: 2}
+  - ItemConfig: {fileID: 11400000, guid: 1d51120011131b44f9d60dea71849c0e, type: 2}
     Count: 1
+  needResearchs: []
   GroupRecipeTag: {fileID: 11400000, guid: b173f62f78601974a888f1a37ab4d1f6, type: 2}
   EntityConfig: {fileID: 5597222920646075619, guid: 928f850686d4aaf48a5926b774c341fc,
     type: 3}

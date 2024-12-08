@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Index: 3
   Resources:
-  - ItemConfig: {fileID: 11400000, guid: 8ea3d15d644ffca45ade6bea68c2e972, type: 2}
+  - ItemConfig: {fileID: 11400000, guid: 1d51120011131b44f9d60dea71849c0e, type: 2}
+    Count: 1
+  - ItemConfig: {fileID: 11400000, guid: 2ffe704ada27d7049866dc9fc65ad9bc, type: 2}
     Count: 1
   needResearchs: []
   GroupRecipeTag: {fileID: 11400000, guid: b173f62f78601974a888f1a37ab4d1f6, type: 2}

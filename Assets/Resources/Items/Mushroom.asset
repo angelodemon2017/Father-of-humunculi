@@ -17,9 +17,9 @@ MonoBehaviour:
   ItemCategory: 2
   AmountStack: 10
   BaseDurability: 1
-  IconItem: {fileID: 1837570665, guid: 396d90534d0a9824d92a5e20a1805531, type: 3}
+  IconItem: {fileID: 21300000, guid: b64291b842052a045bf5820b86b00945, type: 3}
   IconItems:
-  - {fileID: 1837570665, guid: 396d90534d0a9824d92a5e20a1805531, type: 3}
+  - {fileID: 21300000, guid: 51df6e367ca372b409645db9430e52e1, type: 3}
   BaseQuality: 1
   BaseMeta: 
   MinSpawnItem: 1

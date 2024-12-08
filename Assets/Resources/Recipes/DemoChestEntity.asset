@@ -12,14 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8af36f61561abc4997de59a781ab8af, type: 3}
   m_Name: DemoChestEntity
   m_EditorClassIdentifier: 
-  Index: 1
-  Result:
-    ItemConfig: {fileID: 0}
-    Count: 0
+  Index: 0
   Resources:
-  - ItemConfig: {fileID: 11400000, guid: 8ea3d15d644ffca45ade6bea68c2e972, type: 2}
+  - ItemConfig: {fileID: 11400000, guid: 1d51120011131b44f9d60dea71849c0e, type: 2}
     Count: 1
+  needResearchs: []
   GroupRecipeTag: {fileID: 11400000, guid: b173f62f78601974a888f1a37ab4d1f6, type: 2}
   EntityConfig: {fileID: 5597222920646075619, guid: aceb34413a536e142a2fba58a5e07d93,
     type: 3}
-  IconBuild: {fileID: -1044363121, guid: 183f3ba47d746ea4190c5bb109108e88, type: 3}
+  IconBuild: {fileID: 21300000, guid: 3f0665c09cdb1214e838498fbe02894c, type: 3}

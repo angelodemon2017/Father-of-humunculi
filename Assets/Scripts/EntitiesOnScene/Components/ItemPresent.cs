@@ -17,7 +17,7 @@ public class ItemPresent : PrefabByComponentData
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {
         _componentItemPresent = (ComponentItemPresent)componentData;
-        _itemRoot.SetSprite(_componentItemPresent.ItemConfig.GetSprite((int)entityInProcess.Id));
+        _itemRoot.SetSprite(_componentItemPresent.ItemConfig.GetVariablesSprite((int)entityInProcess.Id));
     }
 
     public void PickEntity(EntityData entity, string command, string message, WorldData worldData)
