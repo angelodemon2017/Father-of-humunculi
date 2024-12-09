@@ -113,8 +113,10 @@ public class WorldData
         if (!worldChunkDatas.Any(c => c.Xpos == x && c.Zpos == z))
         {
             var newChunk = new WorldChunkData(x, z);
-            var ents = BiomsController.GetBiom().GenerateEntitiesByChunk(result, Seed);
-//                WorldConstructor.GenerateEntitiesByChunk(x, z, result);
+
+            var ents = WorldConstructor.GenerateEntitiesByChunk(result, Seed, 1);
+            //BiomsController.GetBiom().GenerateEntitiesByChunk(result, Seed);
+            //                WorldConstructor.GenerateEntitiesByChunk(x, z, result);
 
             foreach (var ent in ents)
             {
@@ -211,11 +213,23 @@ public class WorldData
         }
     }
 
+    public WorldTileData GetWorldTileForMap(int x, int z)
+    {
+        if (_cashTiles.TryGetValue((x, z), out WorldTileData tile))
+        {
+            return tile;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     public WorldTileData GetWorldTileData(int x ,int z)
     {
         if (!_cashTiles.TryGetValue((x, z), out WorldTileData tile))
         {
-            tile = WorldConstructor.GenerateTile(x, z, Seed, 2);
+            tile = WorldConstructor.GenerateTile(x, z, Seed, 1);
             worldTileDatas.Add(tile);
             _cashTiles.Add((x, z), tile);
         }

@@ -13,7 +13,8 @@ public class PerlinGeneration : TypeGeneration
 
     public override WorldTileData GenerateTile(int x, int z, SeedData seed)
     {
-        var mapNoise = int.Parse(seed.MapNoiseFrom10To99) * 100;
+        var mapNoise = seed.MapNoise * 100;
+//            int.Parse(seed.MapNoiseFrom10To99) * 100;
 
         var pr = Mathf.PerlinNoise((x - mapNoise) * PerlinScale, (z + mapNoise) * PerlinScale);
 

@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc5cb6c0261712d43a6f326e43becac1, type: 3}
+  m_Name: RockGroundGreen
+  m_EditorClassIdentifier: 
+  _id: 5
+  _baseTexture: {fileID: 2800000, guid: 1e42927868a88c548b464f84f79c7c45, type: 3}
+  _baseAddedTexture:
+  - {fileID: 2800000, guid: 96b9b4c364cce4041b3a972a5e357e70, type: 3}
+  - {fileID: 2800000, guid: 7b6332b1718681c48b48c535b64acbdb, type: 3}
+  _baseColor: {r: 0.3325472, g: 0.5, b: 0.3325472, a: 1}
+  _sgmaterial: {fileID: 2100000, guid: 42f6a2c2bf8f0a84ab00b89579783a83, type: 2}
+  _maskCombine:
+  - Masks:
+    - {fileID: 2800000, guid: 57c030f0aff7d1f4ebc165f6ceac0f39, type: 3}
+    enumDirects:
+    - EnumDirect: 240
+      TileDirect: 2
+      ExceptDirects: 255
+  - Masks:
+    - {fileID: 2800000, guid: dd954abd1116362479973eaa585fc33c, type: 3}
+    enumDirects:
+    - EnumDirect: 208
+      TileDirect: 0
+      ExceptDirects: 223
+    - EnumDirect: 224
+      TileDirect: 3
+      ExceptDirects: 239
+    - EnumDirect: 112
+      TileDirect: 2
+      ExceptDirects: 127
+    - EnumDirect: 176
+      TileDirect: 1
+      ExceptDirects: 191
+  - Masks:
+    - {fileID: 2800000, guid: 6b137448891f0274395d274520d3e400, type: 3}
+    - {fileID: 2800000, guid: 572227317e21c0b4484a24dc78eb8467, type: 3}
+    - {fileID: 2800000, guid: e5f023ba23fcea84ebba7b8b6312d072, type: 3}
+    - {fileID: 2800000, guid: 88e1ac8162edbb445b63d98037130440, type: 3}
+    enumDirects:
+    - EnumDirect: 192
+      TileDirect: 0
+      ExceptDirects: 206
+    - EnumDirect: 96
+      TileDirect: 3
+      ExceptDirects: 107
+    - EnumDirect: 48
+      TileDirect: 2
+      ExceptDirects: 55
+    - EnumDirect: 144
+      TileDirect: 1
+      ExceptDirects: 157
+  - Masks:
+    - {fileID: 2800000, guid: 6361abf884bcc67459a6eff1db35513f, type: 3}
+    - {fileID: 2800000, guid: f94a136527bd1ee498e61c72e33caf69, type: 3}
+    - {fileID: 2800000, guid: eb54bda55772f044f94e3b981df89eb5, type: 3}
+    - {fileID: 2800000, guid: ac43893496d31b74ca8c9444738e5d2c, type: 3}
+    enumDirects:
+    - EnumDirect: 128
+      TileDirect: 0
+      ExceptDirects: 140
+    - EnumDirect: 64
+      TileDirect: 3
+      ExceptDirects: 74
+    - EnumDirect: 32
+      TileDirect: 2
+      ExceptDirects: 35
+    - EnumDirect: 16
+      TileDirect: 1
+      ExceptDirects: 21
+  - Masks:
+    - {fileID: 2800000, guid: 4b587618b2eeb5a479709c20b8c19f1b, type: 3}
+    enumDirects:
+    - EnumDirect: 8
+      TileDirect: 0
+      ExceptDirects: 8
+    - EnumDirect: 2
+      TileDirect: 3
+      ExceptDirects: 2
+    - EnumDirect: 1
+      TileDirect: 2
+      ExceptDirects: 1
+    - EnumDirect: 4
+      TileDirect: 1
+      ExceptDirects: 4
+  _speedMove: 1

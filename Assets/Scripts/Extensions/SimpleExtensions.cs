@@ -4,6 +4,19 @@ public static class SimpleExtensions
 {
     private static Random rnd = new();
 
+    public static float FixMinMax(this float index, float min, float max)
+    {
+        if (index >= max)
+        {
+            index = max;
+        }
+        if (index < min)
+        {
+            index = min;
+        }
+        return index;
+    }
+
     public static float FixIndex(this float index, int count)
     {
         if (index >= count)

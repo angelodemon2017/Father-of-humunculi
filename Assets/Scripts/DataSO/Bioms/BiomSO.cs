@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Linq;
 
-[CreateAssetMenu(menuName = "BiomSO", order = 1)]
+[CreateAssetMenu(menuName = "Bioms/Base biom", order = 1)]
 public class BiomSO : ScriptableObject
 {
     public string Key;
