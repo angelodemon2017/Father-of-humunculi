@@ -21,11 +21,15 @@ public class MultiLayersPerlinGeneration : TypeGeneration
 
     public EntityMonobeh GenEntity(int x, int z, SeedData seed)
     {
-        var lh = GetLayerHigh(x, z, seed);
+        var pr1 = Perlin(x, z, seed.MapNoise, PerlinHighScale);
+
+        var lh = _layersHigh.FirstOrDefault(l => l.IsInside(pr1));
+        var dif = lh.GetFif(pr1);
 
         var pr2 = Perlin(x, z, seed.MapLayer2, PerlinToxicScale);
+        var lt = lh.GetByPerlin(pr2);
 
-        return lh.GetByPerlin(pr2).GenEntity(pr2);
+        return lt.GenEntity(dif);
     }
 
     private LayerHigh GetLayerHigh(int x, int z, SeedData seed)
@@ -51,6 +55,24 @@ public class MultiLayersPerlinGeneration : TypeGeneration
         return Mathf.PerlinNoise((x - mapNoise1) * scale, (z + mapNoise1) * scale).FixMinMax(0, 1);
     }
 
+    public override List<EntityData> GenerateEntitiesByChunk(List<WorldTileData> chunk, SeedData seed)
+    {
+        List<EntityData> result = new();
+
+        foreach (var t in chunk)
+        {
+            var resEnt = GenEntity(t.Xpos, t.Zpos, seed);
+            if (resEnt != null)
+            {
+                var halfTile = Config.TileSize / 2;
+                result.Add(resEnt.CreateEntity(t.Xpos * Config.TileSize + SimpleExtensions.GetRandom(-halfTile, halfTile)/**/,
+                    t.Zpos * Config.TileSize + SimpleExtensions.GetRandom(-halfTile, halfTile)/**/));
+            }
+        }
+
+        return result;
+    }
+
     [System.Serializable]
     internal class LayerHigh
     {
@@ -65,6 +87,11 @@ public class MultiLayersPerlinGeneration : TypeGeneration
         public bool IsInside(float pr)
         {
             return pr >= MinVal && pr <= MaxVal;
+        }
+
+        public float GetFif(float pr)
+        {
+            return (pr - MinVal) / (MaxVal - MinVal);
         }
 
         public LayerToxic GetByPerlin(float toxic)
@@ -89,11 +116,16 @@ public class MultiLayersPerlinGeneration : TypeGeneration
             return pr >= MinVal && pr <= MaxVal;
         }
 
+        public float GetDif(float pr)
+        {
+            return (pr - MinVal) / (MaxVal - MinVal);
+        }
+
         public EntityMonobeh GenEntity(float pr)
         {
-            var dif = pr - MinVal / MaxVal - MinVal;
+//            var dif = (pr - MinVal) / (MaxVal - MinVal);
 
-            return Biom.GetRndEntity(dif);
+            return Biom.GetRndEntity(pr);
         }
     }
 }

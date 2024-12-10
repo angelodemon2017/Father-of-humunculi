@@ -24,7 +24,6 @@ public class BaseInventoryAdapter : PrefabByComponentData
         _entityInProcess = entityInProcess;
         _entityInProcess.UpdateEIP += UpdateComponent;
         _componentData = (ComponentInventory)componentData;
-        //entityInProcess.EntityData.Components.GetComponent<ComponentInventory>(_addingKey);
     }
 
     public override void ExecuteCommand(EntityData entity, string command, string message, WorldData worldData)
