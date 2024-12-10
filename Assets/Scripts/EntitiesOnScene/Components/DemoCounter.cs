@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DemoCounter : PrefabByComponentData
@@ -5,8 +6,10 @@ public class DemoCounter : PrefabByComponentData
     [SerializeField] private ItemConfig _givingItem;
     [SerializeField] private ComponentCounter _defaultValues;
     [SerializeField] private CanvasUITempMessage _canvasUITempMessage;
+    [SerializeField] private List<PrefabByComponentData> _chekers;
 
     private ComponentCounter _component;
+    private List<IDepenceCounter> _depenceCounters = new();
 
     internal override bool CanInterAct => _component._debugCounter > 0;
     public ItemData GivingItem => new ItemData(_givingItem);
