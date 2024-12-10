@@ -36,6 +36,9 @@ public class WASDControlState : State
             _target += Vector3.right + Vector3.back;
         }
 
+        Quaternion rotation = Quaternion.Euler(Vector3.up * CameraController.Instance.CurAngl);
+        _target = rotation * _target;
+
         var tempPos = Character.GetTransform().position;
         _target += tempPos;
 

@@ -9,13 +9,15 @@ public class WorldTileData
     public int SeedMask => GameProcess.Instance.GameWorld.Seed.GetShaderMask() + Xpos + Zpos;
 
     public Action<int> ChangedId;
+    public string DebugText;
 
-    public WorldTileData(int id, int xpos, int zpos, string biomKey)
+    public WorldTileData(int id, int xpos, int zpos, string biomKey, string debugInfo = "")
     {
         Id = id;
         Xpos = xpos;
         Zpos = zpos;
         BiomKey = biomKey;
+        DebugText = debugInfo;
     }
 
     public void ChangePart(int id)

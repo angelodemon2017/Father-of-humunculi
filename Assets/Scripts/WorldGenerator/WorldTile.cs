@@ -11,6 +11,8 @@ public class WorldTile
 
     public Action<int> ChangedId;
 
+    public string DebugData => TileData.DebugText;
+
     public void SetNewId(int id)
     {
         TileData.ChangePart(id);

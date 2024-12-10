@@ -7,4 +7,6 @@
     InteractEntity,
     PickUpAction,
     Cancel,
+    TurnCameraLeft,
+    TurnCameraRight,
 }

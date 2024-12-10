@@ -1,27 +1,29 @@
+using System;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
     public static CameraController Instance;
-//    [SerializeField] private Transform _targetPoint;
     [SerializeField] private float _intensive;
     [SerializeField] private Transform _currentTargetPoint;
-    private Vector3 _diffVector;
+    [SerializeField] private Transform _rootCamera;
+//    private Vector3 _diffVector;
     private Quaternion _directParalCamera;
+//    private Quaternion _localRotation;
+
+    [HideInInspector] public float CurAngl = 0f;
 
     public Vector3 FocusPosition => _currentTargetPoint != null ? _currentTargetPoint.position : Vector3.zero;
     public Vector3Int FocusTile => Vector3Int.RoundToInt(FocusPosition / Config.TileSize);
     public Quaternion DirectParalCamera => _directParalCamera;
 
+    public static Action ChangedRot;
+
     private void Awake()
     {
         Instance = this;
 
-        _diffVector = transform.position - Vector3.zero;
-//        SetTarget(_targetPoint);
-
-        Vector3 direction = Vector3.zero - transform.position;
-        _directParalCamera = Quaternion.LookRotation(direction);
+        RotateRoot(0f);
     }
 
     public void SetTarget(Transform newTarget)
@@ -31,6 +33,24 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, FocusPosition + _diffVector, _intensive);
+        if(EnumControlInputPlayer.TurnCameraLeft.CheckAction(true))
+        {
+            RotateRoot(45f);
+        }
+        if (EnumControlInputPlayer.TurnCameraRight.CheckAction(true))
+        {
+            RotateRoot(-45f);
+        }
+
+        _rootCamera.position = Vector3.Lerp(_rootCamera.position, FocusPosition, _intensive);
+    }
+
+    private void RotateRoot(float angl)
+    {
+        CurAngl += angl;
+        _rootCamera.rotation = Quaternion.Euler(0f, CurAngl, 0f);
+        Vector3 direction = _rootCamera.position - transform.position;
+        _directParalCamera = Quaternion.LookRotation(direction);
+        ChangedRot?.Invoke();
     }
 }

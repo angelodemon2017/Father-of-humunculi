@@ -9,14 +9,36 @@ public class MultiLayersPerlinGeneration : TypeGeneration
     [SerializeField] private float PerlinHighScale;
     [Range(0, 1)]
     [SerializeField] private float PerlinToxicScale;
-
+    [SerializeField] private bool EnableEntityGenerate;
     [SerializeField] private List<LayerHigh> _layersHigh = new();
 
     public override WorldTileData GenerateTile(int x, int z, SeedData seed)
     {
         var layer = GetToxicLayer(x, z, seed);
 
-        return new WorldTileData(layer.MainTexture.Id, x, z, layer.Biom.Key);
+        var pr1 = Perlin(x, z, seed.MapNoise, PerlinHighScale);
+        var pr2 = Perlin(x, z, seed.MapLayer2, PerlinToxicScale);
+
+        var lh = _layersHigh.FirstOrDefault(l => l.IsInside(pr1));
+        var lt = lh.GetByPerlin(pr2);
+
+        var dif1 = lh.GetFif(pr1);
+        var dif2 = lt.GetDif(pr2);
+
+        var totalDif = (pr1 + pr2 - lh.MinVal + lt.MinVal) / (lh.MaxVal + lt.MaxVal - lh.MinVal + lt.MinVal);
+        string debug = $"______\r\n(h:{pr1.ToString("#.##")})\r\n(T:{pr2.ToString("#.##")})\r\n(R1:{dif1.ToString("#.##")})\r\n(R2:{dif2.ToString("#.##")})";
+
+        bool isBorder = false;
+        if (layer.BorderTexture != null)
+            if (GetToxicLayer(x + 1, z, seed).Biom.Key != layer.Biom.Key ||
+               GetToxicLayer(x - 1, z, seed).Biom.Key != layer.Biom.Key ||
+               GetToxicLayer(x, z + 1, seed).Biom.Key != layer.Biom.Key ||
+               GetToxicLayer(x, z - 1, seed).Biom.Key != layer.Biom.Key)
+            {
+                isBorder = true;
+            }
+
+        return new WorldTileData(isBorder ? layer.BorderTexture.Id : layer.MainTexture.Id, x, z, layer.Biom.Key, debug);
     }
 
     public EntityMonobeh GenEntity(int x, int z, SeedData seed)
@@ -28,8 +50,11 @@ public class MultiLayersPerlinGeneration : TypeGeneration
 
         var pr2 = Perlin(x, z, seed.MapLayer2, PerlinToxicScale);
         var lt = lh.GetByPerlin(pr2);
+        var dif2 = lt.GetDif(pr2);
 
-        return lt.GenEntity(dif);
+        var totalDif = (pr1 + pr2 - lh.MinVal + lt.MinVal) / (lh.MaxVal + lt.MaxVal - lh.MinVal + lt.MinVal);
+
+        return lt.GenEntity(totalDif);
     }
 
     private LayerHigh GetLayerHigh(int x, int z, SeedData seed)
@@ -58,6 +83,10 @@ public class MultiLayersPerlinGeneration : TypeGeneration
     public override List<EntityData> GenerateEntitiesByChunk(List<WorldTileData> chunk, SeedData seed)
     {
         List<EntityData> result = new();
+        if (!EnableEntityGenerate)
+        {
+            return result;
+        }
 
         foreach (var t in chunk)
         {
@@ -65,8 +94,8 @@ public class MultiLayersPerlinGeneration : TypeGeneration
             if (resEnt != null)
             {
                 var halfTile = Config.TileSize / 2;
-                result.Add(resEnt.CreateEntity(t.Xpos * Config.TileSize + SimpleExtensions.GetRandom(-halfTile, halfTile)/**/,
-                    t.Zpos * Config.TileSize + SimpleExtensions.GetRandom(-halfTile, halfTile)/**/));
+                result.Add(resEnt.CreateEntity(t.Xpos * Config.TileSize + SimpleExtensions.GetRandom(-halfTile, halfTile),
+                    t.Zpos * Config.TileSize + SimpleExtensions.GetRandom(-halfTile, halfTile)));
             }
         }
 
@@ -109,6 +138,7 @@ public class MultiLayersPerlinGeneration : TypeGeneration
         public float MaxVal = 1;
 
         public TextureEntity MainTexture;
+        public TextureEntity BorderTexture;
         public BiomByLayerPerlinGeneration Biom;
 
         public bool IsInside(float pr)

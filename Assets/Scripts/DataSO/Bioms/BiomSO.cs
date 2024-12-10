@@ -10,6 +10,11 @@ public class BiomSO : ScriptableObject
 
     public List<EntityInBiom> Entities = new();
 
+    internal virtual EntityData GenEntity(TypeGeneration type, int x, int z)
+    {
+        return null;
+    }
+
     public List<EntityData> GenerateEntitiesByChunk(List<WorldTileData> chunk, SeedData seed)
     {
         List<EntityData> result = new();

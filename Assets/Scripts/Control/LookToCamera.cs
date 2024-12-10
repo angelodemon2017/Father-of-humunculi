@@ -9,6 +9,7 @@ public class LookToCamera : MonoBehaviour
     private void Awake()
     {
         _thisTransform = transform;
+        CameraController.ChangedRot += UpdateLookRotation;
     }
 
     private void Start()
@@ -37,5 +38,10 @@ public class LookToCamera : MonoBehaviour
                 _thisTransform.localRotation = CameraController.Instance.DirectParalCamera;
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        CameraController.ChangedRot -= UpdateLookRotation;
     }
 }

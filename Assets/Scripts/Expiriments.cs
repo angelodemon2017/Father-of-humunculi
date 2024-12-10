@@ -17,7 +17,7 @@ public class Expiriments : ScriptableObject
         //        RunFunc(TestFunc1, "just");
     }
 
-    static private void RunFunc(Action action, string comm)
+    static public void RunFunc(Action action, string comm)
     {
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.Start();

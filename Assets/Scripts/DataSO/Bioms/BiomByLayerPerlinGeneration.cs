@@ -7,6 +7,12 @@ public class BiomByLayerPerlinGeneration : BiomSO
 {
     [SerializeField] private List<LayerOfEntity> _entities = new();
 
+    internal override EntityData GenEntity(TypeGeneration type, int x, int z)
+    {
+        var halfTile = Config.TileSize / 2;
+        return _entities[0].Entity.CreateEntity(x * Config.TileSize + SimpleExtensions.GetRandom(-halfTile, halfTile), z * Config.TileSize + SimpleExtensions.GetRandom(-halfTile, halfTile));
+    }
+
     public EntityMonobeh GetRndEntity(float pr)
     {
         if (_entities.Count == 0)
