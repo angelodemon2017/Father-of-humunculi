@@ -157,6 +157,14 @@ public class WorldData
     {
         lock (lockObjectEntities)
         {
+            if (_cashEntityDatas.TryGetValue(id, out EntityData entityData))
+            {
+                return entityData;
+            }
+            else
+            {
+                return null;
+            }
             return _cashEntityDatas[id];
         }
     }

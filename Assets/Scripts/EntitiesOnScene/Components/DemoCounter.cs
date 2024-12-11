@@ -9,12 +9,12 @@ public class DemoCounter : PrefabByComponentData
     [SerializeField] private List<PrefabByComponentData> _chekers;
 
     private ComponentCounter _component;
-    private List<IDepenceCounter> _depenceCounters = new();
 
+    internal override string AddingKey => _defaultValues.AddingKey;
     internal override bool CanInterAct => _component._debugCounter > 0;
     public ItemData GivingItem => new ItemData(_givingItem);
     public override string KeyComponentData => typeof(ComponentCounter).Name;
-    public override string GetDebugText => $"res: {_component._debugCounter}";
+    public override string GetDebugText => $"res: {(_component == null ? 0 : _component._debugCounter)}";
     internal override ComponentData GetComponentData => new ComponentCounter(_defaultValues);
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
@@ -60,13 +60,20 @@ public class DemoCounter : PrefabByComponentData
 
     public override void DoSecond(EntityData entity)
     {
-        var cc = entity.Components.GetComponent<ComponentCounter>();
+        var cc = entity.Components.GetComponent<ComponentCounter>(AddingKey);
         if (cc != null)
         {
             if ((cc._maxCount == 0 || cc._debugCounter < cc._maxCount) &&
                 cc._chanceUpper.GetChance())
             {
                 cc._debugCounter++;
+                foreach (var chek in _chekers)
+                {
+                    if (chek is IDepenceCounter depenceCounter)
+                    {
+                        depenceCounter.CheckComponent(cc, entity);
+                    }
+                }
                 entity.UpdateEntity();
             }
         }

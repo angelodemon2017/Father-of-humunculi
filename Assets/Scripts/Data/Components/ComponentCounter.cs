@@ -9,6 +9,7 @@ public class ComponentCounter : ComponentData//, ISeconder
 
     public ComponentCounter(ComponentCounter component)
     {
+        AddingKey = component.AddingKey;
         _chanceUpper = component._chanceUpper;
         _debugCounter = component._debugCounter;
         _maxCount = component._maxCount;
@@ -18,15 +19,4 @@ public class ComponentCounter : ComponentData//, ISeconder
     {
         _chanceUpper = chanceCall;
     }
-
-/*    public override bool DoSecond()
-    {
-        if ((_maxCount == 0 || _debugCounter < _maxCount) &&
-            _chanceUpper.GetChance())
-        {
-            _debugCounter++;
-            return true;
-        }
-        return false;
-    }/**/
 }

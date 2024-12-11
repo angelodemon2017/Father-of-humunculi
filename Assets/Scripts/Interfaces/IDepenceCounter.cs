@@ -1,5 +1,5 @@
 ﻿
 public interface IDepenceCounter
 {
-    public void CheckComponent(DemoCounter counter);
+    public void CheckComponent(ComponentCounter counter, EntityData entityData);
 }

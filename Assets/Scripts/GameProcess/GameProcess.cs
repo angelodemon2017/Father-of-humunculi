@@ -158,6 +158,7 @@ public class GameProcess
     {
         //is host
         HashSet<long> idsForDel = new();
+        var asd = _gameWorld.GetIds().OrderBy(x => x).ToList();
         foreach (var newEnt in _gameWorld.GetIds())
         {
             lock (lockObjectEips)

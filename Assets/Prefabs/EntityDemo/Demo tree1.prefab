@@ -74,6 +74,9 @@ MonoBehaviour:
     _chanceUpper: 100
     _debugCounter: 3
     _maxCount: 1
+  _canvasUITempMessage: {fileID: 0}
+  _chekers:
+  - {fileID: 1075913567266275299}
 --- !u!114 &1075913567266275299
 MonoBehaviour:
   m_ObjectHideFlags: 0

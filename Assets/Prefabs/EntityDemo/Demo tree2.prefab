@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 635947310242672396}
   - component: {fileID: 5597222920646075619}
   - component: {fileID: 9080533731924881794}
+  - component: {fileID: 3239919620930306022}
   m_Layer: 0
   m_Name: Demo tree2
   m_TagString: Untagged
@@ -73,8 +74,26 @@ MonoBehaviour:
   _defaultValues:
     AddingKey: 
     _chanceUpper: 100
-    _debugCounter: 2
-    _maxCount: 2
+    _debugCounter: 0
+    _maxCount: 10
+  _canvasUITempMessage: {fileID: 0}
+  _chekers:
+  - {fileID: 3239919620930306022}
+--- !u!114 &3239919620930306022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58151514028472945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65e3a12c2cfa3f349bcb71e99480e4ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NeedToEvaluate: 10
+  NextEntity:
+  - {fileID: 5597222920646075619, guid: c227f0edb19bbba48b913a0ec52ec469, type: 3}
 --- !u!1001 &2155038951095285894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -517,7 +536,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _mapActions.Array.data[0]._needItems.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: ff4a67f1d236a6e4a951f32184a7f350,
+      objectReference: {fileID: 11400000, guid: e880c4905b01dd04eafeeae042f8de3e,
         type: 2}
     - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
         type: 3}
