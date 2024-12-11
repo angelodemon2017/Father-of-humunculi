@@ -26,12 +26,9 @@ public class EntityMonobeh : MonoBehaviour
 
         if (_cashPrefabsByComponents.TryGetValue((typeof(T).Name, addingKey), out PrefabByComponentData res))
         {
-            return (T)res;
+            return res as T;
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
     private void InitPBCs()
     {
@@ -123,10 +120,11 @@ public class EntityMonobeh : MonoBehaviour
 
         foreach (var p in _prefabsByComponents)
         {
-            if (!newEntity.Components.Any(c => c.KeyName == p.KeyComponentData && c.AddingKey == p.AddingKey))
+            newEntity._cashComponents.TryAdd((p.KeyComponentData, p.AddingKey), p.GetComponentData);
+/*            if (!newEntity.Components.Any(c => c.KeyName == p.KeyComponentData && c.AddingKey == p.AddingKey))
             {
                 newEntity.Components.Add(p.GetComponentData);
-            }
+            }/**/
         }
         _prefabsByComponents.ForEach(x => x.PrepareEntityBeforeCreate(newEntity));
 

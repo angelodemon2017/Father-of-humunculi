@@ -14,12 +14,15 @@ public class EntityData
     public virtual string DebugField => _DebugField;
     public EntityMonobeh GetConfig => EntitiesLibrary.Instance.GetConfig(TypeKey);
 
-    private Dictionary<(string, string), ComponentData> _cashComponents = new();
+    internal Dictionary<(string, string), ComponentData> _cashComponents = new();
 
     internal T GetComponent<T>(string addingKey = "") where T : ComponentData
     {
-        return (T)_cashComponents[(addingKey, addingKey)];//TODO THAT!!!
-            //_cashComponents.TryGetValue((addingKey, addingKey), out ComponentData componentData);
+        if (_cashComponents.TryGetValue((typeof(T).Name, addingKey), out ComponentData cmp))
+        {
+            return cmp as T;
+        }
+        return null;
     }
 
     public UnityEngine.Vector3 Position 
@@ -35,22 +38,6 @@ public class EntityData
     {
         Components.Add(new ComponentPosition(xpos, zpos));
     }
-
-/*    public void DoSecond()
-    {
-        bool isChanged = false;
-        foreach (var c in Components)
-        {
-            if (c.DoSecond())
-            {
-                isChanged = true;
-            }
-        }
-        if (isChanged)
-        {
-            UpdateEntity();
-        }
-    }/**/
 
     public void SetUpdateAction(Action<long> updater)
     {

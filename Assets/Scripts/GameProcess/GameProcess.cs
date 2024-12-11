@@ -20,7 +20,7 @@ public class GameProcess
         }
     }
 
-    private bool _gameLaunched = false;
+//    private bool _gameLaunched = false;
     [UnityEngine.SerializeField] private WorldData _gameWorld;
 
     private readonly object lockObjectEips = new object();
@@ -57,7 +57,7 @@ public class GameProcess
 
     public void NewGame(WorldData worldData)
     {
-        _gameLaunched = false;
+//        _gameLaunched = false;
         lock (lockObjectEips)
         {
             _cashEntities.Clear();
@@ -107,12 +107,12 @@ public class GameProcess
 
     public void StartGame()
     {
-        _gameLaunched = true;
+//        _gameLaunched = true;
     }
 
     public void StopGame()
     {
-        _gameLaunched = false;
+//        _gameLaunched = false;
     }
 
     Stopwatch stopwatch = new Stopwatch();
@@ -151,24 +151,6 @@ public class GameProcess
             {
                 entIP.Value.DoSecond();
             }
-
-/*            HashSet<EntityInProcess> crunchUpdate = new();
-
-            foreach (var entIP in _cashEntities)
-            {
-                if (entIP.Value.EntityIsDeleted)
-                {
-                    crunchUpdate.Add(entIP.Value);
-                }
-                else
-                {
-                    entIP.Value.DoSecond();
-                }
-            }
-            foreach (var cu in crunchUpdate)
-            {
-                RemoveEIP(cu);
-            }/**/
         }
     }
 
@@ -176,7 +158,6 @@ public class GameProcess
     {
         //is host
         HashSet<long> idsForDel = new();
-//        var asd = _gameWorld.GetIds().OrderBy(x => x).ToList();
         foreach (var newEnt in _gameWorld.GetIds())
         {
             lock (lockObjectEips)

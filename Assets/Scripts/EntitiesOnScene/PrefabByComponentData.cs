@@ -2,7 +2,18 @@ using UnityEngine;
 
 public class PrefabByComponentData : MonoBehaviour
 {
-    public virtual string KeyComponent => GetType().Name;
+    private string _cashKeyComponent;
+    public virtual string KeyComponent
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(_cashKeyComponent))
+            {
+                _cashKeyComponent = GetType().Name;
+            }
+            return _cashKeyComponent;
+        }
+    }
     public virtual string KeyComponentData => string.Empty;
     public virtual string GetDebugText => string.Empty;
     internal virtual bool _isNeedUpdate => false;

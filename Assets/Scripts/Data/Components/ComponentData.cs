@@ -4,7 +4,18 @@ using UnityEngine;
 public class ComponentData
 {
     internal long _idEntity;
-    public string KeyName => GetType().Name;
+    private string _cashName;
+    public string KeyName
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(_cashName))
+            {
+                _cashName = GetType().Name;
+            }
+            return _cashName;
+        }
+    }
     public string AddingKey = string.Empty;
     public Action changed;
 
