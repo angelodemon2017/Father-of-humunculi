@@ -38,7 +38,7 @@ public class KeySetTargetState : State
             {
                 var myEM = Character.GetEntityMonobeh();
 
-                var miicomp = _targetEM.PrefabsByComponents.GetComponent<MouseInterfaceInteraction>();
+                var miicomp = _targetEM.GetMyComponent<MouseInterfaceInteraction>();
                 if (miicomp.CanInterAct)
                 {
                     miicomp.OnClick(myEM);

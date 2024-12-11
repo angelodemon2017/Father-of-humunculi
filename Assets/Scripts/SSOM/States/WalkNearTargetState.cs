@@ -19,7 +19,7 @@ public class WalkNearTargetState : State
 
     protected override void Init()
     {
-        _fSMController = Character.GetEntityMonobeh().PrefabsByComponents.GetComponent<FSMController>();
+        _fSMController = Character.GetEntityMonobeh().GetMyComponent<FSMController>();
         var targetEntity = MainFocus(_fSMController);
 
         _timerProblem = _timeProblem;
@@ -88,7 +88,7 @@ public class WalkNearTargetState : State
 
     public override bool CheckRules(IStatesCharacter character)
     {
-        var fSMController = character.GetEntityMonobeh().PrefabsByComponents.GetComponent<FSMController>();
+        var fSMController = character.GetEntityMonobeh().GetMyComponent<FSMController>();
         var targetEntity = MainFocus(fSMController);
 
         return character.IsFinishedCurrentState() && Vector3.Distance(targetEntity, character.GetTransform().position) > _distanceRandomPoint * 2;

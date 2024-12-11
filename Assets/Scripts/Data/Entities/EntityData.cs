@@ -14,6 +14,14 @@ public class EntityData
     public virtual string DebugField => _DebugField;
     public EntityMonobeh GetConfig => EntitiesLibrary.Instance.GetConfig(TypeKey);
 
+    private Dictionary<(string, string), ComponentData> _cashComponents = new();
+
+    internal T GetComponent<T>(string addingKey = "") where T : ComponentData
+    {
+        return (T)_cashComponents[(addingKey, addingKey)];//TODO THAT!!!
+            //_cashComponents.TryGetValue((addingKey, addingKey), out ComponentData componentData);
+    }
+
     public UnityEngine.Vector3 Position 
     {
         get

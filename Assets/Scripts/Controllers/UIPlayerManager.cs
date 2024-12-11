@@ -174,7 +174,7 @@ public class UIPlayerManager : MonoBehaviour
             var itemHand = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
             if (!itemHand.IsEmpty)
             {
-                var compPBC = _entityMonobehPlayer.PrefabsByComponents.GetComponent<PlayerPresent>();
+                var compPBC = _entityMonobehPlayer.GetMyComponent<PlayerPresent>();
 
                 var cmdDropItem = compPBC.GetCommandDropItem(_entityMonobehPlayer.EntityInProcess.EntityData);
 

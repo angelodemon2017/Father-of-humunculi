@@ -8,7 +8,7 @@ public class WaitFinishInteractState : State
     protected override void Init()
     {
         var EM = Character.GetEntityMonobeh();
-        _usingByEntity = EM.PrefabsByComponents.GetComponent<UsingByEntity>();
+        _usingByEntity = EM.GetMyComponent<UsingByEntity>();
     }
 
     protected override void Run()
@@ -27,7 +27,7 @@ public class WaitFinishInteractState : State
     public override bool CheckRules(IStatesCharacter character)
     {
         var EM = character.GetEntityMonobeh();
-        var ube = EM.PrefabsByComponents.GetComponent<UsingByEntity>();
+        var ube = EM.GetMyComponent<UsingByEntity>();
 
         return ube._isOpen;
     }
