@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7393817714204140842}
   - component: {fileID: 6839020032994753458}
   m_Layer: 5
-  m_Name: CanvasUITempMessage
+  m_Name: UITempMessage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

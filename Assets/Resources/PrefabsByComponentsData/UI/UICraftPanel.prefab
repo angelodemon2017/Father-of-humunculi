@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7362657391113926801}
   - component: {fileID: 6097563178705762976}
   m_Layer: 5
-  m_Name: CanvasUICraftPanel
+  m_Name: UICraftPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -41,7 +41,6 @@ public class UIPanelCraft : MonoBehaviour
     {
         var entDat = UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData;
         _buttonCraft.interactable = _recipe.AvailableRecipe(entDat);
-//            _componentInventory.AvailableRecipe(_recipe);
 
         _parentResources.DestroyChildrens();
         foreach (var r in _recipe.Resources)
@@ -55,20 +54,9 @@ public class UIPanelCraft : MonoBehaviour
 
     private void OnClick()
     {
-        if (!_recipe.AvailableRecipe(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData))
+        if (!_recipe.PlayerUseRecipe())
         {
             return;
-        }
-
-        if (_recipe is RecipeEntitySpawn res)
-        {
-            UIPlayerManager.Instance.RunPlanBuild(res);
-        }
-        else
-        {
-            var compInv = UIPlayerManager.Instance.EntityMonobeh.PrefabsByComponents.GetComponent<BaseInventoryAdapter>();
-            var cmdSetter = compInv.GetCommandUseRecipe(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData, _recipe, Vector3.one);
-            UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.SendCommand(cmdSetter);
         }
 
         UpdatePanel();

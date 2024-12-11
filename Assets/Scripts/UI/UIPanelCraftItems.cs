@@ -72,22 +72,12 @@ public class UIPanelCraftItems : MonoBehaviour
 
     private void CraftRecipe(int index)
     {
-        if (!_recipes[index].AvailableRecipe(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData))
+        if (!_recipes[index].PlayerUseRecipe())
         {
             return;
         }
 
-        if (_recipes[index] is RecipeEntitySpawn res)
-        {
-            UIPlayerManager.Instance.RunPlanBuild(res);
-        }
-        else
-        {
-            var compInv = UIPlayerManager.Instance.EntityMonobeh.PrefabsByComponents.GetComponent<BaseInventoryAdapter>();
-            var cmdSetter = compInv.GetCommandUseRecipe(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData, _recipes[index], Vector3.one);
-            UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.SendCommand(cmdSetter);
-            UpdateIcons();
-        }
+        UpdateIcons();
     }
 
     private void InitIcons()

@@ -11,6 +11,8 @@ public class SetBuildPlanState : State
 
     private RaycastHit hit;
 
+    public override string DebugField => $"моя ставить приблуду";
+
     protected override void Init()
     {
         UIPlayerManager.Instance.HideCursorBuild();

@@ -9,21 +9,29 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
     [SerializeField] private List<State> _availableState;
     [SerializeField] private NavMeshAgent _navMeshAgent;
 
-    private Dictionary<string, State> _cashState = new();
+    public string TEST_CURRENT_STATE;
 
+    private Dictionary<string, State> _cashState = new();
     private State _currentState;
     private ComponentFSM _component;
     private Transform _transform;
     private Vector3 _lastPosition;
     private NavMeshSurfaceVolumeUpdater _navMeshSurfaceVolumeUpdater;
 
+    #region for craft
+    [HideInInspector] public int IdRecipe = -1;
+    [HideInInspector] public Vector3 TargetRec;
+    #endregion
+
     public bool IsFinishedCurrentState() => _currentState.IsFinished;
     public Transform GetTransform() => _transform;
     public NavMeshAgent GetNavMeshAgent() => _navMeshAgent;
     public ComponentFSM ComponentData => _component;
 
+    public override string GetDebugText => _currentState.DebugField;
     public override string KeyComponentData => typeof(ComponentFSM).Name;
     internal override ComponentData GetComponentData => new ComponentFSM(_startState.StateKey);
+    
     public EntityMonobeh GetEntityMonobeh()
     {
         return _entityMonobeh;
@@ -93,8 +101,6 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
         WorldViewer.Instance.Remove(_navMeshSurfaceVolumeUpdater);
         _navMeshSurfaceVolumeUpdater = null;
     }
-
-    public string TEST_CURRENT_STATE;
 
     public void SetState(State state, bool newState = false)
     {

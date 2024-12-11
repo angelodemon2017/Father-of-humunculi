@@ -18,6 +18,7 @@ MonoBehaviour:
     Count: 1
   needResearchs: []
   GroupRecipeTag: {fileID: 11400000, guid: b173f62f78601974a888f1a37ab4d1f6, type: 2}
+  SecondUsing: 1
   EntityConfig: {fileID: 5597222920646075619, guid: aceb34413a536e142a2fba58a5e07d93,
     type: 3}
   IconBuild: {fileID: 21300000, guid: 3f0665c09cdb1214e838498fbe02894c, type: 3}

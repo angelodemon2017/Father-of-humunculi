@@ -14,6 +14,8 @@ public class MouseSetTargetState : State
 
     private EntityMonobeh _targetEM;
 
+    public override string DebugField => $"иду к {_targetEM.GetTypeKey}";
+
     protected override void Init()
     {
         var mii = TryGetMII();

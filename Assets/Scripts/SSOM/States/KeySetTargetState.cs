@@ -10,7 +10,7 @@ public class KeySetTargetState : State
     private NavMeshAgent _navMeshAgent;
     private EntityMonobeh _targetEM;
 
-    public override string DebugField => typeof(KeySetTargetState).Name;
+    public override string DebugField => $"иду к {_targetEM.GetTypeKey}";
 
     protected override void Init()
     {

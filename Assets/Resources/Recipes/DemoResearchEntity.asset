@@ -20,6 +20,7 @@ MonoBehaviour:
     Count: 1
   needResearchs: []
   GroupRecipeTag: {fileID: 11400000, guid: b173f62f78601974a888f1a37ab4d1f6, type: 2}
+  SecondUsing: 1
   EntityConfig: {fileID: 5597222920646075619, guid: cc6f4cd7d77f97b41945af68f3a9d3ee,
     type: 3}
   IconBuild: {fileID: 110513574, guid: 183f3ba47d746ea4190c5bb109108e88, type: 3}

@@ -19,6 +19,7 @@ MonoBehaviour:
   needResearchs:
   - {fileID: 11400000, guid: a66e77e875287cc429294be3f2c4c978, type: 2}
   GroupRecipeTag: {fileID: 11400000, guid: 4509e24022ad9ac4aaf7926685c79890, type: 2}
+  SecondUsing: 0.5
   ItemResult:
     ItemConfig: {fileID: 11400000, guid: e0bcbd949ac5f0743b0e7f060dc18471, type: 2}
     Count: 1

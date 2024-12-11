@@ -70,13 +70,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 410d625adb782f741890617eda6d205c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _givingItem: {fileID: 11400000, guid: 2ffe704ada27d7049866dc9fc65ad9bc, type: 2}
   _defaultValues:
     AddingKey: 
     _chanceUpper: 90
     _debugCounter: 2
     _maxCount: 5
-  _canvasUITempMessage: {fileID: 0}
+  _chekers:
+  - {fileID: 2712577586869235059}
+  _secondForTotal: 3
 --- !u!114 &2712577586869235059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,7 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cefbd5c2a114584aa186bd268c56069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _demoCounter: {fileID: 0}
+  _givingItem: {fileID: 0}
+  _demoCounter: {fileID: 9080533731924881794}
   _needCounterForSpawn: 5
   _maxEntities: 5
   _spawnDistanceMin: 2

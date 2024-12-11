@@ -7,6 +7,8 @@ public class IdleState : State
 
     private float _timerIdle;
 
+    public override string DebugField => $"считаю ворон...";
+
     protected override void Init()
     {
         _timerIdle = _timeIdle;

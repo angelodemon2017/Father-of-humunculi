@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d9138023e9eda747be44b2b7f804870, type: 3}
   m_Name: Recipe Hammer
   m_EditorClassIdentifier: 
-  Index: 0
-  Result:
-    ItemConfig: {fileID: 0}
-    Count: 0
+  Index: 6
   Resources:
   - ItemConfig: {fileID: 11400000, guid: 1d51120011131b44f9d60dea71849c0e, type: 2}
     Count: 1
+  needResearchs: []
   GroupRecipeTag: {fileID: 11400000, guid: 4509e24022ad9ac4aaf7926685c79890, type: 2}
+  SecondUsing: 0
   ItemResult:
     ItemConfig: {fileID: 11400000, guid: ff4a67f1d236a6e4a951f32184a7f350, type: 2}
     Count: 1

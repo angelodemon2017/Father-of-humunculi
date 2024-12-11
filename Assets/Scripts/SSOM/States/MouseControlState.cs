@@ -11,6 +11,8 @@ public class MouseControlState : State
 
     private RaycastHit hit;
 
+    public override string DebugField => $"Бегу, куда скажут";
+
     protected override void Init()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

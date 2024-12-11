@@ -123,9 +123,7 @@ public class UIPlayerManager : MonoBehaviour
             return;
         }
 
-        var compInv = _entityMonobehPlayer.PrefabsByComponents.GetComponent<BaseInventoryAdapter>();
-        var cmdSetter = compInv.GetCommandUseRecipe(_entityMonobehPlayer.EntityInProcess.EntityData, _tempRecipe, target);
-        _entityMonobehPlayer.EntityInProcess.SendCommand(cmdSetter);
+        _tempRecipe.RunCraftState(target);
 
         CancelPlanBuild();
     }

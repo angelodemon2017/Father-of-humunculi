@@ -9,6 +9,8 @@ public class WASDControlState : State
     private Vector3 _target = Vector3.zero;
     private NavMeshAgent _navMeshAgent;
 
+    public override string DebugField => $"Иду, куда укажут";
+
     protected override void Init()
     {
         _navMeshAgent = ((IMovableCharacter)Character).GetNavMeshAgent();

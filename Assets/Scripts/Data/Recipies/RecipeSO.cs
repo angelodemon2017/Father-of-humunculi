@@ -14,6 +14,7 @@ public class RecipeSO : ScriptableObject
     public List<ResearchSO> needResearchs = new();
 
     public GroupSO GroupRecipeTag;
+    public float SecondUsing = 0f;
 
     public virtual UIIconModel IconModelResult => null;// new UIIconModel();
     public virtual string TitleRecipe => string.Empty;// Result.ItemConfig.Key;
@@ -72,5 +73,37 @@ public class RecipeSO : ScriptableObject
                 }
             }
         }
+    }
+
+    internal bool PlayerUseRecipe()
+    {
+        if (!AvailableRecipe(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData))
+        {
+            return false;
+        }
+
+        if (this is RecipeEntitySpawn res)
+        {
+            UIPlayerManager.Instance.RunPlanBuild(res);
+        }
+        else
+        {
+            RunCraftState(Vector3.zero);
+        }
+        return true;
+    }
+
+    internal void RunCraftState(Vector3 target)
+    {
+        var fsm = UIPlayerManager.Instance.EntityMonobeh.GetMyComponent<FSMController>();
+        fsm.TargetRec = target;
+        fsm.IdRecipe = Index;
+    }
+
+    internal void EntityDoRecipe(Vector3 target)
+    {
+        var compInv = UIPlayerManager.Instance.EntityMonobeh.PrefabsByComponents.GetComponent<BaseInventoryAdapter>();
+        var cmdSetter = compInv.GetCommandUseRecipe(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData, this, target);
+        UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.SendCommand(cmdSetter);
     }
 }
