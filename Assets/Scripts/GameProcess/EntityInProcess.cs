@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 
 [Serializable]
 public class EntityInProcess
 {
     private EntityData _entityData;
-    //    private List<ComponentInProcess<ComponentData>> _components = new();
-    //    private List<ComponentInProcess<ComponentData>> _updaterComponents = new();
-//    private List<ISeconder> _updaterComponents = new();
 
     private EntityMonobeh _config = null;
 
@@ -34,22 +30,11 @@ public class EntityInProcess
     public EntityInProcess(EntityData entityData)
     {
         _entityData = entityData;
-/*        foreach (var cd in _entityData.Components)
-        {
-            if (cd is ISeconder cs)
-                _updaterComponents.Add(cs);
-        }/**/
     }
 
     public virtual void DoSecond()
     {
-/*        foreach (var componentIP in _updaterComponents)
-        {
-            componentIP.DoSecond();
-        }/**/
-//        _entityData.DoSecond();
         GetMonobeh.PrefabsByComponents.ForEach(pc => pc.DoSecond(_entityData));
-//        _entityData.Config.DoSecond(_entityData);
     }
 
     public void SendCommand(CommandData command)

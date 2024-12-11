@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 635947310242672396}
   - component: {fileID: 5597222920646075619}
   - component: {fileID: 9080533731924881794}
+  - component: {fileID: 408032493150586262}
   m_Layer: 0
   m_Name: Demo Bush
   m_TagString: Untagged
@@ -75,6 +76,23 @@ MonoBehaviour:
     _chanceUpper: 50
     _debugCounter: 1
     _maxCount: 5
+  _chekers: []
+  _secondForTotal: 8
+--- !u!114 &408032493150586262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58151514028472945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d32aecde1bdd3b438c8e79446ebd53c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CounterToItemCount: 2
+  _givingItem: {fileID: 11400000, guid: 2ffe704ada27d7049866dc9fc65ad9bc, type: 2}
+  _demoCounter: {fileID: 9080533731924881794}
   _canvasUITempMessage: {fileID: 5965730855554371678}
 --- !u!1 &2531653948418383799
 GameObject:
@@ -762,7 +780,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _mapActions.Array.data[0]._executeCommandTouch.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 9080533731924881794}
+      objectReference: {fileID: 408032493150586262}
     - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
         type: 3}
       propertyPath: _mapActions.Array.data[0]._executeCommandTouch.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -786,7 +804,7 @@ PrefabInstance:
     - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
         type: 3}
       propertyPath: _mapActions.Array.data[0]._executeCommandTouch.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: DemoCounter, Assembly-CSharp
+      value: PickerItemsByCounter, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
         type: 3}

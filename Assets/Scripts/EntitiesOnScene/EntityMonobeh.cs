@@ -81,7 +81,6 @@ public class EntityMonobeh : MonoBehaviour
     {
         if (_entityInProcess.EntityIsDeleted)
         {
-            GameProcess.Instance.RemoveEIP(_entityInProcess);
             WorldViewer.Instance.RemoveEntity(this);
         }
         else

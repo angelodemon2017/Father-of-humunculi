@@ -10,7 +10,6 @@ public class EvaluateByCounter : PrefabByComponentData, IDepenceCounter
     {
         if (counter._debugCounter >= NeedToEvaluate)
         {
-            Debug.LogError($"EVALUATE by counter ${entityData.Id}");
             var pos = entityData.Position;
             GameProcess.Instance.GameWorld.RemoveEntity(entityData.Id);
             GameProcess.Instance.GameWorld.AddEntity(NextEntity.GetRandom().CreateEntity(pos.x, pos.z));

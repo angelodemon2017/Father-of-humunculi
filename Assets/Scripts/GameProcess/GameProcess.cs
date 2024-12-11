@@ -151,6 +151,24 @@ public class GameProcess
             {
                 entIP.Value.DoSecond();
             }
+
+/*            HashSet<EntityInProcess> crunchUpdate = new();
+
+            foreach (var entIP in _cashEntities)
+            {
+                if (entIP.Value.EntityIsDeleted)
+                {
+                    crunchUpdate.Add(entIP.Value);
+                }
+                else
+                {
+                    entIP.Value.DoSecond();
+                }
+            }
+            foreach (var cu in crunchUpdate)
+            {
+                RemoveEIP(cu);
+            }/**/
         }
     }
 
@@ -158,7 +176,7 @@ public class GameProcess
     {
         //is host
         HashSet<long> idsForDel = new();
-        var asd = _gameWorld.GetIds().OrderBy(x => x).ToList();
+//        var asd = _gameWorld.GetIds().OrderBy(x => x).ToList();
         foreach (var newEnt in _gameWorld.GetIds())
         {
             lock (lockObjectEips)
@@ -166,6 +184,11 @@ public class GameProcess
                 if (_cashEntities.TryGetValue(newEnt, out EntityInProcess eip))
                 {
                     eip.UpdateEntity();
+
+                    if (eip.EntityIsDeleted)
+                    {
+                        RemoveEIP(eip);
+                    }
                 }
                 else
                 {

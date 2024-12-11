@@ -11,6 +11,7 @@ public class MultiLayersPerlinGeneration : TypeGeneration
     [SerializeField] private float PerlinToxicScale;
     [SerializeField] private bool EnableEntityGenerate;
     [SerializeField] private List<LayerHigh> _layersHigh = new();
+    [SerializeField] private int _entitiesByChunk;
 
     public override WorldTileData GenerateTile(int x, int z, SeedData seed)
     {
@@ -22,11 +23,11 @@ public class MultiLayersPerlinGeneration : TypeGeneration
         var lh = _layersHigh.FirstOrDefault(l => l.IsInside(pr1));
         var lt = lh.GetByPerlin(pr2);
 
-        var dif1 = lh.GetFif(pr1);
-        var dif2 = lt.GetDif(pr2);
+//        var dif1 = lh.GetFif(pr1);
+//        var dif2 = lt.GetDif(pr2);
 
-        var totalDif = (pr1 + pr2 - lh.MinVal + lt.MinVal) / (lh.MaxVal + lt.MaxVal - lh.MinVal + lt.MinVal);
-        string debug = $"______\r\n(h:{pr1.ToString("#.##")})\r\n(T:{pr2.ToString("#.##")})\r\n(R1:{dif1.ToString("#.##")})\r\n(R2:{dif2.ToString("#.##")})";
+//        var totalDif = (pr1 + pr2 - lh.MinVal + lt.MinVal) / (lh.MaxVal + lt.MaxVal - lh.MinVal + lt.MinVal);
+//        string debug = $"______\r\n(h:{pr1.ToString("#.##")})\r\n(T:{pr2.ToString("#.##")})\r\n(R1:{dif1.ToString("#.##")})\r\n(R2:{dif2.ToString("#.##")})";
 
         bool isBorder = false;
         if (layer.BorderTexture != null)
@@ -38,7 +39,7 @@ public class MultiLayersPerlinGeneration : TypeGeneration
                 isBorder = true;
             }
 
-        return new WorldTileData(isBorder ? layer.BorderTexture.Id : layer.MainTexture.Id, x, z, layer.Biom.Key, debug);
+        return new WorldTileData(isBorder ? layer.BorderTexture.Id : layer.MainTexture.Id, x, z, layer.Biom.Key);
     }
 
     public EntityMonobeh GenEntity(int x, int z, SeedData seed)
@@ -52,9 +53,9 @@ public class MultiLayersPerlinGeneration : TypeGeneration
         var lt = lh.GetByPerlin(pr2);
         var dif2 = lt.GetDif(pr2);
 
-        var totalDif = (pr1 + pr2 - lh.MinVal + lt.MinVal) / (lh.MaxVal + lt.MaxVal - lh.MinVal + lt.MinVal);
+//        var totalDif = (pr1 + pr2 - lh.MinVal + lt.MinVal) / (lh.MaxVal + lt.MaxVal - lh.MinVal + lt.MinVal);
 
-        return lt.GenEntity(totalDif);
+        return lt.GenEntity(dif2);
     }
 
     private LayerHigh GetLayerHigh(int x, int z, SeedData seed)
@@ -90,6 +91,11 @@ public class MultiLayersPerlinGeneration : TypeGeneration
 
         foreach (var t in chunk)
         {
+            if (result.Count >= _entitiesByChunk)
+            {
+                break;
+            }
+
             var resEnt = GenEntity(t.Xpos, t.Zpos, seed);
             if (resEnt != null)
             {

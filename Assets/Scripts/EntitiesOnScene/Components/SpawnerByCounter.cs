@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(DemoCounter))]
 public class SpawnerByCounter : PrefabByComponentData, IDepenceCounter
 {
+    [SerializeField] private ItemConfig _givingItem;
     [SerializeField] private DemoCounter _demoCounter;
     [SerializeField] private int _needCounterForSpawn;
     [SerializeField] private int _maxEntities;
@@ -10,7 +11,8 @@ public class SpawnerByCounter : PrefabByComponentData, IDepenceCounter
     [SerializeField] private float _spawnDistanceMax;
     [SerializeField] private float _distanceDetach;
     [SerializeField] private EntityMonobeh _entityForSpawn;
-    
+
+    public ItemData GivingItem => new ItemData(_givingItem);
     public override string KeyComponentData => typeof(ComponentSpawner).Name;
 
     internal override ComponentData GetComponentData => new ComponentSpawner() 
@@ -26,7 +28,6 @@ public class SpawnerByCounter : PrefabByComponentData, IDepenceCounter
     public override void DoSecond(EntityData entity)
     {
         DetachEnt(entity);
-//        CheckAndSpawn(entity);
     }
 
     private void DetachEnt(EntityData entity)
@@ -56,46 +57,6 @@ public class SpawnerByCounter : PrefabByComponentData, IDepenceCounter
         }
     }
 
-    private bool CheckAndSpawn(EntityData entity)
-    {
-        var compCount = entity.Components.GetComponent<ComponentCounter>();
-        var compCS = entity.Components.GetComponent<ComponentSpawner>();
-
-        if (compCount._debugCounter >= _needCounterForSpawn && compCS.Entities.Count < _maxEntities)
-        {
-            var randDecPos = new Vector2(SimpleExtensions.GetRandom(-2f, 2f), SimpleExtensions.GetRandom(-2f, 2f));
-            var swiftPos = randDecPos.normalized * SimpleExtensions.GetRandom(_spawnDistanceMin, _spawnDistanceMax);
-
-            var newEnt = _entityForSpawn.CreateEntity(entity.Position.x + swiftPos.x, entity.Position.z + swiftPos.y);
-            compCount._debugCounter -= _needCounterForSpawn;
-
-            if (newEnt.TypeKey == "ItemPresent")
-            {
-                var compItem = newEnt.Components.GetComponent<ComponentItemPresent>();
-                if (compItem != null)
-                {
-                    compItem.SetItem(_demoCounter.GivingItem);
-                }
-            }
-            else
-            {
-                var compFSM = newEnt.Components.GetComponent<ComponentFSM>();
-                if (compFSM != null)
-                {
-                    compFSM.EntityOfBirth = entity.Id;
-                    compFSM.EntityTarget = entity.Id;
-                }
-            }
-
-            var newId = GameProcess.Instance.GameWorld.AddEntity(newEnt);
-            compCS.Entities.Add(newId);
-
-            return true;
-        }
-
-        return false;
-    }
-
     public void CheckComponent(ComponentCounter counter, EntityData entityData)
     {
         var compCS = entityData.Components.GetComponent<ComponentSpawner>();
@@ -113,7 +74,7 @@ public class SpawnerByCounter : PrefabByComponentData, IDepenceCounter
                 var compItem = newEnt.Components.GetComponent<ComponentItemPresent>();
                 if (compItem != null)
                 {
-                    compItem.SetItem(_demoCounter.GivingItem);
+                    compItem.SetItem(GivingItem);
                 }
             }
             else

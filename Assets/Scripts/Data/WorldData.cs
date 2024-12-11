@@ -17,7 +17,7 @@ public class WorldData
     private Dictionary<long, EntityData> _cashEntityDatas = new();
 
     private Dictionary<(int, int), WorldTileData> _cashTiles = new();
-    private List<long> _deletedIds = new();
+    private HashSet<long> _deletedIds = new();
 
     public long lastIds = 0;
     public long GetNewId () 
@@ -28,7 +28,7 @@ public class WorldData
 
     private readonly object lockObjectUpdateIds = new object();
     private readonly object lockObjectEntities = new object();
-    public List<long> needUpdates = new();
+    public HashSet<long> needUpdates = new();
 
     public void UpgradeResearch(string name, int val)
     {
@@ -47,7 +47,7 @@ public class WorldData
         return _researches.ContainsKey(name) ? _researches[name].Progress : 0;
     }
 
-    public List<long> GetIds()
+    public HashSet<long> GetIds()
     {
         lock (lockObjectUpdateIds)
         {
@@ -65,7 +65,7 @@ public class WorldData
 
     public bool IsDeleted(long idCheck)
     {
-        return _deletedIds.Any(x => x == idCheck);
+        return _deletedIds.Contains(idCheck);//.Any(x => x == idCheck);
     }
 
     public WorldData()
@@ -157,14 +157,14 @@ public class WorldData
     {
         lock (lockObjectEntities)
         {
-            if (_cashEntityDatas.TryGetValue(id, out EntityData entityData))
+/*            if (_cashEntityDatas.TryGetValue(id, out EntityData entityData))
             {
                 return entityData;
             }
             else
             {
                 return null;
-            }
+            }/**/
             return _cashEntityDatas[id];
         }
     }
@@ -205,8 +205,9 @@ public class WorldData
     {
         lock (lockObjectUpdateIds)
         {
-            if (needUpdates.Contains(id)) return;
             needUpdates.Add(id);
+//            if (needUpdates.Contains(id)) return;
+//            needUpdates.Add(id);
         }
     }
 
@@ -214,10 +215,11 @@ public class WorldData
     {
         lock (lockObjectUpdateIds)
         {
-            if (needUpdates.Contains(id))
+            needUpdates.Remove(id);
+/*            if (needUpdates.Contains(id))
             {
                 needUpdates.Remove(id);
-            }
+            }/**/
         }
     }
 

@@ -34,13 +34,13 @@ public static class ListExtensions
         return components.Where(x => x.KeyName == keyName).ToList();
     }
 
-    public static T GetComponent<T>(this List<ComponentData> components, string addKey = "") where T : class
+    public static T GetComponent<T>(this List<ComponentData> components, string addKey = "") where T : ComponentData
     {
         return components.FirstOrDefault(x => x.KeyName == typeof(T).Name && 
             (string.IsNullOrEmpty(addKey) || x.AddingKey == addKey)) as T;
     }
 
-    public static T GetComponent<T>(this List<PrefabByComponentData> components) where T : class
+    public static T GetComponent<T>(this List<PrefabByComponentData> components) where T : PrefabByComponentData
     {
         return components.FirstOrDefault(x => x.KeyComponent == typeof(T).Name) as T;
     }
