@@ -56,7 +56,7 @@ public class UIEntityCraftList : PrefabByComponentData
     private void SelectRecipe(int index)
     {
         var entPlayer = UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData;
-        var tempComponentInventory = entPlayer.Components.GetComponent<ComponentInventory>();
+//        var tempComponentInventory = entPlayer.GetComponent<ComponentInventory>("a");
 
         _tempPanelCraft = Instantiate(_uiPanelCraftPrefab, _parentCraft);
 

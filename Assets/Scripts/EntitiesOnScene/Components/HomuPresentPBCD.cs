@@ -38,7 +38,7 @@ public class HomuPresentPBCD : PrefabByComponentData
     {
         _component = (ComponentHomu)componentData;
         _entityInProcess = entityInProcess;
-        _componentInventory = _entityInProcess.EntityData.Components.GetComponent<ComponentInventory>(_baseInventoryAdapter.AddingKey);
+        _componentInventory = _entityInProcess.EntityData.GetComponent<ComponentInventory>(_baseInventoryAdapter.AddingKey);
 
         UpdateHomu();
         InitSlots();
@@ -79,7 +79,7 @@ public class HomuPresentPBCD : PrefabByComponentData
 
     private void SetTargetFollow(EntityData entity, string mes, WorldData worldData)
     {
-        var cmpFSM = entity.Components.GetComponent<ComponentFSM>();
+        var cmpFSM = entity.GetComponent<ComponentFSM>();
         if (cmpFSM != null)
         {
             var idEnt = long.Parse(mes);
@@ -98,7 +98,7 @@ public class HomuPresentPBCD : PrefabByComponentData
 
     private void SetRole(EntityData entity, string mes, WorldData worldData)
     {
-        var cmpHom = entity.Components.GetComponent<ComponentHomu>();
+        var cmpHom = entity.GetComponent<ComponentHomu>();
         if (cmpHom != null)
         {
             var role = (EnumHomuRole)int.Parse(mes);
@@ -140,7 +140,7 @@ public class HomuPresentPBCD : PrefabByComponentData
 
     public override void DoSecond(EntityData entity)
     {
-        var ch = entity.Components.GetComponent<ComponentHomu>();
+        var ch = entity.GetComponent<ComponentHomu>();
         if (ch != null)
         {
             if (ch.IsNoType)
@@ -149,7 +149,8 @@ public class HomuPresentPBCD : PrefabByComponentData
             }
             if (ch._idsInFocus.Count > 0 && ch.IdInFocus == -1)
             {
-                var cmpFSM = entity.Components.GetComponent<ComponentFSM>();
+                //TODO Why need ComponentFSM?
+                var cmpFSM = entity.GetComponent<ComponentFSM>();
                 if (cmpFSM != null)
                 {
                     List<EntityData> ents = new();
@@ -175,7 +176,7 @@ public class HomuPresentPBCD : PrefabByComponentData
 
     private void CheckInventory(ComponentHomu ch, EntityData entity)
     {
-        var invs = entity.Components.GetComponents(typeof(ComponentInventory).Name);
+        var invs = entity.GetComponents<ComponentInventory>();
 
         var recipeFocus = _itemsToUpgrade.FirstOrDefault(r => r.AvailableRecipe(entity));
 

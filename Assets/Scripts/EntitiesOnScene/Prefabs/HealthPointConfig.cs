@@ -25,7 +25,7 @@ public class HealthPointConfig : PrefabByComponentData
 
     public override void DoSecond(EntityData entity)
     {
-        var chp = entity.Components.GetComponent<ComponentHPData>();
+        var chp = entity.GetComponent<ComponentHPData>();
         if (chp != null)
         {
             if (Health(chp, chp.RegenHP))
@@ -51,7 +51,7 @@ public class HealthPointConfig : PrefabByComponentData
 
     public bool GetDamage(EntityData target, DamagerConfig damage)
     {
-        var componentHP = target.Components.GetComponent<ComponentHPData>();
+        var componentHP = target.GetComponent<ComponentHPData>();
         if (!componentHP.IsDeath && damage.GetDamage > 0)
         {
             componentHP.CurrentHP -= damage.GetDamage;
@@ -78,7 +78,7 @@ public class HealthPointConfig : PrefabByComponentData
         var randDecPos = new Vector2(SimpleExtensions.GetRandom(-2f, 2f), SimpleExtensions.GetRandom(-2f, 2f));
         var swiftPos = randDecPos.normalized * SimpleExtensions.GetRandom(1f, 2f);
         var newEnt = _itemPrefab.CreateEntity(target.Position.x + swiftPos.x, target.Position.z + swiftPos.y);
-        var compItem = newEnt.Components.GetComponent<ComponentItemPresent>();
+        var compItem = newEnt.GetComponent<ComponentItemPresent>();
         compItem.SetItem(new ItemData(item));
 
         GameProcess.Instance.GameWorld.AddEntity(newEnt);

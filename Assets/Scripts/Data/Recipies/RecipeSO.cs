@@ -29,7 +29,7 @@ public class RecipeSO : ScriptableObject
             }
         }
 
-        var invs = entityData.Components.GetComponents(typeof(ComponentInventory).Name);
+        var invs = entityData.GetComponents<ComponentInventory>();
         foreach (var r in Resources)
         {
             if (invs.Sum(i => ((ComponentInventory)i).GetCountOfItem(r.ItemConfig.Key)) >= r.Count)
@@ -58,7 +58,7 @@ public class RecipeSO : ScriptableObject
 
     internal virtual void UseResources(EntityData entityData)
     {
-        var invs = entityData.Components.GetComponents(typeof(ComponentInventory).Name);
+        var invs = entityData.GetComponents<ComponentInventory>();
         foreach (var r in Resources)
         {
             var needSubtract = r.Count;

@@ -29,11 +29,11 @@ public class PlayerPresent : PrefabByComponentData
         switch (command)
         {
             case Dict.Commands.SlotDrag:
-                var playerComp = entity.Components.GetComponent<ComponentPlayerId>();
-
+                var playerComp = entity.GetComponent<ComponentPlayerId>();         
+                
                 var args = message.Split(splitter);
                 var invEnt = worldData.GetEntityById(long.Parse(args[0]));
-                var invComp = invEnt.Components.GetComponent<ComponentInventory>(args[1]);
+                var invComp = invEnt.GetComponent<ComponentInventory>(args[1]);
                 var slotInv = invComp.Items[int.Parse(args[2])];
                 playerComp.ItemHand.Replace(slotInv);
                 slotInv.SetEmpty();
@@ -51,12 +51,12 @@ public class PlayerPresent : PrefabByComponentData
 
     private void DropItem(EntityData entity, WorldData worldData)
     {
-        var compPlayer = entity.Components.GetComponent<ComponentPlayerId>();
+        var compPlayer = entity.GetComponent<ComponentPlayerId>();
 
         if (compPlayer != null)
         {
             var newEnt = _dropItem.CreateEntity(entity.Position.x, entity.Position.z);
-            var itemPresent = newEnt.Components.GetComponent<ComponentItemPresent>();
+            var itemPresent = newEnt.GetComponent<ComponentItemPresent>();
             itemPresent.SetItem(compPlayer.ItemHand);
             compPlayer.ItemHand.SetEmpty();
 

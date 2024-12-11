@@ -30,7 +30,7 @@ public class DeathState : State
 
     private bool IsDeath(IStatesCharacter character)
     {
-        var cmp = character.GetEntityMonobeh().EntityInProcess.EntityData.Components.GetComponent<ComponentHPData>();
+        var cmp = character.GetEntityMonobeh().EntityInProcess.EntityData.GetComponent<ComponentHPData>();
 
         return cmp.IsDeath;
     }

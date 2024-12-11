@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using static SimpleExtensions;
 
 public class EntityData
 {
     public long Id;
     public string TypeKey;
-    
-    public List<ComponentData> Components = new();
 
     private Action<long> _updater;
     internal WorldData worldData => GameProcess.Instance.GameWorld;
@@ -16,9 +15,25 @@ public class EntityData
 
     internal Dictionary<(string, string), ComponentData> _cashComponents = new();
 
+    internal List<T> GetComponents<T>() where T : ComponentData
+    {
+        string typeName = TypeCache<T>.TypeName;
+        List<T> cmps = new();
+        foreach (var cmp in _cashComponents)
+        {
+            if (cmp.Value.KeyName == typeName)
+            {
+                cmps.Add(cmp.Value as T);
+            }
+        }
+
+        return cmps;
+    }
+
     internal T GetComponent<T>(string addingKey = "") where T : ComponentData
     {
-        if (_cashComponents.TryGetValue((typeof(T).Name, addingKey), out ComponentData cmp))
+        string typeName = TypeCache<T>.TypeName;
+        if (_cashComponents.TryGetValue((typeName, addingKey), out ComponentData cmp))
         {
             return cmp as T;
         }
@@ -29,14 +44,15 @@ public class EntityData
     {
         get
         {
-            var comp = Components.GetComponent<ComponentPosition>();
+            var comp = GetComponent<ComponentPosition>();
             return comp == null ? UnityEngine.Vector3.zero : comp.Position;
         }
     }
 
     public EntityData(float xpos = 0, float zpos = 0)
     {
-        Components.Add(new ComponentPosition(xpos, zpos));
+        var cmpPos = new ComponentPosition(xpos, zpos);
+        _cashComponents.Add((cmpPos.KeyName, cmpPos.AddingKey), cmpPos);
     }
 
     public void SetUpdateAction(Action<long> updater)
@@ -53,18 +69,10 @@ public class EntityData
     {
         if (command.KeyComponent == typeof(ComponentPosition).Name)
         {
-            var comp = Components.GetComponent<ComponentPosition>();
+            var comp = GetComponent<ComponentPosition>();
             comp.UpdateByCommand(command.Message);
             UpdateEntity();
         }
-    }
-}
-
-public class EntityStartSpawnPoint : EntityData
-{
-    public EntityStartSpawnPoint(float xpos, float zpos) : base(xpos, zpos)
-    {
-
     }
 }
 
@@ -74,7 +82,8 @@ public class EntityCapacity : EntityData
     {
         for (int b = 0; b < countComponents; b++)
         {
-            Components.Add(new ComponentCounter(100));
+            var cmpCntr = new ComponentCounter(100);
+            _cashComponents.Add((cmpCntr.KeyName, $"{b}"), cmpCntr);
         }
     }
 }

@@ -9,7 +9,7 @@ public class RecipeHomu : RecipeSO
 
     internal override void ReleaseRecipe(EntityData entityData, string args = "")
     {
-        var cmpHomu = entityData.Components.GetComponent<ComponentHomu>();
+        var cmpHomu = entityData.GetComponent<ComponentHomu>();
         cmpHomu.SetHomuType(HomuType);
     }
 }

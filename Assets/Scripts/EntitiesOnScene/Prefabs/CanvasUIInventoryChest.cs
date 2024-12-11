@@ -19,13 +19,13 @@ public class CanvasUIInventoryChest : PrefabByComponentData
 
     internal override void PrepareEntityBeforeCreate(EntityData entityData)
     {
-        var invs = entityData.Components.GetComponents(typeof(ComponentInventory).Name);
+        var invs = entityData.GetComponents<ComponentInventory>();
 
         _startItems.ForEach(i => TryAddItem(invs, new ItemData(i)));
     }
 
-    private void TryAddItem(List<ComponentData> invs, ItemData itemData)
-    {
+    private void TryAddItem(List<ComponentInventory> invs, ItemData itemData)
+    {//TODO big quest, why List<ComponentInventory> invs... need think...
         foreach (ComponentInventory i in invs)
         {
             if (i.AvailableAddItem(itemData))

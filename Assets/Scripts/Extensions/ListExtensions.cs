@@ -46,7 +46,7 @@ public static class ListExtensions
     }
 
     public static List<PrefabByComponentData> GetComponents(this List<PrefabByComponentData> components, ComponentData componentData)
-    {
+    {//TODO need think about lack that method...
         return components.Where(x => x.KeyComponentData == componentData.KeyName && x.AddingKey == componentData.AddingKey).ToList();
     }
 }

@@ -58,7 +58,7 @@ public class InventoryController
 
     public void UpdateHandler()
     {
-        var itemHand = UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
+        var itemHand = UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData.GetComponent<ComponentPlayerId>().ItemHand;
 
         _cursorDragDrop.gameObject.SetActive(!itemHand.IsEmpty);
         if (!itemHand.IsEmpty)
@@ -91,12 +91,12 @@ public class InventoryController
         ComponentInventory fromInv = null;
         if (fromEnt != null)
         {
-            fromInv = fromEnt.Components.GetComponent<ComponentInventory>(trMes.KeyInventoryFrom);
+            fromInv = fromEnt.GetComponent<ComponentInventory>(trMes.KeyInventoryFrom);
         }
         EntityData handEnt = worldData.GetEntityById(trMes.IdEntityHand);
         if (trMes.IdEntityHand != -1)
         {
-            focusItem = handEnt.Components.GetComponent<ComponentPlayerId>().ItemHand;
+            focusItem = handEnt.GetComponent<ComponentPlayerId>().ItemHand;
         }
         else if (fromEnt != null)
         {
@@ -107,7 +107,7 @@ public class InventoryController
             Debug.LogError($"BLA PIZDEC: {message}");
         }
 
-        var toInv = toEnt.Components.GetComponent<ComponentInventory>(trMes.KeyInventoryTo);
+        var toInv = toEnt.GetComponent<ComponentInventory>(trMes.KeyInventoryTo);
         var leftItem = toInv.AddItem(focusItem, trMes.IdSlotInvenotyTo);
         if (leftItem.Count > 0)
         {
@@ -128,7 +128,7 @@ public class InventoryController
 
                 var itemEnt = prefabForCreateEnt.CreateEntity(placeForDrop.x, placeForDrop.z);
 
-                var cmpItem = itemEnt.Components.GetComponent<ComponentItemPresent>();
+                var cmpItem = itemEnt.GetComponent<ComponentItemPresent>();
                 cmpItem.SetItem(leftItem);
 
                 worldData.AddEntity(itemEnt);

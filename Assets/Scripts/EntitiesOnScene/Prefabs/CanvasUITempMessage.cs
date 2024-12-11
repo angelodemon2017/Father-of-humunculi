@@ -22,7 +22,7 @@ public class CanvasUITempMessage : PrefabByComponentData
 
     public void ShowMessage(EntityData entity, string command, string message, WorldData worldData)
     {
-        var cmp = entity.Components.GetComponent<ComponentUITempMessage>();
+        var cmp = entity.GetComponent<ComponentUITempMessage>();
 
         cmp.SecondVision = SecondShows;
         cmp.TextView = message;
@@ -31,7 +31,7 @@ public class CanvasUITempMessage : PrefabByComponentData
 
     public void ShowDefMessage(EntityData entity)
     {
-        var cmp = entity.Components.GetComponent<ComponentUITempMessage>();
+        var cmp = entity.GetComponent<ComponentUITempMessage>();
         cmp.SecondVision = SecondShows;
         entity.UpdateEntity();
     }
@@ -43,7 +43,7 @@ public class CanvasUITempMessage : PrefabByComponentData
 
     public override void DoSecond(EntityData entity)
     {
-        var cmp = entity.Components.GetComponent<ComponentUITempMessage>();
+        var cmp = entity.GetComponent<ComponentUITempMessage>();
 
         if (cmp.SecondVision > 0)
         {

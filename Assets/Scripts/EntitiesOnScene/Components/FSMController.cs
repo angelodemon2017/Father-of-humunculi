@@ -74,7 +74,7 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
 
     private void SetStateKey(EntityData entity, string message)
     {
-        var cmpFSM = entity.Components.GetComponent<ComponentFSM>();
+        var cmpFSM = entity.GetComponent<ComponentFSM>();
         if (cmpFSM != null)
         {
             if (cmpFSM.CurrentState != message)

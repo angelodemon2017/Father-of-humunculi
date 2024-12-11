@@ -22,13 +22,13 @@ public class ItemPresent : PrefabByComponentData
 
     public void PickEntity(EntityData entity, string command, string message, WorldData worldData)
     {
-        var comItPr = entity.Components.GetComponent<ComponentItemPresent>();
+        var comItPr = entity.GetComponent<ComponentItemPresent>();
 
         var idEnt = long.Parse(message);
 
         var entUsed = worldData.GetEntityById(idEnt);
 
-        var invs = entUsed.Components.GetComponents(typeof(ComponentInventory).Name);
+        var invs = entUsed.GetComponents<ComponentInventory>();
         foreach (ComponentInventory inv in invs)
         {
             if (inv.AvailableAddItem(comItPr.ItemData))

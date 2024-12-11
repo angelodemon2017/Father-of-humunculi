@@ -27,7 +27,7 @@ public class DemoCounter : PrefabByComponentData
 
     public override void DoSecond(EntityData entity)
     {
-        var cc = entity.Components.GetComponent<ComponentCounter>(AddingKey);
+        var cc = entity.GetComponent<ComponentCounter>(AddingKey);
         if (cc != null)
         {
             if ((cc._maxCount == 0 || cc._debugCounter < cc._maxCount) &&

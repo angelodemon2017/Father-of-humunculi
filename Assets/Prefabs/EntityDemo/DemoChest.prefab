@@ -52,9 +52,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TypeKey: DemoChest
   _prefabsByComponents:
+  - {fileID: 7202232455274042544}
   - {fileID: 4767571617990152273}
   - {fileID: 7146410972368720946}
-  - {fileID: 7202232455274042544}
   - {fileID: 7716080897352376532}
   - {fileID: 8471272043882828294}
 --- !u!114 &7146410972368720946

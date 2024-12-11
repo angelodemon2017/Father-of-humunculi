@@ -199,7 +199,10 @@ public class GameProcess
 
     public void AddEIP(EntityInProcess eip)
     {
-        eip.EntityData.Components.ForEach(c => c.SetIdEntity(eip.EntityData.Id));
+        foreach (var cmp in eip.EntityData._cashComponents)
+        {
+            cmp.Value.SetIdEntity(eip.EntityData.Id);
+        }
 
         lock (lockObjectEips)
         {

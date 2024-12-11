@@ -9,14 +9,14 @@ public class EntityPlayer : EntityData
 
     public EntityPlayer(float xpos, float zpos) : base(xpos, zpos)
     {
-        Components.AddRange(new List<ComponentData>()
+/*        Components.AddRange(new List<ComponentData>()
         {
             new ComponentModelPrefab("Player"),
 //            new ComponentFSM("Player"),//switch to net game
 //            new ComponentPlayerId(),
             new ComponentInventory(),
             new ComponentUIlabels(Color.white, 1.5f),
-        });
+        });/**/
     }
 
     public override void ApplyCommand(CommandData command)

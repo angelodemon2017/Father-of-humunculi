@@ -45,7 +45,8 @@ public class UIPanelCraft : MonoBehaviour
         _parentResources.DestroyChildrens();
         foreach (var r in _recipe.Resources)
         {
-            var sum = entDat.Components.Where(c => c is ComponentInventory).Sum(i => ((ComponentInventory)i).GetCountOfItem(r.ItemConfig.Key));
+            var sum = entDat.GetComponents<ComponentInventory>()
+                .Sum(i => i.GetCountOfItem(r.ItemConfig.Key));
 
             var uicp = Instantiate(_prefabResources, _parentResources);
             uicp.InitIcon(new UIIconModel(r, sum, aspectMode: AspectRatioFitter.AspectMode.HeightControlsWidth));

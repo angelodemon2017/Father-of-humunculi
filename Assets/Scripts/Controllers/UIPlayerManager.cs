@@ -34,7 +34,7 @@ public class UIPlayerManager : MonoBehaviour
         _entityMonobehPlayer.EntityInProcess.UpdateEIP += UpdateModules;
 
         //TODO cycle init all components
-        var ci = entity.EntityInProcess.EntityData.Components.GetComponent<ComponentInventory>("a");
+        var ci = entity.EntityInProcess.EntityData.GetComponent<ComponentInventory>("a");
 
         uIPresentInventory.Init(ci, entity.EntityInProcess);
         uIPresentInventory.OnUseItem += UseItemByInventory;
@@ -42,7 +42,7 @@ public class UIPlayerManager : MonoBehaviour
         _uIPanelCraftGroups.Init(_entityMonobehPlayer);
         _uIPanelCraftGroups.OnApplyCraft += UpdateModules;
 
-        var ci2 = entity.EntityInProcess.EntityData.Components.GetComponent<ComponentInventory>("b");
+        var ci2 = entity.EntityInProcess.EntityData.GetComponent<ComponentInventory>("b");
         _uIEquipmentView.Init(ci2, entity.EntityInProcess);
 
         UpdateModules();
@@ -55,7 +55,7 @@ public class UIPlayerManager : MonoBehaviour
 
     private void DragItem(long idInv, string idInvKey/*??*/, ItemData dragItem)
     {
-        var playerComp = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>();
+        var playerComp = _entityMonobehPlayer.EntityInProcess.EntityData.GetComponent<ComponentPlayerId>();
         playerComp.PickItemByHand(dragItem);
 
         UpdateModules();
@@ -74,7 +74,7 @@ public class UIPlayerManager : MonoBehaviour
 
     private void DropItem(ItemData dropItem)
     {//logic move to entity
-        var playerComp = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>();
+        var playerComp = _entityMonobehPlayer.EntityInProcess.EntityData.GetComponent<ComponentPlayerId>();
         var itemHand = playerComp.ItemHand;
 
         if (itemHand.IsEmpty)
@@ -89,7 +89,7 @@ public class UIPlayerManager : MonoBehaviour
         else if (itemHand.Id == dropItem.Id)
         {
             itemHand.Count = dropItem.TryAdd(itemHand);
-            var ci = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentInventory>();
+            var ci = _entityMonobehPlayer.EntityInProcess.EntityData.GetComponent<ComponentInventory>();
             ci.AddItem(itemHand);
         }
         else
@@ -171,7 +171,7 @@ public class UIPlayerManager : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            var itemHand = _entityMonobehPlayer.EntityInProcess.EntityData.Components.GetComponent<ComponentPlayerId>().ItemHand;
+            var itemHand = _entityMonobehPlayer.EntityInProcess.EntityData.GetComponent<ComponentPlayerId>().ItemHand;
             if (!itemHand.IsEmpty)
             {
                 var compPBC = _entityMonobehPlayer.GetMyComponent<PlayerPresent>();

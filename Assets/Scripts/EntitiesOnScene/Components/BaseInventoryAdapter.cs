@@ -102,7 +102,7 @@ public class BaseInventoryAdapter : PrefabByComponentData
 
     private void SplitSlot(EntityData entity, string message)
     {
-        var compInv = entity.Components.GetComponent<ComponentInventory>();
+        var compInv = entity.GetComponent<ComponentInventory>(AddingKey);
         var idSlot = int.Parse(message);
         compInv.SplitSlot(idSlot);
 

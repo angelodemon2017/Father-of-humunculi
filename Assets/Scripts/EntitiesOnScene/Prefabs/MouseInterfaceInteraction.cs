@@ -128,8 +128,8 @@ public class MouseInterfaceInteraction : PrefabByComponentData
             }
             else
             {
-                var invs = whoTouched.Components.GetComponents(typeof(ComponentInventory).Name);
-                if (act._needItems.Any(ni => invs.Any(i => ((ComponentInventory)i).GetCountOfItem(ni.Key) > 0)))
+                var invs = whoTouched.GetComponents<ComponentInventory>();
+                if (act._needItems.Any(ni => invs.Any(i => i.GetCountOfItem(ni.Key) > 0)))
                 {
                     act._executeCommandTouch.Invoke(entity, string.Empty, message, worldData);
                     break;

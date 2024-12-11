@@ -11,7 +11,7 @@ public class PickerItemsByCounter : PrefabByComponentData
 
     public void PickEntity(EntityData entity, string command, string message, WorldData worldData)
     {
-        var counter = entity.Components.GetComponent<ComponentCounter>(_demoCounter.AddingKey);
+        var counter = entity.GetComponent<ComponentCounter>(_demoCounter.AddingKey);
 
         if (counter._debugCounter > CounterToItemCount)
         {
@@ -20,7 +20,7 @@ public class PickerItemsByCounter : PrefabByComponentData
             var touchedEntity = worldData.GetEntityById(idFromMessage);
 
             var addedItem = GivingItem;
-            var invs = touchedEntity.Components.GetComponents(typeof(ComponentInventory).Name);
+            var invs = touchedEntity.GetComponents<ComponentInventory>();
             foreach (ComponentInventory inv in invs)
             {
                 if (inv.AvailableAddItem(addedItem))

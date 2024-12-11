@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using static SimpleExtensions;
 
 public class EntityMonobeh : MonoBehaviour
 {
@@ -24,7 +25,9 @@ public class EntityMonobeh : MonoBehaviour
     {
         InitPBCs();
 
-        if (_cashPrefabsByComponents.TryGetValue((typeof(T).Name, addingKey), out PrefabByComponentData res))
+        string typeName = TypeCache<T>.TypeName;
+
+        if (_cashPrefabsByComponents.TryGetValue((typeName, addingKey), out PrefabByComponentData res))
         {
             return res as T;
         }
@@ -57,7 +60,7 @@ public class EntityMonobeh : MonoBehaviour
 
     private void InitComponents()
     {
-        foreach (var c in _entityInProcess.EntityData.Components)
+        foreach (var c in _entityInProcess.EntityData._cashComponents.Values)
         {
             var pbcs = PrefabsByComponents.GetComponents(c);
             foreach (var p in pbcs)
@@ -116,15 +119,11 @@ public class EntityMonobeh : MonoBehaviour
     public EntityData CreateEntity(float xpos = 0, float zpos = 0)
     {
         var newEntity = new EntityData(xpos, zpos);
-        newEntity.TypeKey = TypeKey;// gameObject.name;
+        newEntity.TypeKey = TypeKey;
 
         foreach (var p in _prefabsByComponents)
         {
             newEntity._cashComponents.TryAdd((p.KeyComponentData, p.AddingKey), p.GetComponentData);
-/*            if (!newEntity.Components.Any(c => c.KeyName == p.KeyComponentData && c.AddingKey == p.AddingKey))
-            {
-                newEntity.Components.Add(p.GetComponentData);
-            }/**/
         }
         _prefabsByComponents.ForEach(x => x.PrepareEntityBeforeCreate(newEntity));
 

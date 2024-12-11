@@ -33,7 +33,7 @@ public class SpawnerByCounter : PrefabByComponentData, IDepenceCounter
     private void DetachEnt(EntityData entity)
     {
         long forDel = -1;
-        var compCS = entity.Components.GetComponent<ComponentSpawner>();
+        var compCS = entity.GetComponent<ComponentSpawner>();
         foreach (var entId in compCS.Entities)
         {
             if (GameProcess.Instance.GameWorld.HaveEnt(entId))
@@ -59,7 +59,7 @@ public class SpawnerByCounter : PrefabByComponentData, IDepenceCounter
 
     public void CheckComponent(ComponentCounter counter, EntityData entityData)
     {
-        var compCS = entityData.Components.GetComponent<ComponentSpawner>();
+        var compCS = entityData.GetComponent<ComponentSpawner>();
 
         if (counter._debugCounter >= _needCounterForSpawn && compCS.Entities.Count < _maxEntities)
         {
@@ -71,7 +71,7 @@ public class SpawnerByCounter : PrefabByComponentData, IDepenceCounter
 
             if (newEnt.TypeKey == "ItemPresent")
             {
-                var compItem = newEnt.Components.GetComponent<ComponentItemPresent>();
+                var compItem = newEnt.GetComponent<ComponentItemPresent>();
                 if (compItem != null)
                 {
                     compItem.SetItem(GivingItem);
@@ -79,7 +79,7 @@ public class SpawnerByCounter : PrefabByComponentData, IDepenceCounter
             }
             else
             {
-                var compFSM = newEnt.Components.GetComponent<ComponentFSM>();
+                var compFSM = newEnt.GetComponent<ComponentFSM>();
                 if (compFSM != null)
                 {
                     compFSM.EntityOfBirth = entityData.Id;

@@ -29,7 +29,7 @@ public class UsingByEntity : PrefabByComponentData
         switch (command)
         {
             case Dict.Commands.CloseUI:
-                var comp = entity.Components.GetComponent<ComponentUsingByEntity>();
+                var comp = entity.GetComponent<ComponentUsingByEntity>();
                 comp.SetEntityOpener(-1);
                 break;
             default:
@@ -39,7 +39,7 @@ public class UsingByEntity : PrefabByComponentData
 
     public void Pick(EntityData entity, string command, string message, WorldData worldData)
     {
-        var compPlayer = entity.Components.GetComponent<ComponentUsingByEntity>();
+        var compPlayer = entity.GetComponent<ComponentUsingByEntity>();
 
         if (compPlayer != null)
         {
