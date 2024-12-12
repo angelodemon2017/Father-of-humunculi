@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static OptimazeExtensions;
 
 public class UsingByEntity : PrefabByComponentData
 {
+    public override int KeyType => TypeCache<UsingByEntity>.IdType;
     [SerializeField] private List<GameObject> _onOffsObjects;
     [SerializeField] private Button _closeButton;
 
@@ -13,7 +15,7 @@ public class UsingByEntity : PrefabByComponentData
     internal override bool CanInterAct => _component.EntityId == -1;
     internal override bool _isNeedUpdate => true;
     internal bool _isOpen => _component.EntityId == UIPlayerManager.Instance.EntityMonobeh.Id;
-    public override string KeyComponentData => typeof(ComponentUsingByEntity).Name;
+    public override int KeyComponentData => TypeCache<ComponentUsingByEntity>.IdType;
     internal override ComponentData GetComponentData => new ComponentUsingByEntity();
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
@@ -79,7 +81,7 @@ public class UsingByEntity : PrefabByComponentData
         {
             KeyCommand = Dict.Commands.CloseUI,
             AddingKeyComponent = AddingKey,
-            KeyComponent = KeyComponent,
+            KeyComponent = KeyType,
         };
     }
 

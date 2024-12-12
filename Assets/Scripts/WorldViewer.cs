@@ -8,9 +8,7 @@ public class WorldViewer : MonoBehaviour
     public static WorldViewer Instance;
 
     public bool DebugMode;
-//    public NavMeshSurfaceVolumeUpdater _updaterOnScene;
     [SerializeField] private NavMeshSurfaceVolumeUpdater _navMeshUpdaterPrefab;
-//    [SerializeField] private NavMeshSurface _navMeshSurface;
     [SerializeField] private BasePlaneWorld _basePlaneWorld;
     [SerializeField] private EntityMonobeh _entityMonobehPrefab;
     [SerializeField] private Transform _entityParent;
@@ -20,12 +18,12 @@ public class WorldViewer : MonoBehaviour
 
     private List<WorldChunkView> _chunksView = new();
     private Dictionary<(int, int), WorldTile> _cashTiles = new();
-    private List<EntityMonobeh> _cashEntities = new();
+    private HashSet<EntityMonobeh> _cashEntities = new();
 
     private Vector3 _focusChunkPosition;
     private List<Vector3> _chunkPoints = new();
 
-    public EntityMonobeh GetEM(long id) => _cashEntities.FirstOrDefault(e => e.Id == id);
+//    public EntityMonobeh GetEM(long id) => _cashEntities.FirstOrDefault(e => e.Id == id);
     public List<TextureEntity> Textures => _textureEntities;
     private WorldData _gameWorld => GameProcess.Instance.GameWorld;
 
@@ -157,7 +155,10 @@ public class WorldViewer : MonoBehaviour
         }
 
         var cashOfCash = new List<EntityMonobeh>();
-        _cashEntities.ForEach(e => cashOfCash.Add(e));
+        foreach (var ent in _cashEntities)
+        {
+            cashOfCash.Add(ent);
+        }
         foreach (var chunk in chunkForDelete)
         {
             var entsForDel = cashOfCash.Where(e => e.transform.position.GetChunkPos() == chunk.ChunkPosition).ToList();
@@ -166,7 +167,10 @@ public class WorldViewer : MonoBehaviour
                 RemoveEntity(ent);
             }
             var newBPWs = chunk.CleanChunk();
-            newBPWs.ForEach(x => _poolBPW.Add(x));
+            foreach (var bpw in newBPWs)
+            {
+                _poolBPW.Add(bpw);
+            }
             _chunksView.Remove(chunk);
         }
         foreach (var point in exceptChunk)
@@ -271,7 +275,7 @@ public class WorldViewer : MonoBehaviour
     }
 }
 
-[System.Serializable]
+[Serializable]
 public class WorldChunkView
 {
     public Vector3 ChunkPosition;

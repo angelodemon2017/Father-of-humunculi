@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using System;
+using static OptimazeExtensions;
 
 [Serializable]
 public class ComponentInventory : ComponentData
@@ -11,7 +12,7 @@ public class ComponentInventory : ComponentData
 
     public ComponentInventory(ComponentInventory component) : this (component.MaxItems) { }
 
-    public ComponentInventory(List<EnumItemCategory> slots, string addingKey)
+    public ComponentInventory(List<EnumItemCategory> slots, int addingKey) : base(TypeCache<ComponentInventory>.IdType)
     {
         AddingKey = addingKey;
         MaxItems = slots.Count;
@@ -24,7 +25,7 @@ public class ComponentInventory : ComponentData
         }
     }
 
-    public ComponentInventory(int maxItems = 5)
+    public ComponentInventory(int maxItems = 5) : base(TypeCache<ComponentInventory>.IdType)
     {
         MaxItems = maxItems;
         var emptyConf = ItemsController.GetEmpty();
@@ -239,7 +240,9 @@ public class ComponentInventory : ComponentData
     {//TODO command for split, drop
         return new CommandData()
         {
-            KeyComponent = Dict.Commands.UseItem,
+            //TODO was replace id string to int
+            //need KeyCommand, addingkey...
+//            KeyComponent = Dict.Commands.UseItem,
             Message = $"{idSlot}",
         };
     }

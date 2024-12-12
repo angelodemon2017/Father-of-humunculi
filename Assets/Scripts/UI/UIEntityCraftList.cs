@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using static OptimazeExtensions;
 
 public class UIEntityCraftList : PrefabByComponentData
 {
+    public override int KeyType => TypeCache<UIEntityCraftList>.IdType;
     [SerializeField] private GroupSO _recipeGroup;
 
     [SerializeField] private UIIconPresent _uiIconPresentPrefab;
@@ -19,7 +21,7 @@ public class UIEntityCraftList : PrefabByComponentData
     private EntityInProcess _entityInProcess;
     private ComponentUICraftGroup _componentUICraftGroup;
 
-    public override string KeyComponentData => typeof(ComponentUICraftGroup).Name;
+    public override int KeyComponentData => TypeCache<ComponentUICraftGroup>.IdType;
 
     internal override ComponentData GetComponentData => new ComponentUICraftGroup(_recipeGroup.GroupName);
 

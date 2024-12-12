@@ -6,22 +6,20 @@ public class InventoryController
     [SerializeField] private UIIconPresent _cursorDragDrop;
 
     private long _tempIdInv = -1;
-    private string _keyTempInventory = string.Empty;
+    private int _keyTempInventory = 0;
     private int _tempIdSlot = -1;
-
-    private bool IsDragging => _tempIdInv == -1;
 
     public InventoryController()
     {
         SetEmptyTemp();
     }
 
-    public void ClickSlot(long idEntity, string addingKey, int idSlot)
+    public void ClickSlot(long idEntity, int addingKey, int idSlot)
     {
 
     }
 
-    public void DragSlot(long idEntity, string addingKey, int idSlot)
+    public void DragSlot(long idEntity, int addingKey, int idSlot)
     {
         _tempIdInv = idEntity;
         _keyTempInventory = addingKey;
@@ -36,11 +34,11 @@ public class InventoryController
     private void SetEmptyTemp()
     {
         _tempIdInv = -1;
-        _keyTempInventory = string.Empty;
+        _keyTempInventory = 0;
         _tempIdSlot = -1;
     }
 
-    public string DropSlot(long idEntity, string addingKey, int idSlot)
+    public string DropSlot(long idEntity, int addingKey, int idSlot)
     {
         TransportMessage mes = new()
         {
@@ -157,8 +155,8 @@ public class TransportMessage
     public long IdEntityHand = -1;
     public long IdEntityInventoryFrom = -1;
     public long IdEntityInventoryTo = -1;
-    public string KeyInventoryFrom = string.Empty;
-    public string KeyInventoryTo = string.Empty;
+    public int KeyInventoryFrom = 0;
+    public int KeyInventoryTo = 0;
     public int IdSlotInvenotyFrom = -1;
     public int IdSlotInvenotyTo = -1;
 }

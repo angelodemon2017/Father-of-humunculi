@@ -34,7 +34,7 @@ public class UIPlayerManager : MonoBehaviour
         _entityMonobehPlayer.EntityInProcess.UpdateEIP += UpdateModules;
 
         //TODO cycle init all components
-        var ci = entity.EntityInProcess.EntityData.GetComponent<ComponentInventory>("a");
+        var ci = entity.EntityInProcess.EntityData.GetComponent<ComponentInventory>(0);//may be make enum
 
         uIPresentInventory.Init(ci, entity.EntityInProcess);
         uIPresentInventory.OnUseItem += UseItemByInventory;
@@ -42,7 +42,7 @@ public class UIPlayerManager : MonoBehaviour
         _uIPanelCraftGroups.Init(_entityMonobehPlayer);
         _uIPanelCraftGroups.OnApplyCraft += UpdateModules;
 
-        var ci2 = entity.EntityInProcess.EntityData.GetComponent<ComponentInventory>("b");
+        var ci2 = entity.EntityInProcess.EntityData.GetComponent<ComponentInventory>(1);//may be make enum
         _uIEquipmentView.Init(ci2, entity.EntityInProcess);
 
         UpdateModules();
@@ -53,7 +53,7 @@ public class UIPlayerManager : MonoBehaviour
         _inventoryController.UpdateHandler();
     }
 
-    private void DragItem(long idInv, string idInvKey/*??*/, ItemData dragItem)
+/*    private void DragItem(long idInv, string idInvKey, ItemData dragItem)
     {
         var playerComp = _entityMonobehPlayer.EntityInProcess.EntityData.GetComponent<ComponentPlayerId>();
         playerComp.PickItemByHand(dragItem);
@@ -61,10 +61,10 @@ public class UIPlayerManager : MonoBehaviour
         UpdateModules();
     }
 
-    private void DropItem(long idInv, string idInvKey/*??*/, ItemData dropSlot)
+    private void DropItem(long idInv, string idInvKey, ItemData dropSlot)
     {
         //send command id from and to inventory, id slots, idEnt hand
-    }
+    }/**/
 
     private void DragItem(ItemData dragItem)
     {

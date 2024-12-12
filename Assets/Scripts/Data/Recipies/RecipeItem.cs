@@ -16,7 +16,7 @@ public class RecipeItem : RecipeSO
 
     internal override void ReleaseRecipe(EntityData entityData, string args = "")
     {
-        var cmpInv = entityData.GetComponent<ComponentInventory>("a");
+        var cmpInv = entityData.GetComponent<ComponentInventory>(0);
         cmpInv.AddItem(GetItem());
         entityData.UpdateEntity();
     }

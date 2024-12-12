@@ -1,4 +1,6 @@
-﻿public class ComponentFSM : ComponentData
+﻿using static OptimazeExtensions;
+
+public class ComponentFSM : ComponentData
 {
     public string CurrentState;
     public long EntityOfBirth;
@@ -6,12 +8,7 @@
     public int xPosFocus;
     public int zPosFocus;
 
-    public ComponentFSM()
-    {
-
-    }
-
-    public ComponentFSM(string initState)
+    public ComponentFSM(string initState) : base(TypeCache<ComponentFSM>.IdType)
     {
         CurrentState = initState;
     }

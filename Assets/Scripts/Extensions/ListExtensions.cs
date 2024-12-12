@@ -29,24 +29,8 @@ public static class ListExtensions
         return result;
     }
 
-    public static List<ComponentData> GetComponents(this List<ComponentData> components, string keyName)
-    {
-        return components.Where(x => x.KeyName == keyName).ToList();
-    }
-
-    public static T GetComponent<T>(this List<ComponentData> components, string addKey = "") where T : ComponentData
-    {
-        return components.FirstOrDefault(x => x.KeyName == typeof(T).Name && 
-            (string.IsNullOrEmpty(addKey) || x.AddingKey == addKey)) as T;
-    }
-
-    public static T GetComponent<T>(this List<PrefabByComponentData> components) where T : PrefabByComponentData
-    {
-        return components.FirstOrDefault(x => x.KeyComponent == typeof(T).Name) as T;
-    }
-
     public static List<PrefabByComponentData> GetComponents(this List<PrefabByComponentData> components, ComponentData componentData)
     {//TODO need think about lack that method...
-        return components.Where(x => x.KeyComponentData == componentData.KeyName && x.AddingKey == componentData.AddingKey).ToList();
+        return components.Where(x => x.KeyComponentData == componentData.KeyType && x.AddingKey == componentData.AddingKey).ToList();
     }
 }

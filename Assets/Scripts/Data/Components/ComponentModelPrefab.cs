@@ -1,16 +1,13 @@
-﻿public class ComponentModelPrefab : ComponentData
+﻿using static OptimazeExtensions;
+
+public class ComponentModelPrefab : ComponentData
 {
     public string KeyModel;
 
     public int CurrentParamOfModel;
 
-    public ComponentModelPrefab()
+    public ComponentModelPrefab() : base(TypeCache<ComponentModelPrefab>.IdType)
     {
 
-    }
-
-    public ComponentModelPrefab(string keyModel) : base()
-    {
-        KeyModel = keyModel;
     }
 }

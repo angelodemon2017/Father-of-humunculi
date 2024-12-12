@@ -1,8 +1,10 @@
 using UnityEngine;
+using static OptimazeExtensions;
 
 [RequireComponent(typeof(DemoCounter))]
 public class SpawnerByCounter : PrefabByComponentData, IDepenceCounter
 {
+    public override int KeyType => TypeCache<SpawnerByCounter>.IdType;
     [SerializeField] private ItemConfig _givingItem;
     [SerializeField] private DemoCounter _demoCounter;
     [SerializeField] private int _needCounterForSpawn;
@@ -13,7 +15,7 @@ public class SpawnerByCounter : PrefabByComponentData, IDepenceCounter
     [SerializeField] private EntityMonobeh _entityForSpawn;
 
     public ItemData GivingItem => new ItemData(_givingItem);
-    public override string KeyComponentData => typeof(ComponentSpawner).Name;
+    public override int KeyComponentData => TypeCache<ComponentSpawner>.IdType;
 
     internal override ComponentData GetComponentData => new ComponentSpawner() 
     {

@@ -3,15 +3,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
+using static OptimazeExtensions;
 
 public class MouseInterfaceInteraction : PrefabByComponentData
 {
+    public override int KeyType => TypeCache<MouseInterfaceInteraction>.IdType;
     //can decompose to several component with individual settings
     [SerializeField] private GameObject _tip;
     [SerializeField] private TextMeshProUGUI _tipText;
     [SerializeField] private UnityEvent<EntityData, string, string, WorldData> _executeCommandTouch;
     [SerializeField] private List<PrefabByComponentData> _canInteractabler;
-//    [SerializeField] private List<ItemConfig> _needItems;
     [SerializeField] private List<MapActions> _mapActions;
     [SerializeField] private string MessageHelp;
     [SerializeField] private ItemConfig ConfigForActionWithoutItem;
@@ -23,7 +24,7 @@ public class MouseInterfaceInteraction : PrefabByComponentData
 
     private string GetMessageHelp => string.IsNullOrWhiteSpace(MessageHelp) ? "..." : MessageHelp;
     internal override bool CanInterAct => _canInteractabler.Count > 0 ? _canInteractabler.Any(c => c.CanInterAct) : _defaultAvailableInteract;
-    public override string KeyComponentData => typeof(ComponentInterractable).Name;
+    public override int KeyComponentData => TypeCache<ComponentInterractable>.IdType;
     internal override ComponentData GetComponentData => new ComponentInterractable();
 
     private void Awake()
@@ -35,7 +36,7 @@ public class MouseInterfaceInteraction : PrefabByComponentData
     {
         RootMonobeh.EntityInProcess.SendCommand(new CommandData()
         {
-            KeyComponent = KeyComponent,
+            KeyComponent = KeyType,
             KeyCommand = Dict.Commands.MakeDamage,
             AddingKeyComponent = AddingKey,
             Message = $"{whoTouch.Id}",
@@ -53,7 +54,7 @@ public class MouseInterfaceInteraction : PrefabByComponentData
         {
             RootMonobeh.EntityInProcess.SendCommand(new CommandData()
             {
-                KeyComponent = KeyComponent,
+                KeyComponent = KeyType,
                 AddingKeyComponent = AddingKey,
                 Message = $"{whoTouch.Id}",
             });

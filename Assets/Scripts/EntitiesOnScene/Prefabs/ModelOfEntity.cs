@@ -1,15 +1,15 @@
 using UnityEngine;
+using static OptimazeExtensions;
 
 public class ModelOfEntity : PrefabByComponentData
 {
+    public override int KeyType => TypeCache<ModelOfEntity>.IdType;
     [SerializeField] private GameObject _shadow;
 
     private ModelController _modelController;
 //    private Transform _model;
     private ComponentModelPrefab _componentModelPrefab;
     private EntityInProcess _entityInProcess;
-
-    public override string KeyComponent => typeof(ComponentModelPrefab).Name;
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {

@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using static OptimazeExtensions;
 
 public class BasePlaneWorld : MonoBehaviour
 {
+    protected int Uid;
     [SerializeField] private Renderer _renderer;
     private WorldTile _worldPart;
 
@@ -14,6 +16,11 @@ public class BasePlaneWorld : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _testText;
 
     public string DebugText;
+
+    private void Awake()
+    {
+        Uid = PoolCounter<BasePlaneWorld>.NextUid();
+    }
 
     public void VirtualCreate()
     {
@@ -38,8 +45,6 @@ public class BasePlaneWorld : MonoBehaviour
     {
         _testText.transform.parent.gameObject.SetActive(WorldViewer.Instance.DebugMode);
         _testText.text = _worldPart.DebugData;
-//            WorldViewer.Instance.DebugMode ? $"{_worldPart.Xpos},{_worldPart.Zpos}" : string.Empty;
-//        DebugText = $"gripPos:{_worldPart.Xpos},{_worldPart.Zpos}";
     }
 
     private void UpdateNeigbor(int id)
@@ -129,6 +134,20 @@ public class BasePlaneWorld : MonoBehaviour
         {
             tile.ChangedId -= UpdateNeigbor;
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return Uid;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is BasePlaneWorld other)
+        {
+            return Uid == other.Uid;
+        }
+        return false;
     }
 }
 

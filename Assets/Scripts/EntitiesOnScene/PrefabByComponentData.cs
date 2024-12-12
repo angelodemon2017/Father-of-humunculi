@@ -1,26 +1,16 @@
 using UnityEngine;
+using static OptimazeExtensions;
 
 public class PrefabByComponentData : MonoBehaviour
 {
-    private string _cashKeyComponent;
-    public virtual string KeyComponent
-    {
-        get
-        {
-            if (string.IsNullOrWhiteSpace(_cashKeyComponent))
-            {
-                _cashKeyComponent = GetType().Name;
-            }
-            return _cashKeyComponent;
-        }
-    }
-    public virtual string KeyComponentData => string.Empty;
+    public virtual int KeyType => TypeCache<PrefabByComponentData>.IdType;
+    public virtual int KeyComponentData => TypeCache<ComponentDummy>.IdType;
     public virtual string GetDebugText => string.Empty;
     internal virtual bool _isNeedUpdate => false;
-    internal virtual string AddingKey => string.Empty;
+    internal virtual int AddingKey => 0;
     internal virtual bool CanInterAct => false;
 
-    internal virtual ComponentData GetComponentData => new ComponentData();
+    internal virtual ComponentData GetComponentData => new ComponentDummy();
 
     internal virtual void PrepareEntityBeforeCreate(EntityData entityData)
     {

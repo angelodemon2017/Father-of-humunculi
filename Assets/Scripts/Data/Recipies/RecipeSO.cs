@@ -102,7 +102,7 @@ public class RecipeSO : ScriptableObject
 
     internal void EntityDoRecipe(Vector3 target)
     {
-        var compInv = UIPlayerManager.Instance.EntityMonobeh.GetMyComponent<BaseInventoryAdapter>("a");//TODO crunch addingKey =(
+        var compInv = UIPlayerManager.Instance.EntityMonobeh.GetMyComponent<BaseInventoryAdapter>(0);//TODO crunch addingKey =(
         var cmdSetter = compInv.GetCommandUseRecipe(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData, this, target);
         UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.SendCommand(cmdSetter);
     }

@@ -65,7 +65,7 @@ public class WorldData
 
     public bool IsDeleted(long idCheck)
     {
-        return _deletedIds.Contains(idCheck);//.Any(x => x == idCheck);
+        return _deletedIds.Contains(idCheck);
     }
 
     public WorldData()
@@ -157,14 +157,6 @@ public class WorldData
     {
         lock (lockObjectEntities)
         {
-/*            if (_cashEntityDatas.TryGetValue(id, out EntityData entityData))
-            {
-                return entityData;
-            }
-            else
-            {
-                return null;
-            }/**/
             return _cashEntityDatas[id];
         }
     }
@@ -206,8 +198,6 @@ public class WorldData
         lock (lockObjectUpdateIds)
         {
             needUpdates.Add(id);
-//            if (needUpdates.Contains(id)) return;
-//            needUpdates.Add(id);
         }
     }
 
@@ -216,10 +206,6 @@ public class WorldData
         lock (lockObjectUpdateIds)
         {
             needUpdates.Remove(id);
-/*            if (needUpdates.Contains(id))
-            {
-                needUpdates.Remove(id);
-            }/**/
         }
     }
 

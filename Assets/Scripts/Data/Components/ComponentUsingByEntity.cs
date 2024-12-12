@@ -1,8 +1,10 @@
-﻿public class ComponentUsingByEntity : ComponentData
+﻿using static OptimazeExtensions;
+
+public class ComponentUsingByEntity : ComponentData
 {
     public long EntityId = -1;
 
-    public ComponentUsingByEntity()
+    public ComponentUsingByEntity() : base(TypeCache<ComponentUsingByEntity>.IdType)
     {
 
     }

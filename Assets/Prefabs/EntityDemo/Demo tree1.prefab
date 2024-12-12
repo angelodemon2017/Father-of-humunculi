@@ -71,9 +71,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 410d625adb782f741890617eda6d205c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _givingItem: {fileID: 11400000, guid: 1d51120011131b44f9d60dea71849c0e, type: 2}
   _defaultValues:
-    AddingKey: 
+    AddingKey: 0
     _chanceUpper: 80
     _debugCounter: 0
     _maxCount: 180
@@ -94,7 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NeedToEvaluate: 180
   NextEntity:
-  - {fileID: 5597222920646075619, guid: c227f0edb19bbba48b913a0ec52ec469, type: 3}
+  - {fileID: 5597222920646075619, guid: 709e8f4665edf6743892cfbc4ab98901, type: 3}
 --- !u!114 &1618741212515759746
 MonoBehaviour:
   m_ObjectHideFlags: 0

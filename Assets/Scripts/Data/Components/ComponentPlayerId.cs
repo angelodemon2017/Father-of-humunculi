@@ -1,4 +1,5 @@
-﻿
+﻿using static OptimazeExtensions;
+
 public class ComponentPlayerId : ComponentData
 {
     public string PlayerName;
@@ -7,7 +8,7 @@ public class ComponentPlayerId : ComponentData
 
     public ItemData ItemHand => _itemInHand;
 
-    public ComponentPlayerId(ItemData handItem)
+    public ComponentPlayerId(ItemData handItem) : base(TypeCache<ComponentPlayerId>.IdType)
     {
         _itemInHand = handItem;
     }

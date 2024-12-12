@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using TMPro;
+using static OptimazeExtensions;
 
 public class HomuPresentPBCD : PrefabByComponentData
 {
+    public override int KeyType => TypeCache<HomuPresentPBCD>.IdType;
     [SerializeField] private UIIconPresent _uiIconPresentPrefab;
     [SerializeField] private Transform _parentSlots;
     [SerializeField] private BaseInventoryAdapter _baseInventoryAdapter;
@@ -23,7 +25,7 @@ public class HomuPresentPBCD : PrefabByComponentData
     private List<UIIconPresent> _tempSlots = new();
 
     internal override bool _isNeedUpdate => true;
-    public override string KeyComponentData => typeof(ComponentHomu).Name;
+    public override int KeyComponentData => TypeCache<ComponentHomu>.IdType;
     internal override ComponentData GetComponentData => GetCompHomu();
     public override string GetDebugText => _component._titleDemo;
     internal ComponentHomu Component => _component;
@@ -200,8 +202,8 @@ public class HomuPresentPBCD : PrefabByComponentData
     {
         return new CommandData()
         {
-            KeyComponent = typeof(HomuPresentPBCD).Name,
-            AddingKeyComponent = "",
+            KeyComponent = KeyType,
+            AddingKeyComponent = AddingKey,
             KeyCommand = Dict.Commands.SelectFollow,
             Message = $"{idFollow}",
         };
@@ -211,8 +213,8 @@ public class HomuPresentPBCD : PrefabByComponentData
     {
         return new CommandData()
         {
-            KeyComponent = typeof(HomuPresentPBCD).Name,
-            AddingKeyComponent = "",
+            KeyComponent = KeyType,
+            AddingKeyComponent = AddingKey,
             KeyCommand = Dict.Commands.SelectRole,
             Message = $"{(int)role}",
         };

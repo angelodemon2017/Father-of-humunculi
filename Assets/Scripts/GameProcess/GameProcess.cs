@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using static OptimazeExtensions;
 
 public class GameProcess
 {
@@ -92,7 +93,7 @@ public class GameProcess
             return;
         }
 
-        if (commandData.KeyComponent == typeof(ComponentPosition).Name)
+        if (commandData.KeyComponent == TypeCache<ComponentPosition>.IdType)
         {
             //TODO update _cashEIPsByChunk
         }
@@ -128,7 +129,7 @@ public class GameProcess
             _sessionTime.Add(_second);
             _seconder -= 1f;
 
-            //            SecondEntities();
+//                        SecondEntities();
             Thread thread = new Thread(SecondEntities);
             thread.Start();
         }
@@ -199,9 +200,9 @@ public class GameProcess
 
     public void AddEIP(EntityInProcess eip)
     {
-        foreach (var cmp in eip.EntityData._cashComponents)
+        foreach (var cmp in eip.EntityData._cashComponents.Values)
         {
-            cmp.Value.SetIdEntity(eip.EntityData.Id);
+            cmp.SetIdEntity(eip.EntityData.Id);
         }
 
         lock (lockObjectEips)

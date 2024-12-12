@@ -1,23 +1,25 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static OptimazeExtensions;
 
 public class BaseInventoryAdapter : PrefabByComponentData
 {
+    public override int KeyType => TypeCache<BaseInventoryAdapter>.IdType;
     private const char splitter = '^';
 
     [SerializeField] private EntityMonobeh _droppedItemPrefab;
     [SerializeField] private List<EnumItemCategory> defaulthSlots = new();
-    [SerializeField] private string _addingKey;
+    [SerializeField] private int _addingKey;
 
     private EntityInProcess _entityInProcess;
     private ComponentInventory _componentData;
     private List<UIIconPresent> _slots = new();
 
-    internal override string AddingKey => _addingKey;
-    public override string KeyComponentData => typeof(ComponentInventory).Name;
+    internal override int AddingKey => _addingKey;
+    public override int KeyComponentData => TypeCache<ComponentInventory>.IdType;
 
-    internal override ComponentData GetComponentData => defaulthSlots.Count > 0 ? new ComponentInventory(defaulthSlots, _addingKey) : base.GetComponentData;
-    //    internal override ComponentData GetComponentData =>  new ComponentInventory(defaulthSlots, _addingKey);
+    internal override ComponentData GetComponentData => defaulthSlots.Count > 0 ? 
+       new ComponentInventory(defaulthSlots, _addingKey) : base.GetComponentData;
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {
@@ -125,19 +127,19 @@ public class BaseInventoryAdapter : PrefabByComponentData
         return new CommandData()
         {
             IdEntity = entityData.Id,
-            KeyComponent = KeyComponent,
+            KeyComponent = KeyType,
             AddingKeyComponent = AddingKey,
             KeyCommand = Dict.Commands.UseRecipe,
             Message = $"{recipe.Index}{splitter}{position.x}{splitter}{position.z}",
         };
     }
 
-    public static CommandData GetCommandDropSlot(long idEnt, string addingKey, string mess)
+    public static CommandData GetCommandDropSlot(long idEnt, int addingKey, string mess)
     {
         return new CommandData()
         {
             IdEntity = idEnt,
-            KeyComponent = typeof(BaseInventoryAdapter).Name,
+            KeyComponent = TypeCache<BaseInventoryAdapter>.IdType,
             AddingKeyComponent = addingKey,
             KeyCommand = Dict.Commands.SlotDrop,
             Message = mess,
@@ -149,7 +151,7 @@ public class BaseInventoryAdapter : PrefabByComponentData
         return new CommandData()
         {
             IdEntity = idEnt,
-            KeyComponent = KeyComponent,
+            KeyComponent = KeyType,
             AddingKeyComponent = AddingKey,
             KeyCommand = Dict.Commands.SplitSlot,
             Message = $"{slot}",

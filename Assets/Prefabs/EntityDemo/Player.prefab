@@ -120,7 +120,7 @@ MonoBehaviour:
   _droppedItemPrefab: {fileID: 5597222920646075619, guid: 4a12b88dbcef388498b33d81b93a4b93,
     type: 3}
   defaulthSlots: 3f3f3f3f3f
-  _addingKey: a
+  _addingKey: 0
 --- !u!114 &8081803486868762349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,7 +136,7 @@ MonoBehaviour:
   _droppedItemPrefab: {fileID: 5597222920646075619, guid: 4a12b88dbcef388498b33d81b93a4b93,
     type: 3}
   defaulthSlots: 100408
-  _addingKey: b
+  _addingKey: 1
 --- !u!195 &7086998586925192290
 NavMeshAgent:
   m_ObjectHideFlags: 0

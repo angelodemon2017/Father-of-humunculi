@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
+using static OptimazeExtensions;
 
 public class PlayerPresent : PrefabByComponentData
 {
+    public override int KeyType => TypeCache<PlayerPresent>.IdType;
     private const char splitter = '^';
 
     [SerializeField] private EntityMonobeh _dropItem;
@@ -12,7 +14,7 @@ public class PlayerPresent : PrefabByComponentData
 
     private ComponentPlayerId _component;
 
-    public override string KeyComponentData => typeof(ComponentPlayerId).Name;
+    public override int KeyComponentData => TypeCache<ComponentPlayerId>.IdType;
 
     internal override ComponentData GetComponentData => new ComponentPlayerId(new ItemData(_emptyItem));
 
@@ -33,7 +35,7 @@ public class PlayerPresent : PrefabByComponentData
                 
                 var args = message.Split(splitter);
                 var invEnt = worldData.GetEntityById(long.Parse(args[0]));
-                var invComp = invEnt.GetComponent<ComponentInventory>(args[1]);
+                var invComp = invEnt.GetComponent<ComponentInventory>(int.Parse(args[1]));
                 var slotInv = invComp.Items[int.Parse(args[2])];
                 playerComp.ItemHand.Replace(slotInv);
                 slotInv.SetEmpty();
@@ -64,13 +66,13 @@ public class PlayerPresent : PrefabByComponentData
         }
     }
 
-    public static CommandData GetCommandDragItem(long idEntity, string addingKey, int idSlot)
+    public static CommandData GetCommandDragItem(long idEntity, int addingKey, int idSlot)
     {
         return new CommandData()
         {
-            KeyComponent = typeof(PlayerPresent).Name,
+            KeyComponent = TypeCache<PlayerPresent>.IdType,
             KeyCommand = Dict.Commands.SlotDrag,
-            AddingKeyComponent = string.Empty,
+            AddingKeyComponent = 0,
             Message = $"{idEntity}{splitter}{addingKey}{splitter}{idSlot}",
         };
     }
@@ -79,8 +81,8 @@ public class PlayerPresent : PrefabByComponentData
     {
         return new CommandData()
         {
-            KeyComponent = KeyComponent,
-            AddingKeyComponent = string.Empty,
+            KeyComponent = KeyType,
+            AddingKeyComponent = AddingKey,
             KeyCommand = Dict.Commands.DropItem,
         };
     }

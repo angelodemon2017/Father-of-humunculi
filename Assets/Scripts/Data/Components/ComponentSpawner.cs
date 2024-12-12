@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static OptimazeExtensions;
 
 [Serializable]
 public class ComponentSpawner : ComponentData
@@ -11,4 +12,9 @@ public class ComponentSpawner : ComponentData
     public string KeyEntity;
     public float DistanceDetach;
     public List<long> Entities = new();
+
+    public ComponentSpawner() : base(TypeCache<ComponentSpawner>.IdType)
+    {
+
+    }
 }

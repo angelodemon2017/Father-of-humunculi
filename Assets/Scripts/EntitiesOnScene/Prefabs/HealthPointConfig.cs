@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static OptimazeExtensions;
 
 public class HealthPointConfig : PrefabByComponentData
 {
+    public override int KeyType => TypeCache<HealthPointConfig>.IdType;
     [SerializeField] private EntityMonobeh _itemPrefab;
     [SerializeField] private List<ItemConfig> _dropItemsByDeath;
     [SerializeField] private int MaxHP;
@@ -11,7 +13,7 @@ public class HealthPointConfig : PrefabByComponentData
     private ComponentHPData _componentHP;
 
     public override string GetDebugText => $"HP:{_componentHP.CurrentHP}/{MaxHP}";
-    public override string KeyComponentData => typeof(ComponentHPData).Name;
+    public override int KeyComponentData => TypeCache<ComponentHPData>.IdType;
     internal override ComponentData GetComponentData => new ComponentHPData()
     {
         CurrentHP = MaxHP,

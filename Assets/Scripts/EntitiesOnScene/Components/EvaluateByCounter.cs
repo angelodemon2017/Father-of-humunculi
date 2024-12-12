@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static OptimazeExtensions;
 
 public class EvaluateByCounter : PrefabByComponentData, IDepenceCounter
 {
+    public override int KeyType => TypeCache<EvaluateByCounter>.IdType;
     [SerializeField] private int NeedToEvaluate;
     [SerializeField] private List<EntityMonobeh> NextEntity;
 

@@ -1,4 +1,6 @@
-﻿public class ComponentItemPresent : ComponentData
+﻿using static OptimazeExtensions;
+
+public class ComponentItemPresent : ComponentData
 {
     private ItemData _itemData;
 
@@ -7,12 +9,7 @@
 
     public string Tip => $"{_itemData.Id}({_itemData.Count})";
 
-    public ComponentItemPresent()
-    {
-
-    }
-
-    public ComponentItemPresent(ItemData keyItem) : base()
+    public ComponentItemPresent(ItemData keyItem) : base(TypeCache<ComponentItemPresent>.IdType)
     {
         _itemData = new ItemData(keyItem);
     }

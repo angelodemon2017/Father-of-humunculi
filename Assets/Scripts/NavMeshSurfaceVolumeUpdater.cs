@@ -1,7 +1,7 @@
-using System;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
+using static OptimazeExtensions;
 
 /// <summary>
 /// Update a NavMeshSurface with Volume object collection
@@ -9,6 +9,7 @@ using UnityEngine.AI;
 [DefaultExecutionOrder(-102)]
 public class NavMeshSurfaceVolumeUpdater : MonoBehaviour
 {
+    protected int Uid;
     private NavMeshAgent trackedAgent = new();
 
     private NavMeshSurface m_Surface;
@@ -17,6 +18,7 @@ public class NavMeshSurfaceVolumeUpdater : MonoBehaviour
     void Awake()
     {
         m_Surface = GetComponent<NavMeshSurface>();
+        Uid = PoolCounter<NavMeshSurfaceVolumeUpdater>.NextUid();
     }
 
     public void Init(NavMeshAgent agent)
@@ -81,5 +83,19 @@ public class NavMeshSurfaceVolumeUpdater : MonoBehaviour
     {
         gameObject.SetActive(false);
         trackedAgent = null;
+    }
+
+    public override int GetHashCode()
+    {
+        return Uid;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is NavMeshSurfaceVolumeUpdater other)
+        {
+            return Uid == other.Uid;
+        }
+        return false;
     }
 }

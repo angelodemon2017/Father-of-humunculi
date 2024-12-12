@@ -87,7 +87,7 @@ MonoBehaviour:
   _droppedItemPrefab: {fileID: 5597222920646075619, guid: 4a12b88dbcef388498b33d81b93a4b93,
     type: 3}
   defaulthSlots: 3f3f3f3f
-  _addingKey: c
+  _addingKey: 0
 --- !u!1001 &3826748863607209162
 PrefabInstance:
   m_ObjectHideFlags: 0

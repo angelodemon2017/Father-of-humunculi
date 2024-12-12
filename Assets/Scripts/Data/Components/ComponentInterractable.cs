@@ -1,4 +1,5 @@
 ﻿using System;
+using static OptimazeExtensions;
 
 public class ComponentInterractable : ComponentData
 {
@@ -6,18 +7,13 @@ public class ComponentInterractable : ComponentData
 
     private Func<string> _gettingTip;
 
-    public ComponentInterractable()
+    public ComponentInterractable() : base(TypeCache<ComponentInterractable>.IdType)
     {
 
-    }
-
-    public ComponentInterractable(Func<string> gettingTip)
-    {
-        _gettingTip = gettingTip;
     }
 
     public static CommandData GetTouch(string idWhoTouched)
     {
-        return new CommandData(-1, typeof(ComponentInterractable).Name, idWhoTouched);
+        return new CommandData(-1, TypeCache<ComponentInterractable>.IdType/*??*/, idWhoTouched);
     }
 }

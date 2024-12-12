@@ -1,8 +1,10 @@
 using TMPro;
 using UnityEngine;
+using static OptimazeExtensions;
 
 public class CanvasUITempMessage : PrefabByComponentData
 {
+    public override int KeyType => TypeCache<CanvasUITempMessage>.IdType;
     [SerializeField] private TextMeshProUGUI _testText;
     [SerializeField] private int SecondShows = 1;
     [SerializeField] private string DefaulthMessage;
@@ -11,7 +13,7 @@ public class CanvasUITempMessage : PrefabByComponentData
 
     private string GetDefMes => DefaulthMessage;
     internal override bool _isNeedUpdate => true;
-    public override string KeyComponentData => typeof(ComponentUITempMessage).Name;
+    public override int KeyComponentData => TypeCache<ComponentUITempMessage>.IdType;
     internal override ComponentData GetComponentData => new ComponentUITempMessage(GetDefMes);
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)

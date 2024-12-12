@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using static SimpleExtensions;
+using static OptimazeExtensions;
 
 public class EntityMonobeh : MonoBehaviour
 {
+    protected int Uid;
     [SerializeField] private string TypeKey;
     [SerializeField] private List<PrefabByComponentData> _prefabsByComponents;
-    private Dictionary<(string, string), PrefabByComponentData> _cashPrefabsByComponents = new();
+    private Dictionary<(int, int), PrefabByComponentData> _cashPrefabsByComponents = new();
 
     private List<PrefabByComponentData> _cashUpdatePrefabByComponentDatas = new();
     private EntityInProcess _entityInProcess;
@@ -21,11 +21,11 @@ public class EntityMonobeh : MonoBehaviour
     public bool IsExist => gameObject.activeSelf;
     public string GetTypeKey => TypeKey;
 
-    internal T GetMyComponent<T>(string addingKey = "") where T : PrefabByComponentData
+    internal T GetMyComponent<T>(int addingKey = 0) where T : PrefabByComponentData
     {
         InitPBCs();
 
-        string typeName = TypeCache<T>.TypeName;
+        int typeName = TypeCache<T>.IdType;
 
         if (_cashPrefabsByComponents.TryGetValue((typeName, addingKey), out PrefabByComponentData res))
         {
@@ -33,11 +33,17 @@ public class EntityMonobeh : MonoBehaviour
         }
         return null;
     }
+
+    private void Awake()
+    {
+        Uid = PoolCounter<EntityMonobeh>.NextUid();
+    }
+
     private void InitPBCs()
     {
         if (_cashPrefabsByComponents.Count == 0)
         {
-            _prefabsByComponents.ForEach(p => _cashPrefabsByComponents.Add((p.KeyComponent, p.AddingKey), p));
+            _prefabsByComponents.ForEach(p => _cashPrefabsByComponents.Add((p.KeyType, p.AddingKey), p));
         }
     }
 
@@ -105,11 +111,11 @@ public class EntityMonobeh : MonoBehaviour
 
     #region Config/Backend
 
-    public void UseCommand(EntityData entity, string keyComponent, string addingKey, string keyCommand, string message, WorldData worldData)
+    public void UseCommand(EntityData entity, int keyComponent, int addingKey, string keyCommand, string message, WorldData worldData)
     {
         foreach (var c in _prefabsByComponents)
         {
-            if (c.KeyComponent == keyComponent && c.AddingKey == addingKey)
+            if (c.KeyType == keyComponent && c.AddingKey == addingKey)
             {
                 c.ExecuteCommand(entity, keyCommand, message, worldData);
             }
@@ -131,4 +137,18 @@ public class EntityMonobeh : MonoBehaviour
     }
 
     #endregion
+
+    public override int GetHashCode()
+    {
+        return Uid;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is EntityMonobeh other)
+        {
+            return Uid == other.Uid;
+        }
+        return false;
+    }
 }

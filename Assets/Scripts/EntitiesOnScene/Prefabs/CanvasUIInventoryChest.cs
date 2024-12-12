@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static OptimazeExtensions;
 
 public class CanvasUIInventoryChest : PrefabByComponentData
 {
+    public override int KeyType => TypeCache<CanvasUIInventoryChest>.IdType;
     [SerializeField] private UIIconPresent _uiIconPresentPrefab;
     [SerializeField] private Transform _parentSlots;
     [SerializeField] private List<ItemConfig> _startItems;
@@ -12,10 +14,9 @@ public class CanvasUIInventoryChest : PrefabByComponentData
     private EntityInProcess _entityInProcess;
     private List<UIIconPresent> _tempSlots = new();
 
-    internal override string AddingKey => _baseInventoryAdapter.AddingKey;
+    internal override int AddingKey => _baseInventoryAdapter.AddingKey;
     internal override bool _isNeedUpdate => true;
-    public override string KeyComponentData => typeof(ComponentInventory).Name;
-    internal override ComponentData GetComponentData => new ComponentData();
+    public override int KeyComponentData => TypeCache<ComponentInventory>.IdType;
 
     internal override void PrepareEntityBeforeCreate(EntityData entityData)
     {

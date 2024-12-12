@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using static OptimazeExtensions;
 
 public class ComponentHomu : ComponentData
 {
@@ -22,21 +23,6 @@ public class ComponentHomu : ComponentData
     public string _titleDemo => $"Homu {_homuType}";
     public bool IsNoType => _homuType == EnumHomuType.None || _homuType == EnumHomuType.Dummy;
 
-    public ComponentHomu()
-    {
-
-    }
-
-/*    public ComponentHomu(EnumHomuType homuType)
-    {
-        SetHomuType(homuType);
-    }/**/
-
-/*    public void ApplyRecipe(RecipeHomu recipe)
-    {
-        SetHomuType(recipe.HomuType);
-    }/**/
-
     public void SetHomuType(EnumHomuType homuType)
     {
         _homuType = homuType;
@@ -45,5 +31,10 @@ public class ComponentHomu : ComponentData
     public void AddIdFocus(long id)
     {
         _idsInFocus.Add(id);
+    }
+
+    public ComponentHomu() : base(TypeCache<ComponentHomu>.IdType)
+    {
+
     }
 }

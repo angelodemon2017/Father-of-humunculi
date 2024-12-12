@@ -2,11 +2,6 @@
 
 public static class SimpleExtensions
 {
-    public static class TypeCache<T>
-    {
-        public static readonly string TypeName = typeof(T).Name;
-    }
-
     private static Random rnd = new();
 
     public static float FixMinMax(this float index, float min, float max)

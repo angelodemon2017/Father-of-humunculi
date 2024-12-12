@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static OptimazeExtensions;
 
 public class VisorComponent : PrefabByComponentData
 {
+    public override int KeyType => TypeCache<VisorComponent>.IdType;
     [SerializeField] private List<VisiblerEntity> _visibleEntities = new();
     [SerializeField] private EnumFraction CanVisor;
 

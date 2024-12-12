@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static OptimazeExtensions;
 
 public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCharacter
 {
+    public override int KeyType => TypeCache<FSMController>.IdType;
     public EntityMonobeh _entityMonobeh;
     [SerializeField] private State _startState;
     [SerializeField] private List<State> _availableState;
@@ -29,7 +31,7 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
     public ComponentFSM ComponentData => _component;
 
     public override string GetDebugText => _currentState.DebugField;
-    public override string KeyComponentData => typeof(ComponentFSM).Name;
+    public override int KeyComponentData => TypeCache<ComponentFSM>.IdType;
     internal override ComponentData GetComponentData => new ComponentFSM(_startState.StateKey);
     
     public EntityMonobeh GetEntityMonobeh()
@@ -126,7 +128,7 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
     {
         return new CommandData()
         {
-            KeyComponent = KeyComponent,
+            KeyComponent = KeyType,
             KeyCommand = Dict.Commands.SetterState,
             Message = stateKey,
         };

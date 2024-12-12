@@ -1,7 +1,9 @@
 using UnityEngine;
+using static OptimazeExtensions;
 
 public class PickerItemsByCounter : PrefabByComponentData
 {
+    public override int KeyType => TypeCache<PickerItemsByCounter>.IdType;
     [SerializeField] private int CounterToItemCount;
     [SerializeField] private ItemConfig _givingItem;//may be list of item
     [SerializeField] private DemoCounter _demoCounter;

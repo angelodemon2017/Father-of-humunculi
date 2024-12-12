@@ -1,15 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static OptimazeExtensions;
 
 public class ItemPresent : PrefabByComponentData
 {
+    public override int KeyType => TypeCache<ItemPresent>.IdType;
     [SerializeField] private List<ItemConfig> _itemsGenerate;
     [SerializeField] private RootSpriteRender _itemRoot;
 
     private ComponentItemPresent _componentItemPresent;
 
     internal override bool CanInterAct => true;
-    public override string KeyComponentData => typeof(ComponentItemPresent).Name;
+    public override int KeyComponentData => TypeCache<ComponentItemPresent>.IdType;
     internal ComponentItemPresent ComponentItem => _componentItemPresent;
 
     internal override ComponentData GetComponentData => new ComponentItemPresent(new ItemData(_itemsGenerate.GetRandom()));

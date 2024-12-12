@@ -1,19 +1,19 @@
 ﻿public struct CommandData
 {
     public long IdEntity;
-    public string KeyComponent;
-    public string AddingKeyComponent;
+    public int KeyComponent;
+    public int AddingKeyComponent;
     public string KeyCommand;
     /// <summary>
     /// Arguments
     /// </summary>
     public string Message;
 
-    public CommandData(long id, string component, string message = "")
+    public CommandData(long id, int component, string message = "")
     {
         IdEntity = id;
         KeyComponent = component;
-        AddingKeyComponent = string.Empty;
+        AddingKeyComponent = 0;
         KeyCommand = string.Empty;
         Message = message;
     }
