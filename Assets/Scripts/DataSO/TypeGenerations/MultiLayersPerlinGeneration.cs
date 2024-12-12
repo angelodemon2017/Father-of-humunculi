@@ -81,8 +81,16 @@ public class MultiLayersPerlinGeneration : TypeGeneration
         return Mathf.PerlinNoise((x - mapNoise1) * scale, (z + mapNoise1) * scale).FixMinMax(0, 1);
     }
 
-    public override List<EntityData> GenerateEntitiesByChunk(List<WorldTileData> chunk, SeedData seed)
+    public override List<EntityData> GenerateEntitiesByChunk(List<WorldTileData> chunk, WorldData wd)
     {
+        HashSet<EntityData> allNeigs = new();
+        var tempPos = chunk[0].GetChunkPos;
+        for (int x = -1; x < 2; x++)
+            for (int z = -1; z < 2; z++)
+            {
+                wd.GetNeighbours(tempPos.Item1, tempPos.Item2);
+            }
+
         List<EntityData> result = new();
         if (!EnableEntityGenerate)
         {
@@ -96,7 +104,7 @@ public class MultiLayersPerlinGeneration : TypeGeneration
                 break;
             }
 
-            var resEnt = GenEntity(t.Xpos, t.Zpos, seed);
+            var resEnt = GenEntity(t.Xpos, t.Zpos, wd.Seed);
             if (resEnt != null)
             {
                 var halfTile = Config.TileSize / 2;

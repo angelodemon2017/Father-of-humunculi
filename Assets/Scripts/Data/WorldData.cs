@@ -9,14 +9,18 @@ public class WorldData
     public string Name;
     public SeedData Seed = new();
 
-    public List<WorldTileData> worldTileDatas = new();
-    public List<WorldChunkData> worldChunkDatas = new();//labels about loaded??
-    public List<ResearchEntity> researches = new();
+//    public List<WorldTileData> worldTileDatas = new();
+    public List<WorldChunkData> worldChunkDatas = new();//labels about loaded?? or replace to structure
+//    public List<ResearchEntity> researches = new();
 
-    private Dictionary<string, ResearchEntity> _researches = new();
+    private Dictionary<string, ResearchEntity> _researches = new();//TODO need replace key to int
     private Dictionary<long, EntityData> _cashEntityDatas = new();
 
     private Dictionary<(int, int), WorldTileData> _cashTiles = new();
+    /// <summary>
+    /// Need only for Generation
+    /// </summary>
+    private Dictionary<(int, int), HashSet<EntityData>> _entityByChunk = new();
     private HashSet<long> _deletedIds = new();
 
     public long lastIds = 0;
@@ -29,6 +33,15 @@ public class WorldData
     private readonly object lockObjectUpdateIds = new object();
     private readonly object lockObjectEntities = new object();
     public HashSet<long> needUpdates = new();
+
+    internal HashSet<EntityData> GetNeighbours(int x, int z)
+    {
+        if (_entityByChunk.TryGetValue((x, z), out HashSet<EntityData> ents))
+        {
+            return ents;
+        }
+        return new HashSet<EntityData>();
+    }
 
     public void UpgradeResearch(string name, int val)
     {
@@ -114,7 +127,7 @@ public class WorldData
         {
             var newChunk = new WorldChunkData(x, z);
 
-            var ents = WorldConstructor.GenerateEntitiesByChunk(result, Seed, 1);
+            var ents = WorldConstructor.GenerateEntitiesByChunk(result, this, 1);
             //BiomsController.GetBiom().GenerateEntitiesByChunk(result, Seed);
             //                WorldConstructor.GenerateEntitiesByChunk(x, z, result);
 
@@ -169,6 +182,13 @@ public class WorldData
         lock (lockObjectEntities)
         {
             _cashEntityDatas.Add(entityData.Id, entityData);
+
+            var tempKey = entityData.GetChunk();
+            if (!_entityByChunk.ContainsKey(tempKey))
+            {
+                _entityByChunk.Add(tempKey, new HashSet<EntityData>());
+            }
+            _entityByChunk[tempKey].Add(entityData);
         }
         AddEntityForUpdate(entityData.Id);
 
@@ -182,6 +202,7 @@ public class WorldData
             var ed = GetEntityById(id);
             if (ed != null)
             {
+                _entityByChunk[ed.GetChunk()].Remove(ed);
                 _cashEntityDatas.Remove(id);
 
                 lock (lockObjectUpdateIds)
@@ -226,7 +247,7 @@ public class WorldData
         if (!_cashTiles.TryGetValue((x, z), out WorldTileData tile))
         {
             tile = WorldConstructor.GenerateTile(x, z, Seed, 1);
-            worldTileDatas.Add(tile);
+//            worldTileDatas.Add(tile);
             _cashTiles.Add((x, z), tile);
         }
 

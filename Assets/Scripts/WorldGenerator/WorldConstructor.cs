@@ -8,7 +8,7 @@ public class WorldConstructor
         return typeGenerationSO.GenerateTile(x, z, seed);
     }
 
-    public static List<EntityData> GenerateEntitiesByChunk(List<WorldTileData> chunk, SeedData seed, int typeGeneration = 0)
+    public static List<EntityData> GenerateEntitiesByChunk(List<WorldTileData> chunk, WorldData seed, int typeGeneration = 0)
     {
         var typeGenerationSO = GenerationController.GetGeneration(typeGeneration);
         return typeGenerationSO.GenerateEntitiesByChunk(chunk, seed);

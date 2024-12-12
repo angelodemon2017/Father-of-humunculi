@@ -40,6 +40,12 @@ public class EntityData
         return null;
     }
 
+    public (int, int) GetChunk()
+    {
+        var pos = Position.GetChunkPosInt();
+        return (pos.x, pos.z);
+    }
+
     public UnityEngine.Vector3 Position 
     {
         get

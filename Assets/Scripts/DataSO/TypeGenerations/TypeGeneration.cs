@@ -14,7 +14,7 @@ public class TypeGeneration : ScriptableObject
         return new WorldTileData(txt.Id, x, z, string.Empty);
     }
 
-    public virtual List<EntityData> GenerateEntitiesByChunk(List<WorldTileData> chunk, SeedData seed)
+    public virtual List<EntityData> GenerateEntitiesByChunk(List<WorldTileData> chunk, WorldData seed)
     {
         List<EntityData> result = new();
 

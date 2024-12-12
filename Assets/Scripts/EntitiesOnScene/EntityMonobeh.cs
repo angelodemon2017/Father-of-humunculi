@@ -6,6 +6,7 @@ public class EntityMonobeh : MonoBehaviour
 {
     protected int Uid;
     [SerializeField] private string TypeKey;
+    [SerializeField] private float RadEntity;
     [SerializeField] private List<PrefabByComponentData> _prefabsByComponents;
     private Dictionary<(int, int), PrefabByComponentData> _cashPrefabsByComponents = new();
 

@@ -21,14 +21,14 @@ public class WorldViewer : MonoBehaviour
     private HashSet<EntityMonobeh> _cashEntities = new();
 
     private Vector3 _focusChunkPosition;
-    private List<Vector3> _chunkPoints = new();
+    private HashSet<Vector3> _chunkPoints = new();
 
 //    public EntityMonobeh GetEM(long id) => _cashEntities.FirstOrDefault(e => e.Id == id);
     public List<TextureEntity> Textures => _textureEntities;
     private WorldData _gameWorld => GameProcess.Instance.GameWorld;
 
     private HashSet<BasePlaneWorld> _poolBPW = new();
-    private Dictionary<string, HashSet<EntityMonobeh>> _poolEntities = new();
+    private Dictionary<string, HashSet<EntityMonobeh>> _poolEntities = new();//TODO need replace key to id
     private HashSet<NavMeshSurfaceVolumeUpdater> _poolSurfacers = new();
 
 
