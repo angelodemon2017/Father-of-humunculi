@@ -26,7 +26,7 @@ public class SimplexGeneration : TypeGeneration
         return new WorldTileData(textur.Id, x, z, biom.Key);
     }
 
-    public override List<EntityData> GenerateEntitiesByChunk(List<WorldTileData> chunk, SeedData seed)
+    public override List<EntityData> GenerateEntitiesByChunk(List<WorldTileData> chunk, WorldData seed)
     {
         List<EntityData> result = new();
 
