@@ -55,6 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TypeKey: Player
+  RadEntity: 0
   _prefabsByComponents:
   - {fileID: 8471272043882828294}
   - {fileID: 1186518513851610787}
@@ -145,7 +146,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58151514028472945}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: 1479372276
   m_Radius: 0.2
   m_Speed: 3.5
   m_Acceleration: 8

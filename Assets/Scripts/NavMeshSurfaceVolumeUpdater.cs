@@ -25,6 +25,7 @@ public class NavMeshSurfaceVolumeUpdater : MonoBehaviour
     {
         trackedAgent = agent;
         m_VolumeSize = Vector3.one * Config.ChunkSize;
+        m_Surface.agentTypeID = agent.agentTypeID;
         m_Surface.center = QuantizedCenter();
         m_Surface.BuildNavMesh();
     }
