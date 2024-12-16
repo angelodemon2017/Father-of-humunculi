@@ -6,7 +6,7 @@ public class EntityMonobeh : MonoBehaviour
 {
     protected int Uid;
     [SerializeField] private string TypeKey;
-    [SerializeField] private float RadEntity;
+    [SerializeField] private float _radEntity;
     [SerializeField] private List<PrefabByComponentData> _prefabsByComponents;
     private Dictionary<(int, int), PrefabByComponentData> _cashPrefabsByComponents = new();
 
@@ -21,6 +21,7 @@ public class EntityMonobeh : MonoBehaviour
     /// </summary>
     public bool IsExist => gameObject.activeSelf;
     public string GetTypeKey => TypeKey;
+    internal float RadEntity => _radEntity;
 
     internal T GetMyComponent<T>(int addingKey = 0) where T : PrefabByComponentData
     {

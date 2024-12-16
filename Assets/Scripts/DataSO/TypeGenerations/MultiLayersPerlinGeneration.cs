@@ -88,7 +88,7 @@ public class MultiLayersPerlinGeneration : TypeGeneration
         for (int x = -1; x < 2; x++)
             for (int z = -1; z < 2; z++)
             {
-                wd.GetNeighbours(tempPos.Item1, tempPos.Item2);
+                wd.GetEntitiesByChunk(tempPos.Item1, tempPos.Item2);
             }
 
         List<EntityData> result = new();

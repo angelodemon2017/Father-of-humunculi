@@ -69,7 +69,6 @@ public class SpawnerByCounter : PrefabByComponentData, IDepenceCounter
             var swiftPos = randDecPos.normalized * SimpleExtensions.GetRandom(_spawnDistanceMin, _spawnDistanceMax);
 
             var newEnt = _entityForSpawn.CreateEntity(entityData.Position.x + swiftPos.x, entityData.Position.z + swiftPos.y);
-            counter._debugCounter -= _needCounterForSpawn;
 
             if (newEnt.TypeKey == "ItemPresent")
             {
@@ -89,8 +88,12 @@ public class SpawnerByCounter : PrefabByComponentData, IDepenceCounter
                 }
             }
 
-            var newId = GameProcess.Instance.GameWorld.AddEntity(newEnt);
-            compCS.Entities.Add(newId);
+            var newId = GameProcess.Instance.GameWorld.AddEntity(newEnt, true);
+            if (newId != -1)
+            {
+                counter._debugCounter -= _needCounterForSpawn;
+                compCS.Entities.Add(newId);
+            }
         }
     }
 }

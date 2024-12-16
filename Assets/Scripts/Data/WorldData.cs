@@ -34,7 +34,26 @@ public class WorldData
     private readonly object lockObjectEntities = new object();
     public HashSet<long> needUpdates = new();
 
-    internal HashSet<EntityData> GetNeighbours(int x, int z)
+    internal HashSet<EntityData> GetEntsByGridChunk(int xChunk, int zChunk, bool skipCenter = true)
+    {
+        HashSet<EntityData> allNeigs = new();
+        for (int x = -1; x < 2; x++)
+            for (int z = -1; z < 2; z++)
+            {
+                if (skipCenter && x == 0 && z == 0)
+                {
+                    continue;
+                }
+                var tempEnts = GetEntitiesByChunk(xChunk + x, zChunk + z);
+                foreach (var ent in tempEnts)
+                {
+                    allNeigs.Add(ent);
+                }
+            }
+        return allNeigs;
+    }
+
+    internal HashSet<EntityData> GetEntitiesByChunk(int x, int z)
     {
         if (_entityByChunk.TryGetValue((x, z), out HashSet<EntityData> ents))
         {
@@ -133,7 +152,7 @@ public class WorldData
 
             foreach (var ent in ents)
             {
-                AddEntity(ent);
+                AddEntity(ent, true);
             }
             worldChunkDatas.Add(newChunk);
         }
@@ -174,8 +193,21 @@ public class WorldData
         }
     }
 
-    public long AddEntity(EntityData entityData)
+    public long AddEntity(EntityData entityData, bool needCheckNeigs = false)
     {
+        var tempKey = entityData.GetChunk();
+        if (needCheckNeigs)
+        {
+            var neigEnts = GetEntsByGridChunk(tempKey.Item1, tempKey.Item2);
+            foreach (var ent in neigEnts)
+            {
+                if (ent.IsTooClose(entityData))
+                {
+                    return -1;
+                }
+            }
+        }
+
         entityData.Id = GetNewId();
         entityData.SetUpdateAction(AddEntityForUpdate);
 
@@ -183,7 +215,6 @@ public class WorldData
         {
             _cashEntityDatas.Add(entityData.Id, entityData);
 
-            var tempKey = entityData.GetChunk();
             if (!_entityByChunk.ContainsKey(tempKey))
             {
                 _entityByChunk.Add(tempKey, new HashSet<EntityData>());

@@ -80,6 +80,11 @@ public class EntityData
             UpdateEntity();
         }
     }
+
+    internal bool IsTooClose(EntityData checkerEnt)
+    {
+        return UnityEngine.Vector3.Distance(Position, checkerEnt.Position) > GetConfig.RadEntity + checkerEnt.GetConfig.RadEntity;
+    }
 }
 
 public class EntityCapacity : EntityData

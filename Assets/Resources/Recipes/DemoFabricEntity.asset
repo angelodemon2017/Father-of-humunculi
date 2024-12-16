@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8af36f61561abc4997de59a781ab8af, type: 3}
   m_Name: DemoFabricEntity
   m_EditorClassIdentifier: 
-  Index: 2
+  Index: 1
   Resources:
   - ItemConfig: {fileID: 11400000, guid: 1d51120011131b44f9d60dea71849c0e, type: 2}
     Count: 1
-  needResearchs: []
+  needResearchs:
+  - {fileID: 11400000, guid: 896154852db01a94e8dbdc350ea1f0b3, type: 2}
   GroupRecipeTag: {fileID: 11400000, guid: b173f62f78601974a888f1a37ab4d1f6, type: 2}
   SecondUsing: 1
   EntityConfig: {fileID: 5597222920646075619, guid: 928f850686d4aaf48a5926b774c341fc,
