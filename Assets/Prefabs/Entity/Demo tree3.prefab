@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5597222920646075619}
   - component: {fileID: 9080533731924881794}
   - component: {fileID: 1075913567266275299}
+  - component: {fileID: 1227974565856937367}
   m_Layer: 0
   m_Name: Demo tree3
   m_TagString: Untagged
@@ -98,6 +99,23 @@ MonoBehaviour:
   _distanceDetach: 999
   _entityForSpawn: {fileID: 5597222920646075619, guid: 4a12b88dbcef388498b33d81b93a4b93,
     type: 3}
+--- !u!114 &1227974565856937367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58151514028472945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51ad8a9108e75e04783b8e09dd71333d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _variables:
+  - {fileID: 21300000, guid: fbcfd30737e962248b2aba42f9cb74d6, type: 3}
+  - {fileID: 21300000, guid: 9c8b30593aa357c4e8ceade13da5b64a, type: 3}
+  - {fileID: 21300000, guid: aa7c5df39c884b04c91298548aa563c8, type: 3}
+  _rootSpriteRender: {fileID: 8471272043882828294}
 --- !u!1001 &5070435866379165309
 PrefabInstance:
   m_ObjectHideFlags: 0

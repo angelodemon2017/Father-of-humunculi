@@ -19,14 +19,23 @@ public class RecipeSO : ScriptableObject
     public virtual UIIconModel IconModelResult => null;// new UIIconModel();
     public virtual string TitleRecipe => string.Empty;// Result.ItemConfig.Key;
 
-    internal virtual bool AvailableRecipe(EntityData entityData)
+    internal virtual bool NeedResearch(EntityData entityData)
     {
         foreach (var nr in needResearchs)
         {
             if (!ResearchLibrary.Instance.IsResearchComplete(nr.Name))
             {
-                return false;
+                return true;
             }
+        }
+        return false;
+    }
+
+    internal virtual bool AvailableRecipe(EntityData entityData)
+    {
+        if (NeedResearch(entityData))
+        {
+            return false;
         }
 
         var invs = entityData.GetComponents<ComponentInventory>();

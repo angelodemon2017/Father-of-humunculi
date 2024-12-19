@@ -51,8 +51,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TypeKey: DemoScientTable
+  _radEntity: 0
   _prefabsByComponents:
-  - {fileID: 7716080897352376532}
   - {fileID: 8471272043882828294}
   - {fileID: 7516991489892046993}
   - {fileID: 653055325177773399}
@@ -482,7 +482,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 110513574, guid: 183f3ba47d746ea4190c5bb109108e88,
+      objectReference: {fileID: 21300000, guid: 564105285b6071d49ac1630643fde994,
         type: 3}
     - target: {fileID: 7433180754587744815, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
@@ -671,6 +671,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
+        type: 3}
       propertyPath: RootMonobeh
       value: 
       objectReference: {fileID: 5597222920646075619}
@@ -744,10 +749,20 @@ PrefabInstance:
       propertyPath: m_text
       value: "*\u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C*"
       objectReference: {fileID: 0}
+    - target: {fileID: 5346163851116472650, guid: 7a004244922a9b649880930db6aea915,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8002112855113046110, guid: 7a004244922a9b649880930db6aea915,
         type: 3}
       propertyPath: m_Name
       value: MouseInterfaceInteraction
+      objectReference: {fileID: 0}
+    - target: {fileID: 8002112855113046110, guid: 7a004244922a9b649880930db6aea915,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9157527484304818208, guid: 7a004244922a9b649880930db6aea915,
         type: 3}

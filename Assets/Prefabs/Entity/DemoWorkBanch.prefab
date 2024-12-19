@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TypeKey: DemoWorkBanch
+  _radEntity: 0
   _prefabsByComponents:
   - {fileID: 8471272043882828294}
   - {fileID: 7478408089731099629}
@@ -461,13 +462,13 @@ PrefabInstance:
     - target: {fileID: 6338143241473012965, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.713
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7433180754587744815, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 564105285b6071d49ac1630643fde994,
+      objectReference: {fileID: 21300000, guid: 13484bb635bd5eb4f8d379c5e46da456,
         type: 3}
     - target: {fileID: 7433180754587744815, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}

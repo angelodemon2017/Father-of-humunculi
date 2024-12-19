@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6051678397856999843}
   - component: {fileID: 5605633469874190417}
   - component: {fileID: 1273118112616154894}
+  - component: {fileID: 824360783090589989}
   m_Layer: 0
   m_Name: Demo tree2
   m_TagString: Untagged
@@ -131,7 +132,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NeedToEvaluate: 180
   NextEntity:
-  - {fileID: 5597222920646075619, guid: 7f8d32f8c110a304d952f4d0550070ea, type: 3}
+  - {fileID: 5597222920646075619, guid: c227f0edb19bbba48b913a0ec52ec469, type: 3}
+--- !u!114 &824360783090589989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58151514028472945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51ad8a9108e75e04783b8e09dd71333d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _variables:
+  - {fileID: 21300000, guid: c118ae88f239a2945a1aaad2a724c01d, type: 3}
+  - {fileID: 21300000, guid: 3eb88ae8541d1204980fb677395ba7c2, type: 3}
+  - {fileID: 21300000, guid: 1ff1537a081c9bf43b6c08c7eac04647, type: 3}
+  _rootSpriteRender: {fileID: 8471272043882828294}
 --- !u!1001 &164018672515239243
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -348,7 +366,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 255e4f018edc1b24db16158ed5b86f0e,
+      objectReference: {fileID: 21300000, guid: c118ae88f239a2945a1aaad2a724c01d,
         type: 3}
     - target: {fileID: 7433180754587744815, guid: 8813f3823d434934b89cbc3ef6a69d8d,
         type: 3}

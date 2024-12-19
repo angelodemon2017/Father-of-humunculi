@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9080533731924881794}
   - component: {fileID: 3239919620930306022}
   - component: {fileID: 1618741212515759746}
+  - component: {fileID: 1296926121155620575}
   m_Layer: 0
   m_Name: Demo tree1
   m_TagString: Untagged
@@ -111,6 +112,23 @@ MonoBehaviour:
   _givingItem: {fileID: 11400000, guid: 1d51120011131b44f9d60dea71849c0e, type: 2}
   _demoCounter: {fileID: 9080533731924881794}
   _canvasUITempMessage: {fileID: 4828185347630596916}
+--- !u!114 &1296926121155620575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58151514028472945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51ad8a9108e75e04783b8e09dd71333d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _variables:
+  - {fileID: 21300000, guid: d05bc31596f18ab4a9118c05a5dbf6dc, type: 3}
+  - {fileID: 21300000, guid: 21321683d48f618468b885435b753ba5, type: 3}
+  - {fileID: 21300000, guid: e3a8cc0e12b0cf14ba30f3eee5cc55c5, type: 3}
+  _rootSpriteRender: {fileID: 8471272043882828294}
 --- !u!1001 &2155038951095285894
 PrefabInstance:
   m_ObjectHideFlags: 0

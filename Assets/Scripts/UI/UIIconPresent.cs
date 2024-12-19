@@ -14,6 +14,7 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private Image _iconTypeItem;
     [SerializeField] private TextMeshProUGUI _textBottom;
     [SerializeField] private RectTransform rectTransform;
+    [SerializeField] private TextMeshProUGUI _textNeedResearch;
 
     private bool _isClickable;
     private int _indexIcon;
@@ -50,6 +51,7 @@ public class UIIconPresent : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         _isClickable = iconModel.ClickableIcon;
         _colorBorder.color = iconModel.ClickableIcon ? Color.white : Color.gray;
         _button.interactable = iconModel.ClickableIcon;
+        _textNeedResearch.gameObject.SetActive(iconModel.IsNeedResearch);
 //        rectTransform.sizeDelta = new Vector2(50f, 50f);
     }
 
@@ -115,6 +117,7 @@ public class UIIconModel
     public string BottomText;
     public AspectRatioFitter.AspectMode AspectMode;
     public bool ClickableIcon = false;
+    public bool IsNeedResearch = false;
 
     /// <summary>
     /// for build
@@ -160,6 +163,7 @@ public class UIIconModel
         BottomText = string.Empty;
         AspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
         ClickableIcon = recipe.AvailableRecipe(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData);
+        IsNeedResearch = recipe.NeedResearch(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData);
     }
 
     public UIIconModel(RecipeItem recipe)
@@ -169,6 +173,7 @@ public class UIIconModel
         BottomText = recipe.ItemResult.Count > 1 ? $"{recipe.ItemResult.Count}" : string.Empty;
         AspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
         ClickableIcon = recipe.AvailableRecipe(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData);
+        IsNeedResearch = recipe.NeedResearch(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData);
     }
 
 /*    public UIIconModel(ElementRecipe recipe)
@@ -189,6 +194,7 @@ public class UIIconModel
         BottomText = string.Empty;
         AspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
         ClickableIcon = recipe.AvailableRecipe(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData);
+        IsNeedResearch = recipe.NeedResearch(UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData);
     }
 
 /*    public UIIconModel(ElementRecipe recipe, bool isHaveResource, int index)
