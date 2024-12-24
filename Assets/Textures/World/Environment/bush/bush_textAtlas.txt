@@ -1,0 +1,33 @@
+bush.png
+size:493,537
+filter:Linear,Linear
+pma:true
+Layer 12
+bounds:2,228,380,307
+Layer 15
+bounds:384,347,91,188
+Layer 16
+bounds:384,202,105,143
+Layer 17
+bounds:2,13,76,134
+rotate:90
+Layer 28
+bounds:2,152,367,74
+Layer 30
+bounds:435,141,59,56
+rotate:90
+Layer 33
+bounds:427,28,61,54
+rotate:90
+Layer 34
+bounds:371,155,55,45
+Layer 42
+bounds:138,6,83,119
+rotate:90
+Layer 66
+bounds:360,25,65,64
+Layer 67
+bounds:2,91,431,59
+Layer 69
+bounds:259,2,87,99
+rotate:90

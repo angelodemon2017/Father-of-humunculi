@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
-  m_Name: Spine Atlas Asset
+  m_Name: Bush Spine Atlas Asset
   m_EditorClassIdentifier: 
   textureLoadingMode: 0
   onDemandTextureLoader: {fileID: 0}
-  atlasFile: {fileID: 4900000, guid: eca742327a2ec4440ba3f0389ab47601, type: 3}
+  atlasFile: {fileID: 4900000, guid: 226a9d41c6480cc49894862791572217, type: 3}
   materials:
-  - {fileID: 2100000, guid: 518f29cfc8a12a74dbf0c0b0577c33e3, type: 2}
+  - {fileID: 2100000, guid: 308a070c375cf9d4faa9d64e71cd8bd5, type: 2}

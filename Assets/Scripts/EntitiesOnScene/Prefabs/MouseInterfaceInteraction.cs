@@ -17,11 +17,13 @@ public class MouseInterfaceInteraction : PrefabByComponentData
     [SerializeField] private string MessageHelp;
     [SerializeField] private ItemConfig ConfigForActionWithoutItem;
     [SerializeField] private bool _defaultAvailableInteract;//DEBUG field
+    [SerializeField] private float _timeInteract = 0f;
 
     public EntityMonobeh RootMonobeh;
 
     private float _showTip;
 
+    internal float TimeInteract => _timeInteract;
     private string GetMessageHelp => string.IsNullOrWhiteSpace(MessageHelp) ? "..." : MessageHelp;
     internal override bool CanInterAct => _canInteractabler.Count > 0 ? _canInteractabler.Any(c => c.CanInterAct) : _defaultAvailableInteract;
     public override int KeyComponentData => TypeCache<ComponentInterractable>.IdType;

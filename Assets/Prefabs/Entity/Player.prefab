@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TypeKey: Player
-  RadEntity: 0
+  _radEntity: 0
   _prefabsByComponents:
   - {fileID: 8471272043882828294}
   - {fileID: 1186518513851610787}
@@ -694,7 +694,7 @@ PrefabInstance:
     - target: {fileID: 5827263990913762478, guid: 51482128feb88154db7f91554fd8162d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5827263990913762478, guid: 51482128feb88154db7f91554fd8162d,
         type: 3}

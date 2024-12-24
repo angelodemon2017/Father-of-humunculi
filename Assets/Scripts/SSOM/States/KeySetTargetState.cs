@@ -9,8 +9,10 @@ public class KeySetTargetState : State
     private Vector3 _target;
     private NavMeshAgent _navMeshAgent;
     private EntityMonobeh _targetEM;
+    private float _interactable = 0f;
+    private MouseInterfaceInteraction _miicomp;
 
-    public override string DebugField => $"иду к {_targetEM.GetTypeKey}";
+    public override string DebugField => _interactable > 0 ? $"взаимодейств.({(_miicomp.TimeInteract - _interactable).ToString("#.##")})" : $"иду к {_targetEM.GetTypeKey}";
 
     protected override void Init()
     {
@@ -22,6 +24,7 @@ public class KeySetTargetState : State
 
         _navMeshAgent = ((IMovableCharacter)Character).GetNavMeshAgent();
         _navMeshAgent.SetDestination(_target);
+        _miicomp = _targetEM.GetMyComponent<MouseInterfaceInteraction>();
     }
 
     protected override void Run()
@@ -34,17 +37,23 @@ public class KeySetTargetState : State
 
         if (Vector3.Distance(Character.GetTransform().position, _target) < DistanceToTouch)
         {
-            if (_targetEM != null)
+            _navMeshAgent.SetDestination(Character.GetTransform().position);
+            if (_targetEM == null || !_miicomp.CanInterAct)
             {
-                var myEM = Character.GetEntityMonobeh();
+                IsFinished = true;
+            }
+            else
+            {
+                _interactable += Time.deltaTime;
 
-                var miicomp = _targetEM.GetMyComponent<MouseInterfaceInteraction>();
-                if (miicomp.CanInterAct)
+                if (_interactable > _miicomp.TimeInteract)
                 {
-                    miicomp.OnClick(myEM);
+                    var myEM = Character.GetEntityMonobeh();
+
+                    _miicomp.OnClick(myEM);
+                    IsFinished = true;
                 }
             }
-            IsFinished = true;
         }
     }
 

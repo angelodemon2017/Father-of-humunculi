@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1b3b4b945939a54ea0b23d3396115fb, type: 3}
-  m_Name: BushDataAsset
+  m_Name: Bush skeleton data
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: febc03c3a61013240b7d485bfd13bf4a, type: 2}
+  - {fileID: 11400000, guid: 6bdd857cd44cbfa498ebbd1ca33eab23, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: eca742327a2ec4440ba3f0389ab47601, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: 962795b1ce8fc294082861663b774549, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
@@ -24,11 +24,8 @@ MonoBehaviour:
     multiplyMaterials: []
     screenMaterials: []
   skeletonDataModifiers: []
-  fromAnimation:
-  - animation
-  toAnimation:
-  - animation
-  duration:
-  - 0
+  fromAnimation: []
+  toAnimation: []
+  duration: []
   defaultMix: 0
-  controller: {fileID: 0}
+  controller: {fileID: 9100000, guid: 00483455b69a7f04bb25394dc4834ba5, type: 2}

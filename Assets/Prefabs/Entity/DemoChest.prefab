@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TypeKey: DemoChest
+  _radEntity: 0
   _prefabsByComponents:
   - {fileID: 7202232455274042544}
   - {fileID: 4767571617990152273}
@@ -690,6 +691,11 @@ PrefabInstance:
       propertyPath: RootMonobeh
       value: 
       objectReference: {fileID: 5597222920646075619}
+    - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
+        type: 3}
+      propertyPath: _timeInteract
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
         type: 3}
       propertyPath: _mapActions.Array.size

@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float _intensive;
     [SerializeField] private Transform _currentTargetPoint;
     [SerializeField] private Transform _rootCamera;
-//    private Vector3 _diffVector;
+    //    private Vector3 _diffVector;
     private Quaternion _directParalCamera;
 //    private Quaternion _localRotation;
 

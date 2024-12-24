@@ -534,8 +534,18 @@ PrefabInstance:
       objectReference: {fileID: 5597222920646075619}
     - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
         type: 3}
+      propertyPath: _timeInteract
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
+        type: 3}
       propertyPath: _mapActions.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
+        type: 3}
+      propertyPath: _defaultAvailableInteract
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2841689859417277086, guid: 7a004244922a9b649880930db6aea915,
         type: 3}
