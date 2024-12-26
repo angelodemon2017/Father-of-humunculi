@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-public static class ListExtensions
+public static class CollectionExtensions
 {
     public static T GetRandom<T>(this IEnumerable<T> list)
     {

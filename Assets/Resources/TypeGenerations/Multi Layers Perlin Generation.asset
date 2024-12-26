@@ -44,7 +44,7 @@ MonoBehaviour:
       MaxVal: 0.5
       MainTexture: {fileID: 11400000, guid: 6684a3edf2ef51841be6545a89d84ba0, type: 2}
       BorderTexture: {fileID: 0}
-      Biom: {fileID: 11400000, guid: 1d0237ad43af0fa448228241e951bff0, type: 2}
+      Biom: {fileID: 11400000, guid: 55b4d3570861f7d46b181dd8069229de, type: 2}
     - MinVal: 0.5
       MaxVal: 1
       MainTexture: {fileID: 11400000, guid: 29d26e298dd81924d8c4d6d96e4ba1a2, type: 2}

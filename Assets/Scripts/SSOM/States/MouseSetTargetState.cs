@@ -7,20 +7,22 @@ public class MouseSetTargetState : State
     [SerializeField] private float MoveSpeed;
     [SerializeField] private LayerMask _mask;
     [SerializeField] private float DistanceToTouch;
+    [SerializeField] private InteractablerState _interactablerState;
     private Vector3 _target;
     private NavMeshAgent _navMeshAgent;
 
     private RaycastHit hit;
 
     private EntityMonobeh _targetEM;
+    private MouseInterfaceInteraction _miicomp;
 
     public override string DebugField => $"иду к {_targetEM.GetTypeKey}";
 
     protected override void Init()
     {
-        var mii = TryGetMII();
-        _targetEM = mii.RootMonobeh;
-        _target = mii.transform.position;
+        _miicomp = TryGetMII();
+        _targetEM = _miicomp.RootMonobeh;
+        _target = _miicomp.transform.position;
 
         _navMeshAgent = ((IMovableCharacter)Character).GetNavMeshAgent();
         _navMeshAgent.SetDestination(_target);
@@ -28,16 +30,15 @@ public class MouseSetTargetState : State
 
     protected override void Run()
     {
-        if (_targetEM == null)
+        if (!_targetEM.IsExist)
         {
             IsFinished = true;
         }
 
-        var mii = TryGetMII();
-        if (mii != null)
+        if (_miicomp != null)
         {
-            _targetEM = mii.RootMonobeh;
-            _target = mii.transform.position;
+            _targetEM = _miicomp.RootMonobeh;
+            _target = _miicomp.transform.position;
             _navMeshAgent.SetDestination(_target);
         }
 
@@ -45,10 +46,9 @@ public class MouseSetTargetState : State
         {
             if (_targetEM != null)
             {
-                var myEM = Character.GetEntityMonobeh();
-
-                var miicomp = _targetEM.GetMyComponent<MouseInterfaceInteraction>();
-                miicomp.OnClick(myEM);
+                var initingState = Instantiate(_interactablerState);
+                initingState.SetMII(_miicomp);
+                Character.SetState(initingState, true);
             }
             IsFinished = true;
         }

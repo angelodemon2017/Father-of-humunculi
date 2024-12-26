@@ -24,10 +24,14 @@ public class BiomByLayerPerlinGeneration : BiomSO
             return null;
         }
 
-        var layer = _entities.FirstOrDefault(e => e.IsInside(pr));
-        if (layer != null)
+        var variants = _entities.Where(e => e.IsInside(pr));
+        if (variants.Count() > 0)
         {
-            return layer.Entity;
+            var layer = variants.GetRandom();
+            if (layer != null)
+            {
+                return layer.Entity;
+            }
         }
 
         return null;

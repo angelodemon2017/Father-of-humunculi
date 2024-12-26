@@ -25,3 +25,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 136
   DistanceToTouch: 1
+  _interactablerState: {fileID: 11400000, guid: 2f8238dc7aa6ee84ca47ed47f453333e,
+    type: 2}
