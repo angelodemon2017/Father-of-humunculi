@@ -56,6 +56,7 @@ public class GameplayAdapter : MonoBehaviour
     public void Newgame()
     {
         WorldData world = new WorldData();//Load from file...
+        
         gameProcess.NewGame(world);
 
         GameTime = 1f;

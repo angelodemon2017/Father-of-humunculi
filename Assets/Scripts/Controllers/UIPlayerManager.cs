@@ -5,6 +5,7 @@ public class UIPlayerManager : MonoBehaviour
 {
     public static UIPlayerManager Instance;
 
+    [SerializeField] private DebugPanelUI _debugPanelUI;
     [SerializeField] private UIPresentInventory uIPresentInventory;
     [SerializeField] private UIPanelCraftGroups _uIPanelCraftGroups;
     [SerializeField] private UIEquipmentView _uIEquipmentView;
@@ -160,6 +161,10 @@ public class UIPlayerManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             UseItemByInventory(4);
+        }
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            _debugPanelUI.gameObject.SetActive(!_debugPanelUI.gameObject.activeSelf);
         }
         if (IsReadySetBuild && Input.GetMouseButtonDown(1))
         {

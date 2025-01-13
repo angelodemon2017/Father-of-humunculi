@@ -44,4 +44,9 @@ public static class SimpleExtensions
     {
         return ((float)rnd.Next((int)(min * 1000), (int)(max * 1000))) / 1000f;
     }
+
+    public static string SimpleFormat(this float val)
+    {
+        return val.ToString("#.##");
+    }
 }

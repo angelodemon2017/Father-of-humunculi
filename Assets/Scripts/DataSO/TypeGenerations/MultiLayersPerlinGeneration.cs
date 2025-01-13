@@ -88,7 +88,11 @@ public class MultiLayersPerlinGeneration : TypeGeneration
         for (int x = -1; x < 2; x++)
             for (int z = -1; z < 2; z++)
             {
-                wd.GetEntitiesByChunk(tempPos.Item1, tempPos.Item2);
+                var tempRes = wd.GetEntitiesByChunk(tempPos.Item1, tempPos.Item2);
+                foreach (var te in tempRes)
+                {
+                    allNeigs.Add(te);
+                }
             }
 
         List<EntityData> result = new();
@@ -108,8 +112,18 @@ public class MultiLayersPerlinGeneration : TypeGeneration
             if (resEnt != null)
             {
                 var halfTile = Config.TileSize / 2;
-                result.Add(resEnt.CreateEntity(t.Xpos * Config.TileSize + SimpleExtensions.GetRandom(-halfTile, halfTile),
-                    t.Zpos * Config.TileSize + SimpleExtensions.GetRandom(-halfTile, halfTile)));
+                var xPos = t.Xpos * Config.TileSize + SimpleExtensions.GetRandom(-halfTile, halfTile);
+                var zPos = t.Zpos * Config.TileSize + SimpleExtensions.GetRandom(-halfTile, halfTile);
+
+                foreach (var ne in allNeigs)
+                {
+                    //TODO ???
+                }
+
+                var tempEntResult = resEnt.CreateEntity(xPos, zPos);
+
+                allNeigs.Add(tempEntResult);
+                result.Add(tempEntResult);
             }
         }
 
@@ -170,6 +184,34 @@ public class MultiLayersPerlinGeneration : TypeGeneration
 //            var dif = (pr - MinVal) / (MaxVal - MinVal);
 
             return Biom.GetRndEntity(pr);
+        }
+    }
+
+    [System.Serializable]
+    internal class Structure
+    {
+        public EntityMonobeh EntityOfStructure;
+        public int Limit = 1;
+        public float Distance = 10f;
+        public int AddSwiftAngleStructure = 0;
+
+        private Vector3 GetPos(int numstruct, SeedData seed)
+        {
+            var angle = 360 / Limit * numstruct + AddSwiftAngleStructure + seed.StructureAngleSwift;
+
+
+
+            return Vector3.zero;
+        }
+
+        public bool CheckCoordinate(Vector3Int ChunkPos)
+        {
+            for (int i = 0; i < Limit; i++)
+            {
+
+            }
+
+            return false;
         }
     }
 }

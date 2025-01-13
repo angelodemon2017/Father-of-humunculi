@@ -8,6 +8,7 @@ public class BasePlaneWorld : MonoBehaviour
 {
     protected int Uid;
     [SerializeField] private Renderer _renderer;
+    [SerializeField] private List<Renderer> _borders;
     private WorldTile _worldPart;
 
     private List<WorldTile> _neigbors = new();
@@ -60,6 +61,13 @@ public class BasePlaneWorld : MonoBehaviour
         _renderer.material.SetColor("_BaseColor", _textureEntity.BaseColor);
         _renderer.material.SetTexture("_BaseTexture", _textureEntity.BaseTexture);
         _renderer.material.SetTexture("_BaseAddingMask", _textureEntity.BaseAddedTexture.GetRandom(_worldPart.Xpos + _worldPart.Zpos));
+
+        foreach (var b in _borders)
+        {
+            b.material.SetColor("_BaseColor", _textureEntity.BaseColor);
+            b.material.SetTexture("_BaseTexture", _textureEntity.BaseTexture);
+            b.material.SetTexture("_BaseAddingMask", _textureEntity.BaseAddedTexture.GetRandom(_worldPart.Xpos + _worldPart.Zpos));
+        }
 
         GenerateBorders();
     }

@@ -26,6 +26,7 @@ public class GameProcess
 
     private readonly object lockObjectEips = new object();
     private Dictionary<long, EntityInProcess> _cashEntities = new();
+    public static Action<int> CountCashEIP;
     private Dictionary<(int, int), Dictionary<long, EntityInProcess>> _cashEIPsByChunk = new();
 
     private TimeSpan _sessionTime = new();
@@ -62,8 +63,10 @@ public class GameProcess
         lock (lockObjectEips)
         {
             _cashEntities.Clear();
+            CountCashEIP?.Invoke(_cashEntities.Count());
         }
-        _gameWorld = worldData; 
+        _gameWorld = worldData;
+        _gameWorld.StartGeneration();
         CheckEntities();
 
         StartGame();
@@ -208,6 +211,7 @@ public class GameProcess
         lock (lockObjectEips)
         {
             _cashEntities.Add(eip.EntityData.Id, eip);
+            CountCashEIP?.Invoke(_cashEntities.Count());
 
             var tempPos = eip.Position.GetChunkPosInt();
             if (_cashEIPsByChunk.TryGetValue((tempPos.x, tempPos.z), out Dictionary<long, EntityInProcess> dictEIPs))
@@ -227,6 +231,7 @@ public class GameProcess
         lock (lockObjectEips)
         {
             _cashEntities.Remove(eip.Id);
+            CountCashEIP?.Invoke(_cashEntities.Count());
 
             var tempPos = eip.Position.GetChunkPosInt();
             _cashEIPsByChunk[(tempPos.x, tempPos.z)].Remove(eip.Id);

@@ -59,4 +59,9 @@ public static class Dict
     {
         public static string ShopDebug = "ShopDebug";
     }
+
+    public static class SpecComponents
+    {
+        public const string ItemPresent = "ItemPresent";
+    }
 }

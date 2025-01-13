@@ -18,6 +18,7 @@ public class CameraController : MonoBehaviour
     public Quaternion DirectParalCamera => _directParalCamera;
 
     public static Action ChangedRot;
+    public static Action<Vector3> ChangePosition;
 
     private void Awake()
     {
@@ -43,6 +44,7 @@ public class CameraController : MonoBehaviour
         }
 
         _rootCamera.position = Vector3.Lerp(_rootCamera.position, FocusPosition, _intensive);
+        ChangePosition?.Invoke(_rootCamera.position);
     }
 
     private void RotateRoot(float angl)

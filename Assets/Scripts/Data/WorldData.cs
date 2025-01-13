@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -33,6 +34,8 @@ public class WorldData
     private readonly object lockObjectUpdateIds = new object();
     private readonly object lockObjectEntities = new object();
     public HashSet<long> needUpdates = new();
+
+    public int CountEntityData => _cashEntityDatas.Count();
 
     internal HashSet<EntityData> GetEntsByGridChunk(int xChunk, int zChunk, bool skipCenter = true)
     {
@@ -102,10 +105,10 @@ public class WorldData
 
     public WorldData()
     {
-        StartGeneration();
+//        StartGeneration();
     }
 
-    private void StartGeneration()
+    internal void StartGeneration()
     {
         for (int x = -2; x < 3; x++)
             for (int z = -2; z < 3; z++)
@@ -199,10 +202,12 @@ public class WorldData
         if (needCheckNeigs)
         {
             var neigEnts = GetEntsByGridChunk(tempKey.Item1, tempKey.Item2);
+            Debug.Log($"");
             foreach (var ent in neigEnts)
             {
                 if (ent.IsTooClose(entityData))
                 {
+                    Debug.Log("Miss add Entity");
                     return -1;
                 }
             }

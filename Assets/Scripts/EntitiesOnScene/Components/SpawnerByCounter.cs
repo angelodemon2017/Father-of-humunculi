@@ -1,5 +1,6 @@
 using UnityEngine;
 using static OptimazeExtensions;
+using static Helper;
 
 [RequireComponent(typeof(DemoCounter))]
 public class SpawnerByCounter : PrefabByComponentData, IDepenceCounter
@@ -65,12 +66,13 @@ public class SpawnerByCounter : PrefabByComponentData, IDepenceCounter
 
         if (counter._debugCounter >= _needCounterForSpawn && compCS.Entities.Count < _maxEntities)
         {
-            var randDecPos = new Vector2(SimpleExtensions.GetRandom(-2f, 2f), SimpleExtensions.GetRandom(-2f, 2f));
-            var swiftPos = randDecPos.normalized * SimpleExtensions.GetRandom(_spawnDistanceMin, _spawnDistanceMax);
+//            var randDecPos = new Vector2(SimpleExtensions.GetRandom(-2f, 2f), SimpleExtensions.GetRandom(-2f, 2f));
+            var swiftPos = GetRandomPointOfCircle(_spawnDistanceMin, _spawnDistanceMax);
+//                randDecPos.normalized * SimpleExtensions.GetRandom(_spawnDistanceMin, _spawnDistanceMax);
 
             var newEnt = _entityForSpawn.CreateEntity(entityData.Position.x + swiftPos.x, entityData.Position.z + swiftPos.y);
 
-            if (newEnt.TypeKey == "ItemPresent")
+            if (newEnt.TypeKey == Dict.SpecComponents.ItemPresent)
             {
                 var compItem = newEnt.GetComponent<ComponentItemPresent>();
                 if (compItem != null)

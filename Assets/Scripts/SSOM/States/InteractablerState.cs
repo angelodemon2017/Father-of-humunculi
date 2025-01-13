@@ -5,7 +5,7 @@ public class InteractablerState : State
 {
     private float _interactable = 0f;
     private MouseInterfaceInteraction _miicomp;
-    public override string DebugField => $"взаимодейств.({(_miicomp.TimeInteract - _interactable).ToString("#.##")})";
+    public override string DebugField => $"взаимодейств.({(_miicomp.TimeInteract - _interactable).SimpleFormat()})";
 
     internal void SetMII(MouseInterfaceInteraction mii)
     {

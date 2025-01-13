@@ -4,6 +4,7 @@
 
     private int _mapPerlinNoise = 0;
     private int _mapLayer2 = 0;
+    private int _structureAngleSwift = 0;
 
     public int MapNoise
     {
@@ -17,6 +18,14 @@
         get
         {
             return _mapLayer2;
+        }
+    }
+
+    public int StructureAngleSwift
+    {
+        get
+        {
+            return _structureAngleSwift;
         }
     }
 
@@ -42,6 +51,7 @@
     {
         _mapPerlinNoise = int.Parse(Seed.Substring(2, 2));
         _mapLayer2 = int.Parse(Seed.Substring(4, 2));
+        _structureAngleSwift = int.Parse(Seed.Substring(2, 3));
     }
 
     public int GetShaderMask()

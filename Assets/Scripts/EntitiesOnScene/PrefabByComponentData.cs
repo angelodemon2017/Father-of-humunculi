@@ -12,11 +12,6 @@ public class PrefabByComponentData : MonoBehaviour
 
     internal virtual ComponentData GetComponentData => new ComponentDummy();
 
-    internal virtual void PrepareEntityBeforeCreate(EntityData entityData)
-    {
-
-    }
-
     public virtual void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {
 
@@ -33,6 +28,11 @@ public class PrefabByComponentData : MonoBehaviour
     }
 
     #region Config/Backend
+
+    internal virtual void PrepareEntityBeforeCreate(EntityData entityData)
+    {
+
+    }
 
     public virtual void ExecuteCommand(EntityData entity, string command, string message, WorldData worldData)
     {

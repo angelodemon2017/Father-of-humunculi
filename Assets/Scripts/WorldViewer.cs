@@ -19,8 +19,10 @@ public class WorldViewer : MonoBehaviour
     private List<WorldChunkView> _chunksView = new();
     private Dictionary<(int, int), WorldTile> _cashTiles = new();
     private HashSet<EntityMonobeh> _cashEntities = new();
+    public static Action<int> CashEntitiesCount;
 
     private Vector3 _focusChunkPosition;
+    public static Action<Vector3> FocusChunkChanged;
     private HashSet<Vector3> _chunkPoints = new();
 
 //    public EntityMonobeh GetEM(long id) => _cashEntities.FirstOrDefault(e => e.Id == id);
@@ -92,6 +94,7 @@ public class WorldViewer : MonoBehaviour
             Destroy(e.gameObject);
         }
         _cashEntities.Clear();
+        CashEntitiesCount?.Invoke(_cashEntities.Count);
 
         GameProcess.Instance.NewGame(new WorldData());
         CheckAndUpdateChunks();
@@ -109,6 +112,7 @@ public class WorldViewer : MonoBehaviour
         if (newPos != _focusChunkPosition)
         {
             _focusChunkPosition = newPos;
+            FocusChunkChanged?.Invoke(_focusChunkPosition);
 
             CheckAndUpdateChunks();
 
@@ -210,11 +214,13 @@ public class WorldViewer : MonoBehaviour
         var newEM = Create(entityInProcess.EntityData.TypeKey);
         newEM.Init(entityInProcess);
         _cashEntities.Add(newEM);
+        CashEntitiesCount?.Invoke(_cashEntities.Count);
     }
 
     public void RemoveEntity(EntityMonobeh entityMonobeh)
     {
         _cashEntities.Remove(entityMonobeh);
+        CashEntitiesCount?.Invoke(_cashEntities.Count);
 
         if (_poolEntities.TryGetValue(entityMonobeh.EntityInProcess.EntityData.TypeKey, out HashSet<EntityMonobeh> pool))
         {
