@@ -11,7 +11,7 @@ public class WorldTileData
     public Action<int> ChangedId;
     public string DebugText;
 
-    public (int, int) GetChunkPos => (1,1);
+    public (int, int) GetChunkPos => (Xpos / Config.ChunkTilesSize, Zpos / Config.ChunkTilesSize);
 
     public WorldTileData(int id, int xpos, int zpos, string biomKey, string debugInfo = "")
     {

@@ -83,7 +83,12 @@ public class EntityData
 
     internal bool IsTooClose(EntityData checkerEnt)
     {
-        return UnityEngine.Vector3.Distance(Position, checkerEnt.Position) > GetConfig.RadEntity + checkerEnt.GetConfig.RadEntity;
+        var dist = UnityEngine.Vector3.Distance(Position, checkerEnt.Position);
+        var rads = GetConfig.RadEntity + checkerEnt.GetConfig.RadEntity;
+
+//        UnityEngine.Debug.Log($"Ent:{TypeKey},{GetConfig.RadEntity.SimpleFormat()} check:{checkerEnt.TypeKey},{checkerEnt.GetConfig.RadEntity.SimpleFormat()}. dist={dist.SimpleFormat()}");
+
+        return dist < rads;
     }
 }
 

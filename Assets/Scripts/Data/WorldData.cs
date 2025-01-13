@@ -202,12 +202,12 @@ public class WorldData
         if (needCheckNeigs)
         {
             var neigEnts = GetEntsByGridChunk(tempKey.Item1, tempKey.Item2);
-            Debug.Log($"");
+//            Debug.Log($"AddEntity with check needCheckNeigs neigs:{neigEnts.Count()}");
             foreach (var ent in neigEnts)
             {
                 if (ent.IsTooClose(entityData))
                 {
-                    Debug.Log("Miss add Entity");
+//                    Debug.Log("Miss add Entity");
                     return -1;
                 }
             }

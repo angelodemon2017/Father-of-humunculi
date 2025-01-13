@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using static Helper;
 
 [CreateAssetMenu(menuName = "Type Generation/Multi Layer Perlin Generation", order = 1)]
 public class MultiLayersPerlinGeneration : TypeGeneration
@@ -115,12 +116,21 @@ public class MultiLayersPerlinGeneration : TypeGeneration
                 var xPos = t.Xpos * Config.TileSize + SimpleExtensions.GetRandom(-halfTile, halfTile);
                 var zPos = t.Zpos * Config.TileSize + SimpleExtensions.GetRandom(-halfTile, halfTile);
 
+                var tempEntResult = resEnt.CreateEntity(xPos, zPos);
+                bool missCreate = false;
+
                 foreach (var ne in allNeigs)
                 {
-                    //TODO ???
+                    if (ne.IsTooClose(tempEntResult))
+                    {
+//                        Debug.Log("Miss add Entity");
+                        missCreate = true;
+                    }
                 }
-
-                var tempEntResult = resEnt.CreateEntity(xPos, zPos);
+                if (missCreate)
+                {
+                    continue;
+                }
 
                 allNeigs.Add(tempEntResult);
                 result.Add(tempEntResult);
@@ -191,6 +201,7 @@ public class MultiLayersPerlinGeneration : TypeGeneration
     internal class Structure
     {
         public EntityMonobeh EntityOfStructure;
+        public TextureEntity GroundUnderStructure;
         public int Limit = 1;
         public float Distance = 10f;
         public int AddSwiftAngleStructure = 0;
@@ -199,16 +210,18 @@ public class MultiLayersPerlinGeneration : TypeGeneration
         {
             var angle = 360 / Limit * numstruct + AddSwiftAngleStructure + seed.StructureAngleSwift;
 
-
-
-            return Vector3.zero;
+            return PointOnCircumference(0f, 0f, Distance, angle);
         }
 
-        public bool CheckCoordinate(Vector3Int ChunkPos)
+        public bool CheckCoordinate(Vector3Int ChunkPos, SeedData seed)
         {
             for (int i = 0; i < Limit; i++)
             {
-
+                var tempPos = GetPos(i, seed);
+                if (tempPos.GetChunkPosInt() == ChunkPos)
+                {
+                    return true;
+                }
             }
 
             return false;

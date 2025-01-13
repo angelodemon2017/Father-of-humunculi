@@ -173,6 +173,7 @@ Transform:
   - {fileID: 6019680427313835671}
   - {fileID: 7287537202122675650}
   - {fileID: 4058380937027764641}
+  - {fileID: 1655874312350732898}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6349847880629030281
@@ -268,6 +269,9 @@ MonoBehaviour:
   _textureBlackMask: {fileID: 2800000, guid: c3bba392e3b6c574b953e5afe04821a9, type: 3}
   _collider: {fileID: 772781500059541494}
   _testText: {fileID: 3701922924501165013}
+  _parentDecorations: {fileID: 1655874312350732898}
+  _prefabDecoration: {fileID: 5155102098333402906, guid: f7bc4bd85a5fefa41938c8cc80ad9eb4,
+    type: 3}
   DebugText: 
 --- !u!1 &740302962960466706
 GameObject:
@@ -808,3 +812,34 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7391684115446565935
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1655874312350732898}
+  m_Layer: 3
+  m_Name: Decorations
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1655874312350732898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7391684115446565935}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4385775023940761915}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

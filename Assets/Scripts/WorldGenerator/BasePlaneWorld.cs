@@ -16,16 +16,25 @@ public class BasePlaneWorld : MonoBehaviour
     [SerializeField] private GameObject _collider;
     [SerializeField] private TextMeshProUGUI _testText;
 
+    [SerializeField] private Transform _parentDecorations;
+    [SerializeField] private PowerDecoration _prefabDecoration;
+    private HashSet<PowerDecoration> _decorations = new();
+
     public string DebugText;
+
+    internal TextureEntity TextureEntity => WorldViewer.Instance.GetTE(_worldPart.Id);
 
     private void Awake()
     {
         Uid = PoolCounter<BasePlaneWorld>.NextUid();
+
+        CalcDecorations();
     }
 
     public void VirtualCreate()
     {
         gameObject.SetActive(true);
+        CalcDecorations();
     }
 
     public void Init(WorldTile worldPart, List<WorldTile> neigbors)
@@ -55,7 +64,7 @@ public class BasePlaneWorld : MonoBehaviour
 
     public void UpdatePart()
     {
-        var _textureEntity = WorldViewer.Instance.GetTE(_worldPart.Id);
+        var _textureEntity = TextureEntity;
 
         _collider.SetActive(_textureEntity.SpeedMove <= 0);
         _renderer.material.SetColor("_BaseColor", _textureEntity.BaseColor);
@@ -118,6 +127,35 @@ public class BasePlaneWorld : MonoBehaviour
         }
     }
 
+    private void CalcDecorations(int count = 0)
+    {
+        float distDecos = 10f / count;
+        float baseSwift = distDecos / 2f - 10f / 2f;
+        for (int x = 0; x < count; x++)
+            for (int z = 0; z < count; z++)
+            {
+                var newDec = Instantiate(_prefabDecoration, _parentDecorations);
+                newDec.transform.position = new Vector3(baseSwift + distDecos * x + transform.position.x, 0f,
+                    baseSwift + distDecos * z + transform.position.z);
+                newDec.Init(this);
+                _decorations.Add(newDec);
+            }
+    }
+
+    private void CleanDecorations()
+    {
+        var countTemp = _decorations.Count - 1;
+        for (int i = countTemp; i >= 0; i--)
+        {
+            var deco = _decorations.ElementAt(0);
+            Destroy(deco.gameObject);
+            _decorations.Remove(deco);
+        }
+    }
+
+    /// <summary>
+    /// Method for digging
+    /// </summary>
     public void ChangeTextureRandom()
     {
         var rndTxr = WorldViewer.Instance.Textures.GetRandom();
@@ -133,6 +171,7 @@ public class BasePlaneWorld : MonoBehaviour
             tile.ChangedId -= UpdateNeigbor;
         }
         _neigbors.Clear();
+        CleanDecorations();
     }
 
     private void OnDestroy()

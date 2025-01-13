@@ -12,12 +12,14 @@ public class TextureEntity : ScriptableObject
     [SerializeField] private Material _sgmaterial;
     [SerializeField] private List<TextureCombine> _maskCombine;
     [SerializeField] private float _speedMove = 1f;
+    [SerializeField] private Sprite _decor;
 
     public int Id => _id;
     public Texture2D BaseTexture => _baseTexture;
     public List<Texture2D> BaseAddedTexture => _baseAddedTexture;
     public Color BaseColor => _baseColor;
     public float SpeedMove => _speedMove;
+    public Sprite GetDecor => _decor;
 
     public List<SGEntity> GetMask(EnumTileDirect summaryDirect, int swiftSeed)
     {
