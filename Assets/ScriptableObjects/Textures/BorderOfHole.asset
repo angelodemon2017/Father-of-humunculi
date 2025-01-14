@@ -93,3 +93,7 @@ MonoBehaviour:
       TileDirect: 1
       ExceptDirects: 4
   _speedMove: 1
+  _decorVariables:
+  - {fileID: 21300000, guid: dcb70bed41d6b794cb3356834341a1ec, type: 3}
+  - {fileID: 21300000, guid: af0aeabed25dd57418b2effbf73e8722, type: 3}
+  - {fileID: 21300000, guid: dea0880918db5c3419dffaed37ce590a, type: 3}

@@ -13,6 +13,7 @@ public class PowerDecoration : MonoBehaviour
     private float _checkingRadius = 10f;
     private int _powerChanging = 0;
 
+    private Vector3 _swiftScale => Vector3.one * Random.Range(1.5f, 2.5f);
     public float Radius => transform.localScale.x * SwiftRadius;
     public int PowerChanging => _powerChanging;
 
@@ -31,6 +32,7 @@ public class PowerDecoration : MonoBehaviour
     {
         _spriteRenderer.sprite = _basePlaneWorldParent.TextureEntity.GetDecor;
         _spriteRenderer.flipX = Random.Range(0, 10) > 5;
+        transform.localScale = _swiftScale;
     }
 
     private void InitChange(int power)

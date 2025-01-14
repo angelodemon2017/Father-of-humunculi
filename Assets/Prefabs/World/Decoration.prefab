@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _basePlaneWorldParent: {fileID: 0}
-  _spriteRenderer: {fileID: 0}
+  _spriteRenderer: {fileID: 2904379706037834690}
   SwiftRadius: 0
   PowerCalcing: 2
   NOTisDeco: 0

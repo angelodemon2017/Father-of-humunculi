@@ -92,3 +92,5 @@ MonoBehaviour:
       TileDirect: 1
       ExceptDirects: 4
   _speedMove: -1
+  _decorVariables:
+  - {fileID: 0}

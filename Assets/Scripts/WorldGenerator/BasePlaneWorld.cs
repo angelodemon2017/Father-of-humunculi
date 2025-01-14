@@ -27,14 +27,11 @@ public class BasePlaneWorld : MonoBehaviour
     private void Awake()
     {
         Uid = PoolCounter<BasePlaneWorld>.NextUid();
-
-        CalcDecorations();
     }
 
     public void VirtualCreate()
     {
         gameObject.SetActive(true);
-        CalcDecorations();
     }
 
     public void Init(WorldTile worldPart, List<WorldTile> neigbors)
@@ -49,6 +46,7 @@ public class BasePlaneWorld : MonoBehaviour
         transform.position = new Vector3(_worldPart.Xpos * Config.TileSize, 0f, _worldPart.Zpos * Config.TileSize);
         UpdatePart();
         DebugInfo();
+        CalcDecorations();
     }
 
     private void DebugInfo()
@@ -127,7 +125,7 @@ public class BasePlaneWorld : MonoBehaviour
         }
     }
 
-    private void CalcDecorations(int count = 0)
+    private void CalcDecorations(int count = 3)
     {
         float distDecos = 10f / count;
         float baseSwift = distDecos / 2f - 10f / 2f;
@@ -135,8 +133,8 @@ public class BasePlaneWorld : MonoBehaviour
             for (int z = 0; z < count; z++)
             {
                 var newDec = Instantiate(_prefabDecoration, _parentDecorations);
-                newDec.transform.position = new Vector3(baseSwift + distDecos * x + transform.position.x, 0f,
-                    baseSwift + distDecos * z + transform.position.z);
+                newDec.transform.localPosition = new Vector3(baseSwift + distDecos * x/* + transform.position.x*/, 0f,
+                    baseSwift + distDecos * z/* + transform.position.z*/);
                 newDec.Init(this);
                 _decorations.Add(newDec);
             }
