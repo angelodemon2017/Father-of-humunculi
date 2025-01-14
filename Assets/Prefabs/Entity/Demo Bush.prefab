@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TypeKey: Demo Bush
-  _radEntity: 0
+  _radEntity: 0.2
   _prefabsByComponents:
   - {fileID: 3057432241044495586}
   - {fileID: 9080533731924881794}
@@ -724,6 +724,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5962128104093282392}
+    - targetCorrespondingSourceObject: {fileID: 5162382166840344670, guid: 8813f3823d434934b89cbc3ef6a69d8d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5610378696566994313}
   m_SourcePrefab: {fileID: 100100000, guid: 8813f3823d434934b89cbc3ef6a69d8d, type: 3}
 --- !u!1 &142349049989340707 stripped
 GameObject:
@@ -783,6 +787,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animatModel: {fileID: 9040262670602497177}
+--- !u!114 &5610378696566994313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142349049989340707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff00602844f10a48b469ae856ce769b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _powerDecor: 1
+  _radius: 1
 --- !u!4 &2934436765539240188 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7990784587225503361, guid: 8813f3823d434934b89cbc3ef6a69d8d,

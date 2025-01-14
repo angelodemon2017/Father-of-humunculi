@@ -33,6 +33,42 @@ public class WorldViewer : MonoBehaviour
     private Dictionary<string, HashSet<EntityMonobeh>> _poolEntities = new();//TODO need replace key to id
     private HashSet<NavMeshSurfaceVolumeUpdater> _poolSurfacers = new();
 
+    private Dictionary<Vector3Int, List<CenterDecors>> _cashCentDecors = new();
+    private Dictionary<Vector3Int, List<PowerDecoration>> _cashDecors = new();
+
+    internal void AddCentDecor(CenterDecors centerDecor)
+    {
+        var chunkPos = centerDecor.transform.position.GetChunkPosInt();
+        if (!_cashCentDecors.ContainsKey(chunkPos))
+        {
+            _cashCentDecors.Add(chunkPos, new List<CenterDecors>());
+        }
+
+        _cashCentDecors[chunkPos].Add(centerDecor);
+    }
+
+    internal void AddPowerDecor(PowerDecoration centerDecor)
+    {
+        var chunkPos = centerDecor.transform.position.GetChunkPosInt();
+        if (!_cashDecors.ContainsKey(chunkPos))
+        {
+            _cashDecors.Add(chunkPos, new List<PowerDecoration>());
+        }
+
+        _cashDecors[chunkPos].Add(centerDecor);
+    }
+
+    internal void RemoveCentDecor(CenterDecors centerDecor)
+    {
+        var chunkPos = centerDecor.transform.position.GetChunkPosInt();
+        _cashCentDecors[chunkPos].Remove(centerDecor);
+    }
+
+    internal void RemovePowerDecor(PowerDecoration centerDecor)
+    {
+        var chunkPos = centerDecor.transform.position.GetChunkPosInt();
+        _cashDecors[chunkPos].Remove(centerDecor);
+    }
 
     private void Awake()
     {

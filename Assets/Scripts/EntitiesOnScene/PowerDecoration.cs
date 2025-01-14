@@ -10,8 +10,8 @@ public class PowerDecoration : MonoBehaviour
     [SerializeField] private bool NOTisDeco;
     [SerializeField] private AnimationCurve _scaleCurve;
 
-    private float _checkingRadius = 10f;
     private int _powerChanging = 0;
+    private float _localScale = 1f;
 
     private Vector3 _swiftScale => Vector3.one * Random.Range(1.5f, 2.5f);
     public float Radius => transform.localScale.x * SwiftRadius;
@@ -26,13 +26,18 @@ public class PowerDecoration : MonoBehaviour
     {
         _basePlaneWorldParent = basePlaneWorld;
         InitView();
+        CalcRadius();
     }
 
     private void InitView()
     {
         _spriteRenderer.sprite = _basePlaneWorldParent.TextureEntity.GetDecor;
         _spriteRenderer.flipX = Random.Range(0, 10) > 5;
-        transform.localScale = _swiftScale;
+    }
+
+    private void CalcSize()
+    {
+        transform.localScale = _swiftScale * _localScale;
     }
 
     private void InitChange(int power)
@@ -73,20 +78,35 @@ public class PowerDecoration : MonoBehaviour
         return changingDecos;
     }
 
-    private void CalcRadius()
+    internal void CalcRadius()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, _checkingRadius);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, Config.DistanceDecoration);
 
-        float dist = 0;
-        float size = 0;
+        float size = 1;
 
         foreach (var c in hitColliders)
         {
-            var powDec = c.GetComponent<PowerDecoration>();
-            if (powDec != null)
+            if (c.TryGetComponent(out CenterDecors centerDecors) && c.gameObject.activeSelf)
             {
-                
+                var dist = Vector3.Distance(centerDecors.transform.position, transform.position);
+
+                if (dist < centerDecors.Radius)
+                {
+                    size = 0;
+                    break;
+                }
+                else
+                {
+                    var tempSize = _scaleCurve.Evaluate(dist - centerDecors.Radius) * centerDecors.PowerDecor;
+                    if (size < tempSize)
+                    {
+                        size = tempSize;
+                    }
+                }
             }
         }
+
+        _localScale = size;
+        CalcSize();
     }
 }

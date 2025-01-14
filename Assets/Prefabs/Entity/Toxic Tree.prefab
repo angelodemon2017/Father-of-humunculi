@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TypeKey: Toxic Tree
+  _radEntity: 0.2
   _prefabsByComponents:
   - {fileID: 8471272043882828294}
 --- !u!114 &9080533731924881794
@@ -65,13 +66,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 410d625adb782f741890617eda6d205c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _givingItem: {fileID: 11400000, guid: 1d51120011131b44f9d60dea71849c0e, type: 2}
   _defaultValues:
-    AddingKey: 
+    AddingKey: 0
     _chanceUpper: 100
     _debugCounter: 2
     _maxCount: 2
-  _canvasUITempMessage: {fileID: 0}
+  _chekers: []
+  _secondForTotal: 0
 --- !u!1001 &2155038951095285894
 PrefabInstance:
   m_ObjectHideFlags: 0

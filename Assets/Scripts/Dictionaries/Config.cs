@@ -5,6 +5,8 @@
     public static int VisibilityChunkDistance = 4;
     public static int EntitiesInChunk = 1;
 
+    public static float DistanceDecoration = 10f;
+
     public static float CloseUIDistance = 2f;
     public static float DistanceForShowHeyHint = 2f;
 

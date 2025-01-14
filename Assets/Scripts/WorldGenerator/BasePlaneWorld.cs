@@ -133,8 +133,10 @@ public class BasePlaneWorld : MonoBehaviour
             for (int z = 0; z < count; z++)
             {
                 var newDec = Instantiate(_prefabDecoration, _parentDecorations);
-                newDec.transform.localPosition = new Vector3(baseSwift + distDecos * x/* + transform.position.x*/, 0f,
-                    baseSwift + distDecos * z/* + transform.position.z*/);
+                newDec.transform.localPosition =
+                    new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
+//                    new Vector3(baseSwift + distDecos * x/* + transform.position.x*/, 0f,
+//                    baseSwift + distDecos * z/* + transform.position.z*/);
                 newDec.Init(this);
                 _decorations.Add(newDec);
             }

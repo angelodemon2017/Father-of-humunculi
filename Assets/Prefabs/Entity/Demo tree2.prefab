@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5605633469874190417}
   - component: {fileID: 1273118112616154894}
   - component: {fileID: 824360783090589989}
+  - component: {fileID: 5692977019502433652}
   m_Layer: 0
   m_Name: Demo tree2
   m_TagString: Untagged
@@ -150,6 +151,20 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3eb88ae8541d1204980fb677395ba7c2, type: 3}
   - {fileID: 21300000, guid: 1ff1537a081c9bf43b6c08c7eac04647, type: 3}
   _rootSpriteRender: {fileID: 8471272043882828294}
+--- !u!114 &5692977019502433652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58151514028472945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff00602844f10a48b469ae856ce769b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _powerDecor: 2
+  _radius: 1
 --- !u!1001 &164018672515239243
 PrefabInstance:
   m_ObjectHideFlags: 0
