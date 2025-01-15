@@ -51,3 +51,11 @@ MonoBehaviour:
       BorderTexture: {fileID: 0}
       Biom: {fileID: 11400000, guid: ed4b07585d67c2642b7300a5546f1f6c, type: 2}
   _entitiesByChunk: 27
+  _structures:
+  - EntityOfStructure: {fileID: 5597222920646075619, guid: 6fe48083cb9ecbe4ca4ad3f90cab9c98,
+      type: 3}
+    GroundUnderStructure: {fileID: 11400000, guid: 07a235c1e53bbe0478b53cef7a0cd288,
+      type: 2}
+    Limit: 3
+    Distance: 10
+    AddSwiftAngleStructure: 10

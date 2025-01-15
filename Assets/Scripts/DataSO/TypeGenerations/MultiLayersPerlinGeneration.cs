@@ -13,6 +13,7 @@ public class MultiLayersPerlinGeneration : TypeGeneration
     [SerializeField] private bool EnableEntityGenerate;
     [SerializeField] private List<LayerHigh> _layersHigh = new();
     [SerializeField] private int _entitiesByChunk;
+    [SerializeField] private List<Structure> _structures = new();
 
     public override WorldTileData GenerateTile(int x, int z, SeedData seed)
     {
@@ -84,8 +85,12 @@ public class MultiLayersPerlinGeneration : TypeGeneration
 
     public override List<EntityData> GenerateEntitiesByChunk(List<WorldTileData> chunk, WorldData wd)
     {
-        HashSet<EntityData> allNeigs = new();
+        List<EntityData> result = new();
         var tempPos = chunk[0].GetChunkPos;
+
+        result.AddRange(CheckStructures(new Vector3Int(tempPos.Item1, 0, tempPos.Item2), wd.Seed));
+
+        HashSet<EntityData> allNeigs = new();
         for (int x = -1; x < 2; x++)
             for (int z = -1; z < 2; z++)
             {
@@ -96,7 +101,6 @@ public class MultiLayersPerlinGeneration : TypeGeneration
                 }
             }
 
-        List<EntityData> result = new();
         if (!EnableEntityGenerate)
         {
             return result;
@@ -136,6 +140,15 @@ public class MultiLayersPerlinGeneration : TypeGeneration
                 result.Add(tempEntResult);
             }
         }
+
+        return result;
+    }
+
+    private List<EntityData> CheckStructures(Vector3Int ChunkPos, SeedData seed)
+    {
+        List<EntityData> result = new();
+
+
 
         return result;
     }

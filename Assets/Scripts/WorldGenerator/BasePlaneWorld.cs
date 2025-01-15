@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using static OptimazeExtensions;
 
-public class BasePlaneWorld : MonoBehaviour
+public class BasePlaneWorld : MonoBehaviour, IObjectOfPool
 {
     protected int Uid;
     [SerializeField] private Renderer _renderer;
@@ -17,7 +17,7 @@ public class BasePlaneWorld : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _testText;
 
     [SerializeField] private Transform _parentDecorations;
-    [SerializeField] private PowerDecoration _prefabDecoration;
+//    [SerializeField] private PowerDecoration _prefabDecoration;
     private HashSet<PowerDecoration> _decorations = new();
 
     public string DebugText;
@@ -127,14 +127,17 @@ public class BasePlaneWorld : MonoBehaviour
 
     private void CalcDecorations(int count = 3)
     {
-        float distDecos = 10f / count;
-        float baseSwift = distDecos / 2f - 10f / 2f;
-        for (int x = 0; x < count; x++)
-            for (int z = 0; z < count; z++)
+        float borderTile = 5f * transform.localScale.x;
+        //        float distDecos = 10f / count;
+        //        float baseSwift = distDecos / 2f - 10f / 2f;
+        for (int c = 0; c < count; c++)
+//            for (int x = 0; x < count; x++)
+//            for (int z = 0; z < count; z++)
             {
-                var newDec = Instantiate(_prefabDecoration, _parentDecorations);
+                var newDec = WorldViewer.Instance.PoolPD.Get();
+//                    Instantiate(_prefabDecoration, _parentDecorations);
                 newDec.transform.localPosition =
-                    new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
+                    new Vector3(Random.Range(-borderTile, borderTile) + transform.position.x, 0f, Random.Range(-borderTile, borderTile) + transform.position.z);
 //                    new Vector3(baseSwift + distDecos * x/* + transform.position.x*/, 0f,
 //                    baseSwift + distDecos * z/* + transform.position.z*/);
                 newDec.Init(this);
@@ -147,9 +150,7 @@ public class BasePlaneWorld : MonoBehaviour
         var countTemp = _decorations.Count - 1;
         for (int i = countTemp; i >= 0; i--)
         {
-            var deco = _decorations.ElementAt(0);
-            Destroy(deco.gameObject);
-            _decorations.Remove(deco);
+            WorldViewer.Instance.PoolPD.DestroyObject(_decorations.ElementAt(i));
         }
     }
 

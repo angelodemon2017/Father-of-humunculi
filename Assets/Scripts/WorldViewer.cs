@@ -8,6 +8,7 @@ public class WorldViewer : MonoBehaviour
     public static WorldViewer Instance;
 
     public bool DebugMode;
+    [SerializeField] private PowerDecoration _prefabDecoration;
     [SerializeField] private NavMeshSurfaceVolumeUpdater _navMeshUpdaterPrefab;
     [SerializeField] private BasePlaneWorld _basePlaneWorld;
     [SerializeField] private EntityMonobeh _entityMonobehPrefab;
@@ -29,50 +30,31 @@ public class WorldViewer : MonoBehaviour
     public List<TextureEntity> Textures => _textureEntities;
     private WorldData _gameWorld => GameProcess.Instance.GameWorld;
 
-    private HashSet<BasePlaneWorld> _poolBPW = new();
-    private Dictionary<string, HashSet<EntityMonobeh>> _poolEntities = new();//TODO need replace key to id
-    private HashSet<NavMeshSurfaceVolumeUpdater> _poolSurfacers = new();
+    private ObjectPool<BasePlaneWorld> _poolBPW;
+    private EntityMonobehFabric _entityMonobehFabric;
+    private ObjectPool<NavMeshSurfaceVolumeUpdater> _poolSurfacers;
+    private ObjectPool<PowerDecoration> _poolPD;
 
-    private Dictionary<Vector3Int, List<CenterDecors>> _cashCentDecors = new();
-    private Dictionary<Vector3Int, List<PowerDecoration>> _cashDecors = new();
+    private CashDictionary<Vector3Int, CenterDecors> _cashCentDecs = new();
+    private CashDictionary<Vector3Int, PowerDecoration> _cashPowerDecs = new();
 
-    internal void AddCentDecor(CenterDecors centerDecor)
-    {
-        var chunkPos = centerDecor.transform.position.GetChunkPosInt();
-        if (!_cashCentDecors.ContainsKey(chunkPos))
-        {
-            _cashCentDecors.Add(chunkPos, new List<CenterDecors>());
-        }
-
-        _cashCentDecors[chunkPos].Add(centerDecor);
-    }
-
-    internal void AddPowerDecor(PowerDecoration centerDecor)
-    {
-        var chunkPos = centerDecor.transform.position.GetChunkPosInt();
-        if (!_cashDecors.ContainsKey(chunkPos))
-        {
-            _cashDecors.Add(chunkPos, new List<PowerDecoration>());
-        }
-
-        _cashDecors[chunkPos].Add(centerDecor);
-    }
-
-    internal void RemoveCentDecor(CenterDecors centerDecor)
-    {
-        var chunkPos = centerDecor.transform.position.GetChunkPosInt();
-        _cashCentDecors[chunkPos].Remove(centerDecor);
-    }
-
-    internal void RemovePowerDecor(PowerDecoration centerDecor)
-    {
-        var chunkPos = centerDecor.transform.position.GetChunkPosInt();
-        _cashDecors[chunkPos].Remove(centerDecor);
-    }
+    internal CashDictionary<Vector3Int, CenterDecors> CashCentDecs => _cashCentDecs;
+    internal CashDictionary<Vector3Int, PowerDecoration> CashPowerDecs => _cashPowerDecs;
+    internal ObjectPool<NavMeshSurfaceVolumeUpdater> PoolSurfacers => _poolSurfacers;
+    internal ObjectPool<PowerDecoration> PoolPD => _poolPD;
 
     private void Awake()
     {
         Instance = this;
+        PoolsInit();
+    }
+
+    private void PoolsInit()
+    {
+        _poolBPW = new ObjectPool<BasePlaneWorld>(_basePlaneWorld, transform);
+        _poolSurfacers = new ObjectPool<NavMeshSurfaceVolumeUpdater>(_navMeshUpdaterPrefab, transform);
+        _entityMonobehFabric = new EntityMonobehFabric(entitiesLibrary, _entityParent);
+        _poolPD = new ObjectPool<PowerDecoration>(_prefabDecoration, transform);
     }
 
     private void Start()
@@ -121,7 +103,8 @@ public class WorldViewer : MonoBehaviour
         foreach (var c in _chunksView)
         {
             var newBPWs = c.CleanChunk();
-            newBPWs.ForEach(x => _poolBPW.Add(x));
+            newBPWs.ForEach(x => _poolBPW.DestroyObject(x));
+//            _poolBPW.Add(x)); ;
         }
         _chunksView.Clear();
 
@@ -209,7 +192,7 @@ public class WorldViewer : MonoBehaviour
             var newBPWs = chunk.CleanChunk();
             foreach (var bpw in newBPWs)
             {
-                _poolBPW.Add(bpw);
+                _poolBPW.DestroyObject(bpw);
             }
             _chunksView.Remove(chunk);
         }
@@ -220,7 +203,7 @@ public class WorldViewer : MonoBehaviour
 
         foreach (var point in _chunkPoints)
         {
-            _chunksView.Add(new WorldChunkView(point, _gameWorld, Create));
+            _chunksView.Add(new WorldChunkView(point, _gameWorld, _poolBPW.Get));
             var eips = GameProcess.Instance.GetEntitiesByChunk((int)point.x, (int)point.z);
 
             foreach (var eip in eips)
@@ -247,7 +230,7 @@ public class WorldViewer : MonoBehaviour
             return;
         }
 
-        var newEM = Create(entityInProcess.EntityData.TypeKey);
+        var newEM = _entityMonobehFabric.Create(entityInProcess.EntityData.TypeKey);
         newEM.Init(entityInProcess);
         _cashEntities.Add(newEM);
         CashEntitiesCount?.Invoke(_cashEntities.Count);
@@ -258,62 +241,7 @@ public class WorldViewer : MonoBehaviour
         _cashEntities.Remove(entityMonobeh);
         CashEntitiesCount?.Invoke(_cashEntities.Count);
 
-        if (_poolEntities.TryGetValue(entityMonobeh.EntityInProcess.EntityData.TypeKey, out HashSet<EntityMonobeh> pool))
-        {
-            pool.Add(entityMonobeh);
-        }
-        else
-        {
-            _poolEntities.Add(entityMonobeh.EntityInProcess.EntityData.TypeKey, new());
-            _poolEntities[entityMonobeh.EntityInProcess.EntityData.TypeKey].Add(entityMonobeh);
-        }
-        entityMonobeh.VirtualDestroy();
-    }
-
-    private EntityMonobeh Create(string key)
-    {
-        if (_poolEntities.ContainsKey(key) && _poolEntities[key].Count > 0)
-        {
-            var tempEMB = _poolEntities[key].ElementAt(0);
-            _poolEntities[key].Remove(tempEMB);
-            tempEMB.VirtualCreate();
-            return tempEMB;
-        }
-
-        var entMon = entitiesLibrary.GetConfig(key);
-        return Instantiate(entMon, _entityParent);
-    }
-
-    public void Remove(NavMeshSurfaceVolumeUpdater nmsvu)
-    {
-        nmsvu.VirtualDestroy();
-        _poolSurfacers.Add(nmsvu);
-    }
-
-    public NavMeshSurfaceVolumeUpdater GetUpdater()
-    {
-        if (_poolSurfacers.Count > 0)
-        {
-            var tempPS = _poolSurfacers.ElementAt(0);
-            _poolSurfacers.Remove(tempPS);
-            tempPS.VirtualCreate();
-            return tempPS;
-        }
-
-        return Instantiate(_navMeshUpdaterPrefab, transform);
-    }
-
-    private BasePlaneWorld Create()
-    {
-        if (_poolBPW.Count > 0)
-        {
-            var tempBPW = _poolBPW.ElementAt(0);
-            _poolBPW.Remove(tempBPW);
-            tempBPW.VirtualCreate();
-            return tempBPW;
-        }
-
-        return Instantiate(_basePlaneWorld, transform);
+        _entityMonobehFabric.DestroyEntity(entityMonobeh);
     }
 }
 

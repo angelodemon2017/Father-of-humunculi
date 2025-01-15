@@ -48,7 +48,7 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
             _navMeshAgent = (NavMeshAgent)_transform.gameObject.AddComponent(typeof(NavMeshAgent));
             _navMeshAgent.angularSpeed = 0f;
         }
-        _navMeshSurfaceVolumeUpdater = WorldViewer.Instance.GetUpdater();
+        _navMeshSurfaceVolumeUpdater = WorldViewer.Instance.PoolSurfacers.Get();
         _navMeshSurfaceVolumeUpdater.Init(_navMeshAgent);
 
         SetState(GetState(_component.CurrentState));
@@ -100,7 +100,7 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
 
     internal override void VirtualDestroy()
     {
-        WorldViewer.Instance.Remove(_navMeshSurfaceVolumeUpdater);
+        WorldViewer.Instance.PoolSurfacers.DestroyObject(_navMeshSurfaceVolumeUpdater);
         _navMeshSurfaceVolumeUpdater = null;
     }
 

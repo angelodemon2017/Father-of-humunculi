@@ -2,9 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using static OptimazeExtensions;
 
-public class EntityMonobeh : MonoBehaviour
+public class EntityMonobeh : MonoBehaviour, IObjectOfPool
 {
     protected int Uid;
+    [SerializeField] private CenterDecors _centerDecors;
     [SerializeField] private string TypeKey;
     [SerializeField] private float _radEntity;
     [SerializeField] private List<PrefabByComponentData> _prefabsByComponents;
@@ -49,7 +50,7 @@ public class EntityMonobeh : MonoBehaviour
         }
     }
 
-    internal void VirtualCreate()
+    public void VirtualCreate()
     {
         gameObject.SetActive(true);
     }
@@ -58,6 +59,7 @@ public class EntityMonobeh : MonoBehaviour
     {
         _entityInProcess = entityInProcess;
         transform.position = _entityInProcess.Position;
+        _centerDecors?.Init();
 
         entityInProcess.UpdateEIP += UpdateEntity;
 
@@ -102,7 +104,7 @@ public class EntityMonobeh : MonoBehaviour
         _entityInProcess.UpdateEIP -= UpdateEntity;
     }
 
-    internal void VirtualDestroy()
+    public void VirtualDestroy()
     {
         gameObject.SetActive(false);
         _entityInProcess.UpdateEIP -= UpdateEntity;

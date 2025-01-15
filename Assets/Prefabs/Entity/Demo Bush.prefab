@@ -56,6 +56,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3edae84600c21c04fb8e5e29ba775688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _centerDecors: {fileID: 5610378696566994313}
   TypeKey: Demo Bush
   _radEntity: 0.2
   _prefabsByComponents:

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerDecoration : MonoBehaviour
+public class PowerDecoration : MonoBehaviour, IObjectOfPool, IDictKey<Vector3Int>
 {
     [SerializeField] private BasePlaneWorld _basePlaneWorldParent;
     [SerializeField] private SpriteRenderer _spriteRenderer;
@@ -13,7 +13,7 @@ public class PowerDecoration : MonoBehaviour
     private int _powerChanging = 0;
     private float _localScale = 1f;
 
-    private Vector3 _swiftScale => Vector3.one * Random.Range(1.5f, 2.5f);
+    private Vector3 _swiftScale => Vector3.one * Random.Range(0.2f, 0.5f);
     public float Radius => transform.localScale.x * SwiftRadius;
     public int PowerChanging => _powerChanging;
 
@@ -27,6 +27,7 @@ public class PowerDecoration : MonoBehaviour
         _basePlaneWorldParent = basePlaneWorld;
         InitView();
         CalcRadius();
+        WorldViewer.Instance.CashPowerDecs.AddElement(this);
     }
 
     private void InitView()
@@ -80,33 +81,47 @@ public class PowerDecoration : MonoBehaviour
 
     internal void CalcRadius()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, Config.DistanceDecoration);
-
         float size = 1;
+        var cds = WorldViewer.Instance.CashCentDecs.GetNeigsElements(transform.position);
 
-        foreach (var c in hitColliders)
+        foreach (var cd in cds)
         {
-            if (c.TryGetComponent(out CenterDecors centerDecors) && c.gameObject.activeSelf)
+            var dist = Vector3.Distance(cd.transform.position, transform.position);
+            if (dist < cd.Radius)
             {
-                var dist = Vector3.Distance(centerDecors.transform.position, transform.position);
-
-                if (dist < centerDecors.Radius)
+                size = 0;
+                break;
+            }
+            else
+            {
+                var tempSize = _scaleCurve.Evaluate(dist - cd.Radius) * cd.PowerDecor;
+                if (size < tempSize)
                 {
-                    size = 0;
-                    break;
-                }
-                else
-                {
-                    var tempSize = _scaleCurve.Evaluate(dist - centerDecors.Radius) * centerDecors.PowerDecor;
-                    if (size < tempSize)
-                    {
-                        size = tempSize;
-                    }
+                    size = tempSize;
                 }
             }
         }
 
         _localScale = size;
         CalcSize();
+    }
+
+    private void OnDestroy()
+    {
+    }
+
+    public void VirtualCreate()
+    {
+
+    }
+
+    public void VirtualDestroy()
+    {
+        WorldViewer.Instance.CashPowerDecs.RemoveElement(this);
+    }
+
+    public Vector3Int GetKey()
+    {
+        return transform.position.GetChunkPosInt();
     }
 }

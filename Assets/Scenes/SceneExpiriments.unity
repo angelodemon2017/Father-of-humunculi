@@ -5842,6 +5842,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugMode: 0
+  _prefabDecoration: {fileID: 5155102098333402906, guid: f7bc4bd85a5fefa41938c8cc80ad9eb4,
+    type: 3}
   _navMeshUpdaterPrefab: {fileID: 1392074580519984644, guid: fab22a967047ad84a8aed9c796dae4e1,
     type: 3}
   _basePlaneWorld: {fileID: 9153346946954840708, guid: b44572d1d788b5446adb97e92e2cc800,

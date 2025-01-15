@@ -7,7 +7,7 @@ using static OptimazeExtensions;
 /// Update a NavMeshSurface with Volume object collection
 /// </summary>
 [DefaultExecutionOrder(-102)]
-public class NavMeshSurfaceVolumeUpdater : MonoBehaviour
+public class NavMeshSurfaceVolumeUpdater : MonoBehaviour, IObjectOfPool
 {
     protected int Uid;
     private NavMeshAgent trackedAgent = new();
@@ -75,12 +75,12 @@ public class NavMeshSurfaceVolumeUpdater : MonoBehaviour
         return Quantize(center, 0.1f * m_Surface.size);
     }
 
-    internal void VirtualCreate()
+    public void VirtualCreate()
     {
         gameObject.SetActive(true);
     }
 
-    internal void VirtualDestroy()
+    public void VirtualDestroy()
     {
         gameObject.SetActive(false);
         trackedAgent = null;
