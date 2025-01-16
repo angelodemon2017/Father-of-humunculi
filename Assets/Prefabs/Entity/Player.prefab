@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4408948037706997871}
   - component: {fileID: 8081803486868762349}
   - component: {fileID: 7086998586925192290}
+  - component: {fileID: 4915682730877633076}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -54,6 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3edae84600c21c04fb8e5e29ba775688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _centerDecors: {fileID: 0}
   TypeKey: Player
   _radEntity: 0
   _prefabsByComponents:
@@ -158,8 +160,20 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4915682730877633076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58151514028472945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d150ca537e5347419fa2f1aa57034f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &225564306841961296
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -694,7 +708,7 @@ PrefabInstance:
     - target: {fileID: 5827263990913762478, guid: 51482128feb88154db7f91554fd8162d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5827263990913762478, guid: 51482128feb88154db7f91554fd8162d,
         type: 3}

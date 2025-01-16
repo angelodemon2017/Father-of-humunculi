@@ -4,6 +4,7 @@ using UnityEngine;
 public class IdleState : State
 {
     [SerializeField] private float _timeIdle;
+    [SerializeField] private float _timeRange;
 
     private float _timerIdle;
 
@@ -11,7 +12,7 @@ public class IdleState : State
 
     protected override void Init()
     {
-        _timerIdle = _timeIdle;
+        _timerIdle = _timeIdle + SimpleExtensions.GetRandom(0, _timeRange);
     }
 
     protected override void Run()

@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _centerDecors: {fileID: 0}
   TypeKey: Demo tree3
-  _radEntity: 2
+  _radEntity: 3
   _prefabsByComponents:
   - {fileID: 9080533731924881794}
   - {fileID: 7716080897352376532}

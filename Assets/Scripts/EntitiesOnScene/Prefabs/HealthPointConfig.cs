@@ -51,13 +51,13 @@ public class HealthPointConfig : PrefabByComponentData
         return false;
     }
 
-    public bool GetDamage(EntityData target, DamagerConfig damage)
+    public bool GetDamage(EntityData target, Damage damage)
     {
         var componentHP = target.GetComponent<ComponentHPData>();
         if (!componentHP.IsDeath && damage.GetDamage > 0)
         {
             componentHP.CurrentHP -= damage.GetDamage;
-            if (componentHP.CurrentHP < 0)
+            if (componentHP.CurrentHP <= 0)
             {
                 componentHP.CurrentHP = 0;
                 

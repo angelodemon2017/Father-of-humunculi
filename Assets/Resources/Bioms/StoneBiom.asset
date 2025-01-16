@@ -16,9 +16,12 @@ MonoBehaviour:
   _textures: []
   Entities: []
   _entities:
+  - MinDeep: 0
+    MaxDeep: 0
+    Entity: {fileID: 5597222920646075619, guid: 5ef03f7bf63765a4d9adac237d9dc9a2,
+      type: 3}
   - MinDeep: 0.1
     MaxDeep: 0.9
     Entity: {fileID: 6605757240197761602, guid: 926cb4891600ee6479bab12db76d3418,
       type: 3}
-  _items: []
   _swiftPos: 0

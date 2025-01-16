@@ -34,14 +34,25 @@ public class GoToEntityByVisor : State
             return;
         }
 
-        if (Vector3.Distance(Character.GetTransform().position, _target) < DistanceToTouch)
+        var myTempPosit = Character.GetTransform().position;
+        var distToPlace = Vector3.Distance(myTempPosit, _target);
+        var distToTarget = Vector3.Distance(myTempPosit, _targetEM.transform.position);
+
+        if (distToPlace < DistanceToTouch || distToTarget < DistanceToTouch)
         {
-            if (_targetEM != null && _targetEM.IsExist)
+            if (distToTarget > DistanceToTouch)
             {
-                Character.SetState(_stateSuccesTarget);
-                //... ??
+                _target = _targetEM.transform.position;
+                _navMeshAgent.SetDestination(_target);
             }
-            IsFinished = true;
+            else
+            {
+                if (_targetEM != null && _targetEM.IsExist)
+                {
+                    Character.SetState(_stateSuccesTarget);
+                }
+                IsFinished = true;
+            }
         }
     }
 

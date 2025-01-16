@@ -13,6 +13,7 @@ public class TextureEntity : ScriptableObject
     [SerializeField] private List<TextureCombine> _maskCombine;
     [SerializeField] private float _speedMove = 1f;
     [SerializeField] private List<Sprite> _decorVariables;
+    [SerializeField] private int _density;
 
     public int Id => _id;
     public Texture2D BaseTexture => _baseTexture;
@@ -20,6 +21,7 @@ public class TextureEntity : ScriptableObject
     public Color BaseColor => _baseColor;
     public float SpeedMove => _speedMove;
     public Sprite GetDecor => _decorVariables.GetRandom();
+    public int Density => _density;
 
     public List<SGEntity> GetMask(EnumTileDirect summaryDirect, int swiftSeed)
     {

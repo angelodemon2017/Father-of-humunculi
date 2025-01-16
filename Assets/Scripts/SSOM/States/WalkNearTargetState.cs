@@ -21,11 +21,11 @@ public class WalkNearTargetState : State
     {
         _fSMController = Character.GetEntityMonobeh().GetMyComponent<FSMController>();
         var targetEntity = MainFocus(_fSMController);
-
         _timerProblem = _timeProblem;
         _navMeshAgent = ((IMovableCharacter)Character).GetNavMeshAgent();
         _navMeshAgent.speed = _speed;
         _target = SearchNewRandomTarget(targetEntity, _distanceRandomPoint);
+
         _navMeshAgent.SetDestination(_target);
     }
 
@@ -38,10 +38,9 @@ public class WalkNearTargetState : State
 
     private Vector3 SearchNewRandomTarget(Vector3 centerPoint, float radius)
     {
-        return new Vector3(
-            Random.Range(centerPoint.x - radius, centerPoint.x + radius),
-            centerPoint.y,
-            Random.Range(centerPoint.z - radius, centerPoint.z + radius));
+        var v2 = Helper.GetRandomPointOfCircle(radius, radius);
+//        Debug.Log($"SearchNewRandomTarget {v2}");
+        return new Vector3(v2.x + centerPoint.x, centerPoint.y, v2.y + centerPoint.z);
     }
 
     public override void ExitState()

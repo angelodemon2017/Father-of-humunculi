@@ -17,4 +17,4 @@ MonoBehaviour:
   Animation: 1
   _distanceForDone: 1
   _distanceRandomPoint: 4
-  _speed: 2.5
+  _speed: 1.5

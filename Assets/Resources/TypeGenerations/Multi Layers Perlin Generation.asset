@@ -57,5 +57,5 @@ MonoBehaviour:
     GroundUnderStructure: {fileID: 11400000, guid: 07a235c1e53bbe0478b53cef7a0cd288,
       type: 2}
     Limit: 3
-    Distance: 5
+    Distance: 8
     AddSwiftAngleStructure: 1

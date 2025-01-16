@@ -9,8 +9,11 @@ public class DemoCounter : PrefabByComponentData
     [SerializeField] private List<PrefabByComponentData> _chekers;
     [SerializeField] private int _secondForTotal;
 
+    [SerializeField] private string _debugCounter;
+
     private ComponentCounter _component;
 
+    internal override bool _isNeedUpdate => true;
     internal override int AddingKey => _defaultValues.AddingKey;
     internal override bool CanInterAct => _component._debugCounter > 0;//TODO Big quest
     public override int KeyComponentData => TypeCache<ComponentCounter>.IdType;
@@ -25,6 +28,11 @@ public class DemoCounter : PrefabByComponentData
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {
         _component = (ComponentCounter)componentData;
+    }
+
+    internal override void UpdateComponent()
+    {
+        _debugCounter = $"{_component._debugCounter}";
     }
 
     public override void DoSecond(EntityData entity)

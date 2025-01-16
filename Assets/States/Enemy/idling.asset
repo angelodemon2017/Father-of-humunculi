@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f96d6b2a8e1c1234eb614a3f70136156, type: 3}
-  m_Name: Idling
+  m_Name: idling
   m_EditorClassIdentifier: 
   AvailableStates:
   - {fileID: 11400000, guid: baa3e4549b4a18e4fb198b239ae510cf, type: 2}
   - {fileID: 11400000, guid: 45da7f4ef8dcda74094aaf03f8ebb31a, type: 2}
   - {fileID: 11400000, guid: 6e105518489dd584f8684c7b53513ddc, type: 2}
   Animation: 0
-  _timeIdle: 0.7
+  _timeIdle: 1

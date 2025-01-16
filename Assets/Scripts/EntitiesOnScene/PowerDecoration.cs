@@ -41,21 +41,6 @@ public class PowerDecoration : MonoBehaviour, IObjectOfPool, IDictKey<Vector3Int
         transform.localScale = _swiftScale * _localScale;
     }
 
-    private void InitChange(int power)
-    {
-        var changingDecos = CalcWave(power);
-
-        foreach (var n in changingDecos)
-        {
-            n.EndCalcing();
-        }
-    }
-
-    public void EndCalcing()
-    {
-        _powerChanging = 0;
-    }
-
     private HashSet<PowerDecoration> GetNeigbors()
     {
         return new HashSet<PowerDecoration>();

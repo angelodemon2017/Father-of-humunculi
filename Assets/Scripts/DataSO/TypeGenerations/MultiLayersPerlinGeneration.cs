@@ -85,14 +85,18 @@ public class MultiLayersPerlinGeneration : TypeGeneration
 
     public override List<EntityData> GenerateEntitiesByChunk(List<WorldTileData> chunk, WorldData wd)
     {
-        List<EntityData> result = new();
-
-        result.AddRange(CheckStructures(chunk, wd.Seed));
+        List<EntityData> result = CheckStructures(chunk, wd.Seed);
 
         HashSet<EntityData> allNeigs = new();
+        
+        foreach (var tr in result)
+        {
+            allNeigs.Add(tr);
+        }
+
         var tempPos = chunk[0].GetChunkPos;
-        for (int x = -1; x < 2; x++)
-            for (int z = -1; z < 2; z++)
+        for (int x = -1; x <= 1; x++)
+            for (int z = -1; z <= 1; z++)
             {
                 var tempRes = wd.GetEntitiesByChunk(tempPos.Item1, tempPos.Item2);
                 foreach (var te in tempRes)
@@ -148,17 +152,19 @@ public class MultiLayersPerlinGeneration : TypeGeneration
     {
         List<EntityData> result = new();
         var centerTile = chunk[chunk.Count() / 2];
-        var ChunkPos = new Vector3Int(chunk[0].GetChunkPos.Item1, chunk[0].GetChunkPos.Item2);
+        var ChunkPos = new Vector3Int(centerTile.GetChunkPos.Item1, 0, centerTile.GetChunkPos.Item2);
 
         foreach (var s in _structures)
         {
             if (s.CheckCoordinate(ChunkPos, seed, out int index))
             {
-                var positOfStructure = s.GetPos(index, seed);
-                var newEnt = s.EntityOfStructure.CreateEntity(positOfStructure.x, positOfStructure.z);
+                var xPos = centerTile.Xpos * Config.TileSize;
+                var zPos = centerTile.Zpos * Config.TileSize;
+
+                var newEnt = s.EntityOfStructure.CreateEntity(xPos, zPos);
                 result.Add(newEnt);
                 centerTile.ChangePart(s.GroundUnderStructure.Id);
-                Debug.Log($"newStructure:{positOfStructure}");
+//                Debug.Log($"newStructure:{xPos.SimpleFormat()}, {zPos.SimpleFormat()}");
             }
         }
 

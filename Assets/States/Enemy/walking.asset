@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c01bb75a47aace4987d5f3142e52651, type: 3}
-  m_Name: Walking
+  m_Name: walking
   m_EditorClassIdentifier: 
   AvailableStates:
   - {fileID: 11400000, guid: 58058e33cf050184f9047cc26604c2fa, type: 2}

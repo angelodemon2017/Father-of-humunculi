@@ -6,6 +6,8 @@ public class FightState : State
     [SerializeField] private EnumFraction EntityFilter;
     [SerializeField] private float _timeAttack = 0.5f;
     [SerializeField] private float _attackDistance;
+    [SerializeField] private Damage _damage;
+    [SerializeField] private State _stateAfterMissAttack;
 
     private EntityMonobeh _targetEM;
     private float _timer;
@@ -27,10 +29,17 @@ public class FightState : State
 
         if (_timer <= 0f)
         {
-            if (Vector3.Distance(Character.GetTransform().position, _targetEM.EntityInProcess.Position) < _attackDistance)
+            if (_targetEM != null)
             {
-                var interactCMP = _targetEM.GetMyComponent<MouseInterfaceInteraction>();
-                interactCMP.AttackInteract(Character.GetEntityMonobeh());
+                if (Vector3.Distance(Character.GetTransform().position, _targetEM.EntityInProcess.Position) < _attackDistance)
+                {
+                    var hpc = _targetEM.GetMyComponent<HealthPointConfig>();
+                    hpc.GetDamage(_targetEM.EntityInProcess.EntityData, _damage);
+                }
+                else if(_stateAfterMissAttack != null)
+                {
+                    Character.SetState(_stateAfterMissAttack);
+                }
             }
             IsFinished = true;
         }

@@ -45,8 +45,8 @@ public class BasePlaneWorld : MonoBehaviour, IObjectOfPool
         }
         transform.position = new Vector3(_worldPart.Xpos * Config.TileSize, 0f, _worldPart.Zpos * Config.TileSize);
         UpdatePart();
+        CalcDecorations(TextureEntity.Density);
         DebugInfo();
-        CalcDecorations();
     }
 
     private void DebugInfo()

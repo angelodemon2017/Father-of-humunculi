@@ -39,6 +39,13 @@ public class FSMController : PrefabByComponentData, IStatesCharacter, IMovableCh
         return _entityMonobeh;
     }
 
+    internal override void PrepareEntityBeforeCreate(EntityData entityData)
+    {
+        var cmp = entityData.GetComponent<ComponentFSM>();
+        cmp.EntityTarget = -1;
+        cmp.SetPosFocus(entityData.Position.x, entityData.Position.z);
+    }
+
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {
         _component = (ComponentFSM)componentData;

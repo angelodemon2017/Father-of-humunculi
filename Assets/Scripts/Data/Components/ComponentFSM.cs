@@ -4,7 +4,7 @@ public class ComponentFSM : ComponentData
 {
     public string CurrentState;
     public long EntityOfBirth;
-    public long EntityTarget;
+    public long EntityTarget = -1;
     public int xPosFocus;
     public int zPosFocus;
 

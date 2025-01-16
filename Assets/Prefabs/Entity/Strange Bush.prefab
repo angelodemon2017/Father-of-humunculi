@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5597222920646075619}
   - component: {fileID: 9080533731924881794}
   - component: {fileID: 3160852391094950061}
+  - component: {fileID: 3241714821940603805}
   m_Layer: 0
   m_Name: Strange Bush
   m_TagString: Untagged
@@ -49,7 +50,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3edae84600c21c04fb8e5e29ba775688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _centerDecors: {fileID: 3241714821940603805}
   TypeKey: Strange Bush
+  _radEntity: 5
   _prefabsByComponents:
   - {fileID: 9080533731924881794}
   - {fileID: 7716080897352376532}
@@ -68,12 +71,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 410d625adb782f741890617eda6d205c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _givingItem: {fileID: 0}
   _defaultValues:
-    AddingKey: 
-    _chanceUpper: 50
+    AddingKey: 0
+    _chanceUpper: 90
     _debugCounter: 1
-    _maxCount: 5
+    _maxCount: 4
+  _chekers:
+  - {fileID: 3160852391094950061}
+  _secondForTotal: 3
+  _debugCounter: 
 --- !u!114 &3160852391094950061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,14 +92,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cefbd5c2a114584aa186bd268c56069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _demoCounter: {fileID: 0}
-  _needCounterForSpawn: 9
-  _maxEntities: 1
-  _spawnDistanceMin: 0
-  _spawnDistanceMax: 0.5
+  _givingItem: {fileID: 0}
+  _demoCounter: {fileID: 9080533731924881794}
+  _needCounterForSpawn: 3
+  _maxEntities: 2
+  _spawnDistanceMin: 0.5
+  _spawnDistanceMax: 2
   _distanceDetach: 9999999
   _entityForSpawn: {fileID: 5597222920646075619, guid: 5ef03f7bf63765a4d9adac237d9dc9a2,
     type: 3}
+--- !u!114 &3241714821940603805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58151514028472945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff00602844f10a48b469ae856ce769b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _powerDecor: 2
+  _radius: 4
 --- !u!1001 &5070435866379165309
 PrefabInstance:
   m_ObjectHideFlags: 0

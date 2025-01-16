@@ -6,14 +6,12 @@ using UnityEngine;
 public class BiomByLayerPerlinGeneration : BiomSO
 {
     [SerializeField] private List<LayerOfEntity> _entities = new();
-    [SerializeField] private List<ItemConfig> _items = new();
     [SerializeField] private float _swiftPos = 1f;
 
     internal override EntityData GenEntity(TypeGeneration type, int x, int z)
     {
         var halfTile = Config.TileSize / 2 * _swiftPos;
         var newEnt = _entities[0].Entity.CreateEntity(x * Config.TileSize + SimpleExtensions.GetRandom(-halfTile, halfTile), z * Config.TileSize + SimpleExtensions.GetRandom(-halfTile, halfTile));
-//        if(newEnt.)
         return newEnt;
     }
 

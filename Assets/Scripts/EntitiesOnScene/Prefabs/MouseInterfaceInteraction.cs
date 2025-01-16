@@ -34,7 +34,7 @@ public class MouseInterfaceInteraction : PrefabByComponentData
         _tip.SetActive(false);
     }
 
-    public void AttackInteract(EntityMonobeh whoTouch)
+/*    public void AttackInteract(EntityMonobeh whoTouch)
     {
         RootMonobeh.EntityInProcess.SendCommand(new CommandData()
         {
@@ -43,7 +43,7 @@ public class MouseInterfaceInteraction : PrefabByComponentData
             AddingKeyComponent = AddingKey,
             Message = $"{whoTouch.Id}",
         });
-    }
+    }/**/
 
     public void OnClick(EntityMonobeh whoTouch)
     {
@@ -65,7 +65,8 @@ public class MouseInterfaceInteraction : PrefabByComponentData
 
     public override void ExecuteCommand(EntityData entity, string command, string message, WorldData worldData)
     {
-        switch (command)
+        UseMapAction(entity, message, worldData);
+/*        switch (command)
         {
             case Dict.Commands.MakeDamage:
                 var entId = long.Parse(message);
@@ -75,7 +76,7 @@ public class MouseInterfaceInteraction : PrefabByComponentData
             default:
                 UseMapAction(entity, message, worldData);
                 break;
-        }
+        }/**/
     }
 
     public void ShowTip()
@@ -99,7 +100,7 @@ public class MouseInterfaceInteraction : PrefabByComponentData
         }
     }
 
-    private void AttackInteract(EntityData whoTouched, EntityData targetTouch, WorldData worldData)
+/*    private void AttackInteract(EntityData whoTouched, EntityData targetTouch, WorldData worldData)
     {
         var whoConf = whoTouched.GetConfig;
         var targetConf = targetTouch.GetConfig;
@@ -111,7 +112,7 @@ public class MouseInterfaceInteraction : PrefabByComponentData
         {
             targetTouch.UpdateEntity();
         }
-    }
+    }/**/
 
     private void UseMapAction(EntityData entity, string message, WorldData worldData)
     {

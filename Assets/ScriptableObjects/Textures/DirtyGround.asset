@@ -97,3 +97,4 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c64e2b3f327a84d4d828e8af4c8ed617, type: 3}
   - {fileID: 21300000, guid: fb21ab28725a05c43bbb792896c9967d, type: 3}
   - {fileID: 21300000, guid: dea0880918db5c3419dffaed37ce590a, type: 3}
+  _density: 2
