@@ -86,11 +86,11 @@ public class MultiLayersPerlinGeneration : TypeGeneration
     public override List<EntityData> GenerateEntitiesByChunk(List<WorldTileData> chunk, WorldData wd)
     {
         List<EntityData> result = new();
-        var tempPos = chunk[0].GetChunkPos;
 
-        result.AddRange(CheckStructures(new Vector3Int(tempPos.Item1, 0, tempPos.Item2), wd.Seed));
+        result.AddRange(CheckStructures(chunk, wd.Seed));
 
         HashSet<EntityData> allNeigs = new();
+        var tempPos = chunk[0].GetChunkPos;
         for (int x = -1; x < 2; x++)
             for (int z = -1; z < 2; z++)
             {
@@ -144,11 +144,23 @@ public class MultiLayersPerlinGeneration : TypeGeneration
         return result;
     }
 
-    private List<EntityData> CheckStructures(Vector3Int ChunkPos, SeedData seed)
+    private List<EntityData> CheckStructures(List<WorldTileData> chunk, SeedData seed)
     {
         List<EntityData> result = new();
+        var centerTile = chunk[chunk.Count() / 2];
+        var ChunkPos = new Vector3Int(chunk[0].GetChunkPos.Item1, chunk[0].GetChunkPos.Item2);
 
-
+        foreach (var s in _structures)
+        {
+            if (s.CheckCoordinate(ChunkPos, seed, out int index))
+            {
+                var positOfStructure = s.GetPos(index, seed);
+                var newEnt = s.EntityOfStructure.CreateEntity(positOfStructure.x, positOfStructure.z);
+                result.Add(newEnt);
+                centerTile.ChangePart(s.GroundUnderStructure.Id);
+                Debug.Log($"newStructure:{positOfStructure}");
+            }
+        }
 
         return result;
     }
@@ -219,20 +231,26 @@ public class MultiLayersPerlinGeneration : TypeGeneration
         public float Distance = 10f;
         public int AddSwiftAngleStructure = 0;
 
-        private Vector3 GetPos(int numstruct, SeedData seed)
+        public Vector3 GetPos(int numstruct, SeedData seed)
         {
             var angle = 360 / Limit * numstruct + AddSwiftAngleStructure + seed.StructureAngleSwift;
 
-            return PointOnCircumference(0f, 0f, Distance, angle);
+            var v2 = PointOnCircumference(0f, 0f, Distance, angle);
+//            Debug.Log($"Future pos:{v2}");
+
+            return new Vector3(v2.x, 0f, v2.y);
         }
 
-        public bool CheckCoordinate(Vector3Int ChunkPos, SeedData seed)
+        public bool CheckCoordinate(Vector3Int ChunkPos, SeedData seed, out int index)
         {
-            for (int i = 0; i < Limit; i++)
+            index = -1;
+            for (int i = 0; i < Limit + 1; i++)
             {
-                var tempPos = GetPos(i, seed);
-                if (tempPos.GetChunkPosInt() == ChunkPos)
+                var tempPos = GetPos(i, seed).GetChunkPosInt();
+//                Debug.Log($"check chunkPos:{tempPos}");
+                if (tempPos == ChunkPos)
                 {
+                    index = i;
                     return true;
                 }
             }
