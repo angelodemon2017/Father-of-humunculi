@@ -222,8 +222,6 @@ public class MultiLayersPerlinGeneration : TypeGeneration
 
         public EntityMonobeh GenEntity(float pr)
         {
-//            var dif = (pr - MinVal) / (MaxVal - MinVal);
-
             return Biom.GetRndEntity(pr);
         }
     }
@@ -242,7 +240,6 @@ public class MultiLayersPerlinGeneration : TypeGeneration
             var angle = 360 / Limit * numstruct + AddSwiftAngleStructure + seed.StructureAngleSwift;
 
             var v2 = PointOnCircumference(0f, 0f, Distance, angle);
-//            Debug.Log($"Future pos:{v2}");
 
             return new Vector3(v2.x, 0f, v2.y);
         }
@@ -253,7 +250,6 @@ public class MultiLayersPerlinGeneration : TypeGeneration
             for (int i = 0; i < Limit + 1; i++)
             {
                 var tempPos = GetPos(i, seed).GetChunkPosInt();
-//                Debug.Log($"check chunkPos:{tempPos}");
                 if (tempPos == ChunkPos)
                 {
                     index = i;

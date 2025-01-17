@@ -4,12 +4,6 @@ using static SimpleExtensions;
 
 public static class Helper
 {
-/*    public static Vector2 GetRandomPointOfCircle(float minDistnace = 1f, float rangeDistance = 0f)
-    {
-        var randDecPos = new Vector2(SimpleExtensions.GetRandom(-2f, 2f), SimpleExtensions.GetRandom(-2f, 2f));
-        return randDecPos.normalized * SimpleExtensions.GetRandom(minDistnace, minDistnace + rangeDistance);
-    }/**/
-
     public static Vector2 GetRandomPointOfCircle(float maxRadius)
     {
         return GetRandomPointOfCircle(0f, maxRadius);
