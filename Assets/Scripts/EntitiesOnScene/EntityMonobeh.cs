@@ -133,7 +133,9 @@ public class EntityMonobeh : MonoBehaviour, IObjectOfPool
 
         foreach (var p in _prefabsByComponents)
         {
-            newEntity._cashComponents.TryAdd((p.KeyComponentData, p.AddingKey), p.GetComponentData);
+            var newCmp = p.GetComponentData;
+
+            newEntity._cashComponents.TryAdd((p.KeyComponentData, p.AddingKey), newCmp);
         }
         _prefabsByComponents.ForEach(x => x.PrepareEntityBeforeCreate(newEntity));
 

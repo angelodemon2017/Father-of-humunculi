@@ -24,4 +24,5 @@ MonoBehaviour:
   BaseMeta: 
   MinSpawnItem: 1
   MaxSpawnItem: 1
-  ItemActions: []
+  ItemActions:
+  - {fileID: 11400000, guid: e679f644df3bdb94593cac89f57a91a2, type: 2}

@@ -17,5 +17,6 @@ MonoBehaviour:
   Animation: 1
   MoveSpeed: 3
   DistanceToTouch: 0.5
-  EntityFilter: 2
+  EntityFilter: 3
   _stateSuccesTarget: {fileID: 11400000, guid: 1d3e977110ca3614799e9f3293c65ed0, type: 2}
+  _distanceFailFocusPosit: 10

@@ -7,18 +7,15 @@ public class HealthPointConfig : PrefabByComponentData
     public override int KeyType => TypeCache<HealthPointConfig>.IdType;
     [SerializeField] private EntityMonobeh _itemPrefab;
     [SerializeField] private List<ItemConfig> _dropItemsByDeath;
-    [SerializeField] private int MaxHP;
+    [SerializeField] private int InitMaxHP;
     [SerializeField] private int RegenHP;
+    [SerializeField] private int TimeoutRegenAfterDamage;
 
     private ComponentHPData _componentHP;
 
-    public override string GetDebugText => $"HP:{_componentHP.CurrentHP}/{MaxHP}";
+    public override string GetDebugText => $"HP:{_componentHP.CurrentHP}/{InitMaxHP}";
     public override int KeyComponentData => TypeCache<ComponentHPData>.IdType;
-    internal override ComponentData GetComponentData => new ComponentHPData()
-    {
-        CurrentHP = MaxHP,
-        RegenHP = RegenHP,
-    };
+    internal override ComponentData GetComponentData => new ComponentHPData(InitMaxHP, RegenHP);
 
     public override void Init(ComponentData componentData, EntityInProcess entityInProcess = null)
     {
@@ -30,21 +27,28 @@ public class HealthPointConfig : PrefabByComponentData
         var chp = entity.GetComponent<ComponentHPData>();
         if (chp != null)
         {
-            if (Health(chp, chp.RegenHP))
+            if (chp.TimeoutRegen > 0)
             {
-                entity.UpdateEntity();
+                chp.TimeoutRegen--;
+            }
+            else
+            {
+                if (Health(chp, chp.RegenHP))
+                {
+                    entity.UpdateEntity();
+                }
             }
         }
     }
 
     private bool Health(ComponentHPData componentHP, int amount)
     {
-        if (!componentHP.IsDeath && componentHP.CurrentHP < MaxHP)
+        if (!componentHP.IsDeath && componentHP.CurrentHP < InitMaxHP)
         {
             componentHP.CurrentHP += amount;
-            if (componentHP.CurrentHP > MaxHP)
+            if (componentHP.CurrentHP > InitMaxHP)
             {
-                componentHP.CurrentHP = MaxHP;
+                componentHP.CurrentHP = InitMaxHP;
             }
             return true;
         }
@@ -57,6 +61,7 @@ public class HealthPointConfig : PrefabByComponentData
         if (!componentHP.IsDeath && damage.GetDamage > 0)
         {
             componentHP.CurrentHP -= damage.GetDamage;
+            componentHP.TimeoutRegen = TimeoutRegenAfterDamage;
             if (componentHP.CurrentHP <= 0)
             {
                 componentHP.CurrentHP = 0;

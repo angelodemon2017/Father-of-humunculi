@@ -15,7 +15,7 @@ MonoBehaviour:
   AvailableStates:
   - {fileID: 11400000, guid: 6e105518489dd584f8684c7b53513ddc, type: 2}
   Animation: 2
-  EntityFilter: 2
+  EntityFilter: 3
   _timeAttack: 0.4
   _attackDistance: 1
   _damage:

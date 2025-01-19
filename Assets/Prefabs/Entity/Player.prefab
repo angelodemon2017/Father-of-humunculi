@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8081803486868762349}
   - component: {fileID: 7086998586925192290}
   - component: {fileID: 4915682730877633076}
+  - component: {fileID: 168401928530348800}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -66,6 +67,8 @@ MonoBehaviour:
   - {fileID: 4408948037706997871}
   - {fileID: 8081803486868762349}
   - {fileID: 4972961788810286303}
+  - {fileID: 4915682730877633076}
+  - {fileID: 168401928530348800}
 --- !u!114 &1186518513851610787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,6 +177,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d150ca537e5347419fa2f1aa57034f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hungerBySecond: 1
+  _maxStarvation: 200
+  _healthPointConfig: {fileID: 168401928530348800}
+  _damageByHunger:
+    InstanseDamage: 2
+    RangeDamage: 0
+--- !u!114 &168401928530348800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58151514028472945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b10f2ac1481abab41a965db96674019e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemPrefab: {fileID: 5597222920646075619, guid: 4a12b88dbcef388498b33d81b93a4b93,
+    type: 3}
+  _dropItemsByDeath: []
+  InitMaxHP: 200
+  RegenHP: 1
+  TimeoutRegenAfterDamage: 3
 --- !u!1001 &225564306841961296
 PrefabInstance:
   m_ObjectHideFlags: 0

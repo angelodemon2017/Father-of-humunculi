@@ -6,8 +6,12 @@ public class HungerPresent : PrefabByComponentData
     public override int KeyType => TypeCache<HungerPresent>.IdType;
 
     [SerializeField] private int _hungerBySecond;
+    [SerializeField] private int _maxStarvation;
+    [SerializeField] private HealthPointConfig _healthPointConfig;
+    [SerializeField] private Damage _damageByHunger;
 
-    internal override ComponentData GetComponentData => new ComponentHunger();
+    public override int KeyComponentData => TypeCache<ComponentHunger>.IdType;
+    internal override ComponentData GetComponentData => new ComponentHunger(_maxStarvation);
 
     public override void DoSecond(EntityData entity)
     {
@@ -15,7 +19,11 @@ public class HungerPresent : PrefabByComponentData
 
         if (cmp.ApplyHunger(_hungerBySecond))
         {
-            //TODO take damage
+            var hpc = entity.GetConfig.GetMyComponent<HealthPointConfig>();
+            hpc.GetDamage(entity, _damageByHunger);
         }
+        cmp.CalcGorgingBySecond();
+
+        entity.UpdateEntity();
     }
 }

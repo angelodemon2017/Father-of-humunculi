@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce954c1b9c52ca647872d98b1a763b78, type: 3}
-  m_Name: +100 score
+  m_Script: {fileID: 11500000, guid: d7e028c8d2eef6748800da8538ad6eac, type: 3}
+  m_Name: MushroomSaturation
   m_EditorClassIdentifier: 
-  Score: 100
+  Saturation: 2
+  Starvation: 10
+  Gorging: 15

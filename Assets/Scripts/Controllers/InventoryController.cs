@@ -16,7 +16,8 @@ public class InventoryController
 
     public void ClickSlot(long idEntity, int addingKey, int idSlot)
     {
-
+        var invcmp = UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData.GetComponent<ComponentInventory>(addingKey);
+        invcmp.UseItem(idSlot, UIPlayerManager.Instance.EntityMonobeh.EntityInProcess.EntityData);
     }
 
     public void DragSlot(long idEntity, int addingKey, int idSlot)

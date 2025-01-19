@@ -140,7 +140,7 @@ public class UIIconModel
         ColorBackGround = conf.ColorBackGround;
         BottomText = item.Count > 0 ? $"{item.Count}" : string.Empty;
         AspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
-        ClickableIcon = true;
+        ClickableIcon = item.ItemConfig.IsUseLess;
     }
 
 /*    public UIIconModel(int index, ItemData item)

@@ -8,6 +8,7 @@ public class UIPlayerManager : MonoBehaviour
     [SerializeField] private DebugPanelUI _debugPanelUI;
     [SerializeField] private UIPresentInventory uIPresentInventory;
     [SerializeField] private UIPanelCraftGroups _uIPanelCraftGroups;
+    [SerializeField] private UIPresentHunger _uIPresentHunger;
     [SerializeField] private UIEquipmentView _uIEquipmentView;
     [SerializeField] private SetterBuild _setterBuild;
     [SerializeField] private GameObject _panelForDropItem;
@@ -45,6 +46,12 @@ public class UIPlayerManager : MonoBehaviour
 
         var ci2 = entity.EntityInProcess.EntityData.GetComponent<ComponentInventory>(1);//may be make enum
         _uIEquipmentView.Init(ci2, entity.EntityInProcess);
+
+        var ch = entity.EntityInProcess.EntityData.GetComponent<ComponentHunger>();
+        _uIPresentHunger.Init(ch, entity.EntityInProcess);
+
+        var chp = entity.EntityInProcess.EntityData.GetComponent<ComponentHPData>();
+        _uIPresentHunger.InitHP(chp, entity.EntityInProcess);
 
         UpdateModules();
     }

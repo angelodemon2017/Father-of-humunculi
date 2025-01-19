@@ -172,6 +172,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7127011777880203883, guid: 811a09849c78cba4e9647392335af877,
+        type: 3}
+      propertyPath: InitMaxHP
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -292,7 +297,7 @@ PrefabInstance:
     - target: {fileID: 5053847939134412687, guid: 9305ee8d13234644383fe2edd09a0b7c,
         type: 3}
       propertyPath: CanVisor
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5683931240215772878, guid: 9305ee8d13234644383fe2edd09a0b7c,
         type: 3}

@@ -8,6 +8,7 @@ public class GoToEntityByVisor : State
     [SerializeField] private float DistanceToTouch;
     [SerializeField] private EnumFraction EntityFilter;
     [SerializeField] private State _stateSuccesTarget;
+    [SerializeField] private float _distanceFailFocusPosit;
 
     private Vector3 _target;
     private NavMeshAgent _navMeshAgent;
@@ -72,6 +73,13 @@ public class GoToEntityByVisor : State
     private bool RuleRole(IStatesCharacter character)
     {
         var EM = character.GetEntityMonobeh();
+        var fSMController = character.GetEntityMonobeh().GetMyComponent<FSMController>();
+        var posFocus = new Vector3(fSMController.ComponentData.xPosFocus, 0, fSMController.ComponentData.zPosFocus);
+        if (Vector3.Distance(posFocus, EM.transform.position) > _distanceFailFocusPosit)
+        {
+            return false;
+        }
+
         var visor = EM.GetMyComponent<VisorComponent>();
         return visor.AvailableEntity(EntityFilter);
     }
