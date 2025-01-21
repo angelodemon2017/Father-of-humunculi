@@ -112,9 +112,7 @@ public class UIPlayerManager : MonoBehaviour
 
     private void UseItemByInventory(int index)
     {
-        var com = ComponentInventory.GetCommandUseItem(index);
-        com.IdEntity = _entityMonobehPlayer.EntityInProcess.Id;
-        _entityMonobehPlayer.EntityInProcess.SendCommand(com);
+        _inventoryController.ClickSlot(_entityMonobehPlayer.Id, 0, index);
     }
 
     public void RunPlanBuild(RecipeEntitySpawn recipe)

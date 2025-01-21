@@ -15,6 +15,7 @@ public class ItemConfig : ScriptableObject
     public string BaseMeta;
     public int MinSpawnItem;
     public int MaxSpawnItem;
+    public float TimeUse;
     public List<ItemActionConfig> ItemActions = new();
 
     private Dictionary<int, Color> _qualityColors = new()
