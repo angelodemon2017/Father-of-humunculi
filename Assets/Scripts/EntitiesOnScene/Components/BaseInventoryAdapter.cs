@@ -15,6 +15,7 @@ public class BaseInventoryAdapter : PrefabByComponentData
     private ComponentInventory _componentData;
     private List<UIIconPresent> _slots = new();
 
+    internal ComponentInventory ComponentInventory => _componentData;
     internal override int AddingKey => _addingKey;
     public override int KeyComponentData => TypeCache<ComponentInventory>.IdType;
 
@@ -81,7 +82,7 @@ public class BaseInventoryAdapter : PrefabByComponentData
 
     private void ClickSlot(int idSlot)
     {
-        UIPlayerManager.Instance._inventoryController.ClickSlot(_entityInProcess.Id, _addingKey, idSlot);
+        _componentData.UsingSlot = idSlot;
     }
 
     private void MMB(int idSlot)

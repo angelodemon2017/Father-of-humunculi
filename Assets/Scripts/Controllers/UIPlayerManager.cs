@@ -112,7 +112,10 @@ public class UIPlayerManager : MonoBehaviour
 
     private void UseItemByInventory(int index)
     {
-        _inventoryController.ClickSlot(_entityMonobehPlayer.Id, 0, index);
+        var ci = _entityMonobehPlayer.EntityInProcess.EntityData.GetComponent<ComponentInventory>();
+        ci.UsingSlot = index;
+
+//        _inventoryController.ClickSlot(_entityMonobehPlayer.Id, 0, index);
     }
 
     public void RunPlanBuild(RecipeEntitySpawn recipe)
@@ -200,8 +203,8 @@ public class UIPlayerManager : MonoBehaviour
         _entityMonobehPlayer.EntityInProcess.UpdateEIP -= UpdateModules;
 
         uIPresentInventory.OnComponentUpdated -= UpdateModules;
-        uIPresentInventory.OnDragItem -= DragItem;
-        uIPresentInventory.OnDropItem -= DropItem;
+//        uIPresentInventory.OnDragItem -= DragItem;
+//        uIPresentInventory.OnDropItem -= DropItem;
         uIPresentInventory.OnUseItem -= UseItemByInventory;
 
         _uIPanelCraftGroups.OnApplyCraft -= UpdateModules;

@@ -2,6 +2,8 @@
 
 public class ItemActionConfig : ScriptableObject
 {
+    public virtual string Description => string.Empty;
+
     public virtual bool AvailableUseItem(ItemData itemData, EntityData entityData)
     {
         return true;

@@ -9,6 +9,7 @@ public class ComponentInventory : ComponentData
 {
     public List<ItemData> Items = new();
     public int MaxItems;
+    public int UsingSlot = -1;
 
     public ComponentInventory(ComponentInventory component) : this (component.MaxItems) { }
 

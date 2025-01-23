@@ -27,12 +27,13 @@ public class UIPresentInventory : MonoBehaviour
         for (int i = 0; i < _componentInventory.MaxItems; i++)
         {
             var newSlot = Instantiate(_iconPrefab, _parentIcons);
-/*            newSlot.OnClickIcon += UseSlot;
-            newSlot.OnClickMBM += ClickSlotMBM;
-            newSlot.OnDragHandler += DragSlot;
-            newSlot.OnDropHandler += DropSlot;
+            /*            newSlot.OnClickIcon += UseSlot;
+                        newSlot.OnClickMBM += ClickSlotMBM;
+                        newSlot.OnDragHandler += DragSlot;
+                        newSlot.OnDropHandler += DropSlot;/**/
+
             newSlot.OnPointerEnter += PointerEnter;
-            newSlot.OnPointerExit += PointerExit;/**/
+            newSlot.OnPointerExit += PointerExit;
 
             _inventorySlots.Add(newSlot);
         }
@@ -58,7 +59,7 @@ public class UIPresentInventory : MonoBehaviour
         var item = _componentInventory.Items[idSlot];
 
         OnDropItem?.Invoke(item);
-    }
+    }/**/
 
     private void PointerEnter(int index)
     {
@@ -72,13 +73,13 @@ public class UIPresentInventory : MonoBehaviour
         {
             Icon = item.ItemConfig.IconItem,
             Title = item.ItemConfig.Key,
-            Description = item.ItemConfig.Description,
+            Description = item.ItemConfig.GetDescription,
         };
         if (item.Count > 1)
         {
             hintModel.UseHints.Add("* СКМ - разделение предмета на 2 слота");
         }
-        if (item.ItemConfig.ItemActions.Count > 0)
+        if (item.ItemConfig.IsUseLess)
         {
             hintModel.UseHints.Add("* ЛКМ - использование предмета");
         }
@@ -92,7 +93,7 @@ public class UIPresentInventory : MonoBehaviour
         _uiPanelHint.Hide();
     }
 
-    private void UseSlot(int idButton)
+/*    private void UseSlot(int idButton)
     {
         OnUseItem?.Invoke(idButton);
     }

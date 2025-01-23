@@ -3,29 +3,56 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "States/Item Use State", order = 1)]
 public class ItemUseState : State
 {
-    private float _interactable = 0f;
-    private int idSlotOfInventory;//?
-    public override string DebugField => $"Использование {_itemConfig.Key}({(_itemConfig.TimeUse - _interactable).SimpleFormat()})";
+    private float _using = 0f;
+    private ItemData _itemData;
+    public override string DebugField => $"Использование {_itemConfig.Key}({(_itemConfig.TimeUse - _using).SimpleFormat()})";
     private ItemConfig _itemConfig;
+    private string _tempKeyItem;
 
-    internal void SetMII(int idSlot)
+    internal void SetItem(ItemData itemData)
     {
-        idSlotOfInventory = idSlot;
+        _itemData = itemData;
+        _itemConfig = _itemData.ItemConfig;
+        _tempKeyItem = _itemData.Id;
+    }
+
+    protected override void Init()
+    {
+        var bia = Character.GetEntityMonobeh().GetMyComponent<BaseInventoryAdapter>(0);
+        var us = bia.ComponentInventory.UsingSlot;
+        SetItem(bia.ComponentInventory.Items[us]);
     }
 
     protected override void Run()
     {
-        _interactable += Time.deltaTime;
+        _using += Time.deltaTime;
 
-        if (_interactable > _itemConfig.TimeUse)
+        if (_itemData == null || _tempKeyItem != _itemData.Id)
         {
-            //TODO think about universal using items
+            IsFinished = true;
+            return;
+        }
+
+        if (_using >= _itemConfig.TimeUse)
+        {
+            _itemConfig.UseItem(_itemData, Character.GetEntityMonobeh().EntityInProcess.EntityData);
+
             IsFinished = true;
         }
     }
 
+    public override void ExitState()
+    {
+        base.ExitState();
+        var bia = Character.GetEntityMonobeh().GetMyComponent<BaseInventoryAdapter>(0);
+        bia.ComponentInventory.UsingSlot = -1;
+    }
+
     public override bool CheckRules(IStatesCharacter character)
     {
-        return character.IsFinishedCurrentState();
+        var bia = character.GetEntityMonobeh().GetMyComponent<BaseInventoryAdapter>(0);
+        var us = bia.ComponentInventory.UsingSlot;
+        return //character.IsFinishedCurrentState() && 
+            us >= 0;
     }
 }

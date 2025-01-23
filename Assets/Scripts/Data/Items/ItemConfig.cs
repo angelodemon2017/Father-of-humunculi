@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [CreateAssetMenu(menuName = "ItemConfig", order = 1)]
 public class ItemConfig : ScriptableObject
@@ -29,6 +30,13 @@ public class ItemConfig : ScriptableObject
         { 6, Color.red },
     };
 
+    internal string GetDescription 
+    {
+        get
+        {
+            return Description + "\r\n" + string.Join("\r\n", ItemActions.Select(i => i.Description));
+        }
+    }
     public Sprite GetIconSprite => IconItem;
     public Sprite GetVariablesSprite(int seedid = 0) => IconItems.Count > 0 ? IconItems.GetRandom(seedid) : null;
     public Color ColorBackGround => _qualityColors[BaseQuality];

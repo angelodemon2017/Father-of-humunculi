@@ -7,6 +7,8 @@ public class ItemActionRestoreSaturation : ItemActionConfig
     [SerializeField] private int Starvation;
     [SerializeField] private int Gorging;
 
+    public override string Description => $"+{Starvation} saturation";
+
     public override bool AvailableUseItem(ItemData itemData, EntityData entityData)
     {
         var hung = entityData.GetComponent<ComponentHunger>();
