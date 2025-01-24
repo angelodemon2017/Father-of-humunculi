@@ -62,7 +62,8 @@ public class UIPlayerManager : MonoBehaviour
     private void UpdateModules()
     {
         _inventoryController.UpdateHandler();
-        _panelQuest.UpdateQuestList();
+        GameProcess.Instance.GameWorld._questDataController.CheckQuests();
+//        _panelQuest.UpdateQuestList();
     }
 
 /*    private void DragItem(long idInv, string idInvKey, ItemData dragItem)

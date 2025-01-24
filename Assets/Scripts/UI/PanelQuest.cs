@@ -23,6 +23,7 @@ public class PanelQuest : MonoBehaviour
     internal void Init()
     {
         _questDataController = GameProcess.Instance.GameWorld._questDataController;
+        QuestDataController.UpdateQuests += UpdateQuestList;
     }
 
     private void UpdateShowing()
@@ -43,5 +44,10 @@ public class PanelQuest : MonoBehaviour
             var tempMiniPanel = Instantiate(_prefabQuestMiniPanel, _parentQuests);
             tempMiniPanel.Init(q);
         }
+    }
+
+    private void OnDestroy()
+    {
+        QuestDataController.UpdateQuests -= UpdateQuestList;
     }
 }

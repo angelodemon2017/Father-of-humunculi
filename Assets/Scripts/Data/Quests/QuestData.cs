@@ -4,7 +4,9 @@
 
     private QuestConfig _cashConfig;
 
-    private QuestConfig GetConfig
+    internal bool IsDone => GetConfig.IsDone(UIPlayerManager.Instance.EntityMonobeh);
+
+    internal QuestConfig GetConfig
     {
         get
         {
@@ -17,7 +19,7 @@
         }
     }
 
-    private void CheckRule()
+    internal void CheckRule()
     {
         if (GetConfig.IsDone(UIPlayerManager.Instance.EntityMonobeh))
         {

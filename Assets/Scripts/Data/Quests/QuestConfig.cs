@@ -10,6 +10,11 @@ public class QuestConfig : ScriptableObject
     [SerializeField] internal int _count;
     [SerializeField] internal QuestConfig _nextQuest;
 
+    internal QuestData GetQuestData => new QuestData()
+    {
+        Key = _key,
+    };
+
     internal bool IsDone(EntityMonobeh entityMonobeh)
     {
         var inventory = entityMonobeh.EntityInProcess.EntityData.GetComponent<ComponentInventory>();
