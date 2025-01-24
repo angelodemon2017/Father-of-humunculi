@@ -9,8 +9,9 @@ public class WorldData
 {
     public string Name;
     public SeedData Seed = new();
+    internal QuestDataController _questDataController = new();
 
-//    public List<WorldTileData> worldTileDatas = new();
+    //    public List<WorldTileData> worldTileDatas = new();
     public List<WorldChunkData> worldChunkDatas = new();//labels about loaded?? or replace to structure
 //    public List<ResearchEntity> researches = new();
 
@@ -103,9 +104,9 @@ public class WorldData
         return _deletedIds.Contains(idCheck);
     }
 
-    public WorldData()
+    public WorldData(QuestConfig _startingQuest = null)
     {
-//        StartGeneration();
+        _questDataController.AddQuest(_startingQuest);
     }
 
     internal void StartGeneration()

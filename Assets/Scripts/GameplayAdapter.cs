@@ -4,6 +4,7 @@ public class GameplayAdapter : MonoBehaviour
 {
     public static GameplayAdapter Instance;
 
+    [SerializeField] private QuestConfig _startingQuest;
     [SerializeField] private LayerMask _mask;
     private RaycastHit hit;
     //[SerializeField] 
@@ -55,7 +56,7 @@ public class GameplayAdapter : MonoBehaviour
 
     public void Newgame()
     {
-        WorldData world = new WorldData();//Load from file...
+        WorldData world = new WorldData(_startingQuest);//Load from file...
         
         gameProcess.NewGame(world);
 

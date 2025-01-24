@@ -12,6 +12,7 @@ public class UIPlayerManager : MonoBehaviour
     [SerializeField] private UIEquipmentView _uIEquipmentView;
     [SerializeField] private SetterBuild _setterBuild;
     [SerializeField] private GameObject _panelForDropItem;
+    [SerializeField] private PanelQuest _panelQuest;
 
     private RecipeSO _tempRecipe;
     public InventoryController _inventoryController = new();
@@ -53,12 +54,15 @@ public class UIPlayerManager : MonoBehaviour
         var chp = entity.EntityInProcess.EntityData.GetComponent<ComponentHPData>();
         _uIPresentHunger.InitHP(chp, entity.EntityInProcess);
 
+        _panelQuest.Init();
+
         UpdateModules();
     }
 
     private void UpdateModules()
     {
         _inventoryController.UpdateHandler();
+        _panelQuest.UpdateQuestList();
     }
 
 /*    private void DragItem(long idInv, string idInvKey, ItemData dragItem)
