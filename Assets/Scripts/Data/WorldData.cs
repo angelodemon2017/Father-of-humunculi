@@ -10,6 +10,7 @@ public class WorldData
     public string Name;
     public SeedData Seed = new();
     internal QuestDataController _questDataController = new();
+    internal HomuController _homuController = new();
 
     //    public List<WorldTileData> worldTileDatas = new();
     public List<WorldChunkData> worldChunkDatas = new();//labels about loaded?? or replace to structure

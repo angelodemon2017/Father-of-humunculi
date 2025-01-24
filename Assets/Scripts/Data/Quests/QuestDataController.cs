@@ -35,8 +35,6 @@ internal class QuestDataController
         _questsForAdd.ForEach(q => ActivQuests.Add(q));
         _questsForAdd.Clear();
 
-        ActivQuests.ForEach(q => q.CheckRule());
-
         UpdateQuests?.Invoke();
     }
 }

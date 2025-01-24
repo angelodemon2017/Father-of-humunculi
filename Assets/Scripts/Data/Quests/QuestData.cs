@@ -19,14 +19,6 @@
         }
     }
 
-    internal void CheckRule()
-    {
-        if (GetConfig.IsDone(UIPlayerManager.Instance.EntityMonobeh))
-        {
-            //TODO
-        }
-    }
-
     internal string Description 
     {
         get 
