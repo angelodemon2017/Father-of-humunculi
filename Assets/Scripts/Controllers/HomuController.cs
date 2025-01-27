@@ -1,7 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
-
-public class HomuController
+﻿public class HomuController
 {
     //TODO
 }
